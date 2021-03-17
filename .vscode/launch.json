@@ -1,0 +1,36 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Jest Tests",
+            "type": "node",
+            "request": "launch",
+            "runtimeArgs": [
+                "./node_modules/jest/bin/jest.js",
+                "--watch",
+                "--testPathPattern=(spec\\.tsx?$|^test/(.*)\\.spec.tsx?$)"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "port": 9229
+        },
+        {
+            "name": "Debug Jest Tests (@server) with coverage",
+            "type": "node",
+            "request": "launch",
+            "runtimeArgs": [
+                "./node_modules/jest/bin/jest.js",
+                "--watch",
+                "--coverage",
+                "--testPathPattern=(spec\\.tsx?$|^test/(.*)\\.spec.tsx?$)"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "port": 9229
+        },
+    ],
+    "compounds": []
+}

@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "sourceMap": true,
+        "alwaysStrict": true,
+        "strictNullChecks": true,
+        "noImplicitAny": true,
+        "allowUnreachableCode": false,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "jsx": "react",
+        "resolveJsonModule": true,
+        "declaration": true,
+        "declarationMap": true,
+        "outDir": "./dist"
+    },
+    "include": [
+        "src/**/*"
+    ]
+}

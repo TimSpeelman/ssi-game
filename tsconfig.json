@@ -1,0 +1,36 @@
+/**
+ * For tsconfig manual see:
+ * @see https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
+ * 
+ * Schema:
+ * @see http://json.schemastore.org/tsconfig
+ * @see https://www.typescriptlang.org/docs/handbook/react-&-webpack.html
+ */
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "sourceMap": true,
+        "alwaysStrict": true,
+        "strictNullChecks": true,
+        "noImplicitAny": true,
+        "allowUnreachableCode": false,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "jsx": "react",
+        "resolveJsonModule": true,
+        "declaration": true,
+        "declarationMap": true,
+        "outDir": "./dist",
+        "lib": [
+            "es2015",
+            "dom"
+        ],
+    },
+    "include": [
+        "src/**/*",
+    ],
+    "exclude": [
+        "**/node_modules/**"
+    ],
+}

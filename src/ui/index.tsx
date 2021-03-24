@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { App } from './App';
 import './assets/css/1-reset.css';
 import './assets/css/3-custom.css';
 import * as serviceWorker from './serviceWorker';
 
 export async function mount(rootElement: HTMLElement) {
-    const root = <div>Hello</div>;
+    const root = <App />;
 
     ReactDOM.render(root, rootElement);
 

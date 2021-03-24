@@ -134,7 +134,7 @@ const connection = (e: Connection, dispatch: (e: CanvasEvent) => void) => (
     </g>
 );
 const interaction = (e: Interaction) => (
-    <circle key={e.id} cx={e.c[0]} cy={e.c[1]} r={e.radius} fill={'hsl(0,0%,70%)'} opacity={0.7} />
+    <circle key={e.id} cx={e.c[0]} cy={e.c[1]} r={e.radius} fill={'hsl(0,0%,70%)'} opacity={0} /> // hidden!
 );
 
 export function SVGNetworkCanvas(props: Props) {

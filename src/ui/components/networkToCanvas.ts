@@ -1,35 +1,19 @@
 import { pointsOnCircle } from '../../util/circle';
 import { add, scale, Vec } from '../../util/vec';
-import gov1 from '../assets/img/gov1.png';
-import office1 from '../assets/img/office1.png';
-import office2 from '../assets/img/office2.png';
-import office3 from '../assets/img/office3.png';
-import person1 from '../assets/img/person1.png';
-import person2 from '../assets/img/person2.png';
-import person3 from '../assets/img/person3.png';
-import shop1 from '../assets/img/shop1.png';
+import { actorImage, ImgName } from './actorImage';
 import { CanvasElem, Connection, Interaction, Slot } from './SVGNetworkCanvas';
 
-const images = {
-    office1,
-    office2,
-    office3,
-    person1,
-    person2,
-    person3,
-    gov1,
-    shop1,
-};
-
-export type ImgName = keyof typeof images;
-
 export interface Actor {
+    id: string;
     image: ImgName;
+    name: string;
 }
 
 export interface IInteraction {
-    from: number;
-    to: number;
+    from: Actor;
+    to: Actor;
+    description: string;
+    sub: string;
 }
 
 interface NetworkProps {
@@ -56,8 +40,10 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
         lit: false,
         c: p,
         r: slotRadius,
-        url: images[actors[i].image],
-        active: !!props.interaction && (props.interaction.from === i || props.interaction.to === i),
+        url: actorImage(actors[i].image),
+        active:
+            !!props.interaction &&
+            (props.interaction.from.id === actors[i].id || props.interaction.to.id === actors[i].id),
     }));
 
     // Create connections between all actors

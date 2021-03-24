@@ -1,28 +1,50 @@
-import React, { useEffect, useState } from 'react';
+import { Grid } from '@material-ui/core';
+import React, { useState } from 'react';
+import { allActors } from './actors';
 import './NetworkCanvas.css';
-import { Actor, createNetworkCanvasData } from './networkToCanvas';
+import { NetworkControls } from './NetworkControls';
+import { Actor, createNetworkCanvasData, IInteraction } from './networkToCanvas';
 import { CanvasEvent, SVGNetworkCanvas } from './SVGNetworkCanvas';
 
-const allActors: Actor[] = [
-    { image: 'person3' },
-    { image: 'gov1' },
-    { image: 'office1' },
-    { image: 'office2' },
-    { image: 'office3' },
-    { image: 'person1' },
-    { image: 'person2' },
-    { image: 'shop1' },
+const initialActors = [allActors.gov1, allActors.office1, allActors.person3];
+
+const initialActs: IInteraction[] = [
+    {
+        from: allActors.gov1,
+        to: allActors.person3,
+        description: 'Uitgifte van paspoort',
+        sub: 'naam, geboortedatum',
+    },
+    {
+        from: allActors.office1,
+        to: allActors.person3,
+        description: 'Verzoek om gegevens',
+        sub: 'naam, geboortedatum',
+    },
+    {
+        from: allActors.person3,
+        to: allActors.office1,
+        description: 'Gegevenspresentatie',
+        sub: 'naam, geboortedatum',
+    },
 ];
 
 export function NetworkCanvas() {
-    const [n, setN] = useState(2);
-    const [from, setFrom] = useState(0);
-    const [to, setTo] = useState(0);
-    const [actors, setActors] = useState(allActors);
+    const [actors, setActors] = useState(initialActors);
+    const [acts, setActs] = useState(initialActs);
 
-    useEffect(() => {
-        setActors(allActors.slice(0, n));
-    }, [n]);
+    function addActor(actor: Actor) {
+        setActors([...actors, actor]);
+    }
+    function addAct(act: IInteraction) {
+        setActs([...acts, act]);
+    }
+
+    const [actInspect, setActInspect] = useState<IInteraction | undefined>(undefined);
+
+    function handleInspect(act: IInteraction) {
+        setActInspect(act);
+    }
 
     const [hover, setHover] = useState('');
 
@@ -46,23 +68,33 @@ export function NetworkCanvas() {
     const elems = createNetworkCanvasData({
         height: 600,
         width: 600,
-        actors: actors.slice(0, n),
-        interaction: from !== to ? { from, to } : undefined,
+        actors: actors,
+        interaction: actInspect,
     }).map((e) => (e.id === hover ? { ...e, lit: true } : e));
+
+    const availableActors = Object.values(allActors).filter((a) => !actors.find((x) => x.id === a.id));
+
+    function handleDeleteAct(index: number) {
+        setActs(acts.filter((_, i) => i !== index));
+    }
 
     return (
         <div className="network-canvas">
-            <div>
-                <input type="number" step={1} value={n} onChange={(e) => setN(parseInt(e.target.value, 10) || 0)} />
-                <input
-                    type="number"
-                    step={1}
-                    value={from}
-                    onChange={(e) => setFrom(parseInt(e.target.value, 10) || 0)}
-                />
-                <input type="number" step={1} value={to} onChange={(e) => setTo(parseInt(e.target.value, 10) || 0)} />
-            </div>
-            <SVGNetworkCanvas elems={elems} onEvent={handleEvent} />
+            <Grid container spacing={2}>
+                <Grid item xs={6}>
+                    <SVGNetworkCanvas elems={elems} onEvent={handleEvent} />
+                </Grid>
+                <Grid item xs={6}>
+                    <NetworkControls
+                        onDelete={handleDeleteAct}
+                        availableActors={availableActors}
+                        acts={acts}
+                        onInspect={handleInspect}
+                        onAddActor={addActor}
+                        onAddAct={addAct}
+                    />
+                </Grid>
+            </Grid>
         </div>
     );
 }

@@ -1,4 +1,5 @@
 import { pointsOnCircle } from '../../util/circle';
+import { scaleQuadraticBezierCurve } from '../../util/curve';
 import { add, scale, Vec } from '../../util/vec';
 import { actorImage, ImgName } from './actorImage';
 import { CanvasElem, Connection, Interaction, Slot } from './SVGNetworkCanvas';
@@ -62,8 +63,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
                                   id: `conn-${i}-${j}`,
                                   from: slot1.c,
                                   to: slot2.c,
-                                  q: center,
-                                  curve: connectionCurveFraction,
+                                  q: scaleQuadraticBezierCurve(slot1.c, center, slot2.c, connectionCurveFraction),
                                   lit: false,
                                   active: slot1.active && slot2.active,
                               },

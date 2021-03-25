@@ -94,24 +94,11 @@ const cubicBezier = (a: Vec, q: Vec, b: Vec) => `M ${a[0]} ${a[1]} Q ${q[0]} ${q
 const connection = (e: Connection, dispatch: (e: CanvasEvent) => void) => (
     <g key={e.id}>
         {/* Hover highlight */}
-        <path
-            d={cubicBezier(
-                e.from,
-                [curve(e.from[0], e.to[0], e.q[0], e.curve), curve(e.from[1], e.to[1], e.q[1], e.curve)],
-                e.to,
-            )}
-            stroke={`#fef4bd`}
-            strokeWidth={e.lit ? 25 : 0}
-            fill="transparent"
-        />
+        <path d={cubicBezier(e.from, e.q, e.to)} stroke={`#fef4bd`} strokeWidth={e.lit ? 25 : 0} fill="transparent" />
 
         {/* Path */}
         <path
-            d={cubicBezier(
-                e.from,
-                [curve(e.from[0], e.to[0], e.q[0], e.curve), curve(e.from[1], e.to[1], e.q[1], e.curve)],
-                e.to,
-            )}
+            d={cubicBezier(e.from, e.q, e.to)}
             stroke={`rgba(0,0,0,${e.active ? 1 : 0.1})`}
             strokeWidth={e.active ? 5 : 2}
             fill="transparent"
@@ -119,11 +106,7 @@ const connection = (e: Connection, dispatch: (e: CanvasEvent) => void) => (
 
         {/* Capture mouse events on a (wider) transparent path */}
         <path
-            d={cubicBezier(
-                e.from,
-                [curve(e.from[0], e.to[0], e.q[0], e.curve), curve(e.from[1], e.to[1], e.q[1], e.curve)],
-                e.to,
-            )}
+            d={cubicBezier(e.from, e.q, e.to)}
             style={{ cursor: 'pointer' }}
             stroke="transparent"
             strokeWidth={25}
@@ -178,7 +161,6 @@ export interface Connection {
     to: Vec;
     q: Vec;
     active: boolean;
-    curve: number;
     lit: boolean;
 }
 

@@ -7,7 +7,7 @@ export type Vec = [number, number];
 export type Map = (v: Vec) => Vec;
 export type Reduce = (a: Vec, b: Vec) => Vec;
 
-export const vec = (x: number, y: number) => [x, y];
+export const vec = (x: number, y: number): Vec => [x, y];
 
 export const fromPolar = (rad: number, length = 1): Vec => [Math.cos(rad) * length, Math.sin(rad) * length];
 
@@ -25,6 +25,16 @@ export const sub = reduce((a, b) => a - b);
 export const div = reduce((a, b) => a / b);
 
 export const mul = reduce((a, b) => a * b);
+
+export const avg = reduce((a, b) => a + (b - a) / 2);
+
+export const len = ([x, y]: Vec) => Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+
+export const dist = (from: Vec, to: Vec) => len(sub(to, from));
+
+export const normalize = (v: Vec) => scale(1 / len(v))(v);
+
+export const angle = (v: Vec): number => (v[0] < 0 ? Math.PI : v[1] < 0 ? 2 * Math.PI : 0) + Math.atan(v[1] / v[0]);
 
 export const rotate = (rad: number) => (a: Vec): Vec => [
     a[0] * Math.cos(rad) - a[1] * Math.sin(rad),

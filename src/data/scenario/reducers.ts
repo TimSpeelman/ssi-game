@@ -1,4 +1,4 @@
-import { IAction, ReducerMap } from '../../../util/redux';
+import { IAction, ReducerMap } from '../../util/redux';
 import { ScenarioActions } from './actions';
 import { Scenario } from './Scenario';
 

@@ -1,9 +1,9 @@
+import { Actor } from '../../data/Actor';
+import { actorImage } from '../../data/actorImage';
+import { IInteraction } from '../../data/IInteraction';
 import { pointsOnCircle } from '../../util/circle';
 import { scaleQuadraticBezierCurve } from '../../util/curve';
 import { add, scale, Vec } from '../../util/vec';
-import { Actor } from '../data/Actor';
-import { actorImage } from '../data/actorImage';
-import { IInteraction } from '../data/IInteraction';
 import { CanvasElem, Connection, Interaction, Slot } from './SVGNetworkCanvas';
 
 interface NetworkProps {

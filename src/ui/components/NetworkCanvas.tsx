@@ -1,12 +1,11 @@
 import { Grid } from '@material-ui/core';
 import React, { useState } from 'react';
+import { allActors } from '../../data/actors';
+import { IInteraction } from '../../data/IInteraction';
+import { ScenarioActions } from '../../data/scenario/actions';
+import { ScenarioReducer } from '../../data/scenario/reducers';
+import { Scenario } from '../../data/scenario/Scenario';
 import { IAction } from '../../util/redux';
-import { allActors } from '../data/actors';
-import { IInteraction } from '../data/IInteraction';
-import { ScenarioActions } from '../data/scenario/actions';
-import { ScenarioReducer } from '../data/scenario/reducers';
-import { Scenario } from '../data/scenario/Scenario';
-import './NetworkCanvas.css';
 import { NetworkControls } from './NetworkControls';
 import { createNetworkCanvasData } from './networkToCanvas';
 import { CanvasEvent, SVGNetworkCanvas } from './SVGNetworkCanvas';

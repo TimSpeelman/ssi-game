@@ -1,4 +1,4 @@
-import { event } from '../../../util/redux';
+import { event } from '../../util/redux';
 import { Actor } from '../Actor';
 import { IInteraction } from '../IInteraction';
 

@@ -1,45 +1,49 @@
 import { Grid } from '@material-ui/core';
 import React, { useState } from 'react';
-import { Actor } from '../data/Actor';
+import { IAction } from '../../util/redux';
 import { allActors } from '../data/actors';
 import { IInteraction } from '../data/IInteraction';
+import { ScenarioActions } from '../data/scenario/actions';
+import { ScenarioReducer } from '../data/scenario/reducers';
+import { Scenario } from '../data/scenario/Scenario';
 import './NetworkCanvas.css';
 import { NetworkControls } from './NetworkControls';
 import { createNetworkCanvasData } from './networkToCanvas';
 import { CanvasEvent, SVGNetworkCanvas } from './SVGNetworkCanvas';
 
-const initialActors = [allActors.gov1, allActors.office1, allActors.person3];
-
-const initialActs: IInteraction[] = [
-    {
-        from: allActors.gov1,
-        to: allActors.person3,
-        description: 'Uitgifte van paspoort',
-        sub: 'naam, geboortedatum',
-    },
-    {
-        from: allActors.office1,
-        to: allActors.person3,
-        description: 'Verzoek om gegevens',
-        sub: 'naam, geboortedatum',
-    },
-    {
-        from: allActors.person3,
-        to: allActors.office1,
-        description: 'Gegevenspresentatie',
-        sub: 'naam, geboortedatum',
-    },
-];
+const initialScenario: Scenario = {
+    actors: [allActors.gov1, allActors.office1, allActors.person3],
+    activities: [
+        {
+            id: '1',
+            from: allActors.gov1,
+            to: allActors.person3,
+            description: 'Uitgifte van paspoort',
+            sub: 'naam, geboortedatum',
+        },
+        {
+            id: '2',
+            from: allActors.office1,
+            to: allActors.person3,
+            description: 'Verzoek om gegevens',
+            sub: 'naam, geboortedatum',
+        },
+        {
+            id: '3',
+            from: allActors.person3,
+            to: allActors.office1,
+            description: 'Gegevenspresentatie',
+            sub: 'naam, geboortedatum',
+        },
+    ],
+};
 
 export function NetworkCanvas() {
-    const [actors, setActors] = useState(initialActors);
-    const [acts, setActs] = useState(initialActs);
+    const [scenario, setScenario] = useState(initialScenario);
 
-    function addActor(actor: Actor) {
-        setActors([...actors, actor]);
-    }
-    function addAct(act: IInteraction) {
-        setActs([...acts, act]);
+    function dispatch(action: IAction<any>) {
+        const newState = ScenarioReducer(scenario, action);
+        setScenario(newState);
     }
 
     const [actInspect, setActInspect] = useState<IInteraction | undefined>(undefined);
@@ -63,22 +67,18 @@ export function NetworkCanvas() {
             case 'conn-leave':
                 return hover === ev.id ? setHover('') : null;
             case 'slot-delete':
-                return setActors((actors) => actors.filter((_, i) => `slot-${i}` !== ev.id));
+                return dispatch(ScenarioActions.REMOVE_ACTOR({ id: ev.id }));
         }
     };
 
     const elems = createNetworkCanvasData({
         height: 600,
         width: 600,
-        actors: actors,
+        actors: scenario.actors,
         interaction: actInspect,
     }).map((e) => (e.id === hover ? { ...e, lit: true } : e));
 
-    const availableActors = Object.values(allActors).filter((a) => !actors.find((x) => x.id === a.id));
-
-    function handleDeleteAct(index: number) {
-        setActs(acts.filter((_, i) => i !== index));
-    }
+    const availableActors = Object.values(allActors).filter((a) => !scenario.actors.find((x) => x.id === a.id));
 
     return (
         <div className="network-canvas">
@@ -88,12 +88,10 @@ export function NetworkCanvas() {
                 </Grid>
                 <Grid item xs={6}>
                     <NetworkControls
-                        onDelete={handleDeleteAct}
                         availableActors={availableActors}
-                        acts={acts}
+                        acts={scenario.activities}
+                        dispatch={dispatch}
                         onInspect={handleInspect}
-                        onAddActor={addActor}
-                        onAddAct={addAct}
                     />
                 </Grid>
             </Grid>

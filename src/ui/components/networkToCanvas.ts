@@ -26,7 +26,8 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
     const slotRadius = 50;
     const slots: Slot[] = slotPositionsAbs.map((p, i) => ({
         type: 'slot',
-        id: `slot-${i}`,
+        id: actors[i].id,
+        // id: `slot-${i}`,
         lit: false,
         c: p,
         r: slotRadius,

@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import React, { Fragment } from 'react';
+import { v4 as uuid } from 'uuid';
 import { Actor } from '../data/Actor';
 import { actorImage } from '../data/actorImage';
 import { allActors } from '../data/actors';
@@ -42,6 +43,7 @@ export function AddActivityMenu(props: Props) {
 
     const handleSubmit = () => {
         props.onAdd({
+            id: uuid(),
             description: actTypes.find((t) => t.type === actType)!.desc,
             from: actorOne,
             to: actorTwo,

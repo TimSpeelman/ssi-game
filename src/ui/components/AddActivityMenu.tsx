@@ -10,10 +10,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import React, { Fragment } from 'react';
-import { actorImage } from './actorImage';
-import { allActors } from './actors';
-import { actTypes } from './actTypes';
-import { Actor, IInteraction } from './networkToCanvas';
+import { Actor } from '../data/Actor';
+import { actorImage } from '../data/actorImage';
+import { allActors } from '../data/actors';
+import { actTypes } from '../data/actTypes';
+import { IInteraction } from '../data/IInteraction';
 
 interface Props {
     onAdd: (act: IInteraction) => void;

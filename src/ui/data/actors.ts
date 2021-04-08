@@ -1,4 +1,4 @@
-import { Actor } from './networkToCanvas';
+import { Actor } from './Actor';
 
 export const allActors: Record<string, Actor> = {
     person3: { id: 'person3', image: 'person3', name: 'John' },

@@ -6,9 +6,9 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import DeleteIcon from '@material-ui/icons/Delete';
 import React, { Fragment, useState } from 'react';
-import { actorImage } from './actorImage';
+import { actorImage } from '../data/actorImage';
+import { IInteraction } from '../data/IInteraction';
 import './NetworkCanvas.css';
-import { IInteraction } from './networkToCanvas';
 
 export interface Props {
     acts: IInteraction[];

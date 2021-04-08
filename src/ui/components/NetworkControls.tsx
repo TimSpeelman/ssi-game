@@ -1,10 +1,11 @@
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
+import { Actor } from '../data/Actor';
+import { IInteraction } from '../data/IInteraction';
 import { ActivitySequence } from './ActivitySequence';
 import { AddActivityMenu } from './AddActivityMenu';
 import { AddActorMenu } from './AddActorMenu';
 import './NetworkCanvas.css';
-import { Actor, IInteraction } from './networkToCanvas';
 
 export interface Props {
     acts: IInteraction[];

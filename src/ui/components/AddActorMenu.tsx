@@ -2,8 +2,8 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import React, { Fragment, MouseEvent as ReactMouseEvent } from 'react';
-import { actorImage } from './actorImage';
-import { Actor } from './networkToCanvas';
+import { Actor } from '../data/Actor';
+import { actorImage } from '../data/actorImage';
 
 interface Props {
     onAdd: (actor: Actor) => void;

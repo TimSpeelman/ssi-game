@@ -1,9 +1,11 @@
 import { Grid } from '@material-ui/core';
 import React, { useState } from 'react';
-import { allActors } from './actors';
+import { Actor } from '../data/Actor';
+import { allActors } from '../data/actors';
+import { IInteraction } from '../data/IInteraction';
 import './NetworkCanvas.css';
 import { NetworkControls } from './NetworkControls';
-import { Actor, createNetworkCanvasData, IInteraction } from './networkToCanvas';
+import { createNetworkCanvasData } from './networkToCanvas';
 import { CanvasEvent, SVGNetworkCanvas } from './SVGNetworkCanvas';
 
 const initialActors = [allActors.gov1, allActors.office1, allActors.person3];

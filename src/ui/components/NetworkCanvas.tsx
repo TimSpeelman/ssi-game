@@ -1,4 +1,3 @@
-import { Grid } from '@material-ui/core';
 import React, { useState } from 'react';
 import { allActors } from '../../config/actors';
 import { OnlineLiquorPurchaseScenario } from '../../config/scenarios/OnlineLiquorPurchaseScenario';
@@ -58,19 +57,17 @@ export function NetworkCanvas() {
 
     return (
         <div className="network-canvas">
-            <Grid container spacing={2}>
-                <Grid item xs={6}>
-                    <SVGNetworkCanvas elems={elems} onEvent={handleEvent} />
-                </Grid>
-                <Grid item xs={6}>
-                    <NetworkControls
-                        availableActors={availableActors}
-                        acts={scenario.activities}
-                        dispatch={dispatch}
-                        onInspect={handleInspect}
-                    />
-                </Grid>
-            </Grid>
+            <div className="canvasarea">
+                <SVGNetworkCanvas elems={elems} onEvent={handleEvent} />
+            </div>
+            <div className="sidebar">
+                <NetworkControls
+                    availableActors={availableActors}
+                    acts={scenario.activities}
+                    dispatch={dispatch}
+                    onInspect={handleInspect}
+                />
+            </div>
         </div>
     );
 }

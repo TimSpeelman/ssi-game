@@ -122,7 +122,7 @@ const interaction = (e: InteractionEl) => (
 
 export function SVGNetworkCanvas(props: Props) {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width={1000} height={1000}>
+        <svg xmlns="http://www.w3.org/2000/svg" width={'100%'} height={'100%'} viewBox="0 0 600 600">
             {props.elems.map((e) => {
                 switch (e.type) {
                     case 'slot':

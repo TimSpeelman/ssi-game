@@ -1,4 +1,3 @@
-import Paper from '@material-ui/core/Paper';
 import React from 'react';
 import { Interaction } from '../../data/action/Interaction';
 import { Actor } from '../../data/actor/Actor';
@@ -17,7 +16,7 @@ export interface Props {
 
 export function NetworkControls(props: Props) {
     return (
-        <Paper elevation={3} style={{ margin: 20, padding: 20 }}>
+        <div style={{ margin: 20, padding: 20 }}>
             <AddActorMenu
                 label={'Voeg actor toe'}
                 actors={props.availableActors}
@@ -31,6 +30,6 @@ export function NetworkControls(props: Props) {
                 onInspect={props.onInspect}
                 onDelete={(index) => props.dispatch(ScenarioActions.REMOVE_ACTIVITY({ index }))}
             />
-        </Paper>
+        </div>
     );
 }

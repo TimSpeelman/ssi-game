@@ -20,10 +20,18 @@ export function NetworkCanvas() {
         setScenario(newState);
     }
 
+    const [activeActorId, setActiveActor] = useState<string | undefined>(undefined);
     const [actInspect, setActInspect] = useState<ScenarioStepDescription | undefined>(undefined);
 
-    function handleInspect(act: ScenarioStepDescription) {
+    const currentState = actInspect ? actInspect.result : scenario.initial;
+    const activeActor = activeActorId ? currentState.actors[activeActorId] : undefined;
+
+    function handleInspectStep(act: ScenarioStepDescription) {
         setActInspect(act);
+    }
+
+    function handleInspectActor(actorId: string) {
+        setActiveActor(actorId);
     }
 
     const [hover, setHover] = useState('');
@@ -36,6 +44,8 @@ export function NetworkCanvas() {
                 return setHover(ev.id);
             case 'slot-leave':
                 return hover === ev.id ? setHover('') : null;
+            case 'slot-click':
+                return handleInspectActor(ev.id);
             case 'conn-enter':
                 return setHover(ev.id);
             case 'conn-leave':
@@ -63,12 +73,13 @@ export function NetworkCanvas() {
             </div>
             <div className="sidebar">
                 <NetworkControls
+                    activeActor={activeActor}
                     activeStep={actInspect}
                     scenario={scenarioDesc}
                     availableActors={availableActors}
                     steps={scenarioDesc.steps}
                     dispatch={dispatch}
-                    onInspect={handleInspect}
+                    onInspect={handleInspectStep}
                 />
             </div>
         </div>

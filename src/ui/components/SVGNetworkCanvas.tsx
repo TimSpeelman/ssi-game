@@ -1,10 +1,20 @@
 import React from 'react';
 import { Vec } from '../../util/vec';
 
-export type CanvasEvent = SlotEnterEvent | SlotLeaveEvent | ConnEnterEvent | ConnLeaveEvent | SlotDeleteEvent;
+export type CanvasEvent =
+    | SlotClickEvent
+    | SlotEnterEvent
+    | SlotLeaveEvent
+    | ConnEnterEvent
+    | ConnLeaveEvent
+    | SlotDeleteEvent;
 
 interface SlotEnterEvent {
     type: 'slot-enter';
+    id: string;
+}
+interface SlotClickEvent {
+    type: 'slot-click';
     id: string;
 }
 interface SlotLeaveEvent {
@@ -48,6 +58,7 @@ const slot = (e: SlotEl, dispatch: (e: CanvasEvent) => void) => (
             fill={'transparent'}
             onMouseEnter={() => dispatch({ type: 'slot-enter', id: e.id })}
             onMouseLeave={() => dispatch({ type: 'slot-leave', id: e.id })}
+            onClick={() => dispatch({ type: 'slot-click', id: e.id })}
         />
 
         {/* Delete */}

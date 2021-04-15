@@ -32,7 +32,8 @@ export function StepSequence(props: Props) {
     }
 
     function handleClick(index: number) {
-        props.onInspect(props.steps[index].action.id);
+        // toggle
+        props.onInspect(props.activeStepIndex === index ? undefined : props.steps[index].action.id);
     }
 
     return (

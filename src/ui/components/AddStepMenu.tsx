@@ -24,7 +24,7 @@ interface Props {
 
 const availableActors = allActors as Record<string, Actor>;
 
-export function AddActivityMenu(props: Props) {
+export function AddStepMenu(props: Props) {
     const [open, setOpen] = React.useState(false);
     const [actType, setActType] = React.useState<string>('');
     const [desc, setDesc] = React.useState<string>('');

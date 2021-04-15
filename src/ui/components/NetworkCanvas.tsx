@@ -51,7 +51,7 @@ export function NetworkCanvas() {
         height: 600,
         width: 600,
         actors: actors,
-        interaction: actInspect,
+        step: actInspect,
     }).map((e) => (e.id === hover ? { ...e, lit: true } : e));
 
     const availableActors = Object.values(allActors).filter((a) => !actors.find((x) => x.id === a.id));
@@ -65,7 +65,7 @@ export function NetworkCanvas() {
                 <NetworkControls
                     scenario={scenarioDesc}
                     availableActors={availableActors}
-                    acts={scenarioDesc.steps}
+                    steps={scenarioDesc.steps}
                     dispatch={dispatch}
                     onInspect={handleInspect}
                 />

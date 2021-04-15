@@ -10,7 +10,7 @@ interface NetworkProps {
     width: number;
     height: number;
     actors: Actor[];
-    interaction?: ScenarioStepDescription;
+    step?: ScenarioStepDescription;
 }
 
 export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
@@ -24,7 +24,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
     const slotPositionsAbs = slotPositionsUnit.map((p) => add(center, scale(slotRingRadius)(p)));
 
     const slotRadius = 50;
-    const currentStep = props.interaction?.action;
+    const currentStep = props.step?.action;
     const slots: SlotEl[] = slotPositionsAbs.map((p, i) => ({
         type: 'slot',
         id: actors[i].id,
@@ -65,7 +65,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
 
     // The interaction
     const interactionRadius = width / 5;
-    const interaction: InteractionEl | undefined = props.interaction
+    const interaction: InteractionEl | undefined = props.step
         ? { type: 'interaction' as const, id: 'interaction', c: center, radius: interactionRadius }
         : undefined;
 

@@ -10,17 +10,17 @@ import { actorImage } from '../../config/actorImage';
 import { ScenarioStepDescription } from '../../data/scenario/Scenario';
 
 export interface Props {
-    acts: ScenarioStepDescription[];
+    steps: ScenarioStepDescription[];
     onInspect: (act?: string) => void;
     onDelete: (index: number) => void;
 }
 
-export function ActivitySequence(props: Props) {
+export function StepSequence(props: Props) {
     const [inspect, setInspect] = useState(-1);
 
     function handleMouseEnter(index: number) {
         setInspect(index);
-        props.onInspect(props.acts[index].action.id);
+        props.onInspect(props.steps[index].action.id);
     }
 
     function handleMouseExit(index: number) {
@@ -33,17 +33,17 @@ export function ActivitySequence(props: Props) {
     return (
         <List>
             <Divider />
-            {props.acts.map((act, i) => (
+            {props.steps.map((step, i) => (
                 <Fragment key={i}>
                     <ListItem
                         onMouseEnter={() => handleMouseEnter(i)}
                         onMouseLeave={() => handleMouseExit(i)}
                         selected={inspect === i}
                     >
-                        <img src={actorImage(act.action.from.image)} style={{ height: '3rem' }} />
+                        <img src={actorImage(step.action.from.image)} style={{ height: '3rem' }} />
                         <i className="fas fa-chevron-right"></i>
-                        <img src={actorImage(act.action.to.image)} style={{ height: '3rem' }} />
-                        <ListItemText primary={act.action.description} secondary={act.action.sub} />
+                        <img src={actorImage(step.action.to.image)} style={{ height: '3rem' }} />
+                        <ListItemText primary={step.action.description} secondary={step.action.sub} />
                         <ListItemSecondaryAction>
                             <IconButton edge="end" aria-label="delete" onClick={() => props.onDelete(i)}>
                                 <DeleteIcon />

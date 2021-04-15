@@ -1,7 +1,7 @@
 import { Grid } from '@material-ui/core';
 import React, { useState } from 'react';
 import { allActors } from '../../config/actors';
-import { scenario1 } from '../../config/scenarios/scenario1';
+import { OnlineLiquorPurchaseScenario } from '../../config/scenarios/OnlineLiquorPurchaseScenario';
 import { Interaction } from '../../data/action/Interaction';
 import { ScenarioActions } from '../../data/scenario/actions';
 import { ScenarioReducer } from '../../data/scenario/reducers';
@@ -10,7 +10,7 @@ import { NetworkControls } from './NetworkControls';
 import { createNetworkCanvasData } from './networkToCanvas';
 import { CanvasEvent, SVGNetworkCanvas } from './SVGNetworkCanvas';
 
-const initialScenario = scenario1;
+const initialScenario = OnlineLiquorPurchaseScenario;
 
 export function NetworkCanvas() {
     const [scenario, setScenario] = useState(initialScenario);

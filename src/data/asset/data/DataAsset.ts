@@ -2,6 +2,8 @@ import { AttributeKnowledge } from './abc/AttributeKnowledge';
 import { AttributeProof } from './abc/AttributeProof';
 import { AuthenticationResult } from './abc/AuthenticationResult';
 import { HumanRecord } from './abc/HumanRecord';
+import { PrivKey } from './cryptography/PrivKey';
+import { PubKey } from './cryptography/PubKey';
 import { FacePortrait } from './feature/FaceScan';
 import { FingerprintScan } from './feature/FingerprintScan';
 
@@ -12,4 +14,6 @@ export type DataAsset =
     | AttributeKnowledge
     | AttributeProof
     | HumanRecord
-    | AuthenticationResult;
+    | AuthenticationResult
+    | PubKey
+    | PrivKey;

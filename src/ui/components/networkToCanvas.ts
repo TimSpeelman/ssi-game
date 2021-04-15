@@ -1,15 +1,16 @@
 import { actorImage } from '../../config/actorImage';
 import { Actor } from '../../data/actor/Actor';
-import { ScenarioStepDescription } from '../../data/scenario/Scenario';
-import { pointsOnCircle } from '../../util/circle';
+import { ScenarioStateDescription, ScenarioStepDescription } from '../../data/scenario/Scenario';
+import { pointsOnCircleEquidistant, pointsOnCircleFixedRangeCentered } from '../../util/circle';
 import { scaleQuadraticBezierCurve } from '../../util/curve';
 import { add, scale, Vec } from '../../util/vec';
-import { CanvasElem, ConnectionEl, InteractionEl, SlotEl } from './SVGNetworkCanvas';
+import { AssetEl, CanvasElem, ConnectionEl, InteractionEl, SlotEl } from './SVGNetworkCanvas';
 
 interface NetworkProps {
     width: number;
     height: number;
     actors: Actor[];
+    state: ScenarioStateDescription;
     step?: ScenarioStepDescription;
 }
 
@@ -19,7 +20,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
     // To position all slots along a circle, we need to compute n points on that circle
     const numberOfSlots = actors.length;
     const center: Vec = [width / 2, height / 2];
-    const slotPositionsUnit = pointsOnCircle(numberOfSlots);
+    const slotPositionsUnit = pointsOnCircleEquidistant(numberOfSlots);
     const slotRingRadius = (width / 2) * 0.6;
     const slotPositionsAbs = slotPositionsUnit.map((p) => add(center, scale(slotRingRadius)(p)));
 
@@ -69,8 +70,37 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
         ? { type: 'interaction' as const, id: 'interaction', c: center, radius: interactionRadius }
         : undefined;
 
+    // The assets
+    const assetRadius = 10;
+    const assets = actors.reduce((all, actor, actorIndex): AssetEl[] => {
+        const assets = props.state.actors[actor.id].assets;
+        const numAssets = assets.length;
+
+        const actorCenter = slotPositionsAbs[actorIndex];
+        const actorAngle = ((2 * Math.PI) / numberOfSlots) * actorIndex; // center the range
+        const spaceInRad = Math.PI / 6;
+        const assetPositionsUnit = pointsOnCircleFixedRangeCentered(numAssets, actorAngle, spaceInRad);
+        const assetRingRadius = slotRadius + 30;
+        const assetPositionsAbs = assetPositionsUnit.map((p) => add(actorCenter, scale(assetRingRadius)(p)));
+        const assetsEls = assets.map(
+            (a, assetIndex): AssetEl => ({
+                type: 'asset',
+                active: false,
+                c: assetPositionsAbs[assetIndex],
+                id: `asset-${actorIndex}-${assetIndex}`, // todo fixme
+                lit: false,
+                r: assetRadius,
+                url: '',
+            }),
+        );
+
+        return [...all, ...assetsEls];
+    }, []);
+
+    console.log(assets.length, 'assets rendered');
+
     // Combine all elems
-    const elems: CanvasElem[] = [...conns, ...slots, ...(!interaction ? [] : [interaction])];
+    const elems: CanvasElem[] = [...conns, ...slots, ...(!interaction ? [] : [interaction]), ...assets];
 
     return elems;
 }

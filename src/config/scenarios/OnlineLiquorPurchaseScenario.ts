@@ -1,5 +1,10 @@
 import { PhysicalPassportAuthentication } from '../../data/action/authentication/PhysicalPassportAuthentication';
 import { CustomInteraction } from '../../data/action/CustomInteraction';
+import { PrivKey } from '../../data/asset/data/cryptography/PrivKey';
+import { PubKey } from '../../data/asset/data/cryptography/PubKey';
+import { FaceFeature } from '../../data/asset/feature/FaceFeature';
+import { FingerprintFeature } from '../../data/asset/feature/FingerprintFeature';
+import { GovPassport } from '../../data/asset/physical/GovPassport';
 import { Scenario, ScenarioStateDescription } from '../../data/scenario/Scenario';
 import { allActors } from '../actors';
 
@@ -9,8 +14,27 @@ const Subject = allActors.person3;
 
 const initialState: ScenarioStateDescription = {
     actors: {
-        [Government.id]: { actor: Government, assets: [] },
-        [Subject.id]: { actor: Subject, assets: [] },
+        [Government.id]: {
+            actor: Government,
+            assets: [
+                { kind: 'data', type: 'pubkey', id: 'pub', key: 'asdasda' } as PubKey,
+                { kind: 'data', type: 'privkey', id: 'priv', key: 'asdpa8b348n' } as PrivKey,
+            ],
+        },
+        [Subject.id]: {
+            actor: Subject,
+            assets: [
+                {
+                    kind: 'physical',
+                    type: 'gov-passport',
+                    id: 'passp',
+                    name: Subject.name,
+                    photo: { id: 'photox', type: 'face', kind: 'data', subjectId: Subject.id },
+                } as GovPassport,
+                { kind: 'feature', type: 'face', id: 'face' } as FaceFeature,
+                { kind: 'feature', type: 'fingerprint', id: 'fingerprint' } as FingerprintFeature,
+            ],
+        },
         [Shop.id]: { actor: Shop, assets: [] },
     },
 };

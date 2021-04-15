@@ -21,3 +21,7 @@ export function omit<K extends string | number>(key: K | K[]) {
         return res;
     };
 }
+
+export function ucFirst(str: string) {
+    return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
+}

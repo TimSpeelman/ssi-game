@@ -60,6 +60,7 @@ export function NetworkCanvas() {
     const elems = createNetworkCanvasData({
         height: 600,
         width: 600,
+        state: currentState,
         actors: actors,
         step: actInspect,
     }).map((e) => (e.id === hover ? { ...e, lit: true } : e));

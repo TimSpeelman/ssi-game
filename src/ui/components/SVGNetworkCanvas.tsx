@@ -127,9 +127,12 @@ const connection = (e: ConnectionEl, dispatch: (e: CanvasEvent) => void) => (
         />
     </g>
 );
+
 const interaction = (e: InteractionEl) => (
     <circle key={e.id} cx={e.c[0]} cy={e.c[1]} r={e.radius} fill={'hsl(0,0%,70%)'} opacity={0} /> // hidden!
 );
+
+const asset = (e: AssetEl) => <circle key={e.id} cx={e.c[0]} cy={e.c[1]} r={e.r} fill={'green'} />;
 
 export function SVGNetworkCanvas(props: Props) {
     return (
@@ -142,6 +145,8 @@ export function SVGNetworkCanvas(props: Props) {
                         return connection(e, props.onEvent);
                     case 'interaction':
                         return interaction(e);
+                    case 'asset':
+                        return asset(e);
                 }
             })}
         </svg>
@@ -153,7 +158,17 @@ export interface Props {
     onEvent: (e: CanvasEvent) => void;
 }
 
-export type CanvasElem = SlotEl | ConnectionEl | InteractionEl;
+export type CanvasElem = SlotEl | ConnectionEl | InteractionEl | AssetEl;
+
+export interface AssetEl {
+    type: 'asset';
+    id: string;
+    c: Vec;
+    r: number;
+    active: boolean;
+    url: string;
+    lit: boolean;
+}
 
 export interface SlotEl {
     type: 'slot';

@@ -1,5 +1,5 @@
 import each from 'jest-each';
-import { pointsOnCircle } from './circle';
+import { pointsOnCircleEquidistant } from './circle';
 import { round } from './util';
 
 describe('pointsOnCircle', function () {
@@ -37,7 +37,7 @@ describe('pointsOnCircle', function () {
             ],
         ],
     ]).test('returns %s points', (n, expected) => {
-        const points = pointsOnCircle(n);
+        const points = pointsOnCircleEquidistant(n);
         expect(points).toEqual(expected);
     });
 });

@@ -7,5 +7,6 @@ export interface InteractionDescription {
     from: Actor;
     to: Actor;
     description: string;
+    long?: string;
     sub: string;
 }

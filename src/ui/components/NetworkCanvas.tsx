@@ -63,6 +63,7 @@ export function NetworkCanvas() {
             </div>
             <div className="sidebar">
                 <NetworkControls
+                    activeStep={actInspect}
                     scenario={scenarioDesc}
                     availableActors={availableActors}
                     steps={scenarioDesc.steps}

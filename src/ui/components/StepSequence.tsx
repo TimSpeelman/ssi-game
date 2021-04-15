@@ -16,18 +16,22 @@ export interface Props {
 }
 
 export function StepSequence(props: Props) {
-    const [inspect, setInspect] = useState(-1);
+    const [hover, setHover] = useState(-1);
 
     function handleMouseEnter(index: number) {
-        setInspect(index);
-        props.onInspect(props.steps[index].action.id);
+        setHover(index);
+        // props.onInspect(props.steps[index].action.id);
     }
 
     function handleMouseExit(index: number) {
-        if (inspect === index) {
-            setInspect(-1);
-            props.onInspect();
+        if (hover === index) {
+            setHover(-1);
+            // props.onInspect();
         }
+    }
+
+    function handleClick(index: number) {
+        props.onInspect(props.steps[index].action.id);
     }
 
     return (
@@ -36,9 +40,10 @@ export function StepSequence(props: Props) {
             {props.steps.map((step, i) => (
                 <Fragment key={i}>
                     <ListItem
+                        onClick={() => handleClick(i)}
                         onMouseEnter={() => handleMouseEnter(i)}
                         onMouseLeave={() => handleMouseExit(i)}
-                        selected={inspect === i}
+                        selected={hover === i}
                     >
                         <img src={actorImage(step.action.from.image)} style={{ height: '3rem' }} />
                         <i className="fas fa-chevron-right"></i>

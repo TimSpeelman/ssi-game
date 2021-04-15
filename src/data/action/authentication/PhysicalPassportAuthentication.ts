@@ -45,17 +45,26 @@ export class PhysicalPassportAuthentication implements IAction {
     }
 
     describe(state: ScenarioStateDescription): InteractionDescription {
+        const subject = state.actors[this.props.humanSubjectId].actor;
+        const verifier = state.actors[this.props.verifierId].actor;
         return {
             id: this.id,
             type: 'PhysicalPassportAuthentication',
-            from: state.actors[this.props.verifierId].actor,
-            to: state.actors[this.props.humanSubjectId].actor,
+            from: verifier,
+            to: subject,
             description: 'Fysieke authenticatie o.b.v. paspoort',
             sub: '..',
+            long: `${ucFirst(verifier.nounPhrase)} authenticeert ${subject.name}, in levende lijve, op basis van ${
+                subject.isMale ? 'zijn' : 'haar'
+            } paspoort door de pasfoto te vergelijken met ${subject.isMale ? 'zijn' : 'haar'} gezicht.`,
         };
     }
 }
 
 function assert(t: boolean, msg: string) {
     if (!t) throw new Error('Assertion Failed: ' + msg);
+}
+
+function ucFirst(str: string) {
+    return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
 }

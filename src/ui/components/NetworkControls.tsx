@@ -1,3 +1,4 @@
+import { Divider } from '@material-ui/core';
 import React from 'react';
 import { Actor } from '../../data/actor/Actor';
 import { ScenarioActions } from '../../data/scenario/actions';
@@ -5,10 +6,12 @@ import { ScenarioDescription, ScenarioStepDescription } from '../../data/scenari
 import { IAction } from '../../util/redux';
 import { AddActorMenu } from './AddActorMenu';
 import { AddStepMenu } from './AddStepMenu';
+import { StepInspector } from './StepInspector';
 import { StepSequence } from './StepSequence';
 
 export interface Props {
     steps: ScenarioStepDescription[];
+    activeStep: ScenarioStepDescription | undefined;
     onInspect: (step: ScenarioStepDescription) => void;
     dispatch: (action: IAction<any>) => void;
     availableActors: Actor[];
@@ -21,6 +24,10 @@ export function NetworkControls(props: Props) {
 
     return (
         <div style={{ margin: 20, padding: 20 }}>
+            {props.activeStep && <StepInspector step={props.activeStep} />}
+
+            <Divider />
+
             <AddActorMenu
                 label={'Voeg actor toe'}
                 actors={props.availableActors}
@@ -29,6 +36,7 @@ export function NetworkControls(props: Props) {
 
             <AddStepMenu onAdd={(step) => props.dispatch(ScenarioActions.ADD_STEP({ step }))} />
 
+            <Divider />
             <StepSequence
                 steps={steps}
                 onInspect={(id) => props.onInspect(props.steps.find((a) => a.action.id === id)!)}

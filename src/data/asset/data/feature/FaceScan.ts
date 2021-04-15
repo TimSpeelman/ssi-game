@@ -1,5 +1,5 @@
 /** Scan of a face of a particular subject. */
-export interface FaceScan {
+export interface FacePortrait {
     kind: 'data';
     type: 'face';
     subjectId: string;

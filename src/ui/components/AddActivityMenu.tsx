@@ -13,12 +13,13 @@ import React, { Fragment } from 'react';
 import { v4 as uuid } from 'uuid';
 import { actorImage } from '../../config/actorImage';
 import { allActors } from '../../config/actors';
-import { Interaction } from '../../data/action/Interaction';
+import { CustomInteraction } from '../../data/action/CustomInteraction';
+import { IAction } from '../../data/action/IAction';
 import { Actor } from '../../data/actor/Actor';
 import { actTypes } from '../../data/actTypes';
 
 interface Props {
-    onAdd: (act: Interaction) => void;
+    onAdd: (act: IAction) => void;
 }
 
 const availableActors = allActors as Record<string, Actor>;
@@ -39,13 +40,14 @@ export function AddActivityMenu(props: Props) {
     };
 
     const handleSubmit = () => {
-        props.onAdd({
-            id: uuid(),
-            description: actTypes.find((t) => t.type === actType)!.desc,
-            from: actorOne,
-            to: actorTwo,
-            sub: desc,
-        });
+        props.onAdd(
+            new CustomInteraction(uuid(), {
+                description: actTypes.find((t) => t.type === actType)!.desc,
+                from: actorOne,
+                to: actorTwo,
+                sub: desc,
+            }),
+        );
         handleClose();
     };
 

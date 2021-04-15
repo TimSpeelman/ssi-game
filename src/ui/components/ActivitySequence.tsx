@@ -7,19 +7,20 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DeleteIcon from '@material-ui/icons/Delete';
 import React, { Fragment, useState } from 'react';
 import { actorImage } from '../../config/actorImage';
-import { Interaction } from '../../data/action/Interaction';
+import { ScenarioStepDescription } from '../../data/scenario/Scenario';
 
 export interface Props {
-    acts: Interaction[];
-    onInspect: (act?: Interaction) => void;
+    acts: ScenarioStepDescription[];
+    onInspect: (act?: string) => void;
     onDelete: (index: number) => void;
 }
+
 export function ActivitySequence(props: Props) {
     const [inspect, setInspect] = useState(-1);
 
     function handleMouseEnter(index: number) {
         setInspect(index);
-        props.onInspect(props.acts[index]);
+        props.onInspect(props.acts[index].action.id);
     }
 
     function handleMouseExit(index: number) {
@@ -39,10 +40,10 @@ export function ActivitySequence(props: Props) {
                         onMouseLeave={() => handleMouseExit(i)}
                         selected={inspect === i}
                     >
-                        <img src={actorImage(act.from.image)} style={{ height: '3rem' }} />
+                        <img src={actorImage(act.action.from.image)} style={{ height: '3rem' }} />
                         <i className="fas fa-chevron-right"></i>
-                        <img src={actorImage(act.to.image)} style={{ height: '3rem' }} />
-                        <ListItemText primary={act.description} secondary={act.sub} />
+                        <img src={actorImage(act.action.to.image)} style={{ height: '3rem' }} />
+                        <ListItemText primary={act.action.description} secondary={act.action.sub} />
                         <ListItemSecondaryAction>
                             <IconButton edge="end" aria-label="delete" onClick={() => props.onDelete(i)}>
                                 <DeleteIcon />

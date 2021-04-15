@@ -1,20 +1,26 @@
 import React from 'react';
-import { Interaction } from '../../data/action/Interaction';
 import { Actor } from '../../data/actor/Actor';
 import { ScenarioActions } from '../../data/scenario/actions';
+import { ScenarioDescription, ScenarioStepDescription } from '../../data/scenario/Scenario';
 import { IAction } from '../../util/redux';
 import { ActivitySequence } from './ActivitySequence';
 import { AddActivityMenu } from './AddActivityMenu';
 import { AddActorMenu } from './AddActorMenu';
 
 export interface Props {
-    acts: Interaction[];
-    onInspect: (act: Interaction) => void;
+    acts: ScenarioStepDescription[];
+    onInspect: (act: ScenarioStepDescription) => void;
     dispatch: (action: IAction<any>) => void;
     availableActors: Actor[];
+    scenario: ScenarioDescription;
 }
 
 export function NetworkControls(props: Props) {
+    // const actions = props.acts.map((a) => describe(a, props.scenario));
+    const actions = props.acts;
+
+    console.log(actions);
+
     return (
         <div style={{ margin: 20, padding: 20 }}>
             <AddActorMenu
@@ -23,12 +29,12 @@ export function NetworkControls(props: Props) {
                 onAdd={(actor) => props.dispatch(ScenarioActions.ADD_ACTOR({ actor }))}
             />
 
-            <AddActivityMenu onAdd={(activity) => props.dispatch(ScenarioActions.ADD_ACTIVITY({ activity }))} />
+            <AddActivityMenu onAdd={(step) => props.dispatch(ScenarioActions.ADD_STEP({ step }))} />
 
             <ActivitySequence
-                acts={props.acts}
-                onInspect={props.onInspect}
-                onDelete={(index) => props.dispatch(ScenarioActions.REMOVE_ACTIVITY({ index }))}
+                acts={actions}
+                onInspect={(id) => props.onInspect(props.acts.find((a) => a.action.id === id)!)}
+                onDelete={(index) => props.dispatch(ScenarioActions.REMOVE_STEP({ index }))}
             />
         </div>
     );

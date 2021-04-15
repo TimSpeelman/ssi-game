@@ -1,6 +1,8 @@
 import { Actor } from '../actor/Actor';
 
-export interface Interaction {
+/** A generic description of an interaction, for view purposes */
+export interface InteractionDescription {
+    type: string;
     id: string;
     from: Actor;
     to: Actor;

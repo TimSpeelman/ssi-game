@@ -1,6 +1,6 @@
 import { actorImage } from '../../config/actorImage';
-import { Interaction } from '../../data/action/Interaction';
 import { Actor } from '../../data/actor/Actor';
+import { ScenarioStepDescription } from '../../data/scenario/Scenario';
 import { pointsOnCircle } from '../../util/circle';
 import { scaleQuadraticBezierCurve } from '../../util/curve';
 import { add, scale, Vec } from '../../util/vec';
@@ -10,7 +10,7 @@ interface NetworkProps {
     width: number;
     height: number;
     actors: Actor[];
-    interaction?: Interaction;
+    interaction?: ScenarioStepDescription;
 }
 
 export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
@@ -24,6 +24,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
     const slotPositionsAbs = slotPositionsUnit.map((p) => add(center, scale(slotRingRadius)(p)));
 
     const slotRadius = 50;
+    const currentStep = props.interaction?.action;
     const slots: SlotEl[] = slotPositionsAbs.map((p, i) => ({
         type: 'slot',
         id: actors[i].id,
@@ -32,9 +33,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
         c: p,
         r: slotRadius,
         url: actorImage(actors[i].image),
-        active:
-            !!props.interaction &&
-            (props.interaction.from.id === actors[i].id || props.interaction.to.id === actors[i].id),
+        active: !!currentStep && (currentStep.from.id === actors[i].id || currentStep.to.id === actors[i].id),
     }));
 
     // Create connections between all actors

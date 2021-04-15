@@ -1,16 +1,16 @@
-import { Actor } from '../../data/Actor';
-import { actorImage } from '../../data/actorImage';
-import { IInteraction } from '../../data/IInteraction';
+import { actorImage } from '../../config/actorImage';
+import { Interaction } from '../../data/action/Interaction';
+import { Actor } from '../../data/actor/Actor';
 import { pointsOnCircle } from '../../util/circle';
 import { scaleQuadraticBezierCurve } from '../../util/curve';
 import { add, scale, Vec } from '../../util/vec';
-import { CanvasElem, Connection, Interaction, Slot } from './SVGNetworkCanvas';
+import { CanvasElem, ConnectionEl, InteractionEl, SlotEl } from './SVGNetworkCanvas';
 
 interface NetworkProps {
     width: number;
     height: number;
     actors: Actor[];
-    interaction?: IInteraction;
+    interaction?: Interaction;
 }
 
 export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
@@ -24,7 +24,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
     const slotPositionsAbs = slotPositionsUnit.map((p) => add(center, scale(slotRingRadius)(p)));
 
     const slotRadius = 50;
-    const slots: Slot[] = slotPositionsAbs.map((p, i) => ({
+    const slots: SlotEl[] = slotPositionsAbs.map((p, i) => ({
         type: 'slot',
         id: actors[i].id,
         // id: `slot-${i}`,
@@ -43,7 +43,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
         (acc, slot1, i) => [
             ...acc,
             ...slots.reduce(
-                (acc2, slot2, j): Connection[] =>
+                (acc2, slot2, j): ConnectionEl[] =>
                     i >= j
                         ? []
                         : [
@@ -66,7 +66,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
 
     // The interaction
     const interactionRadius = width / 5;
-    const interaction: Interaction | undefined = props.interaction
+    const interaction: InteractionEl | undefined = props.interaction
         ? { type: 'interaction' as const, id: 'interaction', c: center, radius: interactionRadius }
         : undefined;
 

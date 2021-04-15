@@ -1,4 +1,4 @@
-import { Actor } from './Actor';
+import { Actor } from '../data/actor/Actor';
 
 export const allActors: Record<string, Actor> = {
     person3: { id: 'person3', image: 'person3', name: 'John' },

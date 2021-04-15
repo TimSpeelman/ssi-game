@@ -1,41 +1,16 @@
 import { Grid } from '@material-ui/core';
 import React, { useState } from 'react';
-import { allActors } from '../../data/actors';
-import { IInteraction } from '../../data/IInteraction';
+import { allActors } from '../../config/actors';
+import { scenario1 } from '../../config/scenarios/scenario1';
+import { Interaction } from '../../data/action/Interaction';
 import { ScenarioActions } from '../../data/scenario/actions';
 import { ScenarioReducer } from '../../data/scenario/reducers';
-import { Scenario } from '../../data/scenario/Scenario';
 import { IAction } from '../../util/redux';
 import { NetworkControls } from './NetworkControls';
 import { createNetworkCanvasData } from './networkToCanvas';
 import { CanvasEvent, SVGNetworkCanvas } from './SVGNetworkCanvas';
 
-const initialScenario: Scenario = {
-    actors: [allActors.gov1, allActors.office1, allActors.person3],
-    activities: [
-        {
-            id: '1',
-            from: allActors.gov1,
-            to: allActors.person3,
-            description: 'Uitgifte van paspoort',
-            sub: 'naam, geboortedatum',
-        },
-        {
-            id: '2',
-            from: allActors.office1,
-            to: allActors.person3,
-            description: 'Verzoek om gegevens',
-            sub: 'naam, geboortedatum',
-        },
-        {
-            id: '3',
-            from: allActors.person3,
-            to: allActors.office1,
-            description: 'Gegevenspresentatie',
-            sub: 'naam, geboortedatum',
-        },
-    ],
-};
+const initialScenario = scenario1;
 
 export function NetworkCanvas() {
     const [scenario, setScenario] = useState(initialScenario);
@@ -45,9 +20,9 @@ export function NetworkCanvas() {
         setScenario(newState);
     }
 
-    const [actInspect, setActInspect] = useState<IInteraction | undefined>(undefined);
+    const [actInspect, setActInspect] = useState<Interaction | undefined>(undefined);
 
-    function handleInspect(act: IInteraction) {
+    function handleInspect(act: Interaction) {
         setActInspect(act);
     }
 
@@ -70,14 +45,16 @@ export function NetworkCanvas() {
         }
     };
 
+    const actors = Object.values(scenario.actors).map((a) => a.actor);
+
     const elems = createNetworkCanvasData({
         height: 600,
         width: 600,
-        actors: scenario.actors,
+        actors: actors,
         interaction: actInspect,
     }).map((e) => (e.id === hover ? { ...e, lit: true } : e));
 
-    const availableActors = Object.values(allActors).filter((a) => !scenario.actors.find((x) => x.id === a.id));
+    const availableActors = Object.values(allActors).filter((a) => !actors.find((x) => x.id === a.id));
 
     return (
         <div className="network-canvas">

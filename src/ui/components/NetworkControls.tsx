@@ -1,7 +1,7 @@
 import Paper from '@material-ui/core/Paper';
 import React from 'react';
-import { Actor } from '../../data/Actor';
-import { IInteraction } from '../../data/IInteraction';
+import { Interaction } from '../../data/action/Interaction';
+import { Actor } from '../../data/actor/Actor';
 import { ScenarioActions } from '../../data/scenario/actions';
 import { IAction } from '../../util/redux';
 import { ActivitySequence } from './ActivitySequence';
@@ -9,11 +9,12 @@ import { AddActivityMenu } from './AddActivityMenu';
 import { AddActorMenu } from './AddActorMenu';
 
 export interface Props {
-    acts: IInteraction[];
-    onInspect: (act: IInteraction) => void;
+    acts: Interaction[];
+    onInspect: (act: Interaction) => void;
     dispatch: (action: IAction<any>) => void;
     availableActors: Actor[];
 }
+
 export function NetworkControls(props: Props) {
     return (
         <Paper elevation={3} style={{ margin: 20, padding: 20 }}>

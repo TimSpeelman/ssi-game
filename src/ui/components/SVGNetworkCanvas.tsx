@@ -28,7 +28,7 @@ const middle = (a: number, b: number) => a + (b - a) / 2;
 
 const curve = (x1: number, x2: number, qx: number, curve: number) => qx + (middle(x1, x2) - qx) * (1 - curve);
 
-const slot = (e: Slot, dispatch: (e: CanvasEvent) => void) => (
+const slot = (e: SlotEl, dispatch: (e: CanvasEvent) => void) => (
     <g key={e.id}>
         {/* Background for hiding edges */}
         <circle cx={e.c[0]} cy={e.c[1]} r={e.r * 1.2} opacity={1} fill={'#eee'} />
@@ -91,7 +91,7 @@ const slot = (e: Slot, dispatch: (e: CanvasEvent) => void) => (
 
 const cubicBezier = (a: Vec, q: Vec, b: Vec) => `M ${a[0]} ${a[1]} Q ${q[0]} ${q[1]} ${b[0]} ${b[1]}`;
 
-const connection = (e: Connection, dispatch: (e: CanvasEvent) => void) => (
+const connection = (e: ConnectionEl, dispatch: (e: CanvasEvent) => void) => (
     <g key={e.id}>
         {/* Hover highlight */}
         <path d={cubicBezier(e.from, e.q, e.to)} stroke={`#fef4bd`} strokeWidth={e.lit ? 25 : 0} fill="transparent" />
@@ -116,7 +116,7 @@ const connection = (e: Connection, dispatch: (e: CanvasEvent) => void) => (
         />
     </g>
 );
-const interaction = (e: Interaction) => (
+const interaction = (e: InteractionEl) => (
     <circle key={e.id} cx={e.c[0]} cy={e.c[1]} r={e.radius} fill={'hsl(0,0%,70%)'} opacity={0} /> // hidden!
 );
 
@@ -142,9 +142,9 @@ export interface Props {
     onEvent: (e: CanvasEvent) => void;
 }
 
-export type CanvasElem = Slot | Connection | Interaction;
+export type CanvasElem = SlotEl | ConnectionEl | InteractionEl;
 
-export interface Slot {
+export interface SlotEl {
     type: 'slot';
     id: string;
     c: Vec;
@@ -154,7 +154,7 @@ export interface Slot {
     lit: boolean;
 }
 
-export interface Connection {
+export interface ConnectionEl {
     type: 'connection';
     id: string;
     from: Vec;
@@ -164,7 +164,7 @@ export interface Connection {
     lit: boolean;
 }
 
-export interface Interaction {
+export interface InteractionEl {
     type: 'interaction';
     id: string;
     c: Vec;

@@ -6,12 +6,12 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import DeleteIcon from '@material-ui/icons/Delete';
 import React, { Fragment, useState } from 'react';
-import { actorImage } from '../../data/actorImage';
-import { IInteraction } from '../../data/IInteraction';
+import { actorImage } from '../../config/actorImage';
+import { Interaction } from '../../data/action/Interaction';
 
 export interface Props {
-    acts: IInteraction[];
-    onInspect: (act?: IInteraction) => void;
+    acts: Interaction[];
+    onInspect: (act?: Interaction) => void;
     onDelete: (index: number) => void;
 }
 export function ActivitySequence(props: Props) {

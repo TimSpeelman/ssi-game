@@ -1,6 +1,6 @@
-import { Actor } from './Actor';
+import { Actor } from '../actor/Actor';
 
-export interface IInteraction {
+export interface Interaction {
     id: string;
     from: Actor;
     to: Actor;

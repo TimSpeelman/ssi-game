@@ -21,6 +21,8 @@ interface Props {
     onAdd: (act: Interaction) => void;
 }
 
+const availableActors = allActors as Record<string, Actor>;
+
 export function AddActivityMenu(props: Props) {
     const [open, setOpen] = React.useState(false);
     const [actType, setActType] = React.useState<string>('');
@@ -67,8 +69,11 @@ export function AddActivityMenu(props: Props) {
 
                     <FormControl fullWidth style={{ marginBottom: '1em' }}>
                         <InputLabel>Actor 1</InputLabel>
-                        <Select value={actorOne.id} onChange={(e) => setActorOne(allActors[e.target.value as string])}>
-                            {Object.values(allActors).map((actor) => (
+                        <Select
+                            value={actorOne.id}
+                            onChange={(e) => setActorOne(availableActors[e.target.value as string])}
+                        >
+                            {Object.values(availableActors).map((actor) => (
                                 <MenuItem key={actor.id} value={actor.id}>
                                     <img src={actorImage(actor.image)} style={{ height: '2rem' }} />
                                     {actor.name}
@@ -79,8 +84,11 @@ export function AddActivityMenu(props: Props) {
 
                     <FormControl fullWidth style={{ marginBottom: '1em' }}>
                         <InputLabel>Actor 2</InputLabel>
-                        <Select value={actorTwo.id} onChange={(e) => setActorTwo(allActors[e.target.value as string])}>
-                            {Object.values(allActors).map((actor) => (
+                        <Select
+                            value={actorTwo.id}
+                            onChange={(e) => setActorTwo(availableActors[e.target.value as string])}
+                        >
+                            {Object.values(availableActors).map((actor) => (
                                 <MenuItem key={actor.id} value={actor.id}>
                                     <img src={actorImage(actor.image)} style={{ height: '2rem' }} />
                                     {actor.name}

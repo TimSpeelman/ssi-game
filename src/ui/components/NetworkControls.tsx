@@ -39,6 +39,9 @@ export function NetworkControls(props: Props) {
             <Divider />
             <StepSequence
                 steps={steps}
+                activeStepIndex={
+                    props.activeStep ? steps.findIndex((s) => s.action.id === props.activeStep?.action.id) : -1
+                }
                 onInspect={(id) => props.onInspect(props.steps.find((a) => a.action.id === id)!)}
                 onDelete={(index) => props.dispatch(ScenarioActions.REMOVE_STEP({ index }))}
             />

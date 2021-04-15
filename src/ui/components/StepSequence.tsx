@@ -11,6 +11,7 @@ import { ScenarioStepDescription } from '../../data/scenario/Scenario';
 
 export interface Props {
     steps: ScenarioStepDescription[];
+    activeStepIndex: number;
     onInspect: (act?: string) => void;
     onDelete: (index: number) => void;
 }
@@ -43,7 +44,7 @@ export function StepSequence(props: Props) {
                         onClick={() => handleClick(i)}
                         onMouseEnter={() => handleMouseEnter(i)}
                         onMouseLeave={() => handleMouseExit(i)}
-                        selected={hover === i}
+                        selected={hover === i || props.activeStepIndex === i}
                     >
                         <img src={actorImage(step.action.from.image)} style={{ height: '3rem' }} />
                         <i className="fas fa-chevron-right"></i>

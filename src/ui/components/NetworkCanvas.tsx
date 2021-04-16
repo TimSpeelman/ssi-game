@@ -102,7 +102,15 @@ export function NetworkCanvas() {
             <div className="canvasarea">
                 <SVGNetworkCanvas elems={elems} onEvent={handleEvent} />
                 <div className="time-navigation">
-                    <Fab style={{ marginRight: '1rem' }} onClick={prevStep}>
+                    {currentStep ? (
+                        <span>
+                            <strong>Stap:</strong>
+                            {currentStep.action.description}
+                        </span>
+                    ) : (
+                        <span></span>
+                    )}
+                    <Fab style={{ marginRight: '1rem', marginLeft: '1rem' }} onClick={prevStep}>
                         <NavigateBefore />
                     </Fab>
                     <Fab onClick={nextStep}>

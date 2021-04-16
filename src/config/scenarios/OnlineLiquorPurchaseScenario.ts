@@ -1,5 +1,12 @@
+import { Issuance } from '../../data/action/abc/Issuance';
+import { Presentation } from '../../data/action/abc/Presentation';
+import { PresentationConsent } from '../../data/action/abc/PresentationConsent';
+import { PresentationRequest } from '../../data/action/abc/PresentationRequest';
 import { PhysicalPassportAuthentication } from '../../data/action/authentication/PhysicalPassportAuthentication';
+import { WalletQRAuthentication } from '../../data/action/authentication/WalletQRAuthentication';
+import { WalletSMSAuthentication } from '../../data/action/authentication/WalletSMSAuthentication';
 import { CustomInteraction } from '../../data/action/CustomInteraction';
+import { GrantGreenFlag } from '../../data/action/GrantGreenFlag';
 import { PrivKey } from '../../data/asset/data/cryptography/PrivKey';
 import { PubKey } from '../../data/asset/data/cryptography/PubKey';
 import { FaceFeature } from '../../data/asset/feature/FaceFeature';
@@ -70,45 +77,50 @@ export const OnlineLiquorPurchaseScenario = new Scenario({
             humanSubjectId: Subject.id,
             dataSubjectId: 'SUB@GOV',
         }),
-        new CustomInteraction('2', {
+        new WalletSMSAuthentication('2', {
             // Feitelijk is de contactlegging (en challenge) via SMS, authenticatie via P2P protocol
-            from: Government,
-            to: Subject,
-            description: 'Authenticatie van wallet (pseudoniem) via SMS',
-            sub: 'public key',
+            verifierId: Government.id,
+            humanSubjectId: Subject.id,
+            dataSubjectId: 'SomePseudonym', // TODO
         }),
-        new CustomInteraction('3', {
-            from: Government,
-            to: Subject,
-            description: 'Geef attribuut 18+ uit',
-            sub: '18+ credential',
+        new Issuance('3', {
+            attributeName: '18+',
+            attributeValue: 'waar',
+            subjectNym: 'SomePseudonym', // TODO
+            issuerNym: 'GovKey', // TODO
+            issuerId: Government.id,
+            subjectId: Subject.id,
         }),
         // Verification Phase
-        new CustomInteraction('4', {
+        new WalletQRAuthentication('4', {
             // Feitelijk is de contactlegging via QR, authenticatie via P2P protocol
-            from: Shop,
-            to: Subject,
-            description: 'Authenticatie van wallet (pseudoniem) via QR',
-            sub: 'public key',
+            verifierId: Shop.id,
+            humanSubjectId: Subject.id,
+            dataSubjectId: 'SomePseudonym', // TODO
         }),
-        new CustomInteraction('5', {
-            from: Shop,
-            to: Subject,
-            description: 'Vraag 18+ credential aan',
-            sub: 'attribuutverzoek 18+',
+        new PresentationRequest('5', {
+            verifierId: Shop.id,
+            subjectId: Subject.id,
+            subjectNym: 'SomePseudonym', // TODO
+            verifierNym: 'ShopKey', // TODO
+            attributeName: '18+',
         }),
-        new CustomInteraction('6', {
+        new PresentationConsent('6', {
             // Feitelijk geeft het subject toestemming aan de eigen wallet en wordt de toestemming meegestuurd dan wel geimpliceerd in de credentialpresentatie.
-            from: Subject,
-            to: Shop,
-            description: 'Geef toestemming',
-            sub: 'consent',
+            verifierId: Shop.id,
+            subjectId: Subject.id,
+            subjectNym: 'SomePseudonym', // TODO
+            verifierNym: 'ShopKey', // TODO
+            attributeName: '18+',
         }),
-        new CustomInteraction('7', {
-            from: Subject,
-            to: Shop,
-            description: 'Presenteer 18+ bewijs',
-            sub: 'attribuutbewijs 18+',
+        new Presentation('7', {
+            verifierId: Shop.id,
+            subjectId: Subject.id,
+            subjectNym: 'SomePseudonym', // TODO
+            verifierNym: 'ShopKey', // TODO
+            attributeName: '18+',
+            attributeValue: 'waar',
+            issuerNym: 'GovKey', // TODO
         }),
         new CustomInteraction('8', {
             // Feitelijk verifieert de Verifier zelfstandig de verzegeling en ondertekening, en via de ledger de actualiteit (hier wellicht niet relevant)
@@ -117,11 +129,10 @@ export const OnlineLiquorPurchaseScenario = new Scenario({
             description: 'Verifieer 18+ bewijs',
             sub: '',
         }),
-        new CustomInteraction('9', {
-            from: Shop,
-            to: Subject,
-            description: 'Geef toegang tot 18+ verkoop',
-            sub: 'groene vlag',
+        new GrantGreenFlag('9', {
+            fromId: Shop.id,
+            toId: Subject.id,
+            description: 'Toegang tot 18+ verkoop',
         }),
     ],
 });

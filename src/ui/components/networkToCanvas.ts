@@ -102,8 +102,6 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
         return [...all, ...assetsEls];
     }, []);
 
-    console.log(assets.length, 'assets rendered');
-
     // Combine all elems
     const elems: CanvasElem[] = [...conns, ...slots, ...(!interaction ? [] : [interaction]), ...assets];
 

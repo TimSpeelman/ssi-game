@@ -45,7 +45,7 @@ export class Issuance implements IAction {
             type: 'attribute-proof',
             name: this.props.attributeName,
             value: this.props.attributeValue,
-            issuerId: this.props.issuerId,
+            issuerId: this.props.issuerNym,
             subjectId: this.props.subjectNym,
         };
         return [new GainAssetOutcome({ actorId: this.props.subjectId, asset: attr })];

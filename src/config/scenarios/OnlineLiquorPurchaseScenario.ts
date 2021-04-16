@@ -7,17 +7,18 @@ import { WalletQRAuthentication } from '../../data/action/authentication/WalletQ
 import { WalletSMSAuthentication } from '../../data/action/authentication/WalletSMSAuthentication';
 import { CustomInteraction } from '../../data/action/CustomInteraction';
 import { GrantGreenFlag } from '../../data/action/GrantGreenFlag';
+import { AttributeKnowledge } from '../../data/asset/data/abc/AttributeKnowledge';
+import { HumanRecord } from '../../data/asset/data/abc/HumanRecord';
 import { PrivKey } from '../../data/asset/data/cryptography/PrivKey';
 import { PubKey } from '../../data/asset/data/cryptography/PubKey';
 import { FaceFeature } from '../../data/asset/feature/FaceFeature';
-import { FingerprintFeature } from '../../data/asset/feature/FingerprintFeature';
 import { GovPassport } from '../../data/asset/physical/GovPassport';
 import { Scenario, ScenarioStateDescription } from '../../data/scenario/Scenario';
 import { allActors } from '../actors';
 
 const Government = allActors.gov1;
 const Shop = allActors.shop1;
-const Subject = allActors.person3;
+const Subject = allActors.John;
 const SubjectIdAtGov = 'BSN_990223190';
 const SubjectNym1 = '215_JOHN';
 const GovNym1 = '829_GOV';
@@ -29,7 +30,16 @@ const initialState: ScenarioStateDescription = {
         [Government.id]: {
             actor: Government,
             assets: [
-                { kind: 'data', type: 'pubkey', id: 'pub', key: 'asdasda' } as PubKey,
+                { kind: 'data', type: 'human-record', id: SubjectIdAtGov } as HumanRecord,
+                {
+                    kind: 'data',
+                    type: 'attribute-knowledge',
+                    issuerId: GovNym1,
+                    subjectId: SubjectIdAtGov,
+                    name: '18+',
+                    value: 'WAAR',
+                } as AttributeKnowledge,
+                { kind: 'data', type: 'pubkey', id: 'pub', key: GovNym1 } as PubKey,
                 { kind: 'data', type: 'privkey', id: 'priv', key: 'asdpa8b348n' } as PrivKey,
             ],
         },
@@ -44,10 +54,17 @@ const initialState: ScenarioStateDescription = {
                     photo: { id: 'photox', type: 'face', kind: 'data', subjectId: Subject.id },
                 } as GovPassport,
                 { kind: 'feature', type: 'face', id: 'face' } as FaceFeature,
-                { kind: 'feature', type: 'fingerprint', id: 'fingerprint' } as FingerprintFeature,
+                { kind: 'data', type: 'pubkey', id: 'pub', key: SubjectNym1 } as PubKey,
+                { kind: 'data', type: 'privkey', id: 'priv', key: 'poweqopuo88' } as PrivKey,
             ],
         },
-        [Shop.id]: { actor: Shop, assets: [] },
+        [Shop.id]: {
+            actor: Shop,
+            assets: [
+                { kind: 'data', type: 'pubkey', id: 'pub', key: ShopNym1 } as PubKey,
+                { kind: 'data', type: 'privkey', id: 'priv', key: '113fasfa' } as PrivKey,
+            ],
+        },
     },
 };
 

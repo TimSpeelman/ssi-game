@@ -1,8 +1,8 @@
 import { Actor } from '../data/actor/Actor';
 
 export const allActors = {
-    person3: {
-        id: 'person3',
+    John: {
+        id: 'John',
         image: 'person3',
         name: 'John',
         nounPhrase: 'John',

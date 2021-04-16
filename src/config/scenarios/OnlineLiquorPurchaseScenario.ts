@@ -18,6 +18,11 @@ import { allActors } from '../actors';
 const Government = allActors.gov1;
 const Shop = allActors.shop1;
 const Subject = allActors.person3;
+const SubjectIdAtGov = 'BSN_990223190';
+const SubjectNym1 = '215_JOHN';
+const GovNym1 = '829_GOV';
+const ShopNym1 = '662_SHOP';
+const Attr18Plus = '18+';
 
 const initialState: ScenarioStateDescription = {
     actors: {
@@ -75,19 +80,19 @@ export const OnlineLiquorPurchaseScenario = new Scenario({
         new PhysicalPassportAuthentication('1', {
             verifierId: Government.id,
             humanSubjectId: Subject.id,
-            dataSubjectId: 'SUB@GOV',
+            dataSubjectId: SubjectIdAtGov,
         }),
         new WalletSMSAuthentication('2', {
             // Feitelijk is de contactlegging (en challenge) via SMS, authenticatie via P2P protocol
             verifierId: Government.id,
             humanSubjectId: Subject.id,
-            dataSubjectId: 'SomePseudonym', // TODO
+            dataSubjectId: SubjectNym1, // TODO
         }),
         new Issuance('3', {
             attributeName: '18+',
             attributeValue: 'waar',
-            subjectNym: 'SomePseudonym', // TODO
-            issuerNym: 'GovKey', // TODO
+            subjectNym: SubjectNym1, // TODO
+            issuerNym: GovNym1, // TODO
             issuerId: Government.id,
             subjectId: Subject.id,
         }),
@@ -96,31 +101,31 @@ export const OnlineLiquorPurchaseScenario = new Scenario({
             // Feitelijk is de contactlegging via QR, authenticatie via P2P protocol
             verifierId: Shop.id,
             humanSubjectId: Subject.id,
-            dataSubjectId: 'SomePseudonym', // TODO
+            dataSubjectId: SubjectNym1, // TODO
         }),
         new PresentationRequest('5', {
             verifierId: Shop.id,
             subjectId: Subject.id,
-            subjectNym: 'SomePseudonym', // TODO
-            verifierNym: 'ShopKey', // TODO
-            attributeName: '18+',
+            subjectNym: SubjectNym1, // TODO
+            verifierNym: ShopNym1, // TODO
+            attributeName: Attr18Plus,
         }),
         new PresentationConsent('6', {
             // Feitelijk geeft het subject toestemming aan de eigen wallet en wordt de toestemming meegestuurd dan wel geimpliceerd in de credentialpresentatie.
             verifierId: Shop.id,
             subjectId: Subject.id,
-            subjectNym: 'SomePseudonym', // TODO
-            verifierNym: 'ShopKey', // TODO
+            subjectNym: SubjectNym1, // TODO
+            verifierNym: ShopNym1, // TODO
             attributeName: '18+',
         }),
         new Presentation('7', {
             verifierId: Shop.id,
             subjectId: Subject.id,
-            subjectNym: 'SomePseudonym', // TODO
-            verifierNym: 'ShopKey', // TODO
+            subjectNym: SubjectNym1, // TODO
+            verifierNym: ShopNym1, // TODO
             attributeName: '18+',
             attributeValue: 'waar',
-            issuerNym: 'GovKey', // TODO
+            issuerNym: GovNym1, // TODO
         }),
         new CustomInteraction('8', {
             // Feitelijk verifieert de Verifier zelfstandig de verzegeling en ondertekening, en via de ledger de actualiteit (hier wellicht niet relevant)

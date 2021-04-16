@@ -3,7 +3,7 @@ import { allActors } from '../../config/actors';
 import { OnlineLiquorPurchaseScenario } from '../../config/scenarios/OnlineLiquorPurchaseScenario';
 import { ScenarioActions } from '../../data/scenario/actions';
 import { ScenarioReducer } from '../../data/scenario/reducers';
-import { Scenario, ScenarioStepDescription } from '../../data/scenario/Scenario';
+import { Scenario } from '../../data/scenario/Scenario';
 import { IAction } from '../../util/redux';
 import { NetworkControls } from './NetworkControls';
 import { createNetworkCanvasData } from './networkToCanvas';
@@ -20,19 +20,12 @@ export function NetworkCanvas() {
         setScenario(newState);
     }
 
-    const [activeActorId, setActiveActor] = useState<string | undefined>(undefined);
-    const [actInspect, setActInspect] = useState<ScenarioStepDescription | undefined>(undefined);
+    const [selectedActorId, setSelectedActorId] = useState<string | undefined>(undefined);
+    const [currentStepId, setCurrentStepId] = useState<string | undefined>(undefined);
 
+    const actInspect = scenarioDesc.steps.find((s) => s.action.id === currentStepId);
     const currentState = actInspect ? actInspect.result : scenario.initial;
-    const activeActor = activeActorId ? currentState.actors[activeActorId] : undefined;
-
-    function handleInspectStep(act: ScenarioStepDescription) {
-        setActInspect(act);
-    }
-
-    function handleInspectActor(actorId: string) {
-        setActiveActor(actorId);
-    }
+    const activeActor = selectedActorId ? currentState.actors[selectedActorId] : undefined;
 
     const [hover, setHover] = useState('');
 
@@ -45,7 +38,7 @@ export function NetworkCanvas() {
             case 'slot-leave':
                 return hover === ev.id ? setHover('') : null;
             case 'slot-click':
-                return handleInspectActor(ev.id);
+                return setSelectedActorId(ev.id);
             case 'conn-enter':
                 return setHover(ev.id);
             case 'conn-leave':
@@ -80,7 +73,7 @@ export function NetworkCanvas() {
                     availableActors={availableActors}
                     steps={scenarioDesc.steps}
                     dispatch={dispatch}
-                    onInspect={handleInspectStep}
+                    onInspect={setCurrentStepId}
                 />
             </div>
         </div>

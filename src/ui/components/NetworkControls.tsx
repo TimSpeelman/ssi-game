@@ -15,7 +15,7 @@ export interface Props {
     steps: ScenarioStepDescription[];
     activeStep: ScenarioStepDescription | undefined;
     activeActor?: { actor: Actor; assets: Asset[] };
-    onInspect: (step: ScenarioStepDescription) => void;
+    onInspect: (stepId?: string) => void;
     dispatch: (action: IAction<any>) => void;
     availableActors: Actor[];
     scenario: ScenarioDescription;
@@ -48,7 +48,7 @@ export function NetworkControls(props: Props) {
                 activeStepIndex={
                     props.activeStep ? steps.findIndex((s) => s.action.id === props.activeStep?.action.id) : -1
                 }
-                onInspect={(id) => props.onInspect(props.steps.find((a) => a.action.id === id)!)}
+                onInspect={(id) => props.onInspect(id)}
                 onDelete={(index) => props.dispatch(ScenarioActions.REMOVE_STEP({ index }))}
             />
         </div>

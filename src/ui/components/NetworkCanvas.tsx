@@ -1,3 +1,5 @@
+import { Fab } from '@material-ui/core';
+import { NavigateBefore, NavigateNext } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { allActors } from '../../config/actors';
 import { OnlineLiquorPurchaseScenario } from '../../config/scenarios/OnlineLiquorPurchaseScenario';
@@ -26,6 +28,7 @@ export function NetworkCanvas() {
 
     const [currentStepId, activateStep] = useState<string | undefined>(undefined);
     const currentStep = scenarioDesc.steps.find((s) => s.action.id === currentStepId);
+    const currentStepIndex = currentStepId ? scenarioDesc.steps.findIndex((s) => s.action.id === currentStepId) : -1;
     const currentState = currentStep ? currentStep.result : scenario.initial;
 
     const [selectedActorId, selectActor] = useState<string | undefined>(undefined);
@@ -40,6 +43,16 @@ export function NetworkCanvas() {
         activateStep(id);
         selectActor(undefined);
         setStepIsSelected(true);
+    }
+
+    function nextStep() {
+        const index = currentStepIndex >= scenarioDesc.steps.length - 1 ? -1 : currentStepIndex + 1;
+        activateStep(index < 0 ? undefined : scenarioDesc.steps[index].action.id);
+    }
+
+    function prevStep() {
+        const index = currentStepIndex === -1 ? scenarioDesc.steps.length - 1 : currentStepIndex - 1;
+        activateStep(index < 0 ? undefined : scenarioDesc.steps[index].action.id);
     }
 
     const handleEvent = (ev: CanvasEvent) => {
@@ -77,6 +90,14 @@ export function NetworkCanvas() {
         <div className="network-canvas">
             <div className="canvasarea">
                 <SVGNetworkCanvas elems={elems} onEvent={handleEvent} />
+                <div className="time-navigation">
+                    <Fab style={{ marginRight: '1rem' }} onClick={prevStep}>
+                        <NavigateBefore />
+                    </Fab>
+                    <Fab onClick={nextStep}>
+                        <NavigateNext />
+                    </Fab>
+                </div>
             </div>
             <div className="sidebar">
                 <NetworkControls

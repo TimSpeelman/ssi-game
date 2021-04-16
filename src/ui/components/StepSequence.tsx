@@ -18,7 +18,7 @@ export interface Props {
 }
 
 export function StepSequence(props: Props) {
-    const [hover, setHover] = useState(-1);
+    const [hover, setHover] = useState(-2);
 
     function handleMouseEnter(index: number) {
         setHover(index);
@@ -27,7 +27,7 @@ export function StepSequence(props: Props) {
 
     function handleMouseExit(index: number) {
         if (hover === index) {
-            setHover(-1);
+            setHover(-2);
             // props.onInspect();
         }
     }
@@ -42,10 +42,20 @@ export function StepSequence(props: Props) {
     return (
         <List style={{ padding: '1rem' }}>
             <Divider />
+            <ListItem
+                className={props.activeStepIndex < 0 ? 'active-step' : ''}
+                onMouseEnter={() => handleMouseEnter(-1)}
+                onMouseLeave={() => handleMouseExit(-1)}
+                onClick={() => props.onInspect(undefined)}
+                selected={hover === -1}
+            >
+                <ListItemText primary={'START'} />
+            </ListItem>
+
             {props.steps.map((step, i) => (
                 <Fragment key={i}>
                     <ListItem
-                        className={props.stepIsSelected && props.activeStepIndex === i ? 'active-step' : ''}
+                        className={props.activeStepIndex === i ? 'active-step' : ''}
                         onClick={() => handleClick(i)}
                         onMouseEnter={() => handleMouseEnter(i)}
                         onMouseLeave={() => handleMouseExit(i)}

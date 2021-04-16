@@ -25,6 +25,13 @@ html {
 .canvasarea {
     flex-grow: 1;
     flex-shrink: 1;
+    position: relative;
+
+    .time-navigation {
+        position: absolute;
+        bottom: 3rem;
+        right: 3rem;
+    }
 }
 
 .sidebar {

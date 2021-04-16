@@ -12,6 +12,7 @@ import { ScenarioStepDescription } from '../../data/scenario/Scenario';
 export interface Props {
     steps: ScenarioStepDescription[];
     activeStepIndex: number;
+    stepIsSelected: boolean;
     onInspect: (act?: string) => void;
     onDelete: (index: number) => void;
 }
@@ -33,7 +34,9 @@ export function StepSequence(props: Props) {
 
     function handleClick(index: number) {
         // toggle
-        props.onInspect(props.activeStepIndex === index ? undefined : props.steps[index].action.id);
+        props.onInspect(
+            props.activeStepIndex === index && props.stepIsSelected ? undefined : props.steps[index].action.id,
+        );
     }
 
     return (
@@ -42,10 +45,11 @@ export function StepSequence(props: Props) {
             {props.steps.map((step, i) => (
                 <Fragment key={i}>
                     <ListItem
+                        className={props.stepIsSelected && props.activeStepIndex === i ? 'active-step' : ''}
                         onClick={() => handleClick(i)}
                         onMouseEnter={() => handleMouseEnter(i)}
                         onMouseLeave={() => handleMouseExit(i)}
-                        selected={hover === i || props.activeStepIndex === i}
+                        selected={hover === i || (props.activeStepIndex === i && props.stepIsSelected)}
                     >
                         <img src={actorImage(step.action.from.image)} style={{ height: '3rem' }} />
                         <i className="fas fa-chevron-right"></i>

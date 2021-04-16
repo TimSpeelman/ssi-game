@@ -2,10 +2,9 @@ body,
 html {
     height: 100%;
     width: 100%;
-    font-family: Lato;
+    font-family: Roboto;
     font-weight: 300;
     overflow: hidden;
-    font-size: 20px;
     background: #eee;
 }
 
@@ -24,15 +23,14 @@ html {
 }
 
 .canvasarea {
-    width: 60%;
-    flex-grow: 0;
-    flex-shrink: 0;
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 
 .sidebar {
-    width: 40%;
-    flex-grow: 0;
-    flex-shrink: 0;
+    width: 40rem;
+    flex-grow: 1;
+    flex-shrink: 1;
     overflow-y: auto;
     background: white;
 }
@@ -59,3 +57,7 @@ html {
     transition: all 0.3s;
 }
 /*# sourceMappingURL=NetworkCanvas.css.map */
+
+.active-step {
+    border: 1px solid red;
+}

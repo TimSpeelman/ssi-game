@@ -14,6 +14,7 @@ import { StepSequence } from './StepSequence';
 export interface Props {
     steps: ScenarioStepDescription[];
     activeStep: ScenarioStepDescription | undefined;
+    stepIsSelected: boolean;
     activeActor?: { actor: Actor; assets: Asset[] };
     onInspect: (stepId?: string) => void;
     dispatch: (action: IAction<any>) => void;
@@ -27,12 +28,11 @@ export function NetworkControls(props: Props) {
 
     return (
         <div>
-            {props.activeStep && <StepInspector step={props.activeStep} />}
-
-            <Divider />
+            {props.activeStep && props.stepIsSelected && <StepInspector step={props.activeStep} />}
+            {props.activeStep && props.stepIsSelected && <Divider />}
 
             {props.activeActor && <ActorInspector actor={props.activeActor.actor} assets={props.activeActor.assets} />}
-            <Divider />
+            {props.activeActor && <Divider />}
 
             <div style={{ padding: '1rem' }}>
                 <AddActorMenu
@@ -46,6 +46,7 @@ export function NetworkControls(props: Props) {
             <Divider />
             <StepSequence
                 steps={steps}
+                stepIsSelected={props.stepIsSelected}
                 activeStepIndex={
                     props.activeStep ? steps.findIndex((s) => s.action.id === props.activeStep?.action.id) : -1
                 }

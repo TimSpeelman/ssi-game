@@ -21,12 +21,26 @@ export function NetworkCanvas() {
     }
 
     const [hoveredElemId, setHoveredElemId] = useState('');
-    const [selectedActorId, setSelectedActorId] = useState<string | undefined>(undefined);
-    const [currentStepId, setCurrentStepId] = useState<string | undefined>(undefined);
 
-    const actInspect = scenarioDesc.steps.find((s) => s.action.id === currentStepId);
-    const currentState = actInspect ? actInspect.result : scenario.initial;
-    const activeActor = selectedActorId ? currentState.actors[selectedActorId] : undefined;
+    const [stepIsSelected, setStepIsSelected] = useState(false);
+
+    const [currentStepId, activateStep] = useState<string | undefined>(undefined);
+    const currentStep = scenarioDesc.steps.find((s) => s.action.id === currentStepId);
+    const currentState = currentStep ? currentStep.result : scenario.initial;
+
+    const [selectedActorId, selectActor] = useState<string | undefined>(undefined);
+    const selectedActor = selectedActorId ? currentState.actors[selectedActorId] : undefined;
+
+    function handleClickActor(id: string) {
+        selectActor(selectedActorId === id ? undefined : id);
+        setStepIsSelected(false);
+    }
+
+    function handleClickStep(id: string) {
+        activateStep(id);
+        selectActor(undefined);
+        setStepIsSelected(true);
+    }
 
     const handleEvent = (ev: CanvasEvent) => {
         switch (ev.type) {
@@ -35,7 +49,7 @@ export function NetworkCanvas() {
             case 'slot-leave':
                 return hoveredElemId === ev.id ? setHoveredElemId('') : null;
             case 'slot-click':
-                return setSelectedActorId(selectedActorId === ev.id ? undefined : ev.id);
+                return handleClickActor(ev.id);
             case 'conn-enter':
                 return setHoveredElemId(ev.id);
             case 'conn-leave':
@@ -52,7 +66,7 @@ export function NetworkCanvas() {
         width: 600,
         state: currentState,
         actors: actors,
-        step: actInspect,
+        step: currentStep,
         selectedActorId,
         hoveredElemId,
     });
@@ -66,13 +80,14 @@ export function NetworkCanvas() {
             </div>
             <div className="sidebar">
                 <NetworkControls
-                    activeActor={activeActor}
-                    activeStep={actInspect}
+                    activeActor={selectedActor}
+                    activeStep={currentStep}
+                    stepIsSelected={stepIsSelected}
                     scenario={scenarioDesc}
                     availableActors={availableActors}
                     steps={scenarioDesc.steps}
                     dispatch={dispatch}
-                    onInspect={setCurrentStepId}
+                    onInspect={handleClickStep}
                 />
             </div>
         </div>

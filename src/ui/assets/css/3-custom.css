@@ -2,10 +2,9 @@ body,
 html {
   height: 100%;
   width: 100%;
-  font-family: Lato;
+  font-family: Roboto;
   font-weight: 300;
   overflow: hidden;
-  font-size: 20px;
   background: #eee;
 }
 
@@ -26,21 +25,20 @@ html {
 }
 
 .canvasarea {
-  width: 60%;
-  -webkit-box-flex: 0;
-      -ms-flex-positive: 0;
-          flex-grow: 0;
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -ms-flex-negative: 1;
+      flex-shrink: 1;
 }
 
 .sidebar {
-  width: 40%;
-  -webkit-box-flex: 0;
-      -ms-flex-positive: 0;
-          flex-grow: 0;
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
+  width: 40rem;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -ms-flex-negative: 1;
+      flex-shrink: 1;
   overflow-y: auto;
   background: white;
 }
@@ -65,5 +63,8 @@ html {
 .network-canvas svg * {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+}
+.active-step {
+  border: 1px solid red;
 }
 /*# sourceMappingURL=3-custom.css.map */

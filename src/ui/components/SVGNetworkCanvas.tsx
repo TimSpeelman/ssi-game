@@ -46,17 +46,6 @@ const slot = (e: SlotEl, dispatch: (e: CanvasEvent) => void) => (
         {/* Selection or hover */}
         <circle cx={e.c[0]} cy={e.c[1]} r={e.selected || e.hovered ? e.r * 1.1 : 0} opacity={1} fill={'#fef4bd'} />
 
-        {/* Involved in step */}
-        {/* <circle
-            cx={e.c[0]}
-            cy={e.c[1]}
-            r={e.involvedInStep ? e.r * 1.1 : 0}
-            opacity={1}
-            fill={'transparent'}
-            stroke={'#fef4bd'}
-            strokeWidth={10}
-        /> */}
-
         {/* Actor image */}
         <image href={e.url} x={e.c[0] - e.r} y={e.c[1] - e.r} width={e.r * 2} opacity={e.involvedInStep ? 1 : 0.4} />
 

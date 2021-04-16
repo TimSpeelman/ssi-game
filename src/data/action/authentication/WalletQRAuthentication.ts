@@ -47,6 +47,7 @@ export class WalletQRAuthentication implements IAction {
             type: 'WalletQRAuthentication',
             from: verifier,
             to: subject,
+            to_mode: 'selfie',
             description: 'Authenticatie van wallet (pseudoniem) via QR',
             sub: '..',
             long: `${ucFirst(subject.nounPhrase)} scant QR van ${verifier.name} waarna ${verifier.name} de wallet van ${

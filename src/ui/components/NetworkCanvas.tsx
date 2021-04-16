@@ -84,11 +84,20 @@ export function NetworkCanvas() {
 
     const actors = Object.values(scenario.initial.actors).map((a) => a.actor); // TODO initial state
 
+    // TODO unhack me. Demonstrates use of modes so Actors are displayed to perform actions (e.g. taking a selfie)
+    const modes = !currentStep
+        ? {}
+        : {
+              [currentStep.action.from.id]: currentStep.action.from_mode,
+              [currentStep.action.to.id]: currentStep.action.to_mode,
+          };
+
     const elems = createNetworkCanvasData({
         height: 600,
         width: 600,
         state: currentState,
         actors: actors,
+        modes,
         step: currentStep,
         selectedActorId,
         hoveredElemId,

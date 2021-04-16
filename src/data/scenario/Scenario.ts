@@ -69,6 +69,7 @@ export interface ScenarioStateDescription {
         {
             assets: Asset[];
             actor: Actor;
+            mode?: string;
         }
     >;
 }

@@ -52,6 +52,7 @@ export class PresentationConsent implements IAction {
             type: 'PresentationConsent',
             from: verifier,
             to: subject,
+            to_mode: 'phone',
             description: `Geef toestemming om ${this.props.attributeName} credential te gebruiken`,
             sub: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
             long: `${ucFirst(subject.nounPhrase)} geeft ${verifier.name} toestemming om het attribuut ${

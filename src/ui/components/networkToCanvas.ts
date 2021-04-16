@@ -10,10 +10,16 @@ interface NetworkProps {
     width: number;
     height: number;
     actors: Actor[];
+    modes: Record<string, string | undefined>;
     state: ScenarioStateDescription;
     step?: ScenarioStepDescription;
     selectedActorId?: string;
     hoveredElemId?: string;
+}
+
+function getActorImage(actor: Actor, mode?: string) {
+    if (mode && actor.modeImages && actor.modeImages[mode]) return actor.modeImages[mode];
+    else return actor.image;
 }
 
 export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
@@ -38,7 +44,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
                 !!currentStep && (currentStep.from.id === actors[i].id || currentStep.to.id === actors[i].id),
             c: p,
             r: slotRadius,
-            url: actorImage(actors[i].image),
+            url: actorImage(getActorImage(actors[i], props.modes[actors[i].id])),
         }),
     );
 

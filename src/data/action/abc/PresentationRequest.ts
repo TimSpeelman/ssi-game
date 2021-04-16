@@ -52,6 +52,7 @@ export class PresentationRequest implements IAction {
             type: 'PresentationRequest',
             from: verifier,
             to: subject,
+            to_mode: 'phone',
             description: `Vraag om ${this.props.attributeName} credential te tonen`,
             sub: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
             long: `${ucFirst(verifier.nounPhrase)} verzoekt ${subject.name} om het attribuut ${

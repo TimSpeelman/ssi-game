@@ -58,7 +58,9 @@ export class Issuance implements IAction {
             id: this.id,
             type: 'Issuance',
             from: issuer,
+            from_mode: 'issuing',
             to: subject,
+            to_mode: 'phone',
             description: `Uitgave van ${this.props.attributeName} credential`,
             sub: `Subject: ${this.props.subjectNym}, Issuer: ${this.props.issuerNym}`,
             long: `${ucFirst(issuer.nounPhrase)} geeft een ${this.props.attributeName} credential uit aan ${

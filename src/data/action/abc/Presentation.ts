@@ -57,6 +57,7 @@ export class Presentation implements IAction {
             type: 'Presentation',
             from: verifier,
             to: subject,
+            to_mode: 'phone',
             description: `Toon ${this.props.attributeName} credential`,
             sub: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
             long: `${ucFirst(subject.nounPhrase)} toont het ${this.props.attributeName} credential aan ${

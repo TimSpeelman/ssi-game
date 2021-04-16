@@ -62,6 +62,7 @@ export class PhysicalPassportAuthentication implements IAction {
             type: 'PhysicalPassportAuthentication',
             from: verifier,
             to: subject,
+            to_mode: 'facescan',
             description: 'Fysieke authenticatie o.b.v. paspoort',
             sub: '..',
             long: `${ucFirst(verifier.nounPhrase)} authenticeert ${subject.name}, in levende lijve, op basis van ${

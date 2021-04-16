@@ -6,6 +6,11 @@ export const allActors = {
         image: 'person3',
         name: 'John',
         nounPhrase: 'John',
+        modeImages: {
+            selfie: 'person3_selfie',
+            phone: 'person3_phone',
+            facescan: 'person3_facescan',
+        },
         isMale: true,
         isHuman: true,
     } as Actor,
@@ -23,6 +28,9 @@ export const allActors = {
         image: 'gov1',
         name: 'Overheid',
         nounPhrase: 'de overheid',
+        modeImages: {
+            issuing: 'gov1_issuing',
+        },
         isMale: false,
         isHuman: false,
     } as Actor,

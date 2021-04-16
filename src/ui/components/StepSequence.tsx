@@ -37,7 +37,7 @@ export function StepSequence(props: Props) {
     }
 
     return (
-        <List>
+        <List style={{ padding: '1rem' }}>
             <Divider />
             {props.steps.map((step, i) => (
                 <Fragment key={i}>

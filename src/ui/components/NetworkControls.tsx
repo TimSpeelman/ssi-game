@@ -26,7 +26,7 @@ export function NetworkControls(props: Props) {
     const steps = props.steps;
 
     return (
-        <div style={{ margin: 20, padding: 20 }}>
+        <div>
             {props.activeStep && <StepInspector step={props.activeStep} />}
 
             <Divider />
@@ -34,13 +34,14 @@ export function NetworkControls(props: Props) {
             {props.activeActor && <ActorInspector actor={props.activeActor.actor} assets={props.activeActor.assets} />}
             <Divider />
 
-            <AddActorMenu
-                label={'Voeg actor toe'}
-                actors={props.availableActors}
-                onAdd={(actor) => props.dispatch(ScenarioActions.ADD_ACTOR({ actor }))}
-            />
-
-            <AddStepMenu onAdd={(step) => props.dispatch(ScenarioActions.ADD_STEP({ step }))} />
+            <div style={{ padding: '1rem' }}>
+                <AddActorMenu
+                    label={'Voeg actor toe'}
+                    actors={props.availableActors}
+                    onAdd={(actor) => props.dispatch(ScenarioActions.ADD_ACTOR({ actor }))}
+                />{' '}
+                <AddStepMenu onAdd={(step) => props.dispatch(ScenarioActions.ADD_STEP({ step }))} />
+            </div>
 
             <Divider />
             <StepSequence

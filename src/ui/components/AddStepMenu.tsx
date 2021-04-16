@@ -53,7 +53,9 @@ export function AddStepMenu(props: Props) {
 
     return (
         <Fragment>
-            <Button onClick={handleClickOpen}>Voeg handeling toe</Button>
+            <Button variant="outlined" onClick={handleClickOpen}>
+                Voeg handeling toe
+            </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Handeling Toevoegen</DialogTitle>
                 <DialogContent>

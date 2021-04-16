@@ -104,7 +104,7 @@ export function NetworkCanvas() {
                 <div className="time-navigation">
                     {currentStep ? (
                         <span>
-                            <strong>Stap:</strong>
+                            <strong>Stap {currentStepIndex + 1}: </strong>
                             {currentStep.action.description}
                         </span>
                     ) : (

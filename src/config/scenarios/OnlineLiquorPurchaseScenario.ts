@@ -124,8 +124,8 @@ export const OnlineLiquorPurchaseScenario = new Scenario({
         }),
         new CustomInteraction('8', {
             // Feitelijk verifieert de Verifier zelfstandig de verzegeling en ondertekening, en via de ledger de actualiteit (hier wellicht niet relevant)
-            from: Shop,
-            to: Subject,
+            fromId: Shop.id,
+            toId: Subject.id,
             description: 'Verifieer 18+ bewijs',
             sub: '',
         }),

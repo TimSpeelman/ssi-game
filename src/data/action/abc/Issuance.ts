@@ -1,26 +1,39 @@
 import { AttributeProof } from '../../asset/data/abc/AttributeProof';
+import { FormConfig } from '../../FormConfig';
 import { GainAssetOutcome } from '../../outcome/GainAssetOutcome';
 import { IOutcome } from '../../outcome/IOutcome';
 import { ScenarioStateDescription } from '../../scenario/Scenario';
 import { IAction } from '../IAction';
 import { InteractionDescription } from '../InteractionDescription';
 
+export interface Props {
+    issuerId: string;
+    subjectId: string;
+    issuerNym: string;
+    subjectNym: string;
+    attributeName: string;
+    attributeValue: string;
+}
+
 /**
  * A Verifier authenticates a human Subject by comparing its physical appearance with its passport. We assume integrity
  * and authenticity.
  */
 export class Issuance implements IAction {
-    constructor(
-        readonly id: string,
-        readonly props: {
-            issuerId: string;
-            subjectId: string;
-            issuerNym: string;
-            subjectNym: string;
-            attributeName: string;
-            attributeValue: string;
+    static config: FormConfig<keyof Props> = {
+        title: 'Uitgifte van credential',
+        fields: {
+            issuerId: { type: 'actor', title: 'Issuer' },
+            subjectId: { type: 'actor', title: 'Subject' },
+            issuerNym: { type: 'string', title: 'Pseudoniem van issuer' },
+            subjectNym: { type: 'string', title: 'Pseudoniem van subject' },
+            attributeName: { type: 'string', title: 'Attribuutnaam' },
+            attributeValue: { type: 'string', title: 'Attribuutwaarde' },
         },
-    ) {}
+        create: (id, d) => new Issuance(id, d),
+    };
+
+    constructor(readonly id: string, readonly props: Props) {}
 
     validatePreConditions(state: ScenarioStateDescription): string[] {
         return []; // TODO

@@ -18,7 +18,8 @@ export interface Props {
     activeActor?: { actor: Actor; assets: Asset[] };
     onInspect: (stepId?: string) => void;
     dispatch: (action: IAction<any>) => void;
-    availableActors: Actor[];
+    unusedActors: Actor[];
+    usedActors: Actor[];
     scenario: ScenarioDescription;
 }
 
@@ -37,10 +38,13 @@ export function NetworkControls(props: Props) {
             <div style={{ padding: '1rem' }}>
                 <AddActorMenu
                     label={'Voeg actor toe'}
-                    actors={props.availableActors}
+                    actors={props.unusedActors}
                     onAdd={(actor) => props.dispatch(ScenarioActions.ADD_ACTOR({ actor }))}
                 />{' '}
-                <AddStepMenu onAdd={(step) => props.dispatch(ScenarioActions.ADD_STEP({ step }))} />
+                <AddStepMenu
+                    availableActors={props.usedActors}
+                    onAdd={(step) => props.dispatch(ScenarioActions.ADD_STEP({ step }))}
+                />
             </div>
 
             <Divider />

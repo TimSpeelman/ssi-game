@@ -1,23 +1,33 @@
 import { AuthenticationResult } from '../../asset/data/abc/AuthenticationResult';
+import { FormConfig } from '../../FormConfig';
 import { GainAssetOutcome } from '../../outcome/GainAssetOutcome';
 import { IOutcome } from '../../outcome/IOutcome';
 import { ScenarioStateDescription } from '../../scenario/Scenario';
 import { IAction } from '../IAction';
 import { InteractionDescription } from '../InteractionDescription';
 
+export interface Props {
+    verifierId: string;
+    humanSubjectId: string;
+    dataSubjectId: string;
+}
+
 /**
  * A Verifier authenticates a human Subject by comparing its physical appearance with its passport. We assume integrity
  * and authenticity.
  */
 export class PhysicalPassportAuthentication implements IAction {
-    constructor(
-        readonly id: string,
-        readonly props: {
-            verifierId: string;
-            humanSubjectId: string;
-            dataSubjectId: string;
+    static config: FormConfig<keyof Props> = {
+        title: 'Authenticatie o.b.v. paspoort',
+        fields: {
+            verifierId: { type: 'actor', title: 'Verifier' },
+            humanSubjectId: { type: 'actor', title: 'Subject' },
+            dataSubjectId: { type: 'string', title: 'Pseudoniem van Subject' },
         },
-    ) {}
+        create: (id, d) => new PhysicalPassportAuthentication(id, d),
+    };
+
+    constructor(readonly id: string, readonly props: Props) {}
 
     validatePreConditions(state: ScenarioStateDescription): string[] {
         assert(this.props.verifierId in state.actors, 'Unknown human subject id');

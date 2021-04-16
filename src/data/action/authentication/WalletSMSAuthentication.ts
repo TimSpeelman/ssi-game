@@ -1,20 +1,30 @@
 import { AttributeKnowledge } from '../../asset/data/abc/AttributeKnowledge';
 import { AuthenticationResult } from '../../asset/data/abc/AuthenticationResult';
+import { FormConfig } from '../../FormConfig';
 import { GainAssetOutcome } from '../../outcome/GainAssetOutcome';
 import { IOutcome } from '../../outcome/IOutcome';
 import { ScenarioStateDescription } from '../../scenario/Scenario';
 import { IAction } from '../IAction';
 import { InteractionDescription } from '../InteractionDescription';
 
+export interface Props {
+    verifierId: string;
+    humanSubjectId: string;
+    dataSubjectId: string;
+}
+
 export class WalletSMSAuthentication implements IAction {
-    constructor(
-        readonly id: string,
-        readonly props: {
-            verifierId: string;
-            humanSubjectId: string;
-            dataSubjectId: string;
+    static config: FormConfig<keyof Props> = {
+        title: 'Authenticatie van Wallet via SMS',
+        fields: {
+            verifierId: { type: 'actor', title: 'Verifier' },
+            humanSubjectId: { type: 'actor', title: 'Subject' },
+            dataSubjectId: { type: 'string', title: 'Pseudoniem van Subject' },
         },
-    ) {}
+        create: (id, d) => new WalletSMSAuthentication(id, d),
+    };
+
+    constructor(readonly id: string, readonly props: Props) {}
 
     validatePreConditions(state: ScenarioStateDescription): string[] {
         return []; // TODO

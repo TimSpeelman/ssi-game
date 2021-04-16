@@ -84,7 +84,8 @@ export function NetworkCanvas() {
         hoveredElemId,
     });
 
-    const availableActors = Object.values(allActors).filter((a) => !actors.find((x) => x.id === a.id));
+    const unusedActors = Object.values(allActors).filter((a) => !actors.find((x) => x.id === a.id));
+    const usedActors = Object.values(allActors).filter((a) => actors.find((x) => x.id === a.id));
 
     return (
         <div className="network-canvas">
@@ -105,7 +106,8 @@ export function NetworkCanvas() {
                     activeStep={currentStep}
                     stepIsSelected={stepIsSelected}
                     scenario={scenarioDesc}
-                    availableActors={availableActors}
+                    unusedActors={unusedActors}
+                    usedActors={usedActors}
                     steps={scenarioDesc.steps}
                     dispatch={dispatch}
                     onInspect={handleClickStep}

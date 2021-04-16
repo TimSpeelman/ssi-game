@@ -1,23 +1,37 @@
 import { AttributeKnowledge } from '../../asset/data/abc/AttributeKnowledge';
+import { FormConfig } from '../../FormConfig';
 import { GainAssetOutcome } from '../../outcome/GainAssetOutcome';
 import { IOutcome } from '../../outcome/IOutcome';
 import { ScenarioStateDescription } from '../../scenario/Scenario';
 import { IAction } from '../IAction';
 import { InteractionDescription } from '../InteractionDescription';
 
+export interface Props {
+    verifierId: string;
+    subjectId: string;
+    verifierNym: string;
+    subjectNym: string;
+    attributeName: string;
+    attributeValue: string;
+    issuerNym: string;
+}
+
 export class Presentation implements IAction {
-    constructor(
-        readonly id: string,
-        readonly props: {
-            verifierId: string;
-            subjectId: string;
-            verifierNym: string;
-            subjectNym: string;
-            attributeName: string;
-            attributeValue: string;
-            issuerNym: string;
+    static config: FormConfig<keyof Props> = {
+        title: 'Presentatie van Credential',
+        fields: {
+            verifierId: { type: 'actor', title: 'Verifier' },
+            subjectId: { type: 'actor', title: 'Subject' },
+            verifierNym: { type: 'string', title: 'Pseudoniem van Verifier' },
+            subjectNym: { type: 'string', title: 'Pseudoniem van Subject' },
+            issuerNym: { type: 'string', title: 'Pseudoniem van Issuer' },
+            attributeName: { type: 'string', title: 'Attribuutnaam' },
+            attributeValue: { type: 'string', title: 'Attribuutwaarde' },
         },
-    ) {}
+        create: (id, d) => new Presentation(id, d),
+    };
+
+    constructor(readonly id: string, readonly props: Props) {}
 
     validatePreConditions(state: ScenarioStateDescription): string[] {
         return []; // TODO

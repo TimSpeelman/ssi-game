@@ -9,27 +9,24 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { actorImage } from '../../config/actorImage';
-import { allActors } from '../../config/actors';
-import { CustomInteraction } from '../../data/action/CustomInteraction';
+import { ActionForms } from '../../data/action/forms';
 import { IAction } from '../../data/action/IAction';
 import { Actor } from '../../data/actor/Actor';
-import { actTypes } from '../../data/actTypes';
 
 interface Props {
     onAdd: (act: IAction) => void;
+    availableActors: Actor[];
 }
-
-const availableActors = allActors as Record<string, Actor>;
 
 export function AddStepMenu(props: Props) {
     const [open, setOpen] = React.useState(false);
-    const [actType, setActType] = React.useState<string>('');
-    const [desc, setDesc] = React.useState<string>('');
-    const [actorOne, setActorOne] = React.useState<Actor>(allActors.person1);
-    const [actorTwo, setActorTwo] = React.useState<Actor>(allActors.gov1);
+    const [actTypeIndex, setActType] = React.useState<number>(-1);
+    const actType = actTypeIndex < 0 ? undefined : ActionForms[actTypeIndex];
+    const [data, setData] = useState<any>({});
+    useEffect(() => setData({}), [actTypeIndex]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -40,16 +37,16 @@ export function AddStepMenu(props: Props) {
     };
 
     const handleSubmit = () => {
-        props.onAdd(
-            new CustomInteraction(uuid(), {
-                description: actTypes.find((t) => t.type === actType)!.desc,
-                from: actorOne,
-                to: actorTwo,
-                sub: desc,
-            }),
-        );
+        if (!actType) return;
+        props.onAdd(actType.create(uuid(), data));
         handleClose();
     };
+
+    function setField(name: string, value: any) {
+        setData({ ...data, [name]: value });
+    }
+
+    const fields = actType ? Object.entries(actType.fields) : [];
 
     return (
         <Fragment>
@@ -62,55 +59,44 @@ export function AddStepMenu(props: Props) {
                     <DialogContentText>Kies een handeling</DialogContentText>
                     <FormControl fullWidth style={{ marginBottom: '1em' }}>
                         <InputLabel>Handeling</InputLabel>
-                        <Select value={actType} onChange={(e) => setActType(e.target.value as string)}>
-                            {actTypes.map((actType) => (
-                                <MenuItem key={actType.type} value={actType.type}>
-                                    {actType.desc}
+                        <Select value={actTypeIndex} onChange={(e) => setActType(e.target.value as number)}>
+                            {ActionForms.map((actType, i) => (
+                                <MenuItem key={i} value={i}>
+                                    {actType.title}
                                 </MenuItem>
                             ))}
                         </Select>
                     </FormControl>
 
-                    <FormControl fullWidth style={{ marginBottom: '1em' }}>
-                        <InputLabel>Actor 1</InputLabel>
-                        <Select
-                            value={actorOne.id}
-                            onChange={(e) => setActorOne(availableActors[e.target.value as string])}
-                        >
-                            {Object.values(availableActors).map((actor) => (
-                                <MenuItem key={actor.id} value={actor.id}>
-                                    <img src={actorImage(actor.image)} style={{ height: '2rem' }} />
-                                    {actor.name}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
+                    {fields.map(([prop, field]) => (
+                        <div key={prop}>
+                            {field.type === 'actor' && (
+                                <FormControl fullWidth style={{ marginBottom: '1em' }}>
+                                    <InputLabel>{field.title}</InputLabel>
+                                    <Select value={data[prop] || ''} onChange={(e) => setField(prop, e.target.value)}>
+                                        {props.availableActors.map((actor) => (
+                                            <MenuItem key={actor.id} value={actor.id}>
+                                                <img src={actorImage(actor.image)} style={{ height: '2rem' }} />
+                                                {actor.name}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            )}
 
-                    <FormControl fullWidth style={{ marginBottom: '1em' }}>
-                        <InputLabel>Actor 2</InputLabel>
-                        <Select
-                            value={actorTwo.id}
-                            onChange={(e) => setActorTwo(availableActors[e.target.value as string])}
-                        >
-                            {Object.values(availableActors).map((actor) => (
-                                <MenuItem key={actor.id} value={actor.id}>
-                                    <img src={actorImage(actor.image)} style={{ height: '2rem' }} />
-                                    {actor.name}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-
-                    <TextField
-                        style={{ marginBottom: '1em' }}
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Omschrijving"
-                        value={desc}
-                        onChange={(e) => setDesc(e.target.value)}
-                        fullWidth
-                    />
+                            {field.type === 'string' && (
+                                <TextField
+                                    style={{ marginBottom: '1em' }}
+                                    margin="dense"
+                                    id={'input-' + prop}
+                                    label={field.title}
+                                    value={data[prop] || ''}
+                                    onChange={(e) => setField(prop, e.target.value)}
+                                    fullWidth
+                                />
+                            )}
+                        </div>
+                    ))}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">

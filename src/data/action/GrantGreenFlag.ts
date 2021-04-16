@@ -1,20 +1,30 @@
 import { ucFirst } from '../../util/util';
 import { GreenFlag } from '../asset/Flag';
+import { FormConfig } from '../FormConfig';
 import { GainAssetOutcome } from '../outcome/GainAssetOutcome';
 import { IOutcome } from '../outcome/IOutcome';
 import { ScenarioStateDescription } from '../scenario/Scenario';
 import { IAction } from './IAction';
 import { InteractionDescription } from './InteractionDescription';
 
+export interface Props {
+    fromId: string;
+    toId: string;
+    description: string;
+}
+
 export class GrantGreenFlag implements IAction {
-    constructor(
-        readonly id: string,
-        readonly props: {
-            fromId: string;
-            toId: string;
-            description: string;
+    static config: FormConfig<keyof Props> = {
+        title: 'Groene vlag toekennen',
+        fields: {
+            fromId: { type: 'actor', title: 'Van Actor' },
+            toId: { type: 'actor', title: 'Naar Actor' },
+            description: { type: 'string', title: 'Omschrijving' },
         },
-    ) {}
+        create: (id, d) => new GrantGreenFlag(id, d),
+    };
+
+    constructor(readonly id: string, readonly props: Props) {}
 
     validatePreConditions(): string[] {
         return [];

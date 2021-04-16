@@ -1,4 +1,5 @@
 import { lens } from 'lens.ts';
+import { ucFirst } from '../../util/util';
 import { Asset } from '../asset/Asset';
 import { ScenarioStateDescription } from '../scenario/Scenario';
 import { IOutcome } from './IOutcome';
@@ -20,7 +21,16 @@ export class GainAssetOutcome implements IOutcome {
     }
 
     describe(state: ScenarioStateDescription): string {
-        const actorName = state.actors[this.props.actorId].actor.name;
-        return `Actor ${actorName} krijgt asset van type ${this.props.asset.type}.`;
+        const actor = state.actors[this.props.actorId].actor;
+        return `${ucFirst(actor.nounPhrase)} krijgt ${assetToString(this.props.asset)}.`;
     }
+}
+
+function assetToString(a: Asset) {
+    const keys = Object.keys(a);
+    return `<${ucFirst(a.type)} ${keys
+        .filter((k) => k !== 'kind' && k !== 'type' && k !== 'id')
+        // @ts-ignore
+        .map((k) => `${k}:${a[k]}`)
+        .join(' | ')}>`;
 }

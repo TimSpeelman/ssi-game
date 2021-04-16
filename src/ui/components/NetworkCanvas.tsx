@@ -1,6 +1,7 @@
 import { Fab } from '@material-ui/core';
 import { NavigateBefore, NavigateNext } from '@material-ui/icons';
-import React, { useState } from 'react';
+import { useSnackbar } from 'notistack';
+import React, { useEffect, useState } from 'react';
 import { allActors } from '../../config/actors';
 import { OnlineLiquorPurchaseScenario } from '../../config/scenarios/OnlineLiquorPurchaseScenario';
 import { ScenarioActions } from '../../data/scenario/actions';
@@ -14,6 +15,8 @@ import { CanvasEvent, SVGNetworkCanvas } from './SVGNetworkCanvas';
 const initialScenario = OnlineLiquorPurchaseScenario;
 
 export function NetworkCanvas() {
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
     const [scenario, setScenario] = useState(initialScenario.props);
     const scenarioDesc = new Scenario(scenario).describe();
 
@@ -30,6 +33,13 @@ export function NetworkCanvas() {
     const currentStep = scenarioDesc.steps.find((s) => s.action.id === currentStepId);
     const currentStepIndex = currentStepId ? scenarioDesc.steps.findIndex((s) => s.action.id === currentStepId) : -1;
     const currentState = currentStep ? currentStep.result : scenario.initial;
+
+    useEffect(() => {
+        closeSnackbar();
+        if (currentStep) {
+            currentStep.outcomes.forEach((o) => enqueueSnackbar(o));
+        }
+    }, [currentStepId]);
 
     const [selectedActorId, selectActor] = useState<string | undefined>(undefined);
     const selectedActor = selectedActorId ? currentState.actors[selectedActorId] : undefined;

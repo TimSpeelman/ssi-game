@@ -1,3 +1,4 @@
+import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './App';
@@ -6,7 +7,11 @@ import './assets/css/3-custom.css';
 import * as serviceWorker from './serviceWorker';
 
 export async function mount(rootElement: HTMLElement) {
-    const root = <App />;
+    const root = (
+        <SnackbarProvider maxSnack={10}>
+            <App />
+        </SnackbarProvider>
+    );
 
     ReactDOM.render(root, rootElement);
 

@@ -43,11 +43,22 @@ const slot = (e: SlotEl, dispatch: (e: CanvasEvent) => void) => (
         {/* Background for hiding edges */}
         <circle cx={e.c[0]} cy={e.c[1]} r={e.r * 1.2} opacity={1} fill={'#eee'} />
 
-        {/* Hover highlight */}
-        <circle cx={e.c[0]} cy={e.c[1]} r={e.lit || e.active ? e.r * 1.1 : 0} opacity={1} fill={'#fef4bd'} />
+        {/* Selection or hover */}
+        <circle cx={e.c[0]} cy={e.c[1]} r={e.selected || e.hovered ? e.r * 1.1 : 0} opacity={1} fill={'#fef4bd'} />
+
+        {/* Involved in step */}
+        {/* <circle
+            cx={e.c[0]}
+            cy={e.c[1]}
+            r={e.involvedInStep ? e.r * 1.1 : 0}
+            opacity={1}
+            fill={'transparent'}
+            stroke={'#fef4bd'}
+            strokeWidth={10}
+        /> */}
 
         {/* Actor image */}
-        <image href={e.url} x={e.c[0] - e.r} y={e.c[1] - e.r} width={e.r * 2} />
+        <image href={e.url} x={e.c[0] - e.r} y={e.c[1] - e.r} width={e.r * 2} opacity={e.involvedInStep ? 1 : 0.4} />
 
         {/* Capture events on a transparent circle slighty bigger */}
         <circle
@@ -71,7 +82,7 @@ const slot = (e: SlotEl, dispatch: (e: CanvasEvent) => void) => (
         >
             <g
                 style={{
-                    transform: e.lit ? 'scale(1)' : 'scale(0)',
+                    transform: e.hovered ? 'scale(1)' : 'scale(0)',
                     transitionDelay: '1s',
                     transformOrigin: '50% 50%',
                 }}
@@ -105,13 +116,18 @@ const cubicBezier = (a: Vec, q: Vec, b: Vec) => `M ${a[0]} ${a[1]} Q ${q[0]} ${q
 const connection = (e: ConnectionEl, dispatch: (e: CanvasEvent) => void) => (
     <g key={e.id}>
         {/* Hover highlight */}
-        <path d={cubicBezier(e.from, e.q, e.to)} stroke={`#fef4bd`} strokeWidth={e.lit ? 25 : 0} fill="transparent" />
+        <path
+            d={cubicBezier(e.from, e.q, e.to)}
+            stroke={`#fef4bd`}
+            strokeWidth={e.lit || e.hovered ? 25 : 0}
+            fill="transparent"
+        />
 
         {/* Path */}
         <path
             d={cubicBezier(e.from, e.q, e.to)}
-            stroke={`rgba(0,0,0,${e.active ? 1 : 0.1})`}
-            strokeWidth={e.active ? 5 : 2}
+            stroke={`rgba(0,0,0,${e.involvedInStep ? 1 : 0.1})`}
+            strokeWidth={e.involvedInStep ? 5 : 2}
             fill="transparent"
         />
 
@@ -165,9 +181,10 @@ export interface AssetEl {
     id: string;
     c: Vec;
     r: number;
-    active: boolean;
+    active?: boolean;
     url: string;
-    lit: boolean;
+    lit?: boolean;
+    hovered?: boolean;
 }
 
 export interface SlotEl {
@@ -175,9 +192,10 @@ export interface SlotEl {
     id: string;
     c: Vec;
     r: number;
-    active: boolean;
+    selected?: boolean;
+    hovered?: boolean;
     url: string;
-    lit: boolean;
+    involvedInStep?: boolean;
 }
 
 export interface ConnectionEl {
@@ -186,8 +204,9 @@ export interface ConnectionEl {
     from: Vec;
     to: Vec;
     q: Vec;
-    active: boolean;
-    lit: boolean;
+    involvedInStep?: boolean;
+    lit?: boolean;
+    hovered?: boolean;
 }
 
 export interface InteractionEl {

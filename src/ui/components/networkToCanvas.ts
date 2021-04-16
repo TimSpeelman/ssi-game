@@ -12,6 +12,8 @@ interface NetworkProps {
     actors: Actor[];
     state: ScenarioStateDescription;
     step?: ScenarioStepDescription;
+    selectedActorId?: string;
+    hoveredElemId?: string;
 }
 
 export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
@@ -26,16 +28,19 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
 
     const slotRadius = 50;
     const currentStep = props.step?.action;
-    const slots: SlotEl[] = slotPositionsAbs.map((p, i) => ({
-        type: 'slot',
-        id: actors[i].id,
-        // id: `slot-${i}`,
-        lit: false,
-        c: p,
-        r: slotRadius,
-        url: actorImage(actors[i].image),
-        active: !!currentStep && (currentStep.from.id === actors[i].id || currentStep.to.id === actors[i].id),
-    }));
+    const slots: SlotEl[] = slotPositionsAbs.map(
+        (p, i): SlotEl => ({
+            type: 'slot',
+            id: actors[i].id,
+            // id: `slot-${i}`,
+            selected: actors[i].id === props.selectedActorId,
+            involvedInStep:
+                !!currentStep && (currentStep.from.id === actors[i].id || currentStep.to.id === actors[i].id),
+            c: p,
+            r: slotRadius,
+            url: actorImage(actors[i].image),
+        }),
+    );
 
     // Create connections between all actors
     const connectionCurveFraction = 0.5; // 0: straight line, 1: curved towards center
@@ -55,7 +60,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
                                   to: slot2.c,
                                   q: scaleQuadraticBezierCurve(slot1.c, center, slot2.c, connectionCurveFraction),
                                   lit: false,
-                                  active: slot1.active && slot2.active,
+                                  involvedInStep: slot1.involvedInStep && slot2.involvedInStep,
                               },
                           ],
                 [],
@@ -102,5 +107,5 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
     // Combine all elems
     const elems: CanvasElem[] = [...conns, ...slots, ...(!interaction ? [] : [interaction]), ...assets];
 
-    return elems;
+    return elems.map((e) => (e.id === props.hoveredElemId ? { ...e, hovered: true } : e));
 }

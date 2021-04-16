@@ -20,6 +20,7 @@ export function NetworkCanvas() {
         setScenario(newState);
     }
 
+    const [hoveredElemId, setHoveredElemId] = useState('');
     const [selectedActorId, setSelectedActorId] = useState<string | undefined>(undefined);
     const [currentStepId, setCurrentStepId] = useState<string | undefined>(undefined);
 
@@ -27,22 +28,18 @@ export function NetworkCanvas() {
     const currentState = actInspect ? actInspect.result : scenario.initial;
     const activeActor = selectedActorId ? currentState.actors[selectedActorId] : undefined;
 
-    const [hover, setHover] = useState('');
-
-    console.log('hovering,', hover);
-
     const handleEvent = (ev: CanvasEvent) => {
         switch (ev.type) {
             case 'slot-enter':
-                return setHover(ev.id);
+                return setHoveredElemId(ev.id);
             case 'slot-leave':
-                return hover === ev.id ? setHover('') : null;
+                return hoveredElemId === ev.id ? setHoveredElemId('') : null;
             case 'slot-click':
-                return setSelectedActorId(ev.id);
+                return setSelectedActorId(selectedActorId === ev.id ? undefined : ev.id);
             case 'conn-enter':
-                return setHover(ev.id);
+                return setHoveredElemId(ev.id);
             case 'conn-leave':
-                return hover === ev.id ? setHover('') : null;
+                return hoveredElemId === ev.id ? setHoveredElemId('') : null;
             case 'slot-delete':
                 return dispatch(ScenarioActions.REMOVE_ACTOR({ id: ev.id }));
         }
@@ -56,7 +53,9 @@ export function NetworkCanvas() {
         state: currentState,
         actors: actors,
         step: actInspect,
-    }).map((e) => (e.id === hover ? { ...e, lit: true } : e));
+        selectedActorId,
+        hoveredElemId,
+    });
 
     const availableActors = Object.values(allActors).filter((a) => !actors.find((x) => x.id === a.id));
 

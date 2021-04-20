@@ -1,4 +1,4 @@
-import { Divider } from '@material-ui/core';
+import { Button, Divider } from '@material-ui/core';
 import React from 'react';
 import { Actor } from '../../data/actor/Actor';
 import { Asset } from '../../data/asset/Asset';
@@ -21,6 +21,8 @@ export interface Props {
     unusedActors: Actor[];
     usedActors: Actor[];
     scenario: ScenarioDescription;
+    snackbarIsOn: boolean;
+    setSnackbarOn: (v: boolean) => void;
 }
 
 export function NetworkControls(props: Props) {
@@ -45,6 +47,9 @@ export function NetworkControls(props: Props) {
                     availableActors={props.usedActors}
                     onAdd={(step) => props.dispatch(ScenarioActions.ADD_STEP({ step }))}
                 />
+                <Button variant={'outlined'} onClick={() => props.setSnackbarOn(!props.snackbarIsOn)}>
+                    {props.snackbarIsOn ? 'Verberg Meldingen' : 'Toon Meldingen'}
+                </Button>
             </div>
 
             <Divider />

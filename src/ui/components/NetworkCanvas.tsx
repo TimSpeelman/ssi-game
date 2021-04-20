@@ -27,6 +27,7 @@ export function NetworkCanvas() {
 
     const [hoveredElemId, setHoveredElemId] = useState('');
 
+    const [snackbarIsOn, setSnackbarOn] = useState(true);
     const [stepIsSelected, setStepIsSelected] = useState(false);
 
     const [currentStepId, activateStep] = useState<string | undefined>(undefined);
@@ -36,7 +37,7 @@ export function NetworkCanvas() {
 
     useEffect(() => {
         closeSnackbar();
-        if (currentStep) {
+        if (currentStep && snackbarIsOn) {
             currentStep.outcomes.forEach((o) => enqueueSnackbar(o));
         }
     }, [currentStepId]);
@@ -136,6 +137,8 @@ export function NetworkCanvas() {
                     unusedActors={unusedActors}
                     usedActors={usedActors}
                     steps={scenarioDesc.steps}
+                    snackbarIsOn={snackbarIsOn}
+                    setSnackbarOn={setSnackbarOn}
                     dispatch={dispatch}
                     onInspect={handleClickStep}
                 />

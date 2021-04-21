@@ -1,4 +1,4 @@
-import Typography from '@material-ui/core/Typography';
+import { Typography } from '@material-ui/core';
 import React from 'react';
 import { ScenarioStepDescription } from '../../data/scenario/Scenario';
 import { StepLabel } from './StepLabel';

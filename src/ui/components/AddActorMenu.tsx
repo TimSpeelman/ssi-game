@@ -1,6 +1,4 @@
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import { Button, Menu, MenuItem } from '@material-ui/core';
 import React, { Fragment, MouseEvent as ReactMouseEvent } from 'react';
 import { actorImage } from '../../config/actorImage';
 import { Actor } from '../../data/actor/Actor';

@@ -1,4 +1,4 @@
-import Fab from '@material-ui/core/Fab';
+import { Fab } from '@material-ui/core';
 import NavigateNext from '@material-ui/icons/NavigateBefore';
 import NavigateBefore from '@material-ui/icons/NavigateNext';
 import { useSnackbar } from 'notistack';

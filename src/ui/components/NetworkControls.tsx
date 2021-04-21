@@ -54,13 +54,7 @@ export function NetworkControls(props: Props) {
                 </Button>{' '}
                 <Button variant={'outlined'} component={'label'}>
                     <RestorePage /> Laden
-                    <input
-                        type="file"
-                        hidden
-                        onChange={(e) =>
-                            e.target.files && e.target.files.length > 0 && props.loadFromFile(e.target.files)
-                        }
-                    />
+                    <input type="file" hidden value={undefined} onChange={(e) => props.loadFromFile(e)} />
                 </Button>
             </div>
 

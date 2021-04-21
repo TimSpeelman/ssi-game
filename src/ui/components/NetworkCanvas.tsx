@@ -43,8 +43,10 @@ export function NetworkCanvas() {
         FileSaver.saveAs(blob, fileName);
     }
 
-    function loadFromFile(files: any) {
+    function loadFromFile(e: any) {
+        const files = e.target.files;
         console.log('FILES', files);
+        if (!files || files.length !== 1) return;
         const reader = new FileReader();
         reader.onload = (e) => {
             const txt = reader.result;
@@ -55,11 +57,13 @@ export function NetworkCanvas() {
                 const parsed = JSON.parse(txt as string);
                 const scenario = Scenario.deserialize(parsed);
                 setScenarioProps(scenario.props);
+                alert('Bestand geladen!');
             } catch (e) {
                 alert('Bestand kon niet gelezen worden');
             }
         };
         reader.readAsText(files[0], 'utf8');
+        e.target.value = null;
     }
 
     function reset(silent = false) {

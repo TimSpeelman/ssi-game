@@ -1,5 +1,6 @@
 import { Button, Divider } from '@material-ui/core';
-import React from 'react';
+import { Add, Clear, RestorePage, Save } from '@material-ui/icons';
+import React, { Fragment } from 'react';
 import { Actor } from '../../data/actor/Actor';
 import { Asset } from '../../data/asset/Asset';
 import { ScenarioActions } from '../../data/scenario/actions';
@@ -22,6 +23,8 @@ export interface Props {
     usedActors: Actor[];
     scenario: ScenarioDescription;
     snackbarIsOn: boolean;
+    saveToFile: () => void;
+    loadFromFile: (files: any) => void;
     setSnackbarOn: (v: boolean) => void;
     reset: () => void;
 }
@@ -39,20 +42,46 @@ export function NetworkControls(props: Props) {
             {props.activeActor && <Divider />}
 
             <div style={{ padding: '1rem' }}>
+                <Button variant={'outlined'} onClick={props.reset}>
+                    <Clear /> Reset
+                </Button>{' '}
+                <Button variant={'outlined'} onClick={props.saveToFile}>
+                    <Save /> Opslaan
+                </Button>{' '}
+                <Button variant={'outlined'} component={'label'}>
+                    <RestorePage /> Laden
+                    <input
+                        type="file"
+                        hidden
+                        onChange={(e) =>
+                            e.target.files && e.target.files.length > 0 && props.loadFromFile(e.target.files)
+                        }
+                    />
+                </Button>
+            </div>
+
+            <Divider />
+            <div style={{ padding: '1rem' }}>
                 <AddActorMenu
-                    label={'Voeg actor toe'}
+                    label={
+                        <Fragment>
+                            <Add /> Actor
+                        </Fragment>
+                    }
                     actors={props.unusedActors}
                     onAdd={(actor) => props.dispatch(ScenarioActions.ADD_ACTOR({ actor }))}
                 />{' '}
                 <AddStepMenu
                     availableActors={props.usedActors}
                     onAdd={(step) => props.dispatch(ScenarioActions.ADD_STEP({ step }))}
-                />
+                />{' '}
+            </div>
+
+            <Divider />
+
+            <div style={{ padding: '1rem' }}>
                 <Button variant={'outlined'} onClick={() => props.setSnackbarOn(!props.snackbarIsOn)}>
                     {props.snackbarIsOn ? 'Verberg Meldingen' : 'Toon Meldingen'}
-                </Button>
-                <Button variant={'outlined'} onClick={props.reset}>
-                    Scenario Resetten
                 </Button>
             </div>
 

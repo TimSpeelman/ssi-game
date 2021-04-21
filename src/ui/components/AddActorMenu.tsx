@@ -1,12 +1,12 @@
 import { Button, Menu, MenuItem } from '@material-ui/core';
-import React, { Fragment, MouseEvent as ReactMouseEvent } from 'react';
+import React, { Fragment, MouseEvent as ReactMouseEvent, ReactElement } from 'react';
 import { actorImage } from '../../config/actorImage';
 import { Actor } from '../../data/actor/Actor';
 
 interface Props {
     onAdd: (actor: Actor) => void;
     actors: Actor[];
-    label: string;
+    label: string | ReactElement;
 }
 
 export function AddActorMenu(props: Props) {

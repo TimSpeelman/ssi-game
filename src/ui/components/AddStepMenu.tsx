@@ -11,6 +11,7 @@ import {
     Select,
     TextField,
 } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
 import React, { Fragment, useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { actorImage } from '../../config/actorImage';
@@ -53,7 +54,7 @@ export function AddStepMenu(props: Props) {
     return (
         <Fragment>
             <Button variant="outlined" onClick={handleClickOpen}>
-                Voeg handeling toe
+                <Add /> Handeling
             </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Handeling Toevoegen</DialogTitle>

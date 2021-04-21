@@ -1,6 +1,7 @@
 import { Fab } from '@material-ui/core';
 import NavigateBefore from '@material-ui/icons/NavigateBefore';
 import NavigateNext from '@material-ui/icons/NavigateNext';
+import FileSaver from 'file-saver';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { allActors } from '../../config/actors';
@@ -23,6 +24,32 @@ export function NetworkCanvas() {
     const [scenarioProps, setScenarioProps] = useState(initialScenario.props);
     const scenario = new Scenario(scenarioProps);
     const scenarioDesc = scenario.describe();
+
+    function saveToFile() {
+        const blob = new Blob([JSON.stringify(scenario.serialize())], { type: 'application/json;charset=utf-8' });
+        const date = new Date().toLocaleString().replace(/:/g, '.');
+        const fileName = `SSI-Game Scenario ${date}.json`;
+        FileSaver.saveAs(blob, fileName);
+    }
+
+    function loadFromFile(files: any) {
+        console.log('FILES', files);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const txt = reader.result;
+            if (!txt) {
+                alert('Bestand is leeg');
+            }
+            try {
+                const parsed = JSON.parse(txt as string);
+                const scenario = Scenario.deserialize(parsed);
+                setScenarioProps(scenario.props);
+            } catch (e) {
+                alert('Bestand kon niet gelezen worden');
+            }
+        };
+        reader.readAsText(files[0], 'utf8');
+    }
 
     function reset() {
         if (confirm('Weet je zeker dat je opnieuw wilt beginnen?')) {
@@ -159,6 +186,8 @@ export function NetworkCanvas() {
             <div className="sidebar">
                 <NetworkControls
                     reset={reset}
+                    saveToFile={saveToFile}
+                    loadFromFile={loadFromFile}
                     activeActor={selectedActor}
                     activeStep={currentStep}
                     stepIsSelected={stepIsSelected}

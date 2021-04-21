@@ -22,12 +22,7 @@ export function ActorInspector({ actor, assets }: Props) {
                 {assets.length > 0 ? (
                     assets.map((a, i) => (
                         <ListItem key={i}>
-                            {/* <Tooltip title={assetToString(a)}> */}
                             <ListItemText primary={ucFirst(a.type)} secondary={assetFieldsToString(a)} />
-                            {/* <span>
-                                    &lt;<strong>{ucFirst(a.type)}</strong> {getFirstKVPair(a)}&gt;
-                                </span> */}
-                            {/* </Tooltip> */}
                         </ListItem>
                     ))
                 ) : (

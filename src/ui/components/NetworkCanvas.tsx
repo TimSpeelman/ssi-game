@@ -1,5 +1,6 @@
-import { Fab } from '@material-ui/core';
-import { NavigateBefore, NavigateNext } from '@material-ui/icons';
+import Fab from '@material-ui/core/Fab';
+import NavigateNext from '@material-ui/icons/NavigateBefore';
+import NavigateBefore from '@material-ui/icons/NavigateNext';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { allActors } from '../../config/actors';

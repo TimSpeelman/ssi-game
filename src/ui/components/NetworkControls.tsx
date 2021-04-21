@@ -1,4 +1,5 @@
-import { Button, Divider } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import React from 'react';
 import { Actor } from '../../data/actor/Actor';
 import { Asset } from '../../data/asset/Asset';

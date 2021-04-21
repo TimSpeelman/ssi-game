@@ -13,7 +13,9 @@ export interface Props {
     dataSubjectId: string;
 }
 
-export class WalletSMSAuthentication implements IAction {
+export class WalletSMSAuthentication extends IAction<Props> {
+    typeName = 'WalletSMSAuthentication';
+
     static config: FormConfig<keyof Props> = {
         title: 'Authenticatie van Wallet via SMS',
         fields: {
@@ -23,8 +25,6 @@ export class WalletSMSAuthentication implements IAction {
         },
         create: (id, d) => new WalletSMSAuthentication(id, d),
     };
-
-    constructor(readonly id: string, readonly props: Props) {}
 
     validatePreConditions(state: ScenarioStateDescription): string[] {
         return []; // TODO

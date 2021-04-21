@@ -1,4 +1,5 @@
-import { IAction } from '../action/IAction';
+import { deserialize as deserializeAction } from '../action/actions';
+import { IAction, SerializedAction } from '../action/IAction';
 import { InteractionDescription } from '../action/InteractionDescription';
 import { Actor } from '../actor/Actor';
 import { Asset } from '../asset/Asset';
@@ -11,6 +12,14 @@ export class Scenario {
         stateBefore: ScenarioStateDescription;
         stateAfter: ScenarioStateDescription;
     }>;
+
+    static deserialize(s: SerializedScenario) {
+        const props = {
+            ...s.props,
+            steps: s.props.steps.map((s) => deserializeAction(s)),
+        };
+        return new Scenario(props);
+    }
 
     constructor(readonly props: ScenarioProps) {
         let state: ScenarioStateDescription = props.initial;
@@ -40,6 +49,15 @@ export class Scenario {
                     result: step.stateAfter,
                 }),
             ),
+        };
+    }
+
+    serialize(): SerializedScenario {
+        return {
+            props: {
+                ...this.props,
+                steps: this.props.steps.map((s) => s.serialize()),
+            },
         };
     }
 }
@@ -75,3 +93,12 @@ export interface ScenarioStateDescription {
 }
 
 export type OutcomeDescription = string;
+
+export interface SerializedScenario {
+    props: SerializedScenarioProps;
+}
+
+export interface SerializedScenarioProps {
+    initial: ScenarioStateDescription;
+    steps: SerializedAction[];
+}

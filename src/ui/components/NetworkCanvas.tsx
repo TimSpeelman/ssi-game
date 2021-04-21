@@ -13,7 +13,9 @@ import { NetworkControls } from './NetworkControls';
 import { createNetworkCanvasData } from './networkToCanvas';
 import { CanvasEvent, SVGNetworkCanvas } from './SVGNetworkCanvas';
 
-const initialScenario = OnlineLiquorPurchaseScenario;
+const serializedScenario = OnlineLiquorPurchaseScenario.serialize();
+
+const initialScenario = Scenario.deserialize(serializedScenario);
 
 export function NetworkCanvas() {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();

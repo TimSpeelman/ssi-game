@@ -16,7 +16,9 @@ export interface Props {
  * A Verifier authenticates a human Subject by comparing its physical appearance with its passport. We assume integrity
  * and authenticity.
  */
-export class PhysicalPassportAuthentication implements IAction {
+export class PhysicalPassportAuthentication extends IAction<Props> {
+    typeName = 'PhysicalPassportAuthentication';
+
     static config: FormConfig<keyof Props> = {
         title: 'Authenticatie o.b.v. paspoort',
         fields: {
@@ -26,8 +28,6 @@ export class PhysicalPassportAuthentication implements IAction {
         },
         create: (id, d) => new PhysicalPassportAuthentication(id, d),
     };
-
-    constructor(readonly id: string, readonly props: Props) {}
 
     validatePreConditions(state: ScenarioStateDescription): string[] {
         assert(this.props.verifierId in state.actors, 'Unknown human subject id');

@@ -12,7 +12,9 @@ export interface Props {
     dataSubjectId: string;
 }
 
-export class WalletQRAuthentication implements IAction {
+export class WalletQRAuthentication extends IAction<Props> {
+    typeName = 'WalletQRAuthentication';
+
     static config: FormConfig<keyof Props> = {
         title: 'Authenticatie van Wallet via QR',
         fields: {
@@ -22,8 +24,6 @@ export class WalletQRAuthentication implements IAction {
         },
         create: (id, d) => new WalletQRAuthentication(id, d),
     };
-
-    constructor(readonly id: string, readonly props: Props) {}
 
     validatePreConditions(state: ScenarioStateDescription): string[] {
         return []; // TODO

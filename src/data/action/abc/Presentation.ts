@@ -16,7 +16,9 @@ export interface Props {
     issuerNym: string;
 }
 
-export class Presentation implements IAction {
+export class Presentation extends IAction<Props> {
+    typeName = 'Presentation';
+
     static config: FormConfig<keyof Props> = {
         title: 'Presentatie van Credential',
         fields: {
@@ -30,8 +32,6 @@ export class Presentation implements IAction {
         },
         create: (id, d) => new Presentation(id, d),
     };
-
-    constructor(readonly id: string, readonly props: Props) {}
 
     validatePreConditions(state: ScenarioStateDescription): string[] {
         return []; // TODO

@@ -13,7 +13,9 @@ export interface Props {
     description: string;
 }
 
-export class GrantGreenFlag implements IAction {
+export class GrantGreenFlag extends IAction<Props> {
+    typeName = 'GrantGreenFlag';
+
     static config: FormConfig<keyof Props> = {
         title: 'Groene vlag toekennen',
         fields: {
@@ -23,8 +25,6 @@ export class GrantGreenFlag implements IAction {
         },
         create: (id, d) => new GrantGreenFlag(id, d),
     };
-
-    constructor(readonly id: string, readonly props: Props) {}
 
     validatePreConditions(): string[] {
         return [];

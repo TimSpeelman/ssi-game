@@ -14,7 +14,9 @@ export interface Props {
 /**
  * A custom interaction between two Actors
  */
-export class CustomInteraction implements IAction {
+export class CustomInteraction extends IAction<Props> {
+    typeName = 'CustomInteraction';
+
     static config: FormConfig<keyof Props> = {
         title: 'Vrije Interactie',
         fields: {
@@ -25,8 +27,6 @@ export class CustomInteraction implements IAction {
         },
         create: (id, d) => new CustomInteraction(id, d),
     };
-
-    constructor(readonly id: string, readonly props: Props) {}
 
     validatePreConditions(): string[] {
         return [];

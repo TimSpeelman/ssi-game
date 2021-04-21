@@ -8,8 +8,8 @@
  */
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es5",
+        "module": "esnext",
+        "target": "esnext",
         "sourceMap": true,
         "alwaysStrict": true,
         "strictNullChecks": true,
@@ -17,11 +17,13 @@
         "allowUnreachableCode": false,
         "moduleResolution": "node",
         "esModuleInterop": true,
-        "jsx": "react",
+        "jsx": "preserve",
         "resolveJsonModule": true,
         "declaration": true,
         "declarationMap": true,
         "outDir": "./dist",
+        "noEmit": true,
+        // "strict": true,
         "lib": [
             "es2015",
             "dom"

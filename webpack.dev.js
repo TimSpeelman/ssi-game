@@ -5,6 +5,7 @@ const common = require('./webpack.common.js');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const path = require('path');
+const os = require('os');
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 

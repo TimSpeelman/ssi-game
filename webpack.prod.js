@@ -9,7 +9,7 @@ module.exports = merge(common, {
     mode: 'production',
     plugins: [
         new AggressiveMergingPlugin(),
-        new BundleAnalyzerPlugin(),
+        // new BundleAnalyzerPlugin(),
         ...common.plugins,
     ],
 });

@@ -12,6 +12,7 @@ const PROJECT_ROOT = __dirname;
 
 module.exports = {
     entry: './src/index.ts',
+    context: PROJECT_ROOT,
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'main.js',
@@ -24,19 +25,18 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+                sideEffects: true,
+            },
+            {
                 test: /\.html$/i,
                 loader: 'html-loader',
             },
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
             {
                 test: /\.tsx?$/,
-                include: [
-                    path.resolve(__dirname, 'src'),
-                ],
-                loader: 'ts-loader',
-                options: {
-                    transpileOnly: true
-                }
+                loader: 'babel-loader',
             },
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             {
@@ -45,11 +45,7 @@ module.exports = {
                 include: path.resolve(__dirname, 'src'),
                 loader: 'source-map-loader',
             },
-            {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader'],
-                include: path.resolve(__dirname, 'src'),
-            },
+
             {
                 test: /\.(png|j?g|svg|gif|woff|woff2|eot|ttf)?$/,
                 include: path.resolve(__dirname, 'src'),

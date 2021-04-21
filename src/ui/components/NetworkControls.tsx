@@ -3,8 +3,8 @@ import { Add, Clear, Restore, RestorePage, Save } from '@material-ui/icons';
 import React, { Fragment } from 'react';
 import { Actor } from '../../data/actor/Actor';
 import { Asset } from '../../data/asset/Asset';
-import { ScenarioActions } from '../../data/scenario/actions';
 import { ScenarioDescription, ScenarioStepDescription } from '../../data/scenario/Scenario';
+import { ScenarioActions } from '../../state/scenario/actions';
 import { IAction } from '../../util/redux';
 import { ActorInspector } from './ActorInspector';
 import { AddActorMenu } from './AddActorMenu';
@@ -26,13 +26,16 @@ export interface Props {
     saveToFile: () => void;
     loadFromFile: (files: any) => void;
     setSnackbarOn: (v: boolean) => void;
-    reset: () => void;
-    clear: () => void;
 }
 
 export function NetworkControls(props: Props) {
     // const actions = props.acts.map((a) => describe(a, props.scenario));
     const steps = props.steps;
+
+    const handleClear = () =>
+        confirm('Weet je zeker dat je alles wilt wissen?') && props.dispatch(ScenarioActions.CLEAR());
+    const handleReset = () =>
+        confirm('Weet je zeker dat je alles terug wilt zetten?') && props.dispatch(ScenarioActions.RESET());
 
     return (
         <div>
@@ -43,10 +46,10 @@ export function NetworkControls(props: Props) {
             {props.activeActor && <Divider />}
 
             <div style={{ padding: '1rem' }}>
-                <Button variant={'outlined'} onClick={props.clear}>
+                <Button variant={'outlined'} onClick={handleClear}>
                     <Clear /> Legen
                 </Button>{' '}
-                <Button variant={'outlined'} onClick={props.reset}>
+                <Button variant={'outlined'} onClick={handleReset}>
                     <Restore /> Reset
                 </Button>{' '}
                 <Button variant={'outlined'} onClick={props.saveToFile}>

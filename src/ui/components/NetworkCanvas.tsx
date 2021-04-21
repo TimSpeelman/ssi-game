@@ -4,12 +4,12 @@ import NavigateNext from '@material-ui/icons/NavigateNext';
 import FileSaver from 'file-saver';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { allActors } from '../../config/actors';
 import { OnlineLiquorPurchaseScenario } from '../../config/scenarios/OnlineLiquorPurchaseScenario';
-import { ScenarioActions } from '../../data/scenario/actions';
-import { ScenarioReducer } from '../../data/scenario/reducers';
 import { Scenario, ScenarioProps } from '../../data/scenario/Scenario';
-import { IAction } from '../../util/redux';
+import { ScenarioActions } from '../../state/scenario/actions';
+import { selectScenarioRoot } from '../../state/scenario/selectors';
 import { NetworkControls } from './NetworkControls';
 import { createNetworkCanvasData } from './networkToCanvas';
 import { CanvasEvent, SVGNetworkCanvas } from './SVGNetworkCanvas';
@@ -27,8 +27,10 @@ const emptyProps: ScenarioProps = {
 
 export function NetworkCanvas() {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const dispatch = useDispatch();
+    const scenarioProps = useSelector(selectScenarioRoot);
 
-    const [scenarioProps, setScenarioProps] = useState(initialScenario.props);
+    const [scenarioProps2, setScenarioProps] = useState(initialScenario.props);
     const scenario = new Scenario(scenarioProps);
     const scenarioDesc = scenario.describe();
 
@@ -89,11 +91,6 @@ export function NetworkCanvas() {
     useEffect(() => {
         localStorage.setItem('scenario', JSON.stringify(scenario.serialize()));
     }, [scenarioProps]);
-
-    function dispatch(action: IAction<any>) {
-        const newState = ScenarioReducer(scenarioProps, action);
-        setScenarioProps(newState);
-    }
 
     const [hoveredElemId, setHoveredElemId] = useState('');
 
@@ -200,8 +197,6 @@ export function NetworkCanvas() {
             </div>
             <div className="sidebar">
                 <NetworkControls
-                    clear={clear}
-                    reset={reset}
                     saveToFile={saveToFile}
                     loadFromFile={loadFromFile}
                     activeActor={selectedActor}

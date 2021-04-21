@@ -1,11 +1,12 @@
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { App } from './App';
 import './assets/css/1-reset.css';
 import './assets/css/3-custom.css';
 import * as serviceWorker from './serviceWorker';
-
+import { store } from './store';
 /**
  * If our app crashes due to corrupt or outdated local storage, offer a reset
  * (for development purposes only, of course)
@@ -22,9 +23,11 @@ checkReset();
 
 export async function mount(rootElement: HTMLElement) {
     const root = (
-        <SnackbarProvider maxSnack={10}>
-            <App />
-        </SnackbarProvider>
+        <Provider store={store}>
+            <SnackbarProvider maxSnack={10}>
+                <App />
+            </SnackbarProvider>
+        </Provider>
     );
 
     ReactDOM.render(root, rootElement);

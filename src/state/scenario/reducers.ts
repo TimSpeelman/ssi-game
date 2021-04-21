@@ -1,7 +1,8 @@
+import { ScenarioProps } from '../../data/scenario/Scenario';
 import { IAction, ReducerMap } from '../../util/redux';
 import { omit } from '../../util/util';
 import { ScenarioActions } from './actions';
-import { ScenarioProps } from './Scenario';
+import { defaultState, emptyState } from './default';
 
 const ScenarioReducers: ReducerMap<ScenarioProps, typeof ScenarioActions> = {
     ADD_STEP: (p) => (s): ScenarioProps => ({ ...s, steps: [...s.steps, p.step] }),
@@ -14,6 +15,8 @@ const ScenarioReducers: ReducerMap<ScenarioProps, typeof ScenarioActions> = {
         ...s,
         initial: { ...s.initial, actors: omit(p.id)(s.initial.actors) },
     }),
+    RESET: (p) => (s) => defaultState,
+    CLEAR: (p) => (s) => emptyState,
 };
 
 export function ScenarioReducer(s: ScenarioProps, e: IAction<any>) {

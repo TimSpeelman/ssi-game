@@ -82,14 +82,13 @@ export interface ScenarioStepDescription {
 
 /** A ScenarioState is a snapshot of all Actors and their Assets at a moment in time */
 export interface ScenarioStateDescription {
-    actors: Record<
-        string,
-        {
-            assets: Asset[];
-            actor: Actor;
-            mode?: string;
-        }
-    >;
+    actors: Record<string, ActorState>;
+}
+
+export interface ActorState {
+    assets: Asset[];
+    actor: Actor;
+    mode?: string;
 }
 
 export type OutcomeDescription = string;

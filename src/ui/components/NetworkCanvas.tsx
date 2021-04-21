@@ -1,136 +1,67 @@
 import { Fab } from '@material-ui/core';
 import NavigateBefore from '@material-ui/icons/NavigateBefore';
 import NavigateNext from '@material-ui/icons/NavigateNext';
-import FileSaver from 'file-saver';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { allActors } from '../../config/actors';
-import { OnlineLiquorPurchaseScenario } from '../../config/scenarios/OnlineLiquorPurchaseScenario';
-import { Scenario, ScenarioProps } from '../../data/scenario/Scenario';
+import { Scenario } from '../../data/scenario/Scenario';
+import { loadScenarioFromLocalStorage } from '../../persistence/loadScenarioFromLocalStorage';
+import { saveScenarioToLocalStorage } from '../../persistence/saveScenarioToLocalStorage';
 import { ScenarioActions } from '../../state/scenario/actions';
-import { selectScenarioRoot } from '../../state/scenario/selectors';
+import {
+    selectActiveState,
+    selectActiveStep,
+    selectActiveStepIndex,
+    selectScenarioProps,
+    selectSelectedActorId,
+    selectSnackbarIsOn,
+    selectUsedActors,
+} from '../../state/scenario/selectors';
 import { NetworkControls } from './NetworkControls';
 import { createNetworkCanvasData } from './networkToCanvas';
 import { CanvasEvent, SVGNetworkCanvas } from './SVGNetworkCanvas';
 
-const serializedScenario = OnlineLiquorPurchaseScenario.serialize();
-
-const initialScenario = Scenario.deserialize(serializedScenario);
-
-const emptyProps: ScenarioProps = {
-    initial: {
-        actors: {},
-    },
-    steps: [],
-};
-
 export function NetworkCanvas() {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const dispatch = useDispatch();
-    const scenarioProps = useSelector(selectScenarioRoot);
+    const scenarioProps = useSelector(selectScenarioProps);
+    const selectedActorId = useSelector(selectSelectedActorId);
+    const usedActors = useSelector(selectUsedActors);
+    const snackbarIsOn = useSelector(selectSnackbarIsOn);
+    const currentStep = useSelector(selectActiveStep);
+    const currentStepIndex = useSelector(selectActiveStepIndex);
+    const currentState = useSelector(selectActiveState);
 
-    const [scenarioProps2, setScenarioProps] = useState(initialScenario.props);
     const scenario = new Scenario(scenarioProps);
-    const scenarioDesc = scenario.describe();
-
-    function clear() {
-        setScenarioProps(emptyProps);
-    }
-
-    function saveToFile() {
-        const blob = new Blob([JSON.stringify(scenario.serialize())], { type: 'application/json;charset=utf-8' });
-        const date = new Date().toLocaleString().replace(/:/g, '.');
-        const fileName = `SSI-Game Scenario ${date}.json`;
-        FileSaver.saveAs(blob, fileName);
-    }
-
-    function loadFromFile(e: any) {
-        const files = e.target.files;
-        console.log('FILES', files);
-        if (!files || files.length !== 1) return;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const txt = reader.result;
-            if (!txt) {
-                alert('Bestand is leeg');
-            }
-            try {
-                const parsed = JSON.parse(txt as string);
-                const scenario = Scenario.deserialize(parsed);
-                setScenarioProps(scenario.props);
-                alert('Bestand geladen!');
-            } catch (e) {
-                alert('Bestand kon niet gelezen worden');
-            }
-        };
-        reader.readAsText(files[0], 'utf8');
-        e.target.value = null;
-    }
-
-    function reset(silent = false) {
-        if (silent || confirm('Weet je zeker dat je opnieuw wilt beginnen?')) {
-            setScenarioProps(initialScenario.props);
-        }
-    }
 
     useEffect(() => {
-        const storedScenario = localStorage.getItem('scenario');
-        if (storedScenario) {
-            try {
-                const s = Scenario.deserialize(JSON.parse(storedScenario));
-                setScenarioProps(s.props);
-            } catch (e) {
-                console.log('Recovery from local storage failed, clearing it');
-                localStorage.removeItem('scenario');
-                setScenarioProps(initialScenario.props);
-            }
+        const restored = loadScenarioFromLocalStorage();
+        if (restored) {
+            dispatch(ScenarioActions.SET_SCENARIO({ scenario: restored.props }));
+        } else {
+            dispatch(ScenarioActions.RESET());
         }
     }, []);
 
     useEffect(() => {
-        localStorage.setItem('scenario', JSON.stringify(scenario.serialize()));
+        saveScenarioToLocalStorage(scenario);
     }, [scenarioProps]);
 
     const [hoveredElemId, setHoveredElemId] = useState('');
-
-    const [snackbarIsOn, setSnackbarOn] = useState(true);
-    const [stepIsSelected, setStepIsSelected] = useState(false);
-
-    const [currentStepId, activateStep] = useState<string | undefined>(undefined);
-    const currentStep = scenarioDesc.steps.find((s) => s.action.id === currentStepId);
-    const currentStepIndex = currentStepId ? scenarioDesc.steps.findIndex((s) => s.action.id === currentStepId) : -1;
-    const currentState = currentStep ? currentStep.result : scenarioProps.initial;
 
     useEffect(() => {
         closeSnackbar();
         if (currentStep && snackbarIsOn) {
             currentStep.outcomes.forEach((o) => enqueueSnackbar(o));
         }
-    }, [currentStepId]);
-
-    const [selectedActorId, selectActor] = useState<string | undefined>(undefined);
-    const selectedActor = selectedActorId ? currentState.actors[selectedActorId] : undefined;
+    }, [currentStep]);
 
     function handleClickActor(id: string) {
-        selectActor(selectedActorId === id ? undefined : id);
-        setStepIsSelected(false);
-    }
-
-    function handleClickStep(id: string) {
-        activateStep(id);
-        selectActor(undefined);
-        setStepIsSelected(true);
-    }
-
-    function nextStep() {
-        const index = currentStepIndex >= scenarioDesc.steps.length - 1 ? -1 : currentStepIndex + 1;
-        activateStep(index < 0 ? undefined : scenarioDesc.steps[index].action.id);
-    }
-
-    function prevStep() {
-        const index = currentStepIndex === -1 ? scenarioDesc.steps.length - 1 : currentStepIndex - 1;
-        activateStep(index < 0 ? undefined : scenarioDesc.steps[index].action.id);
+        if (selectedActorId === id) {
+            dispatch(ScenarioActions.CLEAR_SELECTION());
+        } else {
+            dispatch(ScenarioActions.SELECT_ACTOR({ id }));
+        }
     }
 
     const handleEvent = (ev: CanvasEvent) => {
@@ -150,8 +81,6 @@ export function NetworkCanvas() {
         }
     };
 
-    const actors = Object.values(scenarioProps.initial.actors).map((a) => a.actor); // TODO initial state
-
     // TODO unhack me. Demonstrates use of modes so Actors are displayed to perform actions (e.g. taking a selfie)
     const modes = !currentStep
         ? {}
@@ -164,15 +93,12 @@ export function NetworkCanvas() {
         height: 600,
         width: 600,
         state: currentState,
-        actors: actors,
+        actors: usedActors,
         modes,
         step: currentStep,
         selectedActorId,
         hoveredElemId,
     });
-
-    const unusedActors = Object.values(allActors).filter((a) => !actors.find((x) => x.id === a.id));
-    const usedActors = Object.values(allActors).filter((a) => actors.find((x) => x.id === a.id));
 
     return (
         <div className="network-canvas">
@@ -187,30 +113,19 @@ export function NetworkCanvas() {
                     ) : (
                         <span></span>
                     )}
-                    <Fab style={{ marginRight: '1rem', marginLeft: '1rem' }} onClick={prevStep}>
+                    <Fab
+                        style={{ marginRight: '1rem', marginLeft: '1rem' }}
+                        onClick={() => dispatch(ScenarioActions.PREV_STEP())}
+                    >
                         <NavigateBefore />
                     </Fab>
-                    <Fab onClick={nextStep}>
+                    <Fab onClick={() => dispatch(ScenarioActions.NEXT_STEP())}>
                         <NavigateNext />
                     </Fab>
                 </div>
             </div>
             <div className="sidebar">
-                <NetworkControls
-                    saveToFile={saveToFile}
-                    loadFromFile={loadFromFile}
-                    activeActor={selectedActor}
-                    activeStep={currentStep}
-                    stepIsSelected={stepIsSelected}
-                    scenario={scenarioDesc}
-                    unusedActors={unusedActors}
-                    usedActors={usedActors}
-                    steps={scenarioDesc.steps}
-                    snackbarIsOn={snackbarIsOn}
-                    setSnackbarOn={setSnackbarOn}
-                    dispatch={dispatch}
-                    onInspect={handleClickStep}
-                />
+                <NetworkControls />
             </div>
         </div>
     );

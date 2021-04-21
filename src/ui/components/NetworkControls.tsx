@@ -1,5 +1,5 @@
 import { Button, Divider } from '@material-ui/core';
-import { Add, Clear, RestorePage, Save } from '@material-ui/icons';
+import { Add, Clear, Restore, RestorePage, Save } from '@material-ui/icons';
 import React, { Fragment } from 'react';
 import { Actor } from '../../data/actor/Actor';
 import { Asset } from '../../data/asset/Asset';
@@ -27,6 +27,7 @@ export interface Props {
     loadFromFile: (files: any) => void;
     setSnackbarOn: (v: boolean) => void;
     reset: () => void;
+    clear: () => void;
 }
 
 export function NetworkControls(props: Props) {
@@ -42,8 +43,11 @@ export function NetworkControls(props: Props) {
             {props.activeActor && <Divider />}
 
             <div style={{ padding: '1rem' }}>
+                <Button variant={'outlined'} onClick={props.clear}>
+                    <Clear /> Legen
+                </Button>{' '}
                 <Button variant={'outlined'} onClick={props.reset}>
-                    <Clear /> Reset
+                    <Restore /> Reset
                 </Button>{' '}
                 <Button variant={'outlined'} onClick={props.saveToFile}>
                     <Save /> Opslaan

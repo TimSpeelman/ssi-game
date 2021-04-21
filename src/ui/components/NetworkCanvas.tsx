@@ -8,7 +8,7 @@ import { allActors } from '../../config/actors';
 import { OnlineLiquorPurchaseScenario } from '../../config/scenarios/OnlineLiquorPurchaseScenario';
 import { ScenarioActions } from '../../data/scenario/actions';
 import { ScenarioReducer } from '../../data/scenario/reducers';
-import { Scenario } from '../../data/scenario/Scenario';
+import { Scenario, ScenarioProps } from '../../data/scenario/Scenario';
 import { IAction } from '../../util/redux';
 import { NetworkControls } from './NetworkControls';
 import { createNetworkCanvasData } from './networkToCanvas';
@@ -18,12 +18,23 @@ const serializedScenario = OnlineLiquorPurchaseScenario.serialize();
 
 const initialScenario = Scenario.deserialize(serializedScenario);
 
+const emptyProps: ScenarioProps = {
+    initial: {
+        actors: {},
+    },
+    steps: [],
+};
+
 export function NetworkCanvas() {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     const [scenarioProps, setScenarioProps] = useState(initialScenario.props);
     const scenario = new Scenario(scenarioProps);
     const scenarioDesc = scenario.describe();
+
+    function clear() {
+        setScenarioProps(emptyProps);
+    }
 
     function saveToFile() {
         const blob = new Blob([JSON.stringify(scenario.serialize())], { type: 'application/json;charset=utf-8' });
@@ -51,8 +62,8 @@ export function NetworkCanvas() {
         reader.readAsText(files[0], 'utf8');
     }
 
-    function reset() {
-        if (confirm('Weet je zeker dat je opnieuw wilt beginnen?')) {
+    function reset(silent = false) {
+        if (silent || confirm('Weet je zeker dat je opnieuw wilt beginnen?')) {
             setScenarioProps(initialScenario.props);
         }
     }
@@ -185,6 +196,7 @@ export function NetworkCanvas() {
             </div>
             <div className="sidebar">
                 <NetworkControls
+                    clear={clear}
                     reset={reset}
                     saveToFile={saveToFile}
                     loadFromFile={loadFromFile}

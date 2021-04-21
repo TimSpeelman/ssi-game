@@ -20,12 +20,37 @@ const initialScenario = Scenario.deserialize(serializedScenario);
 export function NetworkCanvas() {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-    const [scenario, setScenario] = useState(initialScenario.props);
-    const scenarioDesc = new Scenario(scenario).describe();
+    const [scenarioProps, setScenarioProps] = useState(initialScenario.props);
+    const scenario = new Scenario(scenarioProps);
+    const scenarioDesc = scenario.describe();
+
+    function reset() {
+        if (confirm('Weet je zeker dat je opnieuw wilt beginnen?')) {
+            setScenarioProps(initialScenario.props);
+        }
+    }
+
+    useEffect(() => {
+        const storedScenario = localStorage.getItem('scenario');
+        if (storedScenario) {
+            try {
+                const s = Scenario.deserialize(JSON.parse(storedScenario));
+                setScenarioProps(s.props);
+            } catch (e) {
+                console.log('Recovery from local storage failed, clearing it');
+                localStorage.removeItem('scenario');
+                setScenarioProps(initialScenario.props);
+            }
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('scenario', JSON.stringify(scenario.serialize()));
+    }, [scenarioProps]);
 
     function dispatch(action: IAction<any>) {
-        const newState = ScenarioReducer(scenario, action);
-        setScenario(newState);
+        const newState = ScenarioReducer(scenarioProps, action);
+        setScenarioProps(newState);
     }
 
     const [hoveredElemId, setHoveredElemId] = useState('');
@@ -36,7 +61,7 @@ export function NetworkCanvas() {
     const [currentStepId, activateStep] = useState<string | undefined>(undefined);
     const currentStep = scenarioDesc.steps.find((s) => s.action.id === currentStepId);
     const currentStepIndex = currentStepId ? scenarioDesc.steps.findIndex((s) => s.action.id === currentStepId) : -1;
-    const currentState = currentStep ? currentStep.result : scenario.initial;
+    const currentState = currentStep ? currentStep.result : scenarioProps.initial;
 
     useEffect(() => {
         closeSnackbar();
@@ -86,7 +111,7 @@ export function NetworkCanvas() {
         }
     };
 
-    const actors = Object.values(scenario.initial.actors).map((a) => a.actor); // TODO initial state
+    const actors = Object.values(scenarioProps.initial.actors).map((a) => a.actor); // TODO initial state
 
     // TODO unhack me. Demonstrates use of modes so Actors are displayed to perform actions (e.g. taking a selfie)
     const modes = !currentStep
@@ -133,6 +158,7 @@ export function NetworkCanvas() {
             </div>
             <div className="sidebar">
                 <NetworkControls
+                    reset={reset}
                     activeActor={selectedActor}
                     activeStep={currentStep}
                     stepIsSelected={stepIsSelected}

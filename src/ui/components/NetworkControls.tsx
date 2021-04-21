@@ -23,6 +23,7 @@ export interface Props {
     scenario: ScenarioDescription;
     snackbarIsOn: boolean;
     setSnackbarOn: (v: boolean) => void;
+    reset: () => void;
 }
 
 export function NetworkControls(props: Props) {
@@ -49,6 +50,9 @@ export function NetworkControls(props: Props) {
                 />
                 <Button variant={'outlined'} onClick={() => props.setSnackbarOn(!props.snackbarIsOn)}>
                     {props.snackbarIsOn ? 'Verberg Meldingen' : 'Toon Meldingen'}
+                </Button>
+                <Button variant={'outlined'} onClick={props.reset}>
+                    Scenario Resetten
                 </Button>
             </div>
 

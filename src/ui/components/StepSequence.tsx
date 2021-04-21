@@ -1,6 +1,6 @@
 import { Divider, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../config/actorImage';
 import { ScenarioActions } from '../../state/scenario/actions';
@@ -11,20 +11,6 @@ export function StepSequence() {
     const activeStepId = useSelector(selectActiveStepId);
     const selectedStepId = useSelector(selectSelectedStepId);
     const dispatch = useDispatch();
-
-    const [hover, setHover] = useState(-2);
-
-    function handleMouseEnter(index: number) {
-        // todo move to CSS
-        setHover(index);
-    }
-
-    function handleMouseExit(index: number) {
-        // todo move to CSS
-        if (hover === index) {
-            setHover(-2);
-        }
-    }
 
     function handleClick(id: string) {
         if (selectedStepId === id) {
@@ -40,10 +26,7 @@ export function StepSequence() {
             <Divider />
             <ListItem
                 className={activeStepId === undefined ? 'active-step' : ''}
-                onMouseEnter={() => handleMouseEnter(-1)}
-                onMouseLeave={() => handleMouseExit(-1)}
                 onClick={() => dispatch(ScenarioActions.CLEAR_SELECTION())}
-                selected={hover === -1}
             >
                 <ListItemText primary={'START'} />
             </ListItem>
@@ -51,11 +34,10 @@ export function StepSequence() {
             {steps.map((step, i) => (
                 <Fragment key={i}>
                     <ListItem
+                        button
                         className={activeStepId === step.action.id ? 'active-step' : ''}
                         onClick={() => handleClick(step.action.id)}
-                        onMouseEnter={() => handleMouseEnter(i)}
-                        onMouseLeave={() => handleMouseExit(i)}
-                        selected={hover === i || selectedStepId === step.action.id}
+                        selected={selectedStepId === step.action.id}
                     >
                         <img src={actorImage(step.action.from.image)} style={{ height: '3rem' }} />
                         <i className="fas fa-chevron-right"></i>

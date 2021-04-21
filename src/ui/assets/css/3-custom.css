@@ -72,6 +72,6 @@ html {
   transition: all 0.3s;
 }
 .active-step {
-  border: 1px solid red;
+  border: 1px solid red !important;
 }
 /*# sourceMappingURL=3-custom.css.map */

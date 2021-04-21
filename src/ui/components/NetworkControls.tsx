@@ -8,6 +8,7 @@ import { ScenarioActions } from '../../state/scenario/actions';
 import {
     selectScenario,
     selectSelectedActor,
+    selectSelectedStep,
     selectSnackbarIsOn,
     selectUnusedActors,
     selectUsedActors,
@@ -15,9 +16,11 @@ import {
 import { ActorInspector } from './ActorInspector';
 import { AddActorMenu } from './AddActorMenu';
 import { AddStepMenu } from './AddStepMenu';
+import { StepInspector } from './StepInspector';
 import { StepSequence } from './StepSequence';
 
 export function NetworkControls() {
+    const selectedStep = useSelector(selectSelectedStep);
     const selectedActor = useSelector(selectSelectedActor);
     const usedActors = useSelector(selectUsedActors);
     const unusedActors = useSelector(selectUnusedActors);
@@ -46,6 +49,9 @@ export function NetworkControls() {
 
     return (
         <div>
+            {selectedStep && <StepInspector step={selectedStep} />}
+            {selectedStep && <Divider />}
+
             {selectedActor && <ActorInspector actor={selectedActor.actor} assets={selectedActor.assets} />}
             {selectedActor && <Divider />}
 

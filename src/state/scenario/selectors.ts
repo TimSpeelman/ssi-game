@@ -21,6 +21,8 @@ export const selectActiveStep = (r: any): ScenarioStepDescription | undefined =>
 export const selectActiveStepId = (r: any): string | undefined => root(r).activeStepId;
 export const selectActiveStepIndex = (r: any): number =>
     selectSteps(r).findIndex((step) => step.action.id === selectActiveStepId(r));
+export const selectSelectedStep = (r: any): ScenarioStepDescription | undefined =>
+    w1th(selectSelectedStepId(r), (id) => (!id ? undefined : selectSteps(r).find((step) => step.action.id === id)));
 export const selectSelectedStepId = (r: any): string | undefined => root(r).selectedStepId;
 export const selectSelectedActorId = (r: any): string | undefined => root(r).selectedActorId;
 export const selectUnusedActors = (r: any): Actor[] =>

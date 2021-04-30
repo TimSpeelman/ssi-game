@@ -12,11 +12,15 @@ export function StepSequence() {
     const selectedStepId = useSelector(selectSelectedStepId);
     const dispatch = useDispatch();
 
-    function handleClick(id: string) {
+    function handleClick(id: string | undefined) {
         if (selectedStepId === id) {
             dispatch(ScenarioActions.CLEAR_SELECTION());
         } else {
-            dispatch(ScenarioActions.SELECT_STEP({ id }));
+            if (id === undefined) {
+                dispatch(ScenarioActions.CLEAR_SELECTION());
+            } else {
+                dispatch(ScenarioActions.SELECT_STEP({ id }));
+            }
             dispatch(ScenarioActions.GOTO_STEP({ id }));
         }
     }
@@ -26,7 +30,7 @@ export function StepSequence() {
             <Divider />
             <ListItem
                 className={activeStepId === undefined ? 'active-step' : ''}
-                onClick={() => dispatch(ScenarioActions.CLEAR_SELECTION())}
+                onClick={() => handleClick(undefined)}
             >
                 <ListItemText primary={'START'} />
             </ListItem>

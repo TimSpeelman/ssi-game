@@ -18,7 +18,7 @@ export const ScenarioActions = {
     SELECT_STEP: event<{ id: string }>('SELECT_STEP'),
     CLEAR_SELECTION: event<void>('CLEAR_SELECTION'),
 
-    GOTO_STEP: event<{ id: string }>('GOTO_STEP'),
+    GOTO_STEP: event<{ id: string | undefined }>('GOTO_STEP'),
     NEXT_STEP: event<void>('NEXT_STEP'),
     PREV_STEP: event<void>('PREV_STEP'),
 

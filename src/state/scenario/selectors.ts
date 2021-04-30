@@ -34,4 +34,4 @@ export const selectUsedActorsState = (r: any): ActorState[] => Object.values(roo
 export const selectSelectedActor = (r: any): ActorState | undefined =>
     w1th(root(r).selectedActorId, (id) => (id ? root(r).scenario.initial.actors[id] : undefined));
 
-export const selectSnackbarIsOn = (r: any) => r.snackbarOn;
+export const selectSnackbarIsOn = (r: any) => root(r).snackbarOn;

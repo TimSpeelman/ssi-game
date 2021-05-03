@@ -1,4 +1,5 @@
 import { InteractionDescription } from '../../content/actions/InteractionDescription';
+import { ComputedStep } from './ComputedStep';
 import { IOutcome } from './IOutcome';
 import { IValidationResult } from './IValidationResult';
 import { ScenarioState } from './ScenarioState';
@@ -12,6 +13,21 @@ export abstract class Action<Props = any> {
     protected abstract readonly typeName: string;
 
     constructor(readonly id: string, readonly props: Props) {}
+
+    /** Compute the results of this action */
+    public computeStep(preState: ScenarioState): ComputedStep {
+        const validation = this.validatePreConditions(preState);
+        const outcomes = this.computeOutcomes(preState);
+        const postState = outcomes.reduce((result, outcome) => outcome.computeState(result), preState);
+
+        return new ComputedStep({
+            action: this,
+            outcomes,
+            validation,
+            preState,
+            postState,
+        });
+    }
 
     /** Given a scenario state, check if the preconditions are met to perform this action */
     abstract validatePreConditions(state: ScenarioState): IValidationResult[];

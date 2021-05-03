@@ -11,8 +11,13 @@ import { ScenarioState } from './ScenarioState';
 export class ComputedStep {
     constructor(readonly props: Props) {}
 
+    hasSucceeded() {
+        return this.props.validation.every((v) => v.success);
+    }
+
     describe(): ScenarioStepDescription {
         return {
+            success: this.hasSucceeded(),
             action: this.props.action.describe(this.props.preState),
             validation: this.props.validation.map((v) => v.describe(this.props.preState)),
             outcomes: this.props.outcomes.map((o) => o.describe(this.props.preState)),

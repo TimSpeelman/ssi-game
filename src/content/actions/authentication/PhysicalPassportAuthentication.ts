@@ -1,7 +1,7 @@
 import { Action } from '../../../model/game/Action';
 import { IOutcome } from '../../../model/game/IOutcome';
+import { ScenarioState } from '../../../model/game/ScenarioState';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
-import { ScenarioStateDescription } from '../../../model/view/ScenarioStateDescription';
 import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 import { InteractionDescription } from '../InteractionDescription';
@@ -29,12 +29,12 @@ export class PhysicalPassportAuthentication extends Action<Props> {
         create: (id, d) => new PhysicalPassportAuthentication(id, d),
     };
 
-    validatePreConditions(state: ScenarioStateDescription): string[] {
-        assert(this.props.verifierId in state.actors, 'Unknown human subject id');
-        assert(this.props.humanSubjectId in state.actors, 'Unknown verifier id');
+    validatePreConditions(state: ScenarioState): string[] {
+        assert(this.props.verifierId in state.props.byActor, 'Unknown human subject id');
+        assert(this.props.humanSubjectId in state.props.byActor, 'Unknown verifier id');
 
-        const subject = state.actors[this.props.humanSubjectId];
-        const verifier = state.actors[this.props.verifierId];
+        const subject = state.props.byActor[this.props.humanSubjectId];
+        const verifier = state.props.byActor[this.props.verifierId];
         const subjectPassport = subject.assets.find((a) => a.type === 'gov-passport');
         assert(!!subjectPassport, 'Subject needs to have passport'); // alternatively: result could be failed authentication
 
@@ -44,7 +44,7 @@ export class PhysicalPassportAuthentication extends Action<Props> {
         return []; // TODO
     }
 
-    computeOutcomes(state: ScenarioStateDescription): IOutcome[] {
+    computeOutcomes(state: ScenarioState): IOutcome[] {
         const authResult: AuthenticationResult = {
             kind: 'data',
             type: 'authentication-result',
@@ -54,9 +54,9 @@ export class PhysicalPassportAuthentication extends Action<Props> {
         return [new GainAssetOutcome({ actorId: this.props.verifierId, asset: authResult })];
     }
 
-    describe(state: ScenarioStateDescription): InteractionDescription {
-        const subject = state.actors[this.props.humanSubjectId].actor;
-        const verifier = state.actors[this.props.verifierId].actor;
+    describe(state: ScenarioState): InteractionDescription {
+        const subject = state.props.byActor[this.props.humanSubjectId].actor;
+        const verifier = state.props.byActor[this.props.verifierId].actor;
         return {
             id: this.id,
             type: 'PhysicalPassportAuthentication',

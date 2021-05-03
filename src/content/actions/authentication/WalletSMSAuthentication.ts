@@ -1,7 +1,7 @@
 import { Action } from '../../../model/game/Action';
 import { IOutcome } from '../../../model/game/IOutcome';
+import { ScenarioState } from '../../../model/game/ScenarioState';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
-import { ScenarioStateDescription } from '../../../model/view/ScenarioStateDescription';
 import { AttributeKnowledge } from '../../assets/data/abc/AttributeKnowledge';
 import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
@@ -26,11 +26,11 @@ export class WalletSMSAuthentication extends Action<Props> {
         create: (id, d) => new WalletSMSAuthentication(id, d),
     };
 
-    validatePreConditions(state: ScenarioStateDescription): string[] {
+    validatePreConditions(state: ScenarioState): string[] {
         return []; // TODO
     }
 
-    computeOutcomes(state: ScenarioStateDescription): IOutcome[] {
+    computeOutcomes(state: ScenarioState): IOutcome[] {
         const authResult: AuthenticationResult = {
             kind: 'data',
             type: 'authentication-result',
@@ -51,9 +51,9 @@ export class WalletSMSAuthentication extends Action<Props> {
         ];
     }
 
-    describe(state: ScenarioStateDescription): InteractionDescription {
-        const subject = state.actors[this.props.humanSubjectId].actor;
-        const verifier = state.actors[this.props.verifierId].actor;
+    describe(state: ScenarioState): InteractionDescription {
+        const subject = state.props.byActor[this.props.humanSubjectId].actor;
+        const verifier = state.props.byActor[this.props.verifierId].actor;
         return {
             id: this.id,
             type: 'WalletSMSAuthentication',

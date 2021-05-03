@@ -1,7 +1,7 @@
 import { Action } from '../../../model/game/Action';
 import { IOutcome } from '../../../model/game/IOutcome';
+import { ScenarioState } from '../../../model/game/ScenarioState';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
-import { ScenarioStateDescription } from '../../../model/view/ScenarioStateDescription';
 import { AttributeProof } from '../../assets/data/abc/AttributeProof';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 import { InteractionDescription } from '../InteractionDescription';
@@ -35,11 +35,11 @@ export class Issuance extends Action<Props> {
         create: (id, d) => new Issuance(id, d),
     };
 
-    validatePreConditions(state: ScenarioStateDescription): string[] {
+    validatePreConditions(state: ScenarioState): string[] {
         return []; // TODO
     }
 
-    computeOutcomes(state: ScenarioStateDescription): IOutcome[] {
+    computeOutcomes(state: ScenarioState): IOutcome[] {
         const attr: AttributeProof = {
             kind: 'data',
             type: 'attribute-proof',
@@ -51,9 +51,9 @@ export class Issuance extends Action<Props> {
         return [new GainAssetOutcome({ actorId: this.props.subjectId, asset: attr })];
     }
 
-    describe(state: ScenarioStateDescription): InteractionDescription {
-        const subject = state.actors[this.props.subjectId].actor;
-        const issuer = state.actors[this.props.issuerId].actor;
+    describe(state: ScenarioState): InteractionDescription {
+        const subject = state.props.byActor[this.props.subjectId].actor;
+        const issuer = state.props.byActor[this.props.issuerId].actor;
         return {
             id: this.id,
             type: 'Issuance',

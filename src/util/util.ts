@@ -25,3 +25,13 @@ export function omit<K extends string | number>(key: K | K[]) {
 export function ucFirst(str: string) {
     return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
 }
+
+export function mapValues<T, S>(obj: Record<string, T>, map: (t: T) => S): Record<string, S> {
+    return Object.entries(obj).reduce(
+        (res, [key, val]) => ({
+            ...res,
+            [key]: map(val),
+        }),
+        {},
+    );
+}

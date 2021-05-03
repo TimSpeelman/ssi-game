@@ -1,7 +1,7 @@
 import { Action } from '../../model/game/Action';
 import { IOutcome } from '../../model/game/IOutcome';
+import { ScenarioState } from '../../model/game/ScenarioState';
 import { ActionFormConfig } from '../../model/view/ActionFormConfig';
-import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescription';
 import { ucFirst } from '../../util/util';
 import { GreenFlag } from '../assets/Flag';
 import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
@@ -40,9 +40,9 @@ export class GrantGreenFlag extends Action<Props> {
         return [new GainAssetOutcome({ actorId: this.props.toId, asset: flag })];
     }
 
-    describe(state: ScenarioStateDescription): InteractionDescription {
-        const from = state.actors[this.props.fromId].actor;
-        const to = state.actors[this.props.toId].actor;
+    describe(state: ScenarioState): InteractionDescription {
+        const from = state.props.byActor[this.props.fromId].actor;
+        const to = state.props.byActor[this.props.toId].actor;
         const desc = this.props.description;
         return {
             id: this.id,

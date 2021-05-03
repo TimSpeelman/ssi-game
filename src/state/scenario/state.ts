@@ -1,6 +1,6 @@
 import { ScenarioProps } from '../../model/game/Scenario';
 
-export interface ScenarioState {
+export interface RootState {
     scenario: ScenarioProps;
 
     selectedActorId?: string;

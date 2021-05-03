@@ -14,7 +14,7 @@ import { PubKey } from '../../content/assets/data/cryptography/PubKey';
 import { FaceFeature } from '../../content/assets/feature/FaceFeature';
 import { GovPassport } from '../../content/assets/physical/GovPassport';
 import { Scenario } from '../../model/game/Scenario';
-import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescription';
+import { ScenarioState } from '../../model/game/ScenarioState';
 import { allActors } from '../actors';
 
 const Government = allActors.gov1;
@@ -26,8 +26,8 @@ const GovNym1 = '829_GOV';
 const ShopNym1 = '662_SHOP';
 const Attr18Plus = '18+';
 
-const initialState: ScenarioStateDescription = {
-    actors: {
+const initialState: ScenarioState = new ScenarioState({
+    byActor: {
         [Government.id]: {
             actor: Government,
             assets: [
@@ -67,7 +67,7 @@ const initialState: ScenarioStateDescription = {
             ],
         },
     },
-};
+});
 
 /**
  * This scenario describes a presentation of an 18+ credential to a liquor store.

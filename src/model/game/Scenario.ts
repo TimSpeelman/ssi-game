@@ -1,62 +1,49 @@
 import { deserialize as deserializeAction } from '../../content/actions/actions';
-import { InteractionDescription } from '../../content/actions/InteractionDescription';
 import { ScenarioDescription } from '../view/ScenarioDescription';
-import { ScenarioStateDescription } from '../view/ScenarioStateDescription';
-import { ScenarioStepDescription } from '../view/ScenarioStepDescription';
 import { Action, SerializedAction } from './Action';
-import { IOutcome } from './IOutcome';
+import { ComputedStep } from './ComputedStep';
+import { ScenarioState, SerializedScenarioState } from './ScenarioState';
 
 export class Scenario {
-    readonly steps: Array<{
-        description: InteractionDescription;
-        outcomes: IOutcome[];
-        stateBefore: ScenarioStateDescription;
-        stateAfter: ScenarioStateDescription;
-    }>;
+    readonly steps: ComputedStep[];
 
     static deserialize(s: SerializedScenario) {
         const props = {
-            ...s.props,
+            initial: ScenarioState.deserialize(s.props.initial),
             steps: s.props.steps.map((s) => deserializeAction(s)),
         };
         return new Scenario(props);
     }
 
     constructor(readonly props: ScenarioProps) {
-        let state: ScenarioStateDescription = props.initial;
+        let state: ScenarioState = props.initial;
 
         // Cache the outcome and result computation.
         this.steps = props.steps.map((step) => {
-            const stateBefore = state;
+            const preState = state;
             const outcomes = step.computeOutcomes(state);
-            const stateAfter = outcomes.reduce((result, outcome) => outcome.computeState(result), stateBefore);
-            state = stateAfter;
-            return {
-                description: step.describe(state),
+            const postState = outcomes.reduce((result, outcome) => outcome.computeState(result), preState);
+            state = postState;
+            return new ComputedStep({
+                action: step,
                 outcomes,
-                stateBefore,
-                stateAfter,
-            };
+                preState,
+                postState,
+            });
         });
     }
 
     describe(): ScenarioDescription {
         return {
-            initial: this.props.initial,
-            steps: this.steps.map(
-                (step): ScenarioStepDescription => ({
-                    action: step.description,
-                    outcomes: step.outcomes.map((o) => o.describe(step.stateBefore)),
-                    result: step.stateAfter,
-                }),
-            ),
+            initial: this.props.initial.describe(),
+            steps: this.steps.map((s) => s.describe()),
         };
     }
 
     serialize(): SerializedScenario {
         return {
             props: {
-                ...this.props,
+                initial: this.props.initial.describe(),
                 steps: this.props.steps.map((s) => s.serialize()),
             },
         };
@@ -64,7 +51,7 @@ export class Scenario {
 }
 
 export interface ScenarioProps {
-    initial: ScenarioStateDescription;
+    initial: ScenarioState;
     steps: Action[];
 }
 
@@ -73,6 +60,6 @@ export interface SerializedScenario {
 }
 
 export interface SerializedScenarioProps {
-    initial: ScenarioStateDescription;
+    initial: SerializedScenarioState;
     steps: SerializedAction[];
 }

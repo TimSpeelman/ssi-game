@@ -1,7 +1,7 @@
 import { Action } from '../../../model/game/Action';
 import { IOutcome } from '../../../model/game/IOutcome';
+import { ScenarioState } from '../../../model/game/ScenarioState';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
-import { ScenarioStateDescription } from '../../../model/view/ScenarioStateDescription';
 import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 import { InteractionDescription } from '../InteractionDescription';
@@ -25,11 +25,11 @@ export class WalletQRAuthentication extends Action<Props> {
         create: (id, d) => new WalletQRAuthentication(id, d),
     };
 
-    validatePreConditions(state: ScenarioStateDescription): string[] {
+    validatePreConditions(state: ScenarioState): string[] {
         return []; // TODO
     }
 
-    computeOutcomes(state: ScenarioStateDescription): IOutcome[] {
+    computeOutcomes(state: ScenarioState): IOutcome[] {
         const authResult: AuthenticationResult = {
             kind: 'data',
             type: 'authentication-result',
@@ -39,9 +39,9 @@ export class WalletQRAuthentication extends Action<Props> {
         return [new GainAssetOutcome({ actorId: this.props.verifierId, asset: authResult })];
     }
 
-    describe(state: ScenarioStateDescription): InteractionDescription {
-        const subject = state.actors[this.props.humanSubjectId].actor;
-        const verifier = state.actors[this.props.verifierId].actor;
+    describe(state: ScenarioState): InteractionDescription {
+        const subject = state.props.byActor[this.props.humanSubjectId].actor;
+        const verifier = state.props.byActor[this.props.verifierId].actor;
         return {
             id: this.id,
             type: 'WalletQRAuthentication',

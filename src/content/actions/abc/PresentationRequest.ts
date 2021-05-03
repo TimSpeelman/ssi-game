@@ -1,7 +1,7 @@
 import { Action } from '../../../model/game/Action';
 import { IOutcome } from '../../../model/game/IOutcome';
+import { ScenarioState } from '../../../model/game/ScenarioState';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
-import { ScenarioStateDescription } from '../../../model/view/ScenarioStateDescription';
 import { AttributeRequest } from '../../assets/data/abc/AttributeRequest';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 import { InteractionDescription } from '../InteractionDescription';
@@ -29,11 +29,11 @@ export class PresentationRequest extends Action<Props> {
         create: (id, d) => new PresentationRequest(id, d),
     };
 
-    validatePreConditions(state: ScenarioStateDescription): string[] {
+    validatePreConditions(state: ScenarioState): string[] {
         return []; // TODO
     }
 
-    computeOutcomes(state: ScenarioStateDescription): IOutcome[] {
+    computeOutcomes(state: ScenarioState): IOutcome[] {
         const req: AttributeRequest = {
             kind: 'data',
             type: 'attribute-request',
@@ -44,9 +44,9 @@ export class PresentationRequest extends Action<Props> {
         return [new GainAssetOutcome({ actorId: this.props.subjectId, asset: req })];
     }
 
-    describe(state: ScenarioStateDescription): InteractionDescription {
-        const subject = state.actors[this.props.subjectId].actor;
-        const verifier = state.actors[this.props.verifierId].actor;
+    describe(state: ScenarioState): InteractionDescription {
+        const subject = state.props.byActor[this.props.subjectId].actor;
+        const verifier = state.props.byActor[this.props.verifierId].actor;
         return {
             id: this.id,
             type: 'PresentationRequest',

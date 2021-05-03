@@ -1,17 +1,16 @@
 import { OnlineLiquorPurchaseScenario } from '../../config/scenarios/OnlineLiquorPurchaseScenario';
 import { ScenarioProps } from '../../model/game/Scenario';
-import { ScenarioState } from './state';
+import { ScenarioState } from '../../model/game/ScenarioState';
+import { RootState } from './state';
 
 export const defaultScenario: ScenarioProps = OnlineLiquorPurchaseScenario.props;
 
 export const emptyScenario: ScenarioProps = {
-    initial: {
-        actors: {},
-    },
+    initial: new ScenarioState({ byActor: {} }),
     steps: [],
 };
 
-export const defaultState: ScenarioState = {
+export const defaultState: RootState = {
     scenario: defaultScenario,
     activeStepId: undefined,
     selectedActorId: undefined,

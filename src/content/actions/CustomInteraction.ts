@@ -1,7 +1,7 @@
 import { Action } from '../../model/game/Action';
 import { IOutcome } from '../../model/game/IOutcome';
+import { ScenarioState } from '../../model/game/ScenarioState';
 import { ActionFormConfig } from '../../model/view/ActionFormConfig';
-import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescription';
 import { InteractionDescription } from './InteractionDescription';
 
 export interface Props {
@@ -36,12 +36,12 @@ export class CustomInteraction extends Action<Props> {
         return [];
     }
 
-    describe(state: ScenarioStateDescription): InteractionDescription {
+    describe(state: ScenarioState): InteractionDescription {
         return {
             id: this.id,
             type: 'CustomInteraction',
-            from: state.actors[this.props.fromId].actor,
-            to: state.actors[this.props.toId].actor,
+            from: state.props.byActor[this.props.fromId].actor,
+            to: state.props.byActor[this.props.toId].actor,
             description: this.props.description,
             sub: this.props.sub,
         };

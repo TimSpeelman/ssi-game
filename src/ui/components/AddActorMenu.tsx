@@ -1,7 +1,7 @@
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import React, { Fragment, MouseEvent as ReactMouseEvent, ReactElement } from 'react';
 import { actorImage } from '../../config/actorImage';
-import { Actor } from '../../data/actor/Actor';
+import { Actor } from '../../model/game/Actor';
 
 interface Props {
     onAdd: (actor: Actor) => void;

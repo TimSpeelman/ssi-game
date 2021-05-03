@@ -1,4 +1,4 @@
-import { ScenarioProps } from '../../data/scenario/Scenario';
+import { ScenarioProps } from '../../model/game/Scenario';
 
 export interface ScenarioState {
     scenario: ScenarioProps;

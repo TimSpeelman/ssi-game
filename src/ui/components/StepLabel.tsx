@@ -2,7 +2,7 @@ import { IconButton, ListItem, ListItemProps, ListItemSecondaryAction, ListItemT
 import DeleteIcon from '@material-ui/icons/Delete';
 import React from 'react';
 import { actorImage } from '../../config/actorImage';
-import { ScenarioStepDescription } from '../../data/scenario/Scenario';
+import { ScenarioStepDescription } from '../../model/view/ScenarioStepDescription';
 
 export interface Props extends ListItemProps {
     step: ScenarioStepDescription;

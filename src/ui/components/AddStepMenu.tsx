@@ -15,12 +15,12 @@ import { Add } from '@material-ui/icons';
 import React, { Fragment, useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { actorImage } from '../../config/actorImage';
-import { ActionForms } from '../../data/action/forms';
-import { IAction } from '../../data/action/IAction';
-import { Actor } from '../../data/actor/Actor';
+import { ActionForms } from '../../content/actions/forms';
+import { Action } from '../../model/game/Action';
+import { Actor } from '../../model/game/Actor';
 
 interface Props {
-    onAdd: (act: IAction) => void;
+    onAdd: (act: Action) => void;
     availableActors: Actor[];
 }
 

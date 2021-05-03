@@ -1,9 +1,9 @@
-import { Consent } from '../../asset/data/abc/Consent';
-import { FormConfig } from '../../FormConfig';
-import { GainAssetOutcome } from '../../outcome/GainAssetOutcome';
-import { IOutcome } from '../../outcome/IOutcome';
-import { ScenarioStateDescription } from '../../scenario/Scenario';
-import { IAction } from '../IAction';
+import { Action } from '../../../model/game/Action';
+import { IOutcome } from '../../../model/game/IOutcome';
+import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
+import { ScenarioStateDescription } from '../../../model/view/ScenarioStateDescription';
+import { Consent } from '../../assets/data/abc/Consent';
+import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 import { InteractionDescription } from '../InteractionDescription';
 
 export interface Props {
@@ -14,10 +14,10 @@ export interface Props {
     attributeName: string;
 }
 
-export class PresentationConsent extends IAction<Props> {
+export class PresentationConsent extends Action<Props> {
     typeName = 'PresentationConsent';
 
-    static config: FormConfig<keyof Props> = {
+    static config: ActionFormConfig<keyof Props> = {
         title: 'Toestemming voor Presentatie',
         fields: {
             verifierId: { type: 'actor', title: 'Verifier' },

@@ -1,10 +1,10 @@
+import { Action } from '../../model/game/Action';
+import { IOutcome } from '../../model/game/IOutcome';
+import { ActionFormConfig } from '../../model/view/ActionFormConfig';
+import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescription';
 import { ucFirst } from '../../util/util';
-import { GreenFlag } from '../asset/Flag';
-import { FormConfig } from '../FormConfig';
-import { GainAssetOutcome } from '../outcome/GainAssetOutcome';
-import { IOutcome } from '../outcome/IOutcome';
-import { ScenarioStateDescription } from '../scenario/Scenario';
-import { IAction } from './IAction';
+import { GreenFlag } from '../assets/Flag';
+import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
 import { InteractionDescription } from './InteractionDescription';
 
 export interface Props {
@@ -13,10 +13,10 @@ export interface Props {
     description: string;
 }
 
-export class GrantGreenFlag extends IAction<Props> {
+export class GrantGreenFlag extends Action<Props> {
     typeName = 'GrantGreenFlag';
 
-    static config: FormConfig<keyof Props> = {
+    static config: ActionFormConfig<keyof Props> = {
         title: 'Groene vlag toekennen',
         fields: {
             fromId: { type: 'actor', title: 'Van Actor' },

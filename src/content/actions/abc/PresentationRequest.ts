@@ -1,9 +1,9 @@
-import { AttributeRequest } from '../../asset/data/abc/AttributeRequest';
-import { FormConfig } from '../../FormConfig';
-import { GainAssetOutcome } from '../../outcome/GainAssetOutcome';
-import { IOutcome } from '../../outcome/IOutcome';
-import { ScenarioStateDescription } from '../../scenario/Scenario';
-import { IAction } from '../IAction';
+import { Action } from '../../../model/game/Action';
+import { IOutcome } from '../../../model/game/IOutcome';
+import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
+import { ScenarioStateDescription } from '../../../model/view/ScenarioStateDescription';
+import { AttributeRequest } from '../../assets/data/abc/AttributeRequest';
+import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 import { InteractionDescription } from '../InteractionDescription';
 
 export interface Props {
@@ -14,10 +14,10 @@ export interface Props {
     attributeName: string;
 }
 
-export class PresentationRequest extends IAction<Props> {
+export class PresentationRequest extends Action<Props> {
     typeName = 'PresentationRequest';
 
-    static config: FormConfig<keyof Props> = {
+    static config: ActionFormConfig<keyof Props> = {
         title: 'Verzoek voor Presentatie',
         fields: {
             verifierId: { type: 'actor', title: 'Verifier' },

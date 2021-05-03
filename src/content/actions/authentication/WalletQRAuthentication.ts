@@ -1,9 +1,9 @@
-import { AuthenticationResult } from '../../asset/data/abc/AuthenticationResult';
-import { FormConfig } from '../../FormConfig';
-import { GainAssetOutcome } from '../../outcome/GainAssetOutcome';
-import { IOutcome } from '../../outcome/IOutcome';
-import { ScenarioStateDescription } from '../../scenario/Scenario';
-import { IAction } from '../IAction';
+import { Action } from '../../../model/game/Action';
+import { IOutcome } from '../../../model/game/IOutcome';
+import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
+import { ScenarioStateDescription } from '../../../model/view/ScenarioStateDescription';
+import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
+import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 import { InteractionDescription } from '../InteractionDescription';
 
 export interface Props {
@@ -12,10 +12,10 @@ export interface Props {
     dataSubjectId: string;
 }
 
-export class WalletQRAuthentication extends IAction<Props> {
+export class WalletQRAuthentication extends Action<Props> {
     typeName = 'WalletQRAuthentication';
 
-    static config: FormConfig<keyof Props> = {
+    static config: ActionFormConfig<keyof Props> = {
         title: 'Authenticatie van Wallet via QR',
         fields: {
             verifierId: { type: 'actor', title: 'Verifier' },

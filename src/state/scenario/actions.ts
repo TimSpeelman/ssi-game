@@ -1,6 +1,6 @@
-import { IAction } from '../../data/action/IAction';
-import { Actor } from '../../data/actor/Actor';
-import { ScenarioProps } from '../../data/scenario/Scenario';
+import { Action } from '../../model/game/Action';
+import { Actor } from '../../model/game/Actor';
+import { ScenarioProps } from '../../model/game/Scenario';
 import { event } from '../../util/redux';
 
 export const ScenarioActions = {
@@ -8,7 +8,7 @@ export const ScenarioActions = {
 
     ADD_ACTOR: event<{ actor: Actor }>('ADD_ACTOR'),
     REMOVE_ACTOR: event<{ id: string }>('REMOVE_ACTOR'),
-    ADD_STEP: event<{ step: IAction }>('ADD_STEP'),
+    ADD_STEP: event<{ step: Action }>('ADD_STEP'),
     REMOVE_STEP: event<{ id: string }>('REMOVE_STEP'),
 
     RESET: event<void>('RESET'),

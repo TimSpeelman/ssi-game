@@ -1,8 +1,8 @@
 import { lens } from 'lens.ts';
+import { IOutcome } from '../../model/game/IOutcome';
+import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescription';
 import { ucFirst } from '../../util/util';
-import { Asset } from '../asset/Asset';
-import { ScenarioStateDescription } from '../scenario/Scenario';
-import { IOutcome } from './IOutcome';
+import { Asset } from '../assets/Asset';
 
 export class GainAssetOutcome implements IOutcome {
     constructor(

@@ -1,6 +1,7 @@
 import { actorImage } from '../../config/actorImage';
-import { Actor } from '../../data/actor/Actor';
-import { ScenarioStateDescription, ScenarioStepDescription } from '../../data/scenario/Scenario';
+import { Actor } from '../../model/game/Actor';
+import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescription';
+import { ScenarioStepDescription } from '../../model/view/ScenarioStepDescription';
 import { pointsOnCircleEquidistant, pointsOnCircleFixedRangeCentered } from '../../util/circle';
 import { scaleQuadraticBezierCurve } from '../../util/curve';
 import { add, scale, Vec } from '../../util/vec';

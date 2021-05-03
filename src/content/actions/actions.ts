@@ -1,3 +1,4 @@
+import { Action, SerializedAction } from '../../model/game/Action';
 import { Issuance } from './abc/Issuance';
 import { Presentation } from './abc/Presentation';
 import { PresentationConsent } from './abc/PresentationConsent';
@@ -7,7 +8,6 @@ import { WalletQRAuthentication } from './authentication/WalletQRAuthentication'
 import { WalletSMSAuthentication } from './authentication/WalletSMSAuthentication';
 import { CustomInteraction } from './CustomInteraction';
 import { GrantGreenFlag } from './GrantGreenFlag';
-import { IAction, SerializedAction } from './IAction';
 
 export const Actions = {
     GrantGreenFlag,
@@ -21,7 +21,7 @@ export const Actions = {
     CustomInteraction,
 };
 
-export function deserialize(s: SerializedAction<any>): IAction<any> {
+export function deserialize(s: SerializedAction<any>): Action<any> {
     // @ts-ignore
     const constructor: any = Actions[s.typeName];
     return new constructor(s.id, s.props);

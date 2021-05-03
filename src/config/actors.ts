@@ -1,4 +1,4 @@
-import { Actor } from '../data/actor/Actor';
+import { Actor } from '../model/game/Actor';
 
 export const allActors = {
     John: {

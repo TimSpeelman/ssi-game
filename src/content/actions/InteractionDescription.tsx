@@ -1,4 +1,4 @@
-import { Actor } from '../actor/Actor';
+import { Actor } from '../../model/game/Actor';
 
 /** A generic description of an interaction, for view purposes */
 export interface InteractionDescription {

@@ -1,9 +1,9 @@
-import { AttributeProof } from '../../asset/data/abc/AttributeProof';
-import { FormConfig } from '../../FormConfig';
-import { GainAssetOutcome } from '../../outcome/GainAssetOutcome';
-import { IOutcome } from '../../outcome/IOutcome';
-import { ScenarioStateDescription } from '../../scenario/Scenario';
-import { IAction } from '../IAction';
+import { Action } from '../../../model/game/Action';
+import { IOutcome } from '../../../model/game/IOutcome';
+import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
+import { ScenarioStateDescription } from '../../../model/view/ScenarioStateDescription';
+import { AttributeProof } from '../../assets/data/abc/AttributeProof';
+import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 import { InteractionDescription } from '../InteractionDescription';
 
 export interface Props {
@@ -19,10 +19,10 @@ export interface Props {
  * A Verifier authenticates a human Subject by comparing its physical appearance with its passport. We assume integrity
  * and authenticity.
  */
-export class Issuance extends IAction<Props> {
+export class Issuance extends Action<Props> {
     typeName = 'Issuance';
 
-    static config: FormConfig<keyof Props> = {
+    static config: ActionFormConfig<keyof Props> = {
         title: 'Uitgifte van credential',
         fields: {
             issuerId: { type: 'actor', title: 'Issuer' },

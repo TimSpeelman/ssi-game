@@ -1,7 +1,7 @@
-import { FormConfig } from '../FormConfig';
-import { IOutcome } from '../outcome/IOutcome';
-import { ScenarioStateDescription } from '../scenario/Scenario';
-import { IAction } from './IAction';
+import { Action } from '../../model/game/Action';
+import { IOutcome } from '../../model/game/IOutcome';
+import { ActionFormConfig } from '../../model/view/ActionFormConfig';
+import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescription';
 import { InteractionDescription } from './InteractionDescription';
 
 export interface Props {
@@ -14,10 +14,10 @@ export interface Props {
 /**
  * A custom interaction between two Actors
  */
-export class CustomInteraction extends IAction<Props> {
+export class CustomInteraction extends Action<Props> {
     typeName = 'CustomInteraction';
 
-    static config: FormConfig<keyof Props> = {
+    static config: ActionFormConfig<keyof Props> = {
         title: 'Vrije Interactie',
         fields: {
             fromId: { type: 'actor', title: 'Van' },

@@ -1,12 +1,9 @@
 import { allActors } from '../../config/actors';
-import { Actor } from '../../data/actor/Actor';
-import {
-    ActorState,
-    Scenario,
-    ScenarioProps,
-    ScenarioStateDescription,
-    ScenarioStepDescription,
-} from '../../data/scenario/Scenario';
+import { Actor } from '../../model/game/Actor';
+import { Scenario, ScenarioProps } from '../../model/game/Scenario';
+import { ActorState } from '../../model/view/ActorState';
+import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescription';
+import { ScenarioStepDescription } from '../../model/view/ScenarioStepDescription';
 import { w1th } from '../../util/w1th';
 import { ScenarioState } from './state';
 

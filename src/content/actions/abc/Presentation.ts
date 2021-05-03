@@ -1,9 +1,9 @@
-import { AttributeKnowledge } from '../../asset/data/abc/AttributeKnowledge';
-import { FormConfig } from '../../FormConfig';
-import { GainAssetOutcome } from '../../outcome/GainAssetOutcome';
-import { IOutcome } from '../../outcome/IOutcome';
-import { ScenarioStateDescription } from '../../scenario/Scenario';
-import { IAction } from '../IAction';
+import { Action } from '../../../model/game/Action';
+import { IOutcome } from '../../../model/game/IOutcome';
+import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
+import { ScenarioStateDescription } from '../../../model/view/ScenarioStateDescription';
+import { AttributeKnowledge } from '../../assets/data/abc/AttributeKnowledge';
+import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 import { InteractionDescription } from '../InteractionDescription';
 
 export interface Props {
@@ -16,10 +16,10 @@ export interface Props {
     issuerNym: string;
 }
 
-export class Presentation extends IAction<Props> {
+export class Presentation extends Action<Props> {
     typeName = 'Presentation';
 
-    static config: FormConfig<keyof Props> = {
+    static config: ActionFormConfig<keyof Props> = {
         title: 'Presentatie van Credential',
         fields: {
             verifierId: { type: 'actor', title: 'Verifier' },

@@ -1,8 +1,8 @@
 import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
 import React from 'react';
 import { actorImage } from '../../config/actorImage';
-import { Actor } from '../../data/actor/Actor';
-import { Asset } from '../../data/asset/Asset';
+import { Asset } from '../../content/assets/Asset';
+import { Actor } from '../../model/game/Actor';
 import { ucFirst } from '../../util/util';
 
 interface Props {

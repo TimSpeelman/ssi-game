@@ -1,5 +1,5 @@
 import { OnlineLiquorPurchaseScenario } from '../../config/scenarios/OnlineLiquorPurchaseScenario';
-import { ScenarioProps } from '../../data/scenario/Scenario';
+import { ScenarioProps } from '../../model/game/Scenario';
 import { ScenarioState } from './state';
 
 export const defaultScenario: ScenarioProps = OnlineLiquorPurchaseScenario.props;

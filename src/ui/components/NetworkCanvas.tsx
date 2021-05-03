@@ -4,7 +4,7 @@ import NavigateNext from '@material-ui/icons/NavigateNext';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Scenario } from '../../data/scenario/Scenario';
+import { Scenario } from '../../model/game/Scenario';
 import { loadScenarioFromLocalStorage } from '../../persistence/loadScenarioFromLocalStorage';
 import { saveScenarioToLocalStorage } from '../../persistence/saveScenarioToLocalStorage';
 import { ScenarioActions } from '../../state/scenario/actions';

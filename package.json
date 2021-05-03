@@ -16,7 +16,8 @@
         "lint:fix": "eslint --fix --ext ts,tsx src",
         "test": "jest spec\\.tsx?$",
         "test:watch": "jest  spec\\.tsx?$ --watchAll",
-        "tsc": "tsc --noEmit --project ./tsconfig.json"
+        "tsc": "tsc --noEmit --project ./tsconfig.json",
+        "tsc:watch": "tsc --noEmit --watch --project ./tsconfig.json"
     },
     "author": "Tim Speelman",
     "license": "GPL-3.0-or-later",

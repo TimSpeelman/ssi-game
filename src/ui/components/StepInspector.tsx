@@ -1,6 +1,6 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
-import { ScenarioStepDescription } from '../../data/scenario/Scenario';
+import { ScenarioStepDescription } from '../../model/view/ScenarioStepDescription';
 import { StepLabel } from './StepLabel';
 
 interface Props {

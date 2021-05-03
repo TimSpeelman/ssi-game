@@ -1,9 +1,10 @@
-import { deserialize as deserializeAction } from '../action/actions';
-import { IAction, SerializedAction } from '../action/IAction';
-import { InteractionDescription } from '../action/InteractionDescription';
-import { Actor } from '../actor/Actor';
-import { Asset } from '../asset/Asset';
-import { IOutcome } from '../outcome/IOutcome';
+import { deserialize as deserializeAction } from '../../content/actions/actions';
+import { InteractionDescription } from '../../content/actions/InteractionDescription';
+import { ScenarioDescription } from '../view/ScenarioDescription';
+import { ScenarioStateDescription } from '../view/ScenarioStateDescription';
+import { ScenarioStepDescription } from '../view/ScenarioStepDescription';
+import { Action, SerializedAction } from './Action';
+import { IOutcome } from './IOutcome';
 
 export class Scenario {
     readonly steps: Array<{
@@ -64,34 +65,8 @@ export class Scenario {
 
 export interface ScenarioProps {
     initial: ScenarioStateDescription;
-    steps: IAction[];
+    steps: Action[];
 }
-
-/** A Scenario is described as a set of steps starting from an initial state */
-export interface ScenarioDescription {
-    initial: ScenarioStateDescription;
-    steps: ScenarioStepDescription[];
-}
-
-/** A ScenarioStep is an Action which has some Outcomes and produces a new ScenarioState */
-export interface ScenarioStepDescription {
-    action: InteractionDescription;
-    outcomes: OutcomeDescription[];
-    result: ScenarioStateDescription;
-}
-
-/** A ScenarioState is a snapshot of all Actors and their Assets at a moment in time */
-export interface ScenarioStateDescription {
-    actors: Record<string, ActorState>;
-}
-
-export interface ActorState {
-    assets: Asset[];
-    actor: Actor;
-    mode?: string;
-}
-
-export type OutcomeDescription = string;
 
 export interface SerializedScenario {
     props: SerializedScenarioProps;

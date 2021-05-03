@@ -1,12 +1,12 @@
-import { IOutcome } from '../outcome/IOutcome';
-import { ScenarioStateDescription } from '../scenario/Scenario';
-import { InteractionDescription } from './InteractionDescription';
+import { InteractionDescription } from '../../content/actions/InteractionDescription';
+import { ScenarioStateDescription } from '../view/ScenarioStateDescription';
+import { IOutcome } from './IOutcome';
 
 /**
  * The player programs Actions. The action type defines what preconditions must be met before this action can occur and
  * computes the results of the action, which results in a new state.
  */
-export abstract class IAction<Props = any> {
+export abstract class Action<Props = any> {
     /** Type Name used for serialization */
     protected abstract readonly typeName: string;
 

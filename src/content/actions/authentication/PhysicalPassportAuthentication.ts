@@ -1,9 +1,11 @@
 import { Action } from '../../../model/game/Action';
 import { IOutcome } from '../../../model/game/IOutcome';
+import { IValidationResult } from '../../../model/game/IValidationResult';
 import { ScenarioState } from '../../../model/game/ScenarioState';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
+import { ValidationResult } from '../../validations/ValidationResult';
 import { InteractionDescription } from '../InteractionDescription';
 
 export interface Props {
@@ -29,19 +31,25 @@ export class PhysicalPassportAuthentication extends Action<Props> {
         create: (id, d) => new PhysicalPassportAuthentication(id, d),
     };
 
-    validatePreConditions(state: ScenarioState): string[] {
-        assert(this.props.verifierId in state.props.byActor, 'Unknown human subject id');
-        assert(this.props.humanSubjectId in state.props.byActor, 'Unknown verifier id');
+    validatePreConditions(state: ScenarioState): IValidationResult[] {
+        const results: IValidationResult[] = [];
 
         const subject = state.props.byActor[this.props.humanSubjectId];
         const verifier = state.props.byActor[this.props.verifierId];
         const subjectPassport = subject.assets.find((a) => a.type === 'gov-passport');
-        assert(!!subjectPassport, 'Subject needs to have passport'); // alternatively: result could be failed authentication
+        if (!subjectPassport)
+            results.push(new ValidationResult(false, `${ucFirst(subject.actor.nounPhrase)} heeft geen paspoort.`));
 
         const humanRecord = verifier.assets.find((a) => a.type === 'human-record' && a.id === this.props.dataSubjectId);
-        assert(!!humanRecord, 'Verifier needs to have human record of subject'); // alt: result could be failed authentication
+        if (!humanRecord)
+            results.push(
+                new ValidationResult(
+                    false,
+                    `${ucFirst(verifier.actor.nounPhrase)} heeft geen record van ${subject.actor.name}.`,
+                ),
+            );
 
-        return []; // TODO
+        return results;
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {

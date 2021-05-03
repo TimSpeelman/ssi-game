@@ -69,3 +69,11 @@ html {
 .active-step {
     border: 1px solid red !important;
 }
+
+.validation-ok {
+    color: green;
+}
+
+.validation-fail {
+    color: red;
+}

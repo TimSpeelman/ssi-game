@@ -1,5 +1,6 @@
 import { InteractionDescription } from '../../content/actions/InteractionDescription';
 import { IOutcome } from './IOutcome';
+import { IValidationResult } from './IValidationResult';
 import { ScenarioState } from './ScenarioState';
 
 /**
@@ -13,7 +14,7 @@ export abstract class Action<Props = any> {
     constructor(readonly id: string, readonly props: Props) {}
 
     /** Given a scenario state, check if the preconditions are met to perform this action */
-    abstract validatePreConditions(state: ScenarioState): string[];
+    abstract validatePreConditions(state: ScenarioState): IValidationResult[];
 
     /** Given a scenario state, compute the outcomes of this action */
     abstract computeOutcomes(state: ScenarioState): IOutcome[];

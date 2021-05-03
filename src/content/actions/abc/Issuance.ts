@@ -1,5 +1,6 @@
 import { Action } from '../../../model/game/Action';
 import { IOutcome } from '../../../model/game/IOutcome';
+import { IValidationResult } from '../../../model/game/IValidationResult';
 import { ScenarioState } from '../../../model/game/ScenarioState';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { AttributeProof } from '../../assets/data/abc/AttributeProof';
@@ -35,7 +36,7 @@ export class Issuance extends Action<Props> {
         create: (id, d) => new Issuance(id, d),
     };
 
-    validatePreConditions(state: ScenarioState): string[] {
+    validatePreConditions(state: ScenarioState): IValidationResult[] {
         return []; // TODO
     }
 

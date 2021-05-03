@@ -1,6 +1,7 @@
 import { ScenarioStepDescription } from '../view/ScenarioStepDescription';
 import { Action } from './Action';
 import { IOutcome } from './IOutcome';
+import { IValidationResult } from './IValidationResult';
 import { ScenarioState } from './ScenarioState';
 
 /**
@@ -13,6 +14,7 @@ export class ComputedStep {
     describe(): ScenarioStepDescription {
         return {
             action: this.props.action.describe(this.props.preState),
+            validation: this.props.validation.map((v) => v.describe(this.props.preState)),
             outcomes: this.props.outcomes.map((o) => o.describe(this.props.preState)),
             result: this.props.postState.describe(),
         };
@@ -22,6 +24,7 @@ export class ComputedStep {
 export interface Props {
     preState: ScenarioState;
     action: Action;
+    validation: IValidationResult[];
     outcomes: IOutcome[];
     postState: ScenarioState;
 }

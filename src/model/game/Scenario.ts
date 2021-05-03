@@ -22,11 +22,14 @@ export class Scenario {
         this.steps = props.steps.map((step) => {
             const preState = state;
             const outcomes = step.computeOutcomes(state);
+            const validation = step.validatePreConditions(state);
+
             const postState = outcomes.reduce((result, outcome) => outcome.computeState(result), preState);
             state = postState;
             return new ComputedStep({
                 action: step,
                 outcomes,
+                validation,
                 preState,
                 postState,
             });

@@ -8,11 +8,9 @@ import { WalletSMSAuthentication } from '../../content/actions/authentication/Wa
 import { CustomInteraction } from '../../content/actions/CustomInteraction';
 import { GrantGreenFlag } from '../../content/actions/GrantGreenFlag';
 import { AttributeKnowledge } from '../../content/assets/data/abc/AttributeKnowledge';
-import { HumanRecord } from '../../content/assets/data/abc/HumanRecord';
 import { PrivKey } from '../../content/assets/data/cryptography/PrivKey';
 import { PubKey } from '../../content/assets/data/cryptography/PubKey';
 import { FaceFeature } from '../../content/assets/feature/FaceFeature';
-import { GovPassport } from '../../content/assets/physical/GovPassport';
 import { Scenario } from '../../model/game/Scenario';
 import { ScenarioState } from '../../model/game/ScenarioState';
 import { allActors } from '../actors';
@@ -31,7 +29,7 @@ const initialState: ScenarioState = new ScenarioState({
         [Government.id]: {
             actor: Government,
             assets: [
-                { kind: 'data', type: 'human-record', id: SubjectIdAtGov } as HumanRecord,
+                // { kind: 'data', type: 'human-record', id: SubjectIdAtGov } as HumanRecord,
                 {
                     kind: 'data',
                     type: 'attribute-knowledge',
@@ -47,13 +45,13 @@ const initialState: ScenarioState = new ScenarioState({
         [Subject.id]: {
             actor: Subject,
             assets: [
-                {
-                    kind: 'physical',
-                    type: 'gov-passport',
-                    id: 'passp',
-                    name: Subject.name,
-                    photo: { id: 'photox', type: 'face', kind: 'data', subjectId: Subject.id },
-                } as GovPassport,
+                // {
+                //     kind: 'physical',
+                //     type: 'gov-passport',
+                //     id: 'passp',
+                //     name: Subject.name,
+                //     photo: { id: 'photox', type: 'face', kind: 'data', subjectId: Subject.id },
+                // } as GovPassport,
                 { kind: 'feature', type: 'face', id: 'face' } as FaceFeature,
                 { kind: 'data', type: 'pubkey', id: 'pub', key: SubjectNym1 } as PubKey,
                 { kind: 'data', type: 'privkey', id: 'priv', key: 'poweqopuo88' } as PrivKey,

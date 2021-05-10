@@ -28,6 +28,8 @@ export const mul = reduce((a, b) => a * b);
 
 export const avg = reduce((a, b) => a + (b - a) / 2);
 
+export const eq = (a: Vec, b: Vec) => a[0] === b[0] && a[1] === b[1];
+
 export const len = ([x, y]: Vec) => Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
 
 export const dist = (from: Vec, to: Vec) => len(sub(to, from));

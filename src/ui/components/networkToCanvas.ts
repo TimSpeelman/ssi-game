@@ -5,7 +5,7 @@ import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescript
 import { ScenarioStepDescription } from '../../model/view/ScenarioStepDescription';
 import { pointsOnCircleEquidistant, pointsOnCircleFixedRangeCentered } from '../../util/circle';
 import { scaleQuadraticBezierCurve } from '../../util/curve';
-import { add, avg, fractionOfLine, scale, Vec } from '../../util/vec';
+import { add, avg, eq, fractionOfLine, scale, Vec } from '../../util/vec';
 import { ActorEl, AssetEl, CanvasElem, ConnectionEl, SlotEl } from './SVGNetworkCanvas';
 
 interface NetworkProps {
@@ -27,63 +27,73 @@ function getActorImage(actor: Actor, mode?: string) {
 export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
     const { width, height, actors } = props;
 
-    // To position all slots along a circle, we need to compute n points on that circle
-    const numberOfSlots = actors.length;
-    const center: Vec = [width / 2, height / 2];
-    const slotPositionsUnit = pointsOnCircleEquidistant(numberOfSlots);
-    const slotRingRadius = (width / 2) * 0.6;
-    const slotPositionsAbs = slotPositionsUnit.map((p) => add(center, scale(slotRingRadius)(p)));
-
-    const slotRadius = 50;
     const currentStep = props.step?.action;
-
     const fromIndex = !!currentStep ? actors.findIndex((a) => a.id === currentStep.from.id) : -1;
     const toIndex = !!currentStep ? actors.findIndex((a) => a.id === currentStep.to.id) : -1;
 
-    const slots: SlotEl[] = slotPositionsAbs.map(
-        (p, i): SlotEl => ({
-            type: 'slot',
-            id: actors[i].id + '-slot',
-            // id: `slot-${i}`,
-            selected: actors[i].id === props.selectedActorId,
-            involvedInStep: !!currentStep && (i === fromIndex || i === toIndex),
-            c: p,
-            r: slotRadius,
+    const numberOfSlots = actors.length;
+    const center: Vec = [width / 2, height / 2];
+
+    // Compute the actor's base positions (along a circle)
+    const actorHomePosUnit = pointsOnCircleEquidistant(numberOfSlots);
+    const slotRingRadius = (width / 2) * 0.6;
+    const actorHomePos = actorHomePosUnit.map((p) => add(center, scale(slotRingRadius)(p)));
+
+    // Compute the actor's positions
+    const actorPos = actorHomePos.slice();
+    if (!!currentStep) {
+        // Move actors that interact locally
+        const fractionActorMovesToOther = 0.7;
+        const [fromPos, toPos] = computeInteractingActorsLocation(
+            actorHomePos[fromIndex],
+            actorHomePos[toIndex],
+            currentStep.locality,
+            fractionActorMovesToOther,
+        );
+        actorPos[fromIndex] = fromPos;
+        actorPos[toIndex] = toPos;
+    }
+
+    const _actors: ActorViewData[] = actors.map(
+        (actor, i): ActorViewData => ({
+            actor,
+            selected: actor.id === props.selectedActorId,
+            involvedInStep: i === fromIndex || i === toIndex,
+            isHome: eq(actorHomePos[i], actorPos[i]),
+            normalUrl: getActorImage(actor),
+            activeModeUrl: getActorImage(actor, props.modes[actors[i].id]),
+            homePosition: actorHomePos[i],
+            position: actorPos[i],
         }),
     );
 
-    // Depending on the locality of the interaction, move the actors
-    const fractionActorMovesToOther = 0.7;
-    const locality = !!currentStep ? currentStep.locality : Locality.REMOTE;
-    let actorEls = slotPositionsAbs.map(
-        (p, i): ActorEl => ({
-            type: 'actor',
-            id: actors[i].id,
-            selected: actors[i].id === props.selectedActorId,
-            involvedInStep: !!currentStep && (i === fromIndex || i === toIndex),
-            c: p,
+    const slotRadius = 50;
+
+    const slots: SlotEl[] = _actors.map(
+        (actor, i): SlotEl => ({
+            type: 'slot',
+            id: actor.actor.id + '-slot',
+            selected: actor.selected,
+            involvedInStep: actor.involvedInStep,
+            c: actor.homePosition,
             r: slotRadius,
-            url: actorImage(getActorImage(actors[i], props.modes[actors[i].id])),
+            showImage: !actor.isHome,
+            url: actorImage(actor.normalUrl),
         }),
     );
-    if (!!currentStep && locality !== Locality.REMOTE) {
-        const ctr = avg(slots[fromIndex].c, slots[toIndex].c);
-        const frm = slots[fromIndex].c;
-        const to = slots[toIndex].c;
-        const locs = {
-            [Locality.AT_CENTER]: [
-                fractionOfLine(frm, ctr, fractionActorMovesToOther),
-                fractionOfLine(to, ctr, fractionActorMovesToOther),
-            ],
-            [Locality.AT_FROM]: [frm, fractionOfLine(to, frm, fractionActorMovesToOther)],
-            [Locality.AT_TO]: [fractionOfLine(frm, to, fractionActorMovesToOther), to],
-        };
-        const [fromLoc, toLoc] = locs[locality];
-        actorEls = actorEls.map((s, i) => ({
-            ...s,
-            c: i === fromIndex ? fromLoc : i === toIndex ? toLoc : s.c,
-        }));
-    }
+
+    const locality = !!currentStep ? currentStep.locality : Locality.REMOTE;
+    const actorEls = _actors.map(
+        (actor, i): ActorEl => ({
+            type: 'actor',
+            id: actor.actor.id,
+            selected: actor.selected,
+            involvedInStep: actor.involvedInStep,
+            c: actor.position,
+            r: slotRadius,
+            url: actorImage(actor.activeModeUrl),
+        }),
+    );
 
     // Create connections between all actors
     const connectionCurveFraction = 0.5; // 0: straight line, 1: curved towards center
@@ -103,7 +113,9 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
                                   to: slot2.c,
                                   q: scaleQuadraticBezierCurve(slot1.c, center, slot2.c, connectionCurveFraction),
                                   lit: false,
-                                  involvedInStep: slot1.involvedInStep && slot2.involvedInStep,
+                                  // Only show connection when interacting remotely
+                                  involvedInStep:
+                                      slot1.involvedInStep && slot2.involvedInStep && locality === Locality.REMOTE,
                               },
                           ],
                 [],
@@ -118,7 +130,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
         const assets = props.state.actors[actor.id].assets;
         const numAssets = assets.length;
 
-        const actorCenter = slotPositionsAbs[actorIndex];
+        const actorCenter = actorHomePos[actorIndex];
         const actorAngle = ((2 * Math.PI) / numberOfSlots) * actorIndex; // center the range
         const spaceInRad = Math.PI / 6;
         const assetPositionsUnit = pointsOnCircleFixedRangeCentered(numAssets, actorAngle, spaceInRad);
@@ -143,4 +155,36 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
     const elems: CanvasElem[] = [...conns, ...slots, ...actorEls, ...assets];
 
     return elems.map((e) => (e.id === props.hoveredElemId ? { ...e, hovered: true } : e));
+}
+
+/** When actors interact locally, we move one or both towards the other */
+function computeInteractingActorsLocation(
+    frm: Vec,
+    to: Vec,
+    locality: Locality,
+    fractionActorMovesToOther: number,
+): [Vec, Vec] {
+    const ctr = avg(frm, to);
+    const locs: Record<Locality, [Vec, Vec]> = {
+        [Locality.AT_CENTER]: [
+            fractionOfLine(frm, ctr, fractionActorMovesToOther),
+            fractionOfLine(to, ctr, fractionActorMovesToOther),
+        ],
+        [Locality.AT_FROM]: [frm, fractionOfLine(to, frm, fractionActorMovesToOther)],
+        [Locality.AT_TO]: [fractionOfLine(frm, to, fractionActorMovesToOther), to],
+        [Locality.REMOTE]: [frm, to],
+    };
+    return locs[locality];
+}
+
+/** A contextually meaningful description of an actor */
+interface ActorViewData {
+    actor: Actor;
+    selected: boolean;
+    involvedInStep: boolean;
+    isHome: boolean;
+    normalUrl: string;
+    activeModeUrl: string;
+    homePosition: Vec;
+    position: Vec;
 }

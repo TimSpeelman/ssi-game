@@ -28,6 +28,7 @@ const images = {
 
 export type ImgName = keyof typeof images;
 
-export function actorImage(name: ImgName): string {
-    return images[name];
+export function actorImage(name: string): string {
+    if (!(name in images)) throw new Error('Unknown image with name ' + name);
+    return images[name as ImgName];
 }

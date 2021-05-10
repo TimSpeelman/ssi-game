@@ -40,13 +40,16 @@ const slot = (e: SlotEl) => (
     <g key={e.id}>
         {/* Background for hiding edges */}
         <circle cx={e.c[0]} cy={e.c[1]} r={e.r * 1.2} opacity={1} fill={'#eee'} />
+
+        {/* Actor image, vague */}
+        <image href={e.url} x={e.c[0] - e.r} y={e.c[1] - e.r} width={e.r * 2} opacity={e.showImage ? 0.1 : 0} />
     </g>
 );
 
 const actor = (e: ActorEl, dispatch: (e: CanvasEvent) => void) => (
     <g key={e.id}>
         {/* Selection or hover */}
-        <circle cx={e.c[0]} cy={e.c[1]} r={e.selected || e.hovered ? e.r * 1.1 : 0} opacity={1} fill={'#fef4bd'} />
+        <circle cx={e.c[0]} cy={e.c[1]} r={e.selected || e.hovered ? e.r * 1.1 : 0} opacity={0.9} fill={'#fef4bd'} />
 
         {/* Actor image */}
         <image href={e.url} x={e.c[0] - e.r} y={e.c[1] - e.r} width={e.r * 2} opacity={e.involvedInStep ? 1 : 0.4} />
@@ -155,7 +158,9 @@ export interface SlotEl {
     r: number;
     selected?: boolean;
     hovered?: boolean;
+    url: string;
     involvedInStep?: boolean;
+    showImage: boolean;
 }
 
 export interface ConnectionEl {

@@ -6,7 +6,7 @@ import { RootState } from './state';
 export const defaultScenario: ScenarioProps = OnlineLiquorPurchaseScenario.props;
 
 export const emptyScenario: ScenarioProps = {
-    initial: new ScenarioState({ byActor: {} }),
+    initial: new ScenarioState({ byActor: {}, valid: true }),
     steps: [],
 };
 

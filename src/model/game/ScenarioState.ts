@@ -6,18 +6,28 @@ import { Actor } from './Actor';
 
 /** Represents the entire state of the scenario at any point in the scenario. */
 export class ScenarioState {
+    static defaults: DefaultProps = {
+        valid: true,
+    };
+
     static deserialize(s: SerializedScenarioState) {
         const props: Props = {
             byActor: s.actors,
+            valid: s.valid,
         };
         return new ScenarioState(props);
     }
 
-    constructor(readonly props: Props) {}
+    readonly props: Props;
+
+    constructor(props: Omit<Props, keyof DefaultProps> & Partial<DefaultProps>) {
+        this.props = { ...ScenarioState.defaults, ...props };
+    }
 
     describe(): ScenarioStateDescription {
         return {
             actors: this.props.byActor,
+            valid: this.props.valid,
         };
     }
 
@@ -41,6 +51,11 @@ export class ScenarioState {
 
 export interface Props {
     byActor: Record<string, ActorState>;
+    valid: boolean;
+}
+
+export interface DefaultProps {
+    valid: boolean;
 }
 
 export interface ActorState {
@@ -51,4 +66,5 @@ export interface ActorState {
 
 export type SerializedScenarioState = {
     actors: Record<string, ActorState>;
+    valid: boolean;
 };

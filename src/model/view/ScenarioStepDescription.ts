@@ -6,6 +6,7 @@ import { ValidationResultDesc } from './ValidationResultDesc';
 /** A ScenarioStep is an Action which has some Outcomes and produces a new ScenarioState */
 export interface ScenarioStepDescription {
     success: boolean;
+    active: boolean;
     action: InteractionDescription;
     validation: ValidationResultDesc[];
     outcomes: OutcomeDescription[];

@@ -81,3 +81,11 @@ html {
 .step-failed {
     background: rgba(255, 0, 0, 0.2);
 }
+
+.step-failed {
+    color: red !important;
+}
+
+.step-inactive {
+    color: gray !important;
+}

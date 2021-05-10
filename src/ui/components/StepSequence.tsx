@@ -1,5 +1,6 @@
 import { Divider, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import classNames from 'classnames';
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../config/actorImage';
@@ -39,11 +40,12 @@ export function StepSequence() {
                 <Fragment key={i}>
                     <ListItem
                         button
-                        className={
-                            (activeStepId === step.action.id ? 'active-step' : '') +
-                            ' ' +
-                            (step.success ? 'step-success' : 'step-failed')
-                        }
+                        className={classNames({
+                            'active-step': activeStepId === step.action.id,
+                            'step-success': step.success,
+                            'step-failed': !step.success,
+                            'step-inactive': !step.active,
+                        })}
                         onClick={() => handleClick(step.action.id)}
                         selected={selectedStepId === step.action.id}
                     >

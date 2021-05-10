@@ -18,7 +18,9 @@ export abstract class Action<Props = any> {
     public computeStep(preState: ScenarioState): ComputedStep {
         const validation = this.validatePreConditions(preState);
         const outcomes = this.computeOutcomes(preState);
-        const postState = outcomes.reduce((result, outcome) => outcome.computeState(result), preState);
+        const postState = outcomes
+            .reduce((result, outcome) => outcome.computeState(result), preState)
+            .withUpdate((s) => ({ ...s, valid: s.valid && validation.every((v) => v.success) }));
 
         return new ComputedStep({
             action: this,

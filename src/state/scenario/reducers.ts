@@ -1,5 +1,6 @@
 import { lens } from 'lens.ts';
 import { IAction, ReducerMap } from '../../util/redux';
+import { reorder } from '../../util/util';
 import { ScenarioActions } from './actions';
 import { defaultScenario, emptyScenario } from './default';
 import { RootState } from './state';
@@ -17,6 +18,8 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
     //  L.scenario.initial.actors.k(p.actor.id).set({ actor: p.actor, assets: [] }),
 
     REMOVE_ACTOR: (p) => L.scenario.initial.set((initial) => initial.withoutActor(p.id)),
+
+    REORDER_STEP: (p) => L.scenario.steps.set((steps) => reorder(steps, p.sourceIndex, p.targetIndex)),
 
     RESET: (p) => L.scenario.set(defaultScenario),
     CLEAR: (p) => L.scenario.set(emptyScenario),

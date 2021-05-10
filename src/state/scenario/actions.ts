@@ -10,6 +10,7 @@ export const ScenarioActions = {
     REMOVE_ACTOR: event<{ id: string }>('REMOVE_ACTOR'),
     ADD_STEP: event<{ step: Action }>('ADD_STEP'),
     REMOVE_STEP: event<{ id: string }>('REMOVE_STEP'),
+    REORDER_STEP: event<{ sourceIndex: number; targetIndex: number }>('REORDER_STEP'),
 
     RESET: event<void>('RESET'),
     CLEAR: event<void>('CLEAR'),

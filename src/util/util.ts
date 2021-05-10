@@ -35,3 +35,13 @@ export function mapValues<T, S>(obj: Record<string, T>, map: (t: T) => S): Recor
         {},
     );
 }
+
+export function reorder<T>(list: T[], fromIndex: number, toIndex: number) {
+    if (list.length === 0) return [];
+    if (toIndex === fromIndex) return list;
+    const item = list[fromIndex];
+    const list1 = list.filter((x, i) => i !== fromIndex);
+    const index = toIndex;
+    const list2 = [...list1.slice(0, index), item, ...list1.slice(index)];
+    return list2;
+}

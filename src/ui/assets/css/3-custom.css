@@ -93,8 +93,10 @@ html {
   color: red;
 }
 
-.step-failed {
-  background: rgba(255, 0, 0, 0.2);
+.step-item {
+  background: white !important;
+  border-top: 1px solid #bbb !important;
+  border-bottom: 1px solid #bbb !important;
 }
 
 .step-failed {

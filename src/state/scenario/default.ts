@@ -17,7 +17,7 @@ export const emptyScenario: ScenarioProps = {
 
 export const defaultState: RootState = {
     scenario: defaultScenario,
-    showMeta: true,
+    showMeta: false,
     activeStepId: undefined,
     selectedActorId: undefined,
     selectedStepId: undefined,

@@ -104,13 +104,21 @@ const connection = (e: ConnectionEl, dispatch: (e: CanvasEvent) => void) => (
 const asset = (e: AssetEl) => <circle key={e.id} cx={e.c[0]} cy={e.c[1]} r={e.r} fill={'green'} />;
 
 const spotlight = (e: Spotlight) => (
-    <g>
+    <g style={{ pointerEvents: 'none' }}>
         <rect x={0} y={0} width={600} height={600} fill={'white'} />
         <circle cx={e.c[0]} cy={e.c[1]} r={e.r} fill={'black'} filter={'url(#blurFilter)'} />
     </g>
 );
 const spotlightCover = (w: number, h: number) => (
-    <rect x={0} y={0} width={w} height={h} mask="url(#spotlight)" fill={'rgba(0,0,0,0.3'} />
+    <rect
+        style={{ pointerEvents: 'none' }}
+        x={0}
+        y={0}
+        width={w}
+        height={h}
+        mask="url(#spotlight)"
+        fill={'rgba(0,0,0,0.3'}
+    />
 );
 
 export function SVGNetworkCanvas(props: Props) {

@@ -103,9 +103,25 @@ const connection = (e: ConnectionEl, dispatch: (e: CanvasEvent) => void) => (
 
 const asset = (e: AssetEl) => <circle key={e.id} cx={e.c[0]} cy={e.c[1]} r={e.r} fill={'green'} />;
 
+const spotlight = (e: Spotlight) => (
+    <g>
+        <rect x={0} y={0} width={600} height={600} fill={'white'} />
+        <circle cx={e.c[0]} cy={e.c[1]} r={e.r} fill={'black'} filter={'url(#blurFilter)'} />
+    </g>
+);
+const spotlightCover = (w: number, h: number) => (
+    <rect x={0} y={0} width={w} height={h} mask="url(#spotlight)" fill={'rgba(0,0,0,0.3'} />
+);
+
 export function SVGNetworkCanvas(props: Props) {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width={'100%'} height={'100%'} viewBox="0 0 600 600">
+            <defs>
+                <filter id="blurFilter">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="1" />
+                </filter>
+                <mask id="spotlight">{props.spotlight && spotlight(props.spotlight)}</mask>
+            </defs>
             {props.elems.map((e) => {
                 switch (e.type) {
                     case 'slot':
@@ -118,6 +134,7 @@ export function SVGNetworkCanvas(props: Props) {
                         return asset(e);
                 }
             })}
+            {spotlightCover(600, 600)}
         </svg>
     );
 }
@@ -125,9 +142,16 @@ export function SVGNetworkCanvas(props: Props) {
 export interface Props {
     elems: CanvasElem[];
     onEvent: (e: CanvasEvent) => void;
+    spotlight?: Spotlight;
 }
 
 export type CanvasElem = SlotEl | ActorEl | ConnectionEl | AssetEl;
+
+export interface Spotlight {
+    c: Vec;
+    r: number;
+    on: boolean;
+}
 
 export interface AssetEl {
     type: 'asset';

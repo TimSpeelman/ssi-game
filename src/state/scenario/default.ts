@@ -7,6 +7,11 @@ export const defaultScenario: ScenarioProps = OnlineLiquorPurchaseScenario.props
 
 export const emptyScenario: ScenarioProps = {
     initial: new ScenarioState({ byActor: {}, valid: true }),
+    meta: {
+        title: 'Scenario zonder naam',
+        author: '',
+        body: '(leeg)',
+    },
     steps: [],
 };
 

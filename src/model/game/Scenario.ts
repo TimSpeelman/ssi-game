@@ -10,6 +10,7 @@ export class Scenario {
     static deserialize(s: SerializedScenario) {
         const props = {
             initial: ScenarioState.deserialize(s.props.initial),
+            meta: s.props.meta,
             steps: s.props.steps.map((s) => deserializeAction(s)),
         };
         return new Scenario(props);
@@ -29,6 +30,7 @@ export class Scenario {
     describe(): ScenarioDescription {
         return {
             initial: this.props.initial.describe(),
+            meta: this.props.meta,
             steps: this.steps.map((s) => s.describe()),
             failingAtIndex: this.steps.findIndex((s) => !s.hasSucceeded()),
         };
@@ -38,6 +40,7 @@ export class Scenario {
         return {
             props: {
                 initial: this.props.initial.describe(),
+                meta: this.props.meta,
                 steps: this.props.steps.map((s) => s.serialize()),
             },
         };
@@ -46,7 +49,14 @@ export class Scenario {
 
 export interface ScenarioProps {
     initial: ScenarioState;
+    meta: ScenarioMeta;
     steps: Action[];
+}
+
+export interface ScenarioMeta {
+    title: string;
+    author: string;
+    body: string;
 }
 
 export interface SerializedScenario {
@@ -55,5 +65,6 @@ export interface SerializedScenario {
 
 export interface SerializedScenarioProps {
     initial: SerializedScenarioState;
+    meta: ScenarioMeta;
     steps: SerializedAction[];
 }

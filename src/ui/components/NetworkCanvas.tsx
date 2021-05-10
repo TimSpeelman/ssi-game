@@ -20,6 +20,7 @@ import {
 } from '../../state/scenario/selectors';
 import { NetworkControls } from './NetworkControls';
 import { createNetworkCanvasData } from './networkToCanvas';
+import { ScenarioMetaDialog } from './ScenarioMetaDialog';
 import { CanvasEvent, SVGNetworkCanvas } from './SVGNetworkCanvas';
 
 export function NetworkCanvas() {
@@ -102,8 +103,16 @@ export function NetworkCanvas() {
         hoveredElemId,
     });
 
+    const [metaDialogIsOpen, setMetaDialogOpen] = useState(true);
+
     return (
         <div className="network-canvas">
+            <ScenarioMetaDialog
+                meta={scenario.props.meta}
+                open={metaDialogIsOpen}
+                handleClose={() => setMetaDialogOpen(false)}
+            />
+
             <div className="canvasarea">
                 <SVGNetworkCanvas elems={elems} onEvent={handleEvent} />
                 {failedStep && (

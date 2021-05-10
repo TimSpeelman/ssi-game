@@ -49,7 +49,8 @@ export class PhysicalPassportAuthentication extends Action<Props> {
                 ),
             );
 
-        return results;
+        // return results;
+        return [];
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {

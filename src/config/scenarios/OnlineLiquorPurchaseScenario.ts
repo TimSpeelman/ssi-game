@@ -97,8 +97,8 @@ export const OnlineLiquorPurchaseScenario = new Scenario({
         body:
             'Om de online verkoop van alcohol veilig te maken, dient worden gecontroleerd ' +
             'dat de koper ten minste 18 jaar oud is. In dit scenario bewijst een koper dit ' +
-            'met behulp van Self-Sovereign Identity. Daartoe gaat haalt hij een ' +
-            'bewijs van 18+ zijn ophalen bij het gemeenteloket, welke hij vervolgens gebruikt ' +
+            'met behulp van Self-Sovereign Identity. Daartoe haalt hij een ' +
+            'bewijs van 18+ zijn op bij het gemeenteloket, welke hij vervolgens gebruikt ' +
             'om online alcohol te kopen.',
     },
     steps: [

@@ -37,7 +37,7 @@ export const selectUsedActorsState = (r: any): ActorState[] =>
     Object.values(root(r).scenario.initial.describe().actors);
 
 export const selectSelectedActor = (r: any): ActorState | undefined =>
-    w1th(root(r).selectedActorId, (id) => (id ? root(r).scenario.initial.describe().actors[id] : undefined));
+    w1th(root(r).selectedActorId, (id) => (id ? selectActiveState(r).actors[id] : undefined));
 
 export const selectSnackbarIsOn = (r: any) => root(r).snackbarOn;
 export const selectShowMeta = (r: any) => root(r).showMeta;

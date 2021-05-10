@@ -53,7 +53,7 @@ export class GrantGreenFlag extends Action<Props> {
             from: from,
             to: to,
             long: `${ucFirst(from.nounPhrase)} geeft ${to.name} de groene vlag.`,
-            locality: Locality.REMOTE,
+            locality: Locality.AT_CENTER,
         };
     }
 }

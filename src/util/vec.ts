@@ -44,3 +44,5 @@ export const rotate = (rad: number) => (a: Vec): Vec => [
 export const scale = (scale: number): Map => map((c) => c * scale);
 
 export const round = (scale: number): Map => map((c) => rnd(c, scale));
+
+export const fractionOfLine = (from: Vec, to: Vec, fraction: number) => add(from, scale(fraction)(sub(to, from)));

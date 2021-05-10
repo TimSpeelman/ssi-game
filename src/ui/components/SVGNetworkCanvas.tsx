@@ -1,6 +1,8 @@
 import React from 'react';
 import { Vec } from '../../util/vec';
 
+const debug = false;
+
 export type CanvasEvent =
     | SlotClickEvent
     | SlotEnterEvent
@@ -34,15 +36,15 @@ interface SlotDeleteEvent {
     id: string;
 }
 
-const middle = (a: number, b: number) => a + (b - a) / 2;
-
-const curve = (x1: number, x2: number, qx: number, curve: number) => qx + (middle(x1, x2) - qx) * (1 - curve);
-
-const slot = (e: SlotEl, dispatch: (e: CanvasEvent) => void) => (
+const slot = (e: SlotEl) => (
     <g key={e.id}>
         {/* Background for hiding edges */}
         <circle cx={e.c[0]} cy={e.c[1]} r={e.r * 1.2} opacity={1} fill={'#eee'} />
+    </g>
+);
 
+const actor = (e: ActorEl, dispatch: (e: CanvasEvent) => void) => (
+    <g key={e.id}>
         {/* Selection or hover */}
         <circle cx={e.c[0]} cy={e.c[1]} r={e.selected || e.hovered ? e.r * 1.1 : 0} opacity={1} fill={'#fef4bd'} />
 
@@ -55,48 +57,11 @@ const slot = (e: SlotEl, dispatch: (e: CanvasEvent) => void) => (
             cx={e.c[0]}
             cy={e.c[1]}
             r={e.r * 1.1}
-            fill={'transparent'}
+            fill={debug ? 'rgba(0,0,255,0.1)' : 'transparent'}
             onMouseEnter={() => dispatch({ type: 'slot-enter', id: e.id })}
             onMouseLeave={() => dispatch({ type: 'slot-leave', id: e.id })}
             onClick={() => dispatch({ type: 'slot-click', id: e.id })}
         />
-
-        {/* Delete */}
-
-        <svg
-            x={e.c[0] + (e.r * Math.sqrt(3)) / 2 - e.r * 0.4}
-            y={e.c[1] - (e.r * Math.sqrt(3)) / 2 - e.r * 0.4}
-            width={e.r * 0.8}
-            height={e.r * 0.8}
-        >
-            <g
-                style={{
-                    transform: e.hovered ? 'scale(1)' : 'scale(0)',
-                    transitionDelay: '1s',
-                    transformOrigin: '50% 50%',
-                }}
-            >
-                <circle cx={e.r * 0.4} cy={e.r * 0.4} r={e.r * 0.4} fill={'#ccc'} />
-                <text
-                    x={e.r * 0.4}
-                    y={e.r * 0.4}
-                    fill="black"
-                    className="fas"
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                >
-                    &#xf1f8;
-                </text>
-                <circle
-                    cx={e.r * 0.4}
-                    cy={e.r * 0.4}
-                    r={e.r * 0.4 * 1.1}
-                    fill={'transparent'}
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => dispatch({ type: 'slot-delete', id: e.id })}
-                />
-            </g>
-        </svg>
     </g>
 );
 
@@ -124,17 +89,13 @@ const connection = (e: ConnectionEl, dispatch: (e: CanvasEvent) => void) => (
         <path
             d={cubicBezier(e.from, e.q, e.to)}
             style={{ cursor: 'pointer' }}
-            stroke="transparent"
+            stroke={debug ? 'rgba(0,255,255,0.1)' : 'transparent'}
             strokeWidth={25}
             fill="transparent"
             onMouseEnter={() => dispatch({ type: 'conn-enter', id: e.id })}
             onMouseLeave={() => dispatch({ type: 'conn-leave', id: e.id })}
         />
     </g>
-);
-
-const interaction = (e: InteractionEl) => (
-    <circle key={e.id} cx={e.c[0]} cy={e.c[1]} r={e.radius} fill={'hsl(0,0%,70%)'} opacity={0} /> // hidden!
 );
 
 const asset = (e: AssetEl) => <circle key={e.id} cx={e.c[0]} cy={e.c[1]} r={e.r} fill={'green'} />;
@@ -145,11 +106,11 @@ export function SVGNetworkCanvas(props: Props) {
             {props.elems.map((e) => {
                 switch (e.type) {
                     case 'slot':
-                        return slot(e, props.onEvent);
+                        return slot(e);
+                    case 'actor':
+                        return actor(e, props.onEvent);
                     case 'connection':
                         return connection(e, props.onEvent);
-                    case 'interaction':
-                        return interaction(e);
                     case 'asset':
                         return asset(e);
                 }
@@ -163,7 +124,7 @@ export interface Props {
     onEvent: (e: CanvasEvent) => void;
 }
 
-export type CanvasElem = SlotEl | ConnectionEl | InteractionEl | AssetEl;
+export type CanvasElem = SlotEl | ActorEl | ConnectionEl | AssetEl;
 
 export interface AssetEl {
     type: 'asset';
@@ -176,6 +137,17 @@ export interface AssetEl {
     hovered?: boolean;
 }
 
+export interface ActorEl {
+    type: 'actor';
+    id: string;
+    c: Vec;
+    r: number;
+    selected?: boolean;
+    hovered?: boolean;
+    url: string;
+    involvedInStep?: boolean;
+}
+
 export interface SlotEl {
     type: 'slot';
     id: string;
@@ -183,7 +155,6 @@ export interface SlotEl {
     r: number;
     selected?: boolean;
     hovered?: boolean;
-    url: string;
     involvedInStep?: boolean;
 }
 
@@ -196,11 +167,4 @@ export interface ConnectionEl {
     involvedInStep?: boolean;
     lit?: boolean;
     hovered?: boolean;
-}
-
-export interface InteractionEl {
-    type: 'interaction';
-    id: string;
-    c: Vec;
-    radius: number;
 }

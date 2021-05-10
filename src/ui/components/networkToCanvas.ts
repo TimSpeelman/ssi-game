@@ -1,11 +1,12 @@
 import { actorImage } from '../../config/actorImage';
+import { Locality } from '../../content/actions/InteractionDescription';
 import { Actor } from '../../model/game/Actor';
 import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescription';
 import { ScenarioStepDescription } from '../../model/view/ScenarioStepDescription';
 import { pointsOnCircleEquidistant, pointsOnCircleFixedRangeCentered } from '../../util/circle';
 import { scaleQuadraticBezierCurve } from '../../util/curve';
-import { add, scale, Vec } from '../../util/vec';
-import { AssetEl, CanvasElem, ConnectionEl, InteractionEl, SlotEl } from './SVGNetworkCanvas';
+import { add, avg, fractionOfLine, scale, Vec } from '../../util/vec';
+import { ActorEl, AssetEl, CanvasElem, ConnectionEl, SlotEl } from './SVGNetworkCanvas';
 
 interface NetworkProps {
     width: number;
@@ -35,19 +36,54 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
 
     const slotRadius = 50;
     const currentStep = props.step?.action;
+
+    const fromIndex = !!currentStep ? actors.findIndex((a) => a.id === currentStep.from.id) : -1;
+    const toIndex = !!currentStep ? actors.findIndex((a) => a.id === currentStep.to.id) : -1;
+
     const slots: SlotEl[] = slotPositionsAbs.map(
         (p, i): SlotEl => ({
             type: 'slot',
-            id: actors[i].id,
+            id: actors[i].id + '-slot',
             // id: `slot-${i}`,
             selected: actors[i].id === props.selectedActorId,
-            involvedInStep:
-                !!currentStep && (currentStep.from.id === actors[i].id || currentStep.to.id === actors[i].id),
+            involvedInStep: !!currentStep && (i === fromIndex || i === toIndex),
+            c: p,
+            r: slotRadius,
+        }),
+    );
+
+    // Depending on the locality of the interaction, move the actors
+    const fractionActorMovesToOther = 0.7;
+    const locality = !!currentStep ? currentStep.locality : Locality.REMOTE;
+    let actorEls = slotPositionsAbs.map(
+        (p, i): ActorEl => ({
+            type: 'actor',
+            id: actors[i].id,
+            selected: actors[i].id === props.selectedActorId,
+            involvedInStep: !!currentStep && (i === fromIndex || i === toIndex),
             c: p,
             r: slotRadius,
             url: actorImage(getActorImage(actors[i], props.modes[actors[i].id])),
         }),
     );
+    if (!!currentStep && locality !== Locality.REMOTE) {
+        const ctr = avg(slots[fromIndex].c, slots[toIndex].c);
+        const frm = slots[fromIndex].c;
+        const to = slots[toIndex].c;
+        const locs = {
+            [Locality.AT_CENTER]: [
+                fractionOfLine(frm, ctr, fractionActorMovesToOther),
+                fractionOfLine(to, ctr, fractionActorMovesToOther),
+            ],
+            [Locality.AT_FROM]: [frm, fractionOfLine(to, frm, fractionActorMovesToOther)],
+            [Locality.AT_TO]: [fractionOfLine(frm, to, fractionActorMovesToOther), to],
+        };
+        const [fromLoc, toLoc] = locs[locality];
+        actorEls = actorEls.map((s, i) => ({
+            ...s,
+            c: i === fromIndex ? fromLoc : i === toIndex ? toLoc : s.c,
+        }));
+    }
 
     // Create connections between all actors
     const connectionCurveFraction = 0.5; // 0: straight line, 1: curved towards center
@@ -75,12 +111,6 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
         ],
         [],
     );
-
-    // The interaction
-    const interactionRadius = width / 5;
-    const interaction: InteractionEl | undefined = props.step
-        ? { type: 'interaction' as const, id: 'interaction', c: center, radius: interactionRadius }
-        : undefined;
 
     // The assets
     const assetRadius = 10;
@@ -110,7 +140,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
     }, []);
 
     // Combine all elems
-    const elems: CanvasElem[] = [...conns, ...slots, ...(!interaction ? [] : [interaction]), ...assets];
+    const elems: CanvasElem[] = [...conns, ...slots, ...actorEls, ...assets];
 
     return elems.map((e) => (e.id === props.hoveredElemId ? { ...e, hovered: true } : e));
 }

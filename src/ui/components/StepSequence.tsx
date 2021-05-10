@@ -52,17 +52,7 @@ export function StepSequence() {
                         <img src={actorImage(step.action.from.image)} style={{ height: '3rem' }} />
                         <i className="fas fa-chevron-right"></i>
                         <img src={actorImage(step.action.to.image)} style={{ height: '3rem' }} />
-                        <ListItemText primary={step.action.description} secondary={''} />
-                        <Fragment>
-                            <p>{step.action.sub}</p>
-                            <ul>
-                                {step.validation.map((v, i) => (
-                                    <li key={i} className={v.success ? 'validation-ok' : 'validation-fail'}>
-                                        {v.message}
-                                    </li>
-                                ))}
-                            </ul>
-                        </Fragment>
+                        <ListItemText primary={step.action.description} secondary={step.action.sub} />
 
                         <ListItemSecondaryAction>
                             <IconButton

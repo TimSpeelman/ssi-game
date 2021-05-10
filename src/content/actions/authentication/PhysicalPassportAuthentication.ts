@@ -6,7 +6,7 @@ import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 import { ValidationResult } from '../../validations/ValidationResult';
-import { InteractionDescription } from '../InteractionDescription';
+import { InteractionDescription, Locality } from '../InteractionDescription';
 
 export interface Props {
     verifierId: string;
@@ -77,6 +77,7 @@ export class PhysicalPassportAuthentication extends Action<Props> {
             long: `${ucFirst(verifier.nounPhrase)} authenticeert ${subject.name}, in levende lijve, op basis van ${
                 subject.isMale ? 'zijn' : 'haar'
             } paspoort door de pasfoto te vergelijken met ${subject.isMale ? 'zijn' : 'haar'} gezicht.`,
+            locality: Locality.AT_FROM,
         };
     }
 }

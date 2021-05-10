@@ -5,7 +5,7 @@ import { ScenarioState } from '../../../model/game/ScenarioState';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { Consent } from '../../assets/data/abc/Consent';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
-import { InteractionDescription } from '../InteractionDescription';
+import { InteractionDescription, Locality } from '../InteractionDescription';
 
 export interface Props {
     verifierId: string;
@@ -59,6 +59,7 @@ export class PresentationConsent extends Action<Props> {
             long: `${ucFirst(subject.nounPhrase)} geeft ${verifier.name} toestemming om het attribuut ${
                 this.props.attributeName
             } te gebruiken.`,
+            locality: Locality.REMOTE,
         };
     }
 }

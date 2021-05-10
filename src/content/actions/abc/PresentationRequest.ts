@@ -5,7 +5,7 @@ import { ScenarioState } from '../../../model/game/ScenarioState';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { AttributeRequest } from '../../assets/data/abc/AttributeRequest';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
-import { InteractionDescription } from '../InteractionDescription';
+import { InteractionDescription, Locality } from '../InteractionDescription';
 
 export interface Props {
     verifierId: string;
@@ -59,6 +59,7 @@ export class PresentationRequest extends Action<Props> {
             long: `${ucFirst(verifier.nounPhrase)} verzoekt ${subject.name} om het attribuut ${
                 this.props.attributeName
             } te presenteren.`,
+            locality: Locality.REMOTE,
         };
     }
 }

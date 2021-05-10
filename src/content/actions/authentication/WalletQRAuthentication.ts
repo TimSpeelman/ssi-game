@@ -5,7 +5,7 @@ import { ScenarioState } from '../../../model/game/ScenarioState';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
-import { InteractionDescription } from '../InteractionDescription';
+import { InteractionDescription, Locality } from '../InteractionDescription';
 
 export interface Props {
     verifierId: string;
@@ -54,6 +54,7 @@ export class WalletQRAuthentication extends Action<Props> {
             long: `${ucFirst(subject.nounPhrase)} scant QR van ${verifier.name} waarna ${verifier.name} de wallet van ${
                 subject.name
             } authenticeert.`,
+            locality: Locality.REMOTE,
         };
     }
 }

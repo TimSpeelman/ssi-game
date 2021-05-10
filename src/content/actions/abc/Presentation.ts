@@ -5,7 +5,7 @@ import { ScenarioState } from '../../../model/game/ScenarioState';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { AttributeKnowledge } from '../../assets/data/abc/AttributeKnowledge';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
-import { InteractionDescription } from '../InteractionDescription';
+import { InteractionDescription, Locality } from '../InteractionDescription';
 
 export interface Props {
     verifierId: string;
@@ -64,6 +64,7 @@ export class Presentation extends Action<Props> {
             long: `${ucFirst(subject.nounPhrase)} toont het ${this.props.attributeName} credential aan ${
                 verifier.name
             }.`,
+            locality: Locality.REMOTE,
         };
     }
 }

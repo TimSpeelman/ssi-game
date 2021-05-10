@@ -5,7 +5,7 @@ import { ScenarioState } from '../../../model/game/ScenarioState';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { AttributeProof } from '../../assets/data/abc/AttributeProof';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
-import { InteractionDescription } from '../InteractionDescription';
+import { InteractionDescription, Locality } from '../InteractionDescription';
 
 export interface Props {
     issuerId: string;
@@ -67,6 +67,7 @@ export class Issuance extends Action<Props> {
             long: `${ucFirst(issuer.nounPhrase)} geeft een ${this.props.attributeName} credential uit aan ${
                 subject.name
             }.`,
+            locality: Locality.REMOTE,
         };
     }
 }

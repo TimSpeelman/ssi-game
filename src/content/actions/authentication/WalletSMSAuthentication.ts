@@ -6,7 +6,7 @@ import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { AttributeKnowledge } from '../../assets/data/abc/AttributeKnowledge';
 import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
-import { InteractionDescription } from '../InteractionDescription';
+import { InteractionDescription, Locality } from '../InteractionDescription';
 
 export interface Props {
     verifierId: string;
@@ -65,6 +65,7 @@ export class WalletSMSAuthentication extends Action<Props> {
             long: `${ucFirst(verifier.nounPhrase)} authenticeert de wallet van ${subject.name} door ${
                 subject.isMale ? 'hem' : 'haar'
             } een unieke code per SMS te sturen.`,
+            locality: Locality.AT_FROM, // TODO not neccesarily (but in municipality onboarding, yes)
         };
     }
 }

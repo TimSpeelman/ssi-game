@@ -3,7 +3,7 @@ import { IOutcome } from '../../model/game/IOutcome';
 import { IValidationResult } from '../../model/game/IValidationResult';
 import { ScenarioState } from '../../model/game/ScenarioState';
 import { ActionFormConfig } from '../../model/view/ActionFormConfig';
-import { InteractionDescription } from './InteractionDescription';
+import { InteractionDescription, Locality } from './InteractionDescription';
 
 export interface Props {
     fromId: string;
@@ -45,6 +45,7 @@ export class CustomInteraction extends Action<Props> {
             to: state.props.byActor[this.props.toId].actor,
             description: this.props.description,
             sub: this.props.sub,
+            locality: Locality.REMOTE,
         };
     }
 }

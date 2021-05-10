@@ -6,7 +6,7 @@ import { ActionFormConfig } from '../../model/view/ActionFormConfig';
 import { ucFirst } from '../../util/util';
 import { GreenFlag } from '../assets/Flag';
 import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
-import { InteractionDescription } from './InteractionDescription';
+import { InteractionDescription, Locality } from './InteractionDescription';
 
 export interface Props {
     fromId: string;
@@ -53,6 +53,7 @@ export class GrantGreenFlag extends Action<Props> {
             from: from,
             to: to,
             long: `${ucFirst(from.nounPhrase)} geeft ${to.name} de groene vlag.`,
+            locality: Locality.REMOTE,
         };
     }
 }

@@ -1,6 +1,6 @@
 import { Action } from '../../model/game/Action';
 import { Actor } from '../../model/game/Actor';
-import { ScenarioProps } from '../../model/game/Scenario';
+import { ScenarioMeta, ScenarioProps } from '../../model/game/Scenario';
 import { event } from '../../util/redux';
 
 export const ScenarioActions = {
@@ -23,4 +23,8 @@ export const ScenarioActions = {
     PREV_STEP: event<void>('PREV_STEP'),
 
     TOGGLE_SNACKBAR: event<void>('TOGGLE_SNACKBAR'),
+
+    SHOW_META: event<void>('SHOW_META'),
+    HIDE_META: event<void>('HIDE_META'),
+    CHANGE_META: event<{ meta: ScenarioMeta }>('CHANGE_META'),
 };

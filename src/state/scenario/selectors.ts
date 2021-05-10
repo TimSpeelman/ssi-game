@@ -1,6 +1,6 @@
 import { allActors } from '../../config/actors';
 import { Actor } from '../../model/game/Actor';
-import { Scenario, ScenarioProps } from '../../model/game/Scenario';
+import { Scenario, ScenarioMeta, ScenarioProps } from '../../model/game/Scenario';
 import { ActorState } from '../../model/view/ActorState';
 import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescription';
 import { ScenarioStepDescription } from '../../model/view/ScenarioStepDescription';
@@ -9,6 +9,7 @@ import { RootState } from './state';
 
 export const root = (r: any): RootState => r.scenario;
 export const selectScenario = (r: any): Scenario => new Scenario(root(r).scenario);
+export const selectScenarioMeta = (r: any): ScenarioMeta => root(r).scenario.meta;
 export const selectScenarioProps = (r: any): ScenarioProps => root(r).scenario;
 export const selectSteps = (r: any): ScenarioStepDescription[] => new Scenario(root(r).scenario).describe().steps;
 export const selectActiveState = (r: any): ScenarioStateDescription =>
@@ -39,3 +40,4 @@ export const selectSelectedActor = (r: any): ActorState | undefined =>
     w1th(root(r).selectedActorId, (id) => (id ? root(r).scenario.initial.describe().actors[id] : undefined));
 
 export const selectSnackbarIsOn = (r: any) => root(r).snackbarOn;
+export const selectShowMeta = (r: any) => root(r).showMeta;

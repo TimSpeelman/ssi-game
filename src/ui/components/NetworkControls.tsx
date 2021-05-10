@@ -4,6 +4,7 @@ import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ScenarioActions } from '../../state/scenario/actions';
 import {
+    selectScenarioMeta,
     selectSelectedActor,
     selectSelectedStep,
     selectSnackbarIsOn,
@@ -13,6 +14,7 @@ import {
 import { ActorInspector } from './ActorInspector';
 import { AddActorMenu } from './AddActorMenu';
 import { AddStepMenu } from './AddStepMenu';
+import { ScenarioInspector } from './ScenarioInspector';
 import { StepInspector } from './StepInspector';
 import { StepSequence } from './StepSequence';
 
@@ -22,10 +24,14 @@ export function NetworkControls() {
     const usedActors = useSelector(selectUsedActors);
     const unusedActors = useSelector(selectUnusedActors);
     const snackbarIsOn = useSelector(selectSnackbarIsOn);
+    const meta = useSelector(selectScenarioMeta);
     const dispatch = useDispatch();
 
     return (
         <div>
+            <ScenarioInspector meta={meta} />
+            <Divider />
+
             {selectedStep && <StepInspector step={selectedStep} />}
             {selectedStep && <Divider />}
 

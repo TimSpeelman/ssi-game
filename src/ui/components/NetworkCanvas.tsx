@@ -15,6 +15,7 @@ import {
     selectFailedStep,
     selectScenarioProps,
     selectSelectedActorId,
+    selectShowMeta,
     selectSnackbarIsOn,
     selectUsedActors,
 } from '../../state/scenario/selectors';
@@ -34,6 +35,7 @@ export function NetworkCanvas() {
     const currentStepIndex = useSelector(selectActiveStepIndex);
     const currentState = useSelector(selectActiveState);
     const failedStep = useSelector(selectFailedStep);
+    const showMeta = useSelector(selectShowMeta);
 
     const scenario = new Scenario(scenarioProps);
 
@@ -103,14 +105,12 @@ export function NetworkCanvas() {
         hoveredElemId,
     });
 
-    const [metaDialogIsOpen, setMetaDialogOpen] = useState(true);
-
     return (
         <div className="network-canvas">
             <ScenarioMetaDialog
                 meta={scenario.props.meta}
-                open={metaDialogIsOpen}
-                handleClose={() => setMetaDialogOpen(false)}
+                open={showMeta}
+                handleClose={() => dispatch(ScenarioActions.HIDE_META())}
             />
 
             <div className="canvasarea">

@@ -42,6 +42,10 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
     },
 
     TOGGLE_SNACKBAR: (p) => L.snackbarOn.set((on) => !on),
+
+    CHANGE_META: (p) => L.scenario.meta.set(p.meta),
+    SHOW_META: () => L.showMeta.set(true),
+    HIDE_META: () => L.showMeta.set(false),
 };
 
 export function ScenarioReducer(s: RootState, e: IAction<any>) {

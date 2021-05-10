@@ -39,6 +39,16 @@ html {
   right: 3rem;
 }
 
+.canvasarea .scenario-status {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  padding: 1rem;
+  background: rgba(255, 0, 0, 0.2);
+  font-weight: bold;
+  color: red;
+}
+
 .sidebar {
   width: 30%;
   -webkit-box-flex: 0;

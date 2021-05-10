@@ -30,6 +30,7 @@ export class Scenario {
         return {
             initial: this.props.initial.describe(),
             steps: this.steps.map((s) => s.describe()),
+            failingAtIndex: this.steps.findIndex((s) => !s.hasSucceeded()),
         };
     }
 

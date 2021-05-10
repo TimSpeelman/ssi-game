@@ -5,4 +5,5 @@ import { ScenarioStepDescription } from './ScenarioStepDescription';
 export interface ScenarioDescription {
     initial: ScenarioStateDescription;
     steps: ScenarioStepDescription[];
+    failingAtIndex?: number;
 }

@@ -15,6 +15,10 @@ export const selectActiveState = (r: any): ScenarioStateDescription =>
     w1th(selectActiveStep(r), (currentStep) =>
         currentStep ? currentStep.result : selectScenarioProps(r).initial.describe(),
     );
+export const selectFailedStep = (r: any): ScenarioStepDescription | undefined =>
+    w1th(selectScenario(r).describe().failingAtIndex, (index) =>
+        index !== undefined && index >= 0 ? selectSteps(r)[index] : undefined,
+    );
 export const selectActiveStep = (r: any): ScenarioStepDescription | undefined =>
     selectSteps(r).find((step) => step.action.id === selectActiveStepId(r));
 export const selectActiveStepId = (r: any): string | undefined => root(r).activeStepId;

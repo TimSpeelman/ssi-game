@@ -12,6 +12,7 @@ import {
     selectActiveState,
     selectActiveStep,
     selectActiveStepIndex,
+    selectFailedStep,
     selectScenarioProps,
     selectSelectedActorId,
     selectSnackbarIsOn,
@@ -31,6 +32,7 @@ export function NetworkCanvas() {
     const currentStep = useSelector(selectActiveStep);
     const currentStepIndex = useSelector(selectActiveStepIndex);
     const currentState = useSelector(selectActiveState);
+    const failedStep = useSelector(selectFailedStep);
 
     const scenario = new Scenario(scenarioProps);
 
@@ -104,6 +106,13 @@ export function NetworkCanvas() {
         <div className="network-canvas">
             <div className="canvasarea">
                 <SVGNetworkCanvas elems={elems} onEvent={handleEvent} />
+                <div className="scenario-status">
+                    {failedStep ? (
+                        <strong>Scenario faalt bij Stap {scenario.describe().failingAtIndex! + 1}!</strong>
+                    ) : (
+                        ''
+                    )}
+                </div>
                 <div className="time-navigation">
                     {currentStep ? (
                         <span>

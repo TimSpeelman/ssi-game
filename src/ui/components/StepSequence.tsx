@@ -52,7 +52,7 @@ export function StepSequence() {
                         <img src={actorImage(step.action.from.image)} style={{ height: '3rem' }} />
                         <i className="fas fa-chevron-right"></i>
                         <img src={actorImage(step.action.to.image)} style={{ height: '3rem' }} />
-                        <ListItemText primary={step.action.description} secondary={step.action.sub} />
+                        <ListItemText primary={`${i + 1}. ${step.action.description}`} secondary={step.action.sub} />
 
                         <ListItemSecondaryAction>
                             <IconButton

@@ -106,13 +106,11 @@ export function NetworkCanvas() {
         <div className="network-canvas">
             <div className="canvasarea">
                 <SVGNetworkCanvas elems={elems} onEvent={handleEvent} />
-                <div className="scenario-status">
-                    {failedStep ? (
+                {failedStep && (
+                    <div className="scenario-status">
                         <strong>Scenario faalt bij Stap {scenario.describe().failingAtIndex! + 1}!</strong>
-                    ) : (
-                        ''
-                    )}
-                </div>
+                    </div>
+                )}
                 <div className="time-navigation">
                     {currentStep ? (
                         <span>

@@ -9,8 +9,8 @@ import { saveScenarioToFile } from '../persistence/saveScenarioToFile';
 import { saveScenarioToLocalStorage } from '../persistence/saveScenarioToLocalStorage';
 import { ScenarioActions } from '../state/scenario/actions';
 import { selectScenario, selectScenarioProps } from '../state/scenario/selectors';
-import { NetworkCanvas } from './components/NetworkCanvas';
-import { ScenarioConfigPage } from './components/ScenarioConfigPage';
+import { NetworkCanvas } from './pages/NetworkCanvasPage';
+import { ScenarioConfigPage } from './pages/ScenarioConfigPage';
 
 export function App() {
     const scenario = useSelector(selectScenario);

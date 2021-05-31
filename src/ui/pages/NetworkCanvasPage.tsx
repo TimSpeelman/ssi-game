@@ -17,10 +17,10 @@ import {
     selectSnackbarIsOn,
     selectUsedActors,
 } from '../../state/scenario/selectors';
-import { NetworkControls } from './NetworkControls';
-import { createNetworkCanvasData } from './networkToCanvas';
-import { ScenarioMetaDialog } from './ScenarioMetaDialog';
-import { CanvasEvent, SVGNetworkCanvas } from './SVGNetworkCanvas';
+import { NetworkControls } from '../components/NetworkControls';
+import { createNetworkCanvasData } from '../components/networkToCanvas';
+import { ScenarioMetaDialog } from '../components/ScenarioMetaDialog';
+import { CanvasEvent, SVGNetworkCanvas } from '../components/SVGNetworkCanvas';
 
 export function NetworkCanvas() {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();

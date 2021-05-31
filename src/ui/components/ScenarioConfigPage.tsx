@@ -19,6 +19,7 @@ import { actorImage } from '../../config/actorImage';
 import { ActorConfig } from '../../model/game/Scenario';
 import { ScenarioActions } from '../../state/scenario/actions';
 import { selectScenarioConfiguration } from '../../state/scenario/selectors';
+import { reorder } from '../../util/util';
 import { useNav } from '../hooks/useNav';
 import { ActorConfigDialog } from './ActorConfigDialog';
 
@@ -37,7 +38,7 @@ export function ScenarioConfigPage() {
 
     // Actor Setters
     const setActors = (actors: ActorConfig[]) => setConf((c) => ({ ...c, actors }));
-    const handleReorder = (fromIndex: number, toIndex: number) => undefined;
+    const handleReorder = (fromIndex: number, toIndex: number) => setActors(reorder(actors, fromIndex, toIndex));
     const removeActor = (id: string) => setActors(actors.filter((a) => a.definition.id !== id));
 
     const [editingActorId, editActor] = useState<string | undefined>(undefined);

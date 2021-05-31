@@ -20,10 +20,11 @@ import { ActorType } from '../../model/game/ActorType';
 import { ActorConfig } from '../../model/game/Scenario';
 
 export interface Props {
-    actorConfig: ActorConfig;
+    actorConfig?: ActorConfig;
     open: boolean;
     handleClose: () => void;
     handleSubmit: (actor: ActorConfig) => void;
+    isCreate: boolean;
 }
 
 // export interface Actor {
@@ -60,7 +61,12 @@ export function ActorConfigDialog(props: Props) {
 
     const save = () => {
         // dispatch(ScenarioActions.CHANGE_META({ meta }));
-        props.handleSubmit(config);
+        const L = lens<ActorConfig>();
+        const typeName = L.definition.type.typeName.get()(config);
+        const withName = L.definition.name.set((n) => (n ? n : typeName))(config);
+        const name = L.definition.name.get()(withName);
+        const withNounPhrase = L.definition.nounPhrase.set((n) => (n ? n : name))(withName);
+        props.handleSubmit(withNounPhrase);
     };
 
     const cancel = () => {
@@ -71,7 +77,7 @@ export function ActorConfigDialog(props: Props) {
     return (
         <Dialog open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title" maxWidth={'lg'}>
             <div style={{ minWidth: '50vw' }}>
-                <DialogTitle>Actor wijzigen</DialogTitle>
+                <DialogTitle>Actor {props.isCreate ? 'toevoegen' : 'wijzigen'}</DialogTitle>
                 <DialogContent>
                     <DialogContentText></DialogContentText>
 
@@ -119,13 +125,16 @@ export function ActorConfigDialog(props: Props) {
                     </FormControl>
                     <TextField
                         fullWidth
+                        InputLabelProps={{ shrink: true }}
                         label={'Naam'}
                         value={config.definition.name}
+                        placeholder={config.definition.type.typeName}
                         onChange={(e) => setName(e.target.value)}
                         style={{ marginBottom: '1em' }}
                     />
                     <TextField
                         fullWidth
+                        InputLabelProps={{ shrink: true }}
                         label={'Omschrijving'}
                         value={config.definition.description}
                         onChange={(e) => setDesc(e.target.value)}

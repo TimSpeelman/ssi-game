@@ -1,6 +1,7 @@
 import {
     Button,
     Container,
+    Fab,
     IconButton,
     List,
     ListItem,
@@ -11,11 +12,13 @@ import {
     Tooltip,
     Typography,
 } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import { default as React, useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuid } from 'uuid';
 import { actorImage } from '../../config/actorImage';
 import { ActorConfig } from '../../model/game/Scenario';
 import { ScenarioActions } from '../../state/scenario/actions';
@@ -43,8 +46,11 @@ export function ScenarioConfigPage() {
     const setActors = (actors: ActorConfig[]) => setConf((c) => ({ ...c, actors }));
     const handleReorder = (fromIndex: number, toIndex: number) => setActors(reorder(actors, fromIndex, toIndex));
     const removeActor = (id: string) => setActors(actors.filter((a) => a.definition.id !== id));
+    const addActor = (actor: ActorConfig) =>
+        setActors([...actors, { ...actor, definition: { ...actor.definition, id: uuid() } }]);
 
     const [editingActorId, editActor] = useState<string | undefined>(undefined);
+    const [creatingActor, setCreatingActor] = useState(false);
 
     const save = () => {
         dispatch(ScenarioActions.SET_SCENARIO_CONFIG({ config }));
@@ -57,11 +63,13 @@ export function ScenarioConfigPage() {
 
     const actorSubtitle = (actor: ActorConfig) =>
         `id:${actor.definition.id} ` +
-        (actor.definition.type.isHuman ? (actor.definition.type.isMale ? 'Man' : 'Vrouw') : 'Organisatie');
+        (actor.definition.type.isHuman ? (actor.definition.type.isMale ? 'Man' : 'Vrouw') : 'Organisatie') +
+        ` np:${actor.definition.nounPhrase}`;
 
     return (
         <div>
             <ActorConfigDialog
+                isCreate={false}
                 open={!!editingActorId}
                 actorConfig={actors.find((a) => a.definition.id === editingActorId)!}
                 handleClose={() => editActor(undefined)}
@@ -70,6 +78,15 @@ export function ScenarioConfigPage() {
                         actors.map((usedActor) => (usedActor.definition.id === editingActorId! ? newActor : usedActor)),
                     );
                     editActor(undefined);
+                }}
+            />
+            <ActorConfigDialog
+                isCreate={true}
+                open={creatingActor}
+                handleClose={() => setCreatingActor(false)}
+                handleSubmit={(newActor) => {
+                    addActor(newActor);
+                    setCreatingActor(false);
                 }}
             />
             <Container style={{ paddingTop: '1rem' }}>
@@ -124,7 +141,6 @@ export function ScenarioConfigPage() {
                                                     {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
                                                     innerRef={provided.innerRef}
-                                                    button
                                                 >
                                                     <div
                                                         style={{
@@ -180,6 +196,11 @@ export function ScenarioConfigPage() {
                             )}
                         </Droppable>
                     </DragDropContext>
+                    <div style={{ textAlign: 'right' }}>
+                        <Fab color={'primary'} onClick={() => setCreatingActor(true)}>
+                            <AddIcon />
+                        </Fab>
+                    </div>
                 </Paper>
                 <Button color="primary" variant="contained" onClick={save}>
                     Opslaan

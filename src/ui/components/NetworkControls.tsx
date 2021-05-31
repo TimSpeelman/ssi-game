@@ -1,6 +1,5 @@
 import { Button, Divider } from '@material-ui/core';
-import { Add } from '@material-ui/icons';
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ScenarioActions } from '../../state/scenario/actions';
 import {
@@ -8,11 +7,9 @@ import {
     selectSelectedActor,
     selectSelectedStep,
     selectSnackbarIsOn,
-    selectUnusedActors,
     selectUsedActors,
 } from '../../state/scenario/selectors';
 import { ActorInspector } from './ActorInspector';
-import { AddActorMenu } from './AddActorMenu';
 import { AddStepMenu } from './AddStepMenu';
 import { ScenarioInspector } from './ScenarioInspector';
 import { StepInspector } from './StepInspector';
@@ -22,7 +19,6 @@ export function NetworkControls() {
     const selectedStep = useSelector(selectSelectedStep);
     const selectedActor = useSelector(selectSelectedActor);
     const usedActors = useSelector(selectUsedActors);
-    const unusedActors = useSelector(selectUnusedActors);
     const snackbarIsOn = useSelector(selectSnackbarIsOn);
     const meta = useSelector(selectScenarioMeta);
     const dispatch = useDispatch();
@@ -40,15 +36,6 @@ export function NetworkControls() {
 
             <Divider />
             <div style={{ padding: '1rem' }}>
-                <AddActorMenu
-                    label={
-                        <Fragment>
-                            <Add /> Actor
-                        </Fragment>
-                    }
-                    actors={unusedActors}
-                    onAdd={(actor) => dispatch(ScenarioActions.ADD_ACTOR({ actor }))}
-                />{' '}
                 <AddStepMenu
                     availableActors={usedActors}
                     onAdd={(step) => dispatch(ScenarioActions.ADD_STEP({ step }))}

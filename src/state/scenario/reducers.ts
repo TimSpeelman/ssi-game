@@ -1,6 +1,6 @@
 import { lens } from 'lens.ts';
 import { IAction, ReducerMap } from '../../util/redux';
-import { reorder, seq } from '../../util/util';
+import { reorder } from '../../util/util';
 import { ScenarioActions } from './actions';
 import { defaultScenario, emptyScenario } from './default';
 import { RootState } from './state';
@@ -9,25 +9,16 @@ const L = lens<RootState>();
 
 const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
     SET_SCENARIO: (p) => L.scenario.set(p.scenario),
-    SET_SCENARIO_CONFIG: (p) =>
-        seq([
-            L.scenario.meta.set(p.config.meta),
-            L.scenario.initial.set((initial) =>
-                initial.withUpdate((props) => ({
-                    ...props,
-                    byActor: p.config.actors.reduce((obj, a) => ({ ...obj, [a.actor.id]: a }), {}),
-                })),
-            ),
-        ]),
+    SET_SCENARIO_CONFIG: (p) => L.scenario.config.set(p.config),
 
     ADD_STEP: (p) => L.scenario.steps.set((steps) => [...steps, p.step]),
 
     REMOVE_STEP: (p) => L.scenario.steps.set((steps) => steps.filter((a) => a.id !== p.id)),
 
-    ADD_ACTOR: (p) => L.scenario.initial.set((initial) => initial.withActor(p.actor)),
+    ADD_ACTOR: (p) => L.scenario.config.actors.set((actors) => [...actors, p.actor]),
     //  L.scenario.initial.actors.k(p.actor.id).set({ actor: p.actor, assets: [] }),
 
-    REMOVE_ACTOR: (p) => L.scenario.initial.set((initial) => initial.withoutActor(p.id)),
+    REMOVE_ACTOR: (p) => L.scenario.config.actors.set((actors) => actors.filter((a) => a.definition.id !== p.id)),
 
     REORDER_STEP: (p) => L.scenario.steps.set((steps) => reorder(steps, p.sourceIndex, p.targetIndex)),
 
@@ -56,7 +47,7 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
 
     TOGGLE_SNACKBAR: (p) => L.snackbarOn.set((on) => !on),
 
-    CHANGE_META: (p) => L.scenario.meta.set(p.meta),
+    CHANGE_META: (p) => L.scenario.config.meta.set(p.meta),
     SHOW_META: () => L.showMeta.set(true),
     HIDE_META: () => L.showMeta.set(false),
 };

@@ -16,9 +16,9 @@ import { default as React, useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../config/actorImage';
-import { ActorState } from '../../model/view/ActorState';
+import { ActorConfig } from '../../model/game/Scenario';
 import { ScenarioActions } from '../../state/scenario/actions';
-import { selectScenarioConfiguration, selectUnusedActors } from '../../state/scenario/selectors';
+import { selectScenarioConfiguration } from '../../state/scenario/selectors';
 import { useNav } from '../hooks/useNav';
 import { ActorConfigDialog } from './ActorConfigDialog';
 
@@ -36,9 +36,9 @@ export function ScenarioConfigPage() {
     const setBody = (body: string) => setConf((c) => ({ ...c, meta: { ...c.meta, body } }));
 
     // Actor Setters
-    const setActors = (actors: ActorState[]) => setConf((c) => ({ ...c, actors }));
+    const setActors = (actors: ActorConfig[]) => setConf((c) => ({ ...c, actors }));
     const handleReorder = (fromIndex: number, toIndex: number) => undefined;
-    const removeActor = (id: string) => setActors(actors.filter((a) => a.actor.id !== id));
+    const removeActor = (id: string) => setActors(actors.filter((a) => a.definition.id !== id));
 
     const [editingActorId, editActor] = useState<string | undefined>(undefined);
 
@@ -51,20 +51,19 @@ export function ScenarioConfigPage() {
         goto('/');
     };
 
-    const unusedActors = useSelector(selectUnusedActors);
-
-    const actorSubtitle = (actor: ActorState) =>
-        actor.actor.isHuman ? (actor.actor.isMale ? 'Man' : 'Vrouw') : 'Organisatie';
+    const actorSubtitle = (actor: ActorConfig) =>
+        `id:${actor.definition.id} ` +
+        (actor.definition.type.isHuman ? (actor.definition.type.isMale ? 'Man' : 'Vrouw') : 'Organisatie');
 
     return (
         <div>
             <ActorConfigDialog
                 open={!!editingActorId}
-                actorState={actors.find((a) => a.actor.id === editingActorId)!}
+                actorConfig={actors.find((a) => a.definition.id === editingActorId)!}
                 handleClose={() => editActor(undefined)}
                 handleSubmit={(newActor) => {
                     setActors(
-                        actors.map((usedActor) => (usedActor.actor.id === editingActorId! ? newActor : usedActor)),
+                        actors.map((usedActor) => (usedActor.definition.id === editingActorId! ? newActor : usedActor)),
                     );
                     editActor(undefined);
                 }}
@@ -109,7 +108,11 @@ export function ScenarioConfigPage() {
                             {(provided) => (
                                 <List innerRef={provided.innerRef} {...provided.droppableProps}>
                                     {actors.map((actor, i) => (
-                                        <Draggable draggableId={actor.actor.id} index={i} key={actor.actor.id}>
+                                        <Draggable
+                                            draggableId={actor.definition.id}
+                                            index={i}
+                                            key={actor.definition.id}
+                                        >
                                             {(provided) => (
                                                 <ListItem
                                                     {...provided.draggableProps}
@@ -125,12 +128,12 @@ export function ScenarioConfigPage() {
                                                         }}
                                                     >
                                                         <img
-                                                            src={actorImage(actor.actor.image)}
+                                                            src={actorImage(actor.definition.type.image)}
                                                             style={{ height: '3rem' }}
                                                         />
                                                     </div>
                                                     <ListItemText
-                                                        primary={actor.actor.name}
+                                                        primary={actor.definition.name}
                                                         secondary={actorSubtitle(actor)}
                                                     />
 
@@ -138,14 +141,14 @@ export function ScenarioConfigPage() {
                                                         edge="end"
                                                         aria-label="delete"
                                                         style={{ marginRight: '.5rem' }}
-                                                        onClick={() => removeActor(actor.actor.id)}
+                                                        onClick={() => removeActor(actor.definition.id)}
                                                     >
                                                         <DeleteIcon />
                                                     </IconButton>
                                                     <IconButton
                                                         edge="end"
                                                         aria-label="edit"
-                                                        onClick={() => editActor(actor.actor.id)}
+                                                        onClick={() => editActor(actor.definition.id)}
                                                     >
                                                         <EditIcon />
                                                     </IconButton>

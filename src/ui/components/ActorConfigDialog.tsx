@@ -12,18 +12,18 @@ import {
     Select,
     TextField,
 } from '@material-ui/core';
+import { lens } from 'lens.ts';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { actorImage } from '../../config/actorImage';
-import { allActors } from '../../config/actors';
-import { Actor } from '../../model/game/Actor';
-import { ActorState } from '../../model/view/ActorState';
+import { actorTypes } from '../../config/actorTypes';
+import { ActorType } from '../../model/game/ActorType';
+import { ActorConfig } from '../../model/game/Scenario';
 
 export interface Props {
-    actorState: ActorState;
+    actorConfig: ActorConfig;
     open: boolean;
     handleClose: () => void;
-    handleSubmit: (actor: ActorState) => void;
+    handleSubmit: (actor: ActorConfig) => void;
 }
 
 // export interface Actor {
@@ -36,36 +36,37 @@ export interface Props {
 //     isHuman: boolean;
 // }
 
-const defaultActor: Actor = {
-    id: '',
-    image: 'person1',
-    name: '',
-    nounPhrase: '',
-    isMale: true,
-    isHuman: true,
+const defaultActorConfig: ActorConfig = {
+    definition: {
+        id: '',
+        type: actorTypes.person1,
+        name: '',
+        nounPhrase: '',
+    },
+    initialAssets: [],
 };
 
+const L = lens<ActorConfig>();
+
 export function ActorConfigDialog(props: Props) {
-    const [actor, setActor] = useState(defaultActor);
-    useEffect(() => (props.actorState ? setActor(props.actorState.actor) : setActor(defaultActor)), [props.actorState]);
+    const [config, setConfig] = useState(defaultActorConfig);
+    useEffect(() => (props.actorConfig ? setConfig(props.actorConfig) : setConfig(defaultActorConfig)), [
+        props.actorConfig,
+    ]);
 
-    const dispatch = useDispatch();
-
-    const pickPreset = (actor: Actor) => setActor(actor);
-    const setName = (name: string) => setActor((m) => ({ ...m, name, nounPhrase: name }));
-    const setDesc = (description: string) => setActor((m) => ({ ...m, description }));
+    const setType = (actorType: ActorType) => setConfig(L.definition.type.set(actorType));
+    const setName = (name: string) => setConfig(L.definition.set((m) => ({ ...m, name, nounPhrase: name })));
+    const setDesc = (description: string) => setConfig(L.definition.description!.set(description));
 
     const save = () => {
         // dispatch(ScenarioActions.CHANGE_META({ meta }));
-        props.handleSubmit({ ...props.actorState, actor });
+        props.handleSubmit(config);
     };
 
     const cancel = () => {
-        // setActor(props.meta);
+        // setDefinition(props.meta);
         props.handleClose();
     };
-
-    const actors = Object.values(allActors);
 
     return (
         <Dialog open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title" maxWidth={'lg'}>
@@ -78,9 +79,9 @@ export function ActorConfigDialog(props: Props) {
                         <InputLabel>Type</InputLabel>
                         <Select
                             fullWidth
-                            value={actor}
-                            onChange={(e) => pickPreset(actors.find((actor) => actor.id === e.target.value)!)}
-                            renderValue={(a: Actor) => (
+                            value={config.definition.type}
+                            onChange={(e) => setType(actorTypes[e.target.value as keyof typeof actorTypes])}
+                            renderValue={(a: ActorType) => (
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                     <div
                                         style={{
@@ -91,11 +92,11 @@ export function ActorConfigDialog(props: Props) {
                                     >
                                         <img src={actorImage(a.image)} style={{ height: '3rem' }} />
                                     </div>
-                                    <div>{a.name}</div>
+                                    <div>{a.typeName}</div>
                                 </div>
                             )}
                         >
-                            {actors.map((actor) => (
+                            {Object.values(actorTypes).map((actor) => (
                                 <MenuItem value={actor.id} key={actor.id}>
                                     <div
                                         style={{
@@ -107,7 +108,7 @@ export function ActorConfigDialog(props: Props) {
                                         <img src={actorImage(actor.image)} style={{ height: '3rem' }} />
                                     </div>
                                     <ListItemText
-                                        primary={actor.name}
+                                        primary={actor.typeName}
                                         // secondary={actorSubtitle(actor)}
                                     />
                                 </MenuItem>
@@ -119,14 +120,14 @@ export function ActorConfigDialog(props: Props) {
                     <TextField
                         fullWidth
                         label={'Naam'}
-                        value={actor.name}
+                        value={config.definition.name}
                         onChange={(e) => setName(e.target.value)}
                         style={{ marginBottom: '1em' }}
                     />
                     <TextField
                         fullWidth
                         label={'Omschrijving'}
-                        value={actor.description}
+                        value={config.definition.description}
                         onChange={(e) => setDesc(e.target.value)}
                         style={{ marginBottom: '1em' }}
                     />

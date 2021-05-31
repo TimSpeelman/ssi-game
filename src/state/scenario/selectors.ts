@@ -1,5 +1,7 @@
-import { allActors } from '../../config/actors';
+import { actorTypes } from '../../config/actorTypes';
 import { Actor } from '../../model/game/Actor';
+import { definitionToActor } from '../../model/game/ActorDefinition';
+import { ActorType } from '../../model/game/ActorType';
 import { Scenario, ScenarioConfig, ScenarioMeta, ScenarioProps } from '../../model/game/Scenario';
 import { ActorState } from '../../model/view/ActorState';
 import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescription';
@@ -9,17 +11,15 @@ import { RootState } from './state';
 
 export const root = (r: any): RootState => r.scenario;
 export const selectScenario = (r: any): Scenario => new Scenario(root(r).scenario);
-export const selectScenarioConfiguration = (r: any): ScenarioConfig => ({
-    meta: root(r).scenario.meta,
-    actors: selectUsedActorsState(r),
-});
-export const selectScenarioMeta = (r: any): ScenarioMeta => root(r).scenario.meta;
+export const selectScenarioConfiguration = (r: any): ScenarioConfig => root(r).scenario.config;
+export const selectScenarioMeta = (r: any): ScenarioMeta => selectScenarioConfiguration(r).meta;
 export const selectScenarioProps = (r: any): ScenarioProps => root(r).scenario;
 export const selectSteps = (r: any): ScenarioStepDescription[] => new Scenario(root(r).scenario).describe().steps;
+export const selectInitialState = (r: any): ScenarioStateDescription =>
+    new Scenario(root(r).scenario).initial.describe();
+
 export const selectActiveState = (r: any): ScenarioStateDescription =>
-    w1th(selectActiveStep(r), (currentStep) =>
-        currentStep ? currentStep.result : selectScenarioProps(r).initial.describe(),
-    );
+    w1th(selectActiveStep(r), (currentStep) => (currentStep ? currentStep.result : selectInitialState(r)));
 export const selectFailedStep = (r: any): ScenarioStepDescription | undefined =>
     w1th(selectScenario(r).describe().failingAtIndex, (index) =>
         index !== undefined && index >= 0 ? selectSteps(r)[index] : undefined,
@@ -33,12 +33,9 @@ export const selectSelectedStep = (r: any): ScenarioStepDescription | undefined 
     w1th(selectSelectedStepId(r), (id) => (!id ? undefined : selectSteps(r).find((step) => step.action.id === id)));
 export const selectSelectedStepId = (r: any): string | undefined => root(r).selectedStepId;
 export const selectSelectedActorId = (r: any): string | undefined => root(r).selectedActorId;
-export const selectUnusedActors = (r: any): Actor[] =>
-    Object.values(allActors).filter((a) => !(a.id in root(r).scenario.initial.describe().actors));
+export const selectActorTypes = (r: any): ActorType[] => Object.values(actorTypes);
 export const selectUsedActors = (r: any): Actor[] =>
-    Object.values(allActors).filter((a) => a.id in root(r).scenario.initial.describe().actors);
-export const selectUsedActorsState = (r: any): ActorState[] =>
-    Object.values(root(r).scenario.initial.describe().actors);
+    root(r).scenario.config.actors.map((a) => definitionToActor(a.definition));
 
 export const selectSelectedActor = (r: any): ActorState | undefined =>
     w1th(root(r).selectedActorId, (id) => (id ? selectActiveState(r).actors[id] : undefined));

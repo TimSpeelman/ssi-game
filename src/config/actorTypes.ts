@@ -1,10 +1,26 @@
-import { Actor } from '../model/game/Actor';
+import { ActorType } from '../model/game/ActorType';
 
-export const allActors = {
-    John: {
-        id: 'John',
+export const actorTypes = {
+    person1: {
+        id: 'person1',
+        image: 'person1',
+        typeName: 'Alice',
+        nounPhrase: 'Alice',
+        isMale: false,
+        isHuman: true,
+    } as ActorType,
+    person2: {
+        id: 'person2',
+        image: 'person2',
+        typeName: 'Lea',
+        nounPhrase: 'Lea',
+        isMale: false,
+        isHuman: true,
+    } as ActorType,
+    person3: {
+        id: 'person3',
         image: 'person3',
-        name: 'John',
+        typeName: 'John',
         nounPhrase: 'John',
         modeImages: {
             selfie: 'person3_selfie',
@@ -13,57 +29,48 @@ export const allActors = {
         },
         isMale: true,
         isHuman: true,
-    } as Actor,
-    person1: {
-        id: 'person1',
-        image: 'person1',
-        name: 'Alice',
-        nounPhrase: 'Alice',
-        isMale: false,
-        isHuman: true,
-    } as Actor,
-    person2: { id: 'person2', image: 'person2', name: 'Lea', nounPhrase: 'Lea', isMale: false, isHuman: true } as Actor,
+    } as ActorType,
     gov1: {
         id: 'gov1',
         image: 'gov1',
-        name: 'Overheid',
+        typeName: 'Overheid',
         nounPhrase: 'de overheid',
         modeImages: {
             issuing: 'gov1_issuing',
         },
         isMale: false,
         isHuman: false,
-    } as Actor,
+    } as ActorType,
     shop1: {
         id: 'shop1',
         image: 'shop1',
-        name: 'Winkel',
+        typeName: 'Winkel',
         nounPhrase: 'de winkel',
         isMale: false,
         isHuman: false,
-    } as Actor,
+    } as ActorType,
     office1: {
         id: 'office1',
         image: 'office1',
-        name: 'Dienstverlener 1',
+        typeName: 'Dienstverlener 1',
         nounPhrase: 'Dienstverlener 1',
         isMale: false,
         isHuman: false,
-    } as Actor,
+    } as ActorType,
     office2: {
         id: 'office2',
         image: 'office2',
-        name: 'Dienstverlener 2',
+        typeName: 'Dienstverlener 2',
         nounPhrase: 'Dienstverlener 2',
         isMale: false,
         isHuman: false,
-    } as Actor,
+    } as ActorType,
     office3: {
         id: 'office3',
         image: 'office3',
-        name: 'Dienstverlener 3',
+        typeName: 'Dienstverlener 3',
         nounPhrase: 'Dienstverlener 3',
         isMale: false,
         isHuman: false,
-    } as Actor,
+    } as ActorType,
 };

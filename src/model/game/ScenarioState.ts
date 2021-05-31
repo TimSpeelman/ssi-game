@@ -3,12 +3,27 @@ import { Asset } from '../../content/assets/Asset';
 import { omit } from '../../util/util';
 import { ScenarioStateDescription } from '../view/ScenarioStateDescription';
 import { Actor } from './Actor';
+import { definitionToActor } from './ActorDefinition';
+import { ScenarioConfig } from './Scenario';
 
 /** Represents the entire state of the scenario at any point in the scenario. */
 export class ScenarioState {
     static defaults: DefaultProps = {
         valid: true,
     };
+
+    static fromConfig(s: ScenarioConfig): ScenarioState {
+        const actors = s.actors.map(
+            (a): ActorState => ({
+                actor: definitionToActor(a.definition),
+                assets: a.initialAssets,
+            }),
+        );
+
+        const byActor = actors.reduce((obj, a) => ({ ...obj, [a.actor.id]: a }), {});
+
+        return new ScenarioState({ byActor });
+    }
 
     static deserialize(s: SerializedScenarioState) {
         const props: Props = {

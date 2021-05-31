@@ -1,13 +1,12 @@
 import { Action } from '../../model/game/Action';
-import { Actor } from '../../model/game/Actor';
-import { ScenarioConfig, ScenarioMeta, ScenarioProps } from '../../model/game/Scenario';
+import { ActorConfig, ScenarioConfig, ScenarioMeta, ScenarioProps } from '../../model/game/Scenario';
 import { event } from '../../util/redux';
 
 export const ScenarioActions = {
     SET_SCENARIO: event<{ scenario: ScenarioProps }>('SET_SCENARIO'),
     SET_SCENARIO_CONFIG: event<{ config: ScenarioConfig }>('SET_SCENARIO_CONFIG'),
 
-    ADD_ACTOR: event<{ actor: Actor }>('ADD_ACTOR'),
+    ADD_ACTOR: event<{ actor: ActorConfig }>('ADD_ACTOR'),
     REMOVE_ACTOR: event<{ id: string }>('REMOVE_ACTOR'),
     ADD_STEP: event<{ step: Action }>('ADD_STEP'),
     REMOVE_STEP: event<{ id: string }>('REMOVE_STEP'),

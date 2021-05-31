@@ -11,61 +11,58 @@ import { AttributeKnowledge } from '../../content/assets/data/abc/AttributeKnowl
 import { PrivKey } from '../../content/assets/data/cryptography/PrivKey';
 import { PubKey } from '../../content/assets/data/cryptography/PubKey';
 import { FaceFeature } from '../../content/assets/feature/FaceFeature';
-import { Scenario } from '../../model/game/Scenario';
-import { ScenarioState } from '../../model/game/ScenarioState';
-import { allActors } from '../actors';
+import { ActorConfig, Scenario } from '../../model/game/Scenario';
+import { defaultActors } from '../defaultActors';
 
-const Government = allActors.gov1;
-const Shop = allActors.shop1;
-const Subject = allActors.John;
+const Government = defaultActors.government_1;
+const Shop = defaultActors.shop_1;
+const Subject = defaultActors.human_1;
 const SubjectIdAtGov = 'BSN_990223190';
 const SubjectNym1 = '215_JOHN';
 const GovNym1 = '829_GOV';
 const ShopNym1 = '662_SHOP';
 const Attr18Plus = '18+';
 
-const initialState: ScenarioState = new ScenarioState({
-    byActor: {
-        [Government.id]: {
-            actor: Government,
-            assets: [
-                // { kind: 'data', type: 'human-record', id: SubjectIdAtGov } as HumanRecord,
-                {
-                    kind: 'data',
-                    type: 'attribute-knowledge',
-                    issuerId: GovNym1,
-                    subjectId: SubjectIdAtGov,
-                    name: '18+',
-                    value: 'WAAR',
-                } as AttributeKnowledge,
-                { kind: 'data', type: 'pubkey', id: 'pub', key: GovNym1 } as PubKey,
-                { kind: 'data', type: 'privkey', id: 'priv', key: 'asdpa8b348n' } as PrivKey,
-            ],
-        },
-        [Subject.id]: {
-            actor: Subject,
-            assets: [
-                // {
-                //     kind: 'physical',
-                //     type: 'gov-passport',
-                //     id: 'passp',
-                //     name: Subject.name,
-                //     photo: { id: 'photox', type: 'face', kind: 'data', subjectId: Subject.id },
-                // } as GovPassport,
-                { kind: 'feature', type: 'face', id: 'face' } as FaceFeature,
-                { kind: 'data', type: 'pubkey', id: 'pub', key: SubjectNym1 } as PubKey,
-                { kind: 'data', type: 'privkey', id: 'priv', key: 'poweqopuo88' } as PrivKey,
-            ],
-        },
-        [Shop.id]: {
-            actor: Shop,
-            assets: [
-                { kind: 'data', type: 'pubkey', id: 'pub', key: ShopNym1 } as PubKey,
-                { kind: 'data', type: 'privkey', id: 'priv', key: '113fasfa' } as PrivKey,
-            ],
-        },
+const actors: ActorConfig[] = [
+    {
+        definition: Government,
+        initialAssets: [
+            // { kind: 'data', type: 'human-record', id: SubjectIdAtGov } as HumanRecord,
+            {
+                kind: 'data',
+                type: 'attribute-knowledge',
+                issuerId: GovNym1,
+                subjectId: SubjectIdAtGov,
+                name: '18+',
+                value: 'WAAR',
+            } as AttributeKnowledge,
+            { kind: 'data', type: 'pubkey', id: 'pub', key: GovNym1 } as PubKey,
+            { kind: 'data', type: 'privkey', id: 'priv', key: 'asdpa8b348n' } as PrivKey,
+        ],
     },
-});
+    {
+        definition: Subject,
+        initialAssets: [
+            // {
+            //     kind: 'physical',
+            //     type: 'gov-passport',
+            //     id: 'passp',
+            //     name: Subject.name,
+            //     photo: { id: 'photox', type: 'face', kind: 'data', subjectId: Subject.id },
+            // } as GovPassport,
+            { kind: 'feature', type: 'face', id: 'face' } as FaceFeature,
+            { kind: 'data', type: 'pubkey', id: 'pub', key: SubjectNym1 } as PubKey,
+            { kind: 'data', type: 'privkey', id: 'priv', key: 'poweqopuo88' } as PrivKey,
+        ],
+    },
+    {
+        definition: Shop,
+        initialAssets: [
+            { kind: 'data', type: 'pubkey', id: 'pub', key: ShopNym1 } as PubKey,
+            { kind: 'data', type: 'privkey', id: 'priv', key: '113fasfa' } as PrivKey,
+        ],
+    },
+];
 
 /**
  * This scenario describes a presentation of an 18+ credential to a liquor store.
@@ -90,16 +87,18 @@ const initialState: ScenarioState = new ScenarioState({
  * Liveness detection / realtime authentication may not be necessary in this scenario (wallet possession is strong one-factor authentication and therefore sufficient).
  */
 export const OnlineLiquorPurchaseScenario = new Scenario({
-    initial: initialState,
-    meta: {
-        title: 'Online alcoholverkoop met Self-Sovereign Identity',
-        author: 'Tim Speelman',
-        body:
-            'Om de online verkoop van alcohol veilig te maken, dient worden gecontroleerd ' +
-            'dat de koper ten minste 18 jaar oud is. In dit scenario bewijst een koper dit ' +
-            'met behulp van Self-Sovereign Identity. Daartoe haalt hij een ' +
-            'bewijs van 18+ zijn op bij het gemeenteloket, welke hij vervolgens gebruikt ' +
-            'om online alcohol te kopen.',
+    config: {
+        meta: {
+            title: 'Online alcoholverkoop met Self-Sovereign Identity',
+            author: 'Tim Speelman',
+            body:
+                'Om de online verkoop van alcohol veilig te maken, dient worden gecontroleerd ' +
+                'dat de koper ten minste 18 jaar oud is. In dit scenario bewijst een koper dit ' +
+                'met behulp van Self-Sovereign Identity. Daartoe haalt hij een ' +
+                'bewijs van 18+ zijn op bij het gemeenteloket, welke hij vervolgens gebruikt ' +
+                'om online alcohol te kopen.',
+        },
+        actors,
     },
     steps: [
         // Issuance Phase

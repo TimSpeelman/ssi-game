@@ -1,24 +1,26 @@
 import { deserialize as deserializeAction } from '../../content/actions/actions';
-import { ActorState } from '../view/ActorState';
+import { Asset } from '../../content/assets/Asset';
 import { ScenarioDescription } from '../view/ScenarioDescription';
 import { Action, SerializedAction } from './Action';
+import { ActorDefinition } from './ActorDefinition';
 import { ComputedStep } from './ComputedStep';
-import { ScenarioState, SerializedScenarioState } from './ScenarioState';
+import { ScenarioState } from './ScenarioState';
 
 export class Scenario {
     readonly steps: ComputedStep[];
+    readonly initial: ScenarioState;
 
     static deserialize(s: SerializedScenario) {
         const props = {
-            initial: ScenarioState.deserialize(s.props.initial),
-            meta: s.props.meta,
+            config: s.props.config,
             steps: s.props.steps.map((s) => deserializeAction(s)),
         };
         return new Scenario(props);
     }
 
     constructor(readonly props: ScenarioProps) {
-        let state: ScenarioState = props.initial;
+        this.initial = ScenarioState.fromConfig(props.config);
+        let state = this.initial;
 
         // Cache the outcome and result computation.
         this.steps = props.steps.map((step) => {
@@ -30,8 +32,8 @@ export class Scenario {
 
     describe(): ScenarioDescription {
         return {
-            initial: this.props.initial.describe(),
-            meta: this.props.meta,
+            initial: this.initial.describe(),
+            meta: this.props.config.meta,
             steps: this.steps.map((s) => s.describe()),
             failingAtIndex: this.steps.findIndex((s) => !s.hasSucceeded()),
         };
@@ -40,8 +42,7 @@ export class Scenario {
     serialize(): SerializedScenario {
         return {
             props: {
-                initial: this.props.initial.describe(),
-                meta: this.props.meta,
+                config: this.props.config,
                 steps: this.props.steps.map((s) => s.serialize()),
             },
         };
@@ -49,8 +50,7 @@ export class Scenario {
 }
 
 export interface ScenarioProps {
-    initial: ScenarioState;
-    meta: ScenarioMeta;
+    config: ScenarioConfig;
     steps: Action[];
 }
 
@@ -62,7 +62,12 @@ export interface ScenarioMeta {
 
 export interface ScenarioConfig {
     meta: ScenarioMeta;
-    actors: ActorState[];
+    actors: ActorConfig[];
+}
+
+export interface ActorConfig {
+    definition: ActorDefinition;
+    initialAssets: Asset[];
 }
 
 export interface SerializedScenario {
@@ -70,7 +75,6 @@ export interface SerializedScenario {
 }
 
 export interface SerializedScenarioProps {
-    initial: SerializedScenarioState;
-    meta: ScenarioMeta;
+    config: ScenarioConfig;
     steps: SerializedAction[];
 }

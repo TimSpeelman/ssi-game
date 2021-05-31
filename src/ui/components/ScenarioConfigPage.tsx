@@ -102,6 +102,8 @@ export function ScenarioConfigPage() {
                     <Typography variant={'h5'}>Actoren ({actors.length})</Typography>
                     <p style={{ marginBottom: '1em' }}>
                         Voeg actoren toe en stel in met welke gegevens, kenmerken en andere zaken die actoren beginnen.
+                        Sleep actoren om de volgorde te veranderen. Ze worden in deze volgorde met de klok mee op een
+                        cirkel geplaatst.
                     </p>
 
                     <DragDropContext onDragEnd={(x) => handleReorder(x.source!.index, x.destination!.index)}>

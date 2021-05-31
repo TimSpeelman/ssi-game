@@ -25,6 +25,8 @@ function getActorImage(actor: Actor, mode?: string) {
 }
 
 export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
+    const networkRotation = -Math.PI / 2; // 0: starting East, -Pi/2: starting North
+
     const { width, height, actors } = props;
 
     const currentStep = props.step?.action;
@@ -35,7 +37,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
     const center: Vec = [width / 2, height / 2];
 
     // Compute the actor's base positions (along a circle)
-    const actorHomePosUnit = pointsOnCircleEquidistant(numberOfSlots);
+    const actorHomePosUnit = pointsOnCircleEquidistant(numberOfSlots, networkRotation);
     const slotRingRadius = (width / 2) * 0.6;
     const actorHomePos = actorHomePosUnit.map((p) => add(center, scale(slotRingRadius)(p)));
 
@@ -131,7 +133,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
         const numAssets = assets.length;
 
         const actorCenter = actorHomePos[actorIndex];
-        const actorAngle = ((2 * Math.PI) / numberOfSlots) * actorIndex; // center the range
+        const actorAngle = networkRotation + ((2 * Math.PI) / numberOfSlots) * actorIndex; // center the range
         const spaceInRad = Math.PI / 6;
         const assetPositionsUnit = pointsOnCircleFixedRangeCentered(numAssets, actorAngle, spaceInRad);
         const assetRingRadius = slotRadius + 30;

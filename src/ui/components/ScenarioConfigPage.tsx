@@ -8,6 +8,7 @@ import {
     ListItemText,
     Paper,
     TextField,
+    Tooltip,
     Typography,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -18,7 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../config/actorImage';
 import { ActorConfig } from '../../model/game/Scenario';
 import { ScenarioActions } from '../../state/scenario/actions';
-import { selectScenarioConfiguration } from '../../state/scenario/selectors';
+import { selectInvolvedActors, selectScenarioConfiguration } from '../../state/scenario/selectors';
 import { reorder } from '../../util/util';
 import { useNav } from '../hooks/useNav';
 import { ActorConfigDialog } from './ActorConfigDialog';
@@ -27,6 +28,7 @@ export function ScenarioConfigPage() {
     const dispatch = useDispatch();
     const { goto } = useNav();
 
+    const involvedActors = useSelector(selectInvolvedActors);
     const originalConfig = useSelector(selectScenarioConfiguration);
     const [config, setConf] = useState(originalConfig);
     const { meta, actors } = config;
@@ -37,6 +39,7 @@ export function ScenarioConfigPage() {
     const setBody = (body: string) => setConf((c) => ({ ...c, meta: { ...c.meta, body } }));
 
     // Actor Setters
+    const canRemoveActor = (id: string) => !(id in involvedActors);
     const setActors = (actors: ActorConfig[]) => setConf((c) => ({ ...c, actors }));
     const handleReorder = (fromIndex: number, toIndex: number) => setActors(reorder(actors, fromIndex, toIndex));
     const removeActor = (id: string) => setActors(actors.filter((a) => a.definition.id !== id));
@@ -140,14 +143,25 @@ export function ScenarioConfigPage() {
                                                         secondary={actorSubtitle(actor)}
                                                     />
 
-                                                    <IconButton
-                                                        edge="end"
-                                                        aria-label="delete"
-                                                        style={{ marginRight: '.5rem' }}
-                                                        onClick={() => removeActor(actor.definition.id)}
+                                                    <Tooltip
+                                                        title={
+                                                            !canRemoveActor(actor.definition.id)
+                                                                ? `Verwijder eerst alle acties waar ${actor.definition.name} in is betrokken.`
+                                                                : `${actor.definition.name} verwijderen`
+                                                        }
                                                     >
-                                                        <DeleteIcon />
-                                                    </IconButton>
+                                                        <span>
+                                                            <IconButton
+                                                                edge="end"
+                                                                aria-label="delete"
+                                                                disabled={!canRemoveActor(actor.definition.id)}
+                                                                style={{ marginRight: '.5rem' }}
+                                                                onClick={() => removeActor(actor.definition.id)}
+                                                            >
+                                                                <DeleteIcon />
+                                                            </IconButton>
+                                                        </span>
+                                                    </Tooltip>
                                                     <IconButton
                                                         edge="end"
                                                         aria-label="edit"

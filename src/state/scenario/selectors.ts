@@ -40,5 +40,9 @@ export const selectUsedActors = (r: any): Actor[] =>
 export const selectSelectedActor = (r: any): ActorState | undefined =>
     w1th(root(r).selectedActorId, (id) => (id ? selectActiveState(r).actors[id] : undefined));
 
+/** Involved actors are actors that are involved in at least one step */
+export const selectInvolvedActors = (r: any): Record<string, true> =>
+    selectSteps(r).reduce((ids, step) => ({ ...ids, [step.action.from.id]: true, [step.action.to.id]: true }), {});
+
 export const selectSnackbarIsOn = (r: any) => root(r).snackbarOn;
 export const selectShowMeta = (r: any) => root(r).showMeta;

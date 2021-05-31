@@ -5,8 +5,6 @@ import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Scenario } from '../../model/game/Scenario';
-import { loadScenarioFromLocalStorage } from '../../persistence/loadScenarioFromLocalStorage';
-import { saveScenarioToLocalStorage } from '../../persistence/saveScenarioToLocalStorage';
 import { ScenarioActions } from '../../state/scenario/actions';
 import {
     selectActiveState,
@@ -38,19 +36,6 @@ export function NetworkCanvas() {
     const showMeta = useSelector(selectShowMeta);
 
     const scenario = new Scenario(scenarioProps);
-
-    useEffect(() => {
-        const restored = loadScenarioFromLocalStorage();
-        if (restored) {
-            dispatch(ScenarioActions.SET_SCENARIO({ scenario: restored.props }));
-        } else {
-            dispatch(ScenarioActions.RESET());
-        }
-    }, []);
-
-    useEffect(() => {
-        saveScenarioToLocalStorage(scenario);
-    }, [scenarioProps]);
 
     const [hoveredElemId, setHoveredElemId] = useState('');
 

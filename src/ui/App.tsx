@@ -1,15 +1,20 @@
 import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
 import { Clear, Restore, RestorePage, Save } from '@material-ui/icons';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { loadScenarioFromFile } from '../persistence/loadScenarioFromFile';
+import { loadScenarioFromLocalStorage } from '../persistence/loadScenarioFromLocalStorage';
 import { saveScenarioToFile } from '../persistence/saveScenarioToFile';
+import { saveScenarioToLocalStorage } from '../persistence/saveScenarioToLocalStorage';
 import { ScenarioActions } from '../state/scenario/actions';
-import { selectScenario } from '../state/scenario/selectors';
+import { selectScenario, selectScenarioProps } from '../state/scenario/selectors';
 import { NetworkCanvas } from './components/NetworkCanvas';
+import { ScenarioConfigPage } from './components/ScenarioConfigPage';
 
 export function App() {
     const scenario = useSelector(selectScenario);
+    const scenarioProps = useSelector(selectScenarioProps);
 
     const dispatch = useDispatch();
 
@@ -31,6 +36,19 @@ export function App() {
             })
             .catch((e) => alert(e));
     }
+
+    useEffect(() => {
+        const restored = loadScenarioFromLocalStorage();
+        if (restored) {
+            dispatch(ScenarioActions.SET_SCENARIO({ scenario: restored.props }));
+        } else {
+            dispatch(ScenarioActions.RESET());
+        }
+    }, []);
+
+    useEffect(() => {
+        saveScenarioToLocalStorage(scenario);
+    }, [scenarioProps]);
 
     return (
         <div className="fill">
@@ -57,7 +75,21 @@ export function App() {
                     </Button>
                 </Toolbar>
             </AppBar>
-            <NetworkCanvas />
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path={'/netwerk'}>
+                        <NetworkCanvas />
+                    </Route>
+                    <Route exact path={'/configuratie'}>
+                        <ScenarioConfigPage />
+                    </Route>
+                    {/* Default to Log Start Page */}
+                    <Redirect exact from="/" to={'netwerk'} />
+
+                    {/* Catch 404's */}
+                    <Redirect from="*" to="/404" />
+                </Switch>
+            </BrowserRouter>
         </div>
     );
 }

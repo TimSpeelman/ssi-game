@@ -1,6 +1,6 @@
 import { lens } from 'lens.ts';
 import { IAction, ReducerMap } from '../../util/redux';
-import { reorder } from '../../util/util';
+import { reorder, seq } from '../../util/util';
 import { ScenarioActions } from './actions';
 import { defaultScenario, emptyScenario } from './default';
 import { RootState } from './state';
@@ -9,6 +9,16 @@ const L = lens<RootState>();
 
 const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
     SET_SCENARIO: (p) => L.scenario.set(p.scenario),
+    SET_SCENARIO_CONFIG: (p) =>
+        seq([
+            L.scenario.meta.set(p.config.meta),
+            L.scenario.initial.set((initial) =>
+                initial.withUpdate((props) => ({
+                    ...props,
+                    byActor: p.config.actors.reduce((obj, a) => ({ ...obj, [a.actor.id]: a }), {}),
+                })),
+            ),
+        ]),
 
     ADD_STEP: (p) => L.scenario.steps.set((steps) => [...steps, p.step]),
 

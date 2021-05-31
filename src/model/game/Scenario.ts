@@ -1,4 +1,5 @@
 import { deserialize as deserializeAction } from '../../content/actions/actions';
+import { ActorState } from '../view/ActorState';
 import { ScenarioDescription } from '../view/ScenarioDescription';
 import { Action, SerializedAction } from './Action';
 import { ComputedStep } from './ComputedStep';
@@ -57,6 +58,11 @@ export interface ScenarioMeta {
     title: string;
     author: string;
     body: string;
+}
+
+export interface ScenarioConfig {
+    meta: ScenarioMeta;
+    actors: ActorState[];
 }
 
 export interface SerializedScenario {

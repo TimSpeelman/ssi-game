@@ -5,6 +5,7 @@ export interface Actor {
     image: ImgName;
     modeImages?: Record<string, ImgName>;
     name: string;
+    description?: string;
     nounPhrase: string;
     isMale: boolean;
     isHuman: boolean;

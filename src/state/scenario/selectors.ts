@@ -1,6 +1,6 @@
 import { allActors } from '../../config/actors';
 import { Actor } from '../../model/game/Actor';
-import { Scenario, ScenarioMeta, ScenarioProps } from '../../model/game/Scenario';
+import { Scenario, ScenarioConfig, ScenarioMeta, ScenarioProps } from '../../model/game/Scenario';
 import { ActorState } from '../../model/view/ActorState';
 import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescription';
 import { ScenarioStepDescription } from '../../model/view/ScenarioStepDescription';
@@ -9,6 +9,10 @@ import { RootState } from './state';
 
 export const root = (r: any): RootState => r.scenario;
 export const selectScenario = (r: any): Scenario => new Scenario(root(r).scenario);
+export const selectScenarioConfiguration = (r: any): ScenarioConfig => ({
+    meta: root(r).scenario.meta,
+    actors: selectUsedActorsState(r),
+});
 export const selectScenarioMeta = (r: any): ScenarioMeta => root(r).scenario.meta;
 export const selectScenarioProps = (r: any): ScenarioProps => root(r).scenario;
 export const selectSteps = (r: any): ScenarioStepDescription[] => new Scenario(root(r).scenario).describe().steps;

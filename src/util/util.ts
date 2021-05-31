@@ -45,3 +45,7 @@ export function reorder<T>(list: T[], fromIndex: number, toIndex: number) {
     const list2 = [...list1.slice(0, index), item, ...list1.slice(index)];
     return list2;
 }
+
+export function seq<S>(ops: Array<(s: S) => S>): (s: S) => S {
+    return (s0: S) => ops.reduce((s1, op) => op(s1), s0);
+}

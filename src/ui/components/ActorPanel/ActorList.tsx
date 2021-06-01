@@ -46,7 +46,13 @@ export function ActorList() {
                 }}
             />
 
-            <Typography variant="h6">Actoren ({actors.length})</Typography>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Typography variant="h6">Actoren ({actors.length})</Typography>
+                <Button variant={'outlined'} onClick={() => setCreatingActor(true)}>
+                    <Add /> Actor Toevoegen
+                </Button>
+            </div>
+
             <DragDropContext onDragEnd={(x) => handleReorder(x.source!.index, x.destination!.index)}>
                 <Droppable droppableId={'d123'}>
                     {(provided) => (
@@ -109,9 +115,6 @@ export function ActorList() {
                     )}
                 </Droppable>
             </DragDropContext>
-            <Button variant={'outlined'} onClick={() => setCreatingActor(true)}>
-                <Add /> Actor Toevoegen
-            </Button>
         </div>
     );
 }

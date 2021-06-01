@@ -14,12 +14,20 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../../config/actorImage';
 import { ScenarioActions } from '../../../state/scenario/actions';
-import { selectActiveStepId, selectSelectedStepId, selectSteps } from '../../../state/scenario/selectors';
+import {
+    selectActiveStepId,
+    selectSelectedStepId,
+    selectSteps,
+    selectUsedActors,
+} from '../../../state/scenario/selectors';
+import { AddStepMenu } from './AddStepMenu';
+
 export function StepSequence() {
     const steps = useSelector(selectSteps);
     const activeStepId = useSelector(selectActiveStepId);
     const selectedStepId = useSelector(selectSelectedStepId);
     const dispatch = useDispatch();
+    const usedActors = useSelector(selectUsedActors);
 
     function handleClick(id: string | undefined) {
         if (selectedStepId === id) {
@@ -40,11 +48,17 @@ export function StepSequence() {
 
     return (
         <div style={{ padding: '1rem' }}>
-            <Typography variant="h6">Stappen</Typography>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Typography variant="h6">Stappen ({steps.length})</Typography>
+                <AddStepMenu
+                    availableActors={usedActors}
+                    onAdd={(step) => dispatch(ScenarioActions.ADD_STEP({ step }))}
+                />
+            </div>
             <DragDropContext onDragEnd={(x) => handleReorder(x.source!.index, x.destination!.index)}>
                 <Droppable droppableId={'d123'}>
                     {(provided) => (
-                        <List style={{ padding: '1rem' }} innerRef={provided.innerRef} {...provided.droppableProps}>
+                        <List innerRef={provided.innerRef} {...provided.droppableProps}>
                             <Divider />
                             <ListItem
                                 className={activeStepId === undefined ? 'active-step' : ''}

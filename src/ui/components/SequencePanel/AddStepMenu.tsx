@@ -14,10 +14,10 @@ import {
 import { Add } from '@material-ui/icons';
 import React, { Fragment, useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
-import { actorImage } from '../../config/actorImage';
-import { ActionForms } from '../../content/actions/forms';
-import { Action } from '../../model/game/Action';
-import { Actor } from '../../model/game/Actor';
+import { actorImage } from '../../../config/actorImage';
+import { ActionForms } from '../../../content/actions/forms';
+import { Action } from '../../../model/game/Action';
+import { Actor } from '../../../model/game/Actor';
 
 interface Props {
     onAdd: (act: Action) => void;
@@ -54,7 +54,7 @@ export function AddStepMenu(props: Props) {
     return (
         <Fragment>
             <Button variant="outlined" onClick={handleClickOpen}>
-                <Add /> Handeling
+                <Add /> Handeling Toevoegen
             </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Handeling Toevoegen</DialogTitle>

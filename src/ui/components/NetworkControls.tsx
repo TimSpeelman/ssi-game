@@ -9,7 +9,6 @@ import {
     selectSnackbarIsOn,
     selectUsedActors,
 } from '../../state/scenario/selectors';
-import { AddStepMenu } from './AddStepMenu';
 
 export function NetworkControls() {
     const selectedStep = useSelector(selectSelectedStep);
@@ -21,16 +20,6 @@ export function NetworkControls() {
 
     return (
         <div>
-            <Divider />
-            <div style={{ padding: '1rem' }}>
-                <AddStepMenu
-                    availableActors={usedActors}
-                    onAdd={(step) => dispatch(ScenarioActions.ADD_STEP({ step }))}
-                />{' '}
-            </div>
-
-            <Divider />
-
             <div style={{ padding: '1rem' }}>
                 <Button variant={'outlined'} onClick={() => dispatch(ScenarioActions.TOGGLE_SNACKBAR())}>
                     {snackbarIsOn ? 'Verberg Meldingen' : 'Toon Meldingen'}

@@ -1,7 +1,10 @@
 import { Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { ScenarioStepDescription } from '../../../model/view/ScenarioStepDescription';
+import { selectSteps } from '../../../state/scenario/selectors';
 import { StepLabel } from '../StepLabel';
+import { StepNav } from './StepNav';
 
 interface Props {
     step: ScenarioStepDescription;
@@ -9,9 +12,18 @@ interface Props {
 
 /** Shows the details of a scenario step */
 export function StepInspector({ step }: Props) {
+    const steps = useSelector(selectSteps);
+    const dispatch = useDispatch();
+    const index = steps.findIndex((s) => step.action.id === s.action.id);
+
     return (
         <div>
-            <Typography variant="h6">Huidige Stap</Typography>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Typography variant="h6">
+                    Stap {index + 1} van {steps.length}
+                </Typography>
+                <StepNav />
+            </div>
 
             {/* Same label as shown in the StepSequence */}
             <StepLabel step={step} />

@@ -1,8 +1,11 @@
-import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
+import { Button, List, ListItem, ListItemText, Typography } from '@material-ui/core';
+import { ChevronLeft } from '@material-ui/icons';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { actorImage } from '../../../config/actorImage';
 import { Asset } from '../../../content/assets/Asset';
 import { Actor } from '../../../model/game/Actor';
+import { ScenarioActions } from '../../../state/scenario/actions';
 import { ucFirst } from '../../../util/util';
 
 interface Props {
@@ -12,8 +15,12 @@ interface Props {
 
 /** Shows the details of a scenario step */
 export function ActorInspector({ actor, assets }: Props) {
+    const dispatch = useDispatch();
     return (
         <div>
+            <Button onClick={() => dispatch(ScenarioActions.CLEAR_SELECTION())}>
+                <ChevronLeft /> Alle Actoren
+            </Button>
             <Typography variant="h6">Geselecteerde Actor: {actor.name}</Typography>
             <img src={actorImage(actor.image)} style={{ height: '6rem' }} />
 

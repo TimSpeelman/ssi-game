@@ -14,10 +14,10 @@ import {
 } from '@material-ui/core';
 import { lens } from 'lens.ts';
 import React, { useEffect, useState } from 'react';
-import { actorImage } from '../../config/actorImage';
-import { actorTypes } from '../../config/actorTypes';
-import { ActorType } from '../../model/game/ActorType';
-import { ActorConfig } from '../../model/game/Scenario';
+import { actorImage } from '../../../config/actorImage';
+import { actorTypes } from '../../../config/actorTypes';
+import { ActorType } from '../../../model/game/ActorType';
+import { ActorConfig } from '../../../model/game/Scenario';
 
 export interface Props {
     actorConfig?: ActorConfig;

@@ -24,7 +24,7 @@ import { ActorConfig } from '../../model/game/Scenario';
 import { ScenarioActions } from '../../state/scenario/actions';
 import { selectInvolvedActors, selectScenarioConfiguration } from '../../state/scenario/selectors';
 import { reorder } from '../../util/util';
-import { ActorConfigDialog } from '../components/ActorConfigDialog';
+import { ActorConfigDialog } from '../components/ActorPanel/ActorConfigDialog';
 import { useNav } from '../hooks/useNav';
 
 export function ScenarioConfigPage() {

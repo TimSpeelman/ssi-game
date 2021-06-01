@@ -17,9 +17,9 @@ import {
     selectSnackbarIsOn,
     selectUsedActors,
 } from '../../state/scenario/selectors';
-import { NetworkControls } from '../components/NetworkControls';
 import { createNetworkCanvasData } from '../components/networkToCanvas';
 import { ScenarioMetaDialog } from '../components/ScenarioMetaDialog';
+import { Sidebar } from '../components/Sidebar';
 import { CanvasEvent, SVGNetworkCanvas } from '../components/SVGNetworkCanvas';
 
 export function NetworkCanvas() {
@@ -125,9 +125,7 @@ export function NetworkCanvas() {
                     </Fab>
                 </div>
             </div>
-            <div className="sidebar">
-                <NetworkControls />
-            </div>
+            <Sidebar />
         </div>
     );
 }

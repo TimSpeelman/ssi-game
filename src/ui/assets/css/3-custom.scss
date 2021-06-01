@@ -8,6 +8,10 @@ html {
     background: #eee;
 }
 
+p {
+    margin-bottom: 1em;
+}
+
 .fill,
 #root {
     width: 100%;
@@ -50,7 +54,7 @@ html {
     width: 30%;
     flex-grow: 0;
     flex-shrink: 0;
-    overflow-y: auto;
+
     background: white;
 }
 
@@ -100,4 +104,40 @@ html {
 
 .step-inactive {
     color: gray !important;
+}
+
+.sidebar {
+    display: flex;
+}
+
+.sidebar-panel {
+    flex-grow: 1;
+    display: none;
+    overflow-y: auto;
+    &.active {
+        display: block;
+    }
+}
+
+.sidebar-menu {
+    width: 3rem;
+    flex-grow: 0;
+    flex-shrink: 0;
+    background: white;
+    border-left: 1px solid #ccc;
+    margin-left: -1px;
+
+    .item {
+        cursor: pointer;
+        height: 3rem;
+        width: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid #eee;
+
+        &.active {
+            background: #eee;
+        }
+    }
 }

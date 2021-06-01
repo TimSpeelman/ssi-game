@@ -11,7 +11,7 @@ import {
 } from '../../state/scenario/selectors';
 import { ActorInspector } from './ActorInspector';
 import { AddStepMenu } from './AddStepMenu';
-import { ScenarioInspector } from './ScenarioInspector';
+import { ScenarioInspector } from './InfoPanel/ScenarioInspector';
 import { StepInspector } from './StepInspector';
 import { StepSequence } from './StepSequence';
 

@@ -4,9 +4,9 @@ import classNames from 'classnames';
 import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { actorImage } from '../../config/actorImage';
-import { ScenarioActions } from '../../state/scenario/actions';
-import { selectActiveStepId, selectSelectedStepId, selectSteps } from '../../state/scenario/selectors';
+import { actorImage } from '../../../config/actorImage';
+import { ScenarioActions } from '../../../state/scenario/actions';
+import { selectActiveStepId, selectSelectedStepId, selectSteps } from '../../../state/scenario/selectors';
 export function StepSequence() {
     const steps = useSelector(selectSteps);
     const activeStepId = useSelector(selectActiveStepId);

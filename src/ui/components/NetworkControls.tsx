@@ -9,7 +9,7 @@ import {
     selectSnackbarIsOn,
     selectUsedActors,
 } from '../../state/scenario/selectors';
-import { ActorInspector } from './ActorInspector';
+import { ActorInspector } from './ActorPanel/ActorInspector';
 import { AddStepMenu } from './AddStepMenu';
 import { ScenarioInspector } from './InfoPanel/ScenarioInspector';
 import { StepInspector } from './StepInspector';

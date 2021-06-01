@@ -1,16 +1,12 @@
 import { Group, Info, Timeline } from '@material-ui/icons';
 import classNames from 'classnames';
 import React, { useState } from 'react';
+import { ActorPanel } from './ActorPanel/ActorPanel';
 import { InfoPanel } from './InfoPanel/InfoPanel';
 
 const sidebarItems = [
     { Icon: Info, Panel: InfoPanel },
-    {
-        Icon: Group,
-        Panel: function GroupPanel() {
-            return <div>Group</div>;
-        },
-    },
+    { Icon: Group, Panel: ActorPanel },
     {
         Icon: Timeline,
         Panel: function TimelinePanel() {

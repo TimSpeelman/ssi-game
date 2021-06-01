@@ -5,6 +5,7 @@
 export interface AttributeProof {
     kind: 'data';
     type: 'attribute-proof';
+    id: string;
     name: string;
     value: string;
     issuerId: string;

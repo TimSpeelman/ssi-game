@@ -2,6 +2,7 @@
 export interface AttributeKnowledge {
     kind: 'data';
     type: 'attribute-knowledge';
+    id: string;
     subjectId: string;
     name: string;
     value: string;

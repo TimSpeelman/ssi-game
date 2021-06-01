@@ -5,6 +5,7 @@
 export interface Consent {
     kind: 'data';
     type: 'consent';
+    id: string;
     attributeName: string;
     verifierId: string;
     subjectId: string;

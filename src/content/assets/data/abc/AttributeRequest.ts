@@ -5,6 +5,7 @@
 export interface AttributeRequest {
     kind: 'data';
     type: 'attribute-request';
+    id: string;
     name: string;
     verifierId: string;
     subjectId: string;

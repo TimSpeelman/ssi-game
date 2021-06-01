@@ -8,7 +8,7 @@ export function ActorPanel() {
     const selectedActor = useSelector(selectSelectedActor);
 
     return (
-        <div>
+        <div style={{ padding: '1rem' }}>
             {selectedActor && <ActorInspector actor={selectedActor.actor} assets={selectedActor.assets} />}
             {!selectedActor && 'Selecteer een actor'}
         </div>

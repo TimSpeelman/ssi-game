@@ -1,4 +1,12 @@
-import { Divider, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText } from '@material-ui/core';
+import {
+    Divider,
+    IconButton,
+    List,
+    ListItem,
+    ListItemSecondaryAction,
+    ListItemText,
+    Typography,
+} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import classNames from 'classnames';
 import React from 'react';
@@ -31,63 +39,66 @@ export function StepSequence() {
     }
 
     return (
-        <DragDropContext onDragEnd={(x) => handleReorder(x.source!.index, x.destination!.index)}>
-            <Droppable droppableId={'d123'}>
-                {(provided) => (
-                    <List style={{ padding: '1rem' }} innerRef={provided.innerRef} {...provided.droppableProps}>
-                        <Divider />
-                        <ListItem
-                            className={activeStepId === undefined ? 'active-step' : ''}
-                            onClick={() => handleClick(undefined)}
-                        >
-                            <ListItemText primary={'START'} />
-                        </ListItem>
+        <div style={{ padding: '1rem' }}>
+            <Typography variant="h6">Stappen</Typography>
+            <DragDropContext onDragEnd={(x) => handleReorder(x.source!.index, x.destination!.index)}>
+                <Droppable droppableId={'d123'}>
+                    {(provided) => (
+                        <List style={{ padding: '1rem' }} innerRef={provided.innerRef} {...provided.droppableProps}>
+                            <Divider />
+                            <ListItem
+                                className={activeStepId === undefined ? 'active-step' : ''}
+                                onClick={() => handleClick(undefined)}
+                            >
+                                <ListItemText primary={'START'} />
+                            </ListItem>
 
-                        {steps.map((step, i) => (
-                            <Draggable draggableId={step.action.id} index={i} key={step.action.id}>
-                                {(provided) => (
-                                    <ListItem
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                        innerRef={provided.innerRef}
-                                        button
-                                        className={classNames({
-                                            'step-item': true,
-                                            'active-step': activeStepId === step.action.id,
-                                            'step-success': step.success,
-                                            'step-failed': !step.success,
-                                            'step-inactive': !step.active,
-                                        })}
-                                        onClick={() => handleClick(step.action.id)}
-                                        selected={selectedStepId === step.action.id}
-                                    >
-                                        <img src={actorImage(step.action.from.image)} style={{ height: '3rem' }} />
-                                        <i className="fas fa-chevron-right"></i>
-                                        <img src={actorImage(step.action.to.image)} style={{ height: '3rem' }} />
-                                        <ListItemText
-                                            primary={`${i + 1}. ${step.action.description}`}
-                                            secondary={step.action.sub}
-                                        />
-
-                                        <IconButton
-                                            edge="end"
-                                            aria-label="delete"
-                                            onClick={() =>
-                                                dispatch(ScenarioActions.REMOVE_STEP({ id: step.action.id }))
-                                            }
+                            {steps.map((step, i) => (
+                                <Draggable draggableId={step.action.id} index={i} key={step.action.id}>
+                                    {(provided) => (
+                                        <ListItem
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                            innerRef={provided.innerRef}
+                                            button
+                                            className={classNames({
+                                                'step-item': true,
+                                                'active-step': activeStepId === step.action.id,
+                                                'step-success': step.success,
+                                                'step-failed': !step.success,
+                                                'step-inactive': !step.active,
+                                            })}
+                                            onClick={() => handleClick(step.action.id)}
+                                            selected={selectedStepId === step.action.id}
                                         >
-                                            <DeleteIcon />
-                                        </IconButton>
-                                        <ListItemSecondaryAction />
-                                    </ListItem>
-                                )}
-                            </Draggable>
-                        ))}
+                                            <img src={actorImage(step.action.from.image)} style={{ height: '3rem' }} />
+                                            <i className="fas fa-chevron-right"></i>
+                                            <img src={actorImage(step.action.to.image)} style={{ height: '3rem' }} />
+                                            <ListItemText
+                                                primary={`${i + 1}. ${step.action.description}`}
+                                                secondary={step.action.sub}
+                                            />
 
-                        {provided.placeholder}
-                    </List>
-                )}
-            </Droppable>
-        </DragDropContext>
+                                            <IconButton
+                                                edge="end"
+                                                aria-label="delete"
+                                                onClick={() =>
+                                                    dispatch(ScenarioActions.REMOVE_STEP({ id: step.action.id }))
+                                                }
+                                            >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            <ListItemSecondaryAction />
+                                        </ListItem>
+                                    )}
+                                </Draggable>
+                            ))}
+
+                            {provided.placeholder}
+                        </List>
+                    )}
+                </Droppable>
+            </DragDropContext>
+        </div>
     );
 }

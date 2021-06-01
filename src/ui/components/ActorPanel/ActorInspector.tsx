@@ -13,8 +13,8 @@ interface Props {
 /** Shows the details of a scenario step */
 export function ActorInspector({ actor, assets }: Props) {
     return (
-        <div style={{ padding: '1rem' }}>
-            <Typography variant="h5">Geselecteerde Actor: {actor.name}</Typography>
+        <div>
+            <Typography variant="h6">Geselecteerde Actor: {actor.name}</Typography>
             <img src={actorImage(actor.image)} style={{ height: '6rem' }} />
 
             <Typography variant="h6">Assets</Typography>

@@ -7,5 +7,7 @@ import { StepInspector } from './StepInspector';
 export function ActionPanel() {
     const selectedStep = useSelector(selectActiveStep);
 
-    return <div>{selectedStep ? <StepInspector step={selectedStep} /> : 'Begintoestand'}</div>;
+    return (
+        <div style={{ padding: '1rem' }}>{selectedStep ? <StepInspector step={selectedStep} /> : 'Begintoestand'}</div>
+    );
 }

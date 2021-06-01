@@ -10,8 +10,8 @@ interface Props {
 /** Shows the details of a scenario step */
 export function StepInspector({ step }: Props) {
     return (
-        <div style={{ padding: '1rem' }}>
-            <Typography variant="h5">Geselecteerde actie</Typography>
+        <div>
+            <Typography variant="h6">Huidige Stap</Typography>
 
             {/* Same label as shown in the StepSequence */}
             <StepLabel step={step} />

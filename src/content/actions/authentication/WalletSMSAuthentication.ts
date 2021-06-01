@@ -35,12 +35,14 @@ export class WalletSMSAuthentication extends Action<Props> {
         const authResult: AuthenticationResult = {
             kind: 'data',
             type: 'authentication-result',
+            id: this.id + '-1',
             sourceId: this.props.humanSubjectId,
             targetId: this.props.dataSubjectId,
         };
         const phoneNumber: AttributeKnowledge = {
             kind: 'data',
             type: 'attribute-knowledge',
+            id: this.id + '-2',
             subjectId: this.props.humanSubjectId,
             name: 'telefoonnummer',
             value: '06123456789',

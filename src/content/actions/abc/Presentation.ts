@@ -42,6 +42,8 @@ export class Presentation extends Action<Props> {
         const attr: AttributeKnowledge = {
             kind: 'data',
             type: 'attribute-knowledge',
+            id: this.id + '-1',
+
             name: this.props.attributeName,
             issuerId: this.props.issuerNym,
             subjectId: this.props.subjectNym,

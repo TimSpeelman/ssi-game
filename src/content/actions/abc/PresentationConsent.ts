@@ -38,6 +38,8 @@ export class PresentationConsent extends Action<Props> {
         const consent: Consent = {
             kind: 'data',
             type: 'consent',
+            id: this.id + '-1',
+
             attributeName: this.props.attributeName,
             verifierId: this.props.verifierId,
             subjectId: this.props.subjectNym,

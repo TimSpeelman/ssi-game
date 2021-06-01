@@ -44,6 +44,7 @@ export class Issuance extends Action<Props> {
         const attr: AttributeProof = {
             kind: 'data',
             type: 'attribute-proof',
+            id: this.id + '-1',
             name: this.props.attributeName,
             value: this.props.attributeValue,
             issuerId: this.props.issuerNym,

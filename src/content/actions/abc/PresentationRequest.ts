@@ -38,6 +38,8 @@ export class PresentationRequest extends Action<Props> {
         const req: AttributeRequest = {
             kind: 'data',
             type: 'attribute-request',
+            id: this.id + '-1',
+
             name: this.props.attributeName,
             verifierId: this.props.verifierId,
             subjectId: this.props.subjectNym,

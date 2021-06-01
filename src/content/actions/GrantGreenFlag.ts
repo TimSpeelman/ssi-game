@@ -37,6 +37,7 @@ export class GrantGreenFlag extends Action<Props> {
             kind: 'flag',
             type: 'green-flag',
             success: true,
+            id: this.id + '-1',
         };
         return [new GainAssetOutcome({ actorId: this.props.toId, asset: flag })];
     }

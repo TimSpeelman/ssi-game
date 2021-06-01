@@ -34,6 +34,8 @@ export class WalletQRAuthentication extends Action<Props> {
         const authResult: AuthenticationResult = {
             kind: 'data',
             type: 'authentication-result',
+            id: this.id + '-1',
+
             sourceId: this.props.humanSubjectId,
             targetId: this.props.dataSubjectId,
         };

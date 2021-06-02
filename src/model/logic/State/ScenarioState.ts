@@ -1,8 +1,10 @@
 import { lens } from 'lens.ts';
-import { omit } from '../../../util/util';
+import { deserialize } from '../../../content/assets/assets';
+import { mapValues, omit } from '../../../util/util';
 import { Actor } from '../../definition/Actor/Actor';
 import { definitionToActor } from '../../definition/Actor/definitionToActor';
 import { ScenarioDef } from '../../definition/ScenarioDef';
+import { ActorStateDesc } from '../../description/State/ActorStateDesc';
 import { StateDesc } from '../../description/State/StateDesc';
 import { ActorState } from './ActorState';
 
@@ -16,7 +18,7 @@ export class ScenarioState {
         const actors = s.actors.map(
             (a): ActorState => ({
                 actor: definitionToActor(a.definition),
-                assets: a.initialAssets,
+                assets: a.initialAssets.map(deserialize),
             }),
         );
 
@@ -33,7 +35,14 @@ export class ScenarioState {
 
     describe(): StateDesc {
         return {
-            actors: this.props.byActor,
+            actors: mapValues(
+                this.props.byActor,
+                (byActor): ActorStateDesc => ({
+                    actor: byActor.actor,
+                    assets: byActor.assets.map((a) => a.describe(this)),
+                    mode: byActor.mode,
+                }),
+            ),
             valid: this.props.valid,
         };
     }

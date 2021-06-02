@@ -5,8 +5,6 @@ import { IOutcome } from '../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../model/logic/Step/IValidationResult';
 import { ActionFormConfig } from '../../model/view/ActionFormConfig';
 import { ucFirst } from '../../util/util';
-import { GreenFlag } from '../assets/Flag';
-import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
 
 export interface Props {
     fromId: string;
@@ -31,14 +29,15 @@ export class GrantGreenFlag extends Action<Props> {
     }
 
     computeOutcomes(): IOutcome[] {
-        const flag: GreenFlag = {
-            description: this.props.description,
-            kind: 'flag',
-            type: 'green-flag',
-            success: true,
-            id: this.id + '-1',
-        };
-        return [new GainAssetOutcome({ actorId: this.props.toId, asset: flag })];
+        // const flag: GreenFlag = {
+        //     description: this.props.description,
+        //     kind: 'flag',
+        //     type: 'green-flag',
+        //     success: true,
+        //     id: this.id + '-1',
+        // };
+        // return [new GainAssetOutcome({ actorId: this.props.toId, asset: flag })];
+        return [];
     }
 
     describe(state: ScenarioState): ActionDesc {

@@ -8,9 +8,11 @@ import { WalletSMSAuthentication } from '../../content/actions/authentication/Wa
 import { CustomInteraction } from '../../content/actions/CustomInteraction';
 import { GrantGreenFlag } from '../../content/actions/GrantGreenFlag';
 import { AttributeKnowledge } from '../../content/assets/data/abc/AttributeKnowledge';
-import { PrivKey } from '../../content/assets/data/cryptography/PrivKey';
-import { PubKey } from '../../content/assets/data/cryptography/PubKey';
+import { HumanRecord } from '../../content/assets/data/abc/HumanRecord';
+import { FaceScan } from '../../content/assets/data/feature/FaceScan';
 import { FaceFeature } from '../../content/assets/feature/FaceFeature';
+import { GreenFlag } from '../../content/assets/GreenFlag';
+import { GovPassport } from '../../content/assets/physical/GovPassport';
 import { ActorConfig } from '../../model/definition/Actor/ActorConfig';
 import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { defaultActors } from '../defaultActors';
@@ -28,40 +30,30 @@ const actors: ActorConfig[] = [
     {
         definition: Government,
         initialAssets: [
-            // { kind: 'data', type: 'human-record', id: SubjectIdAtGov } as HumanRecord,
-            {
-                kind: 'data',
-                type: 'attribute-knowledge',
+            new GreenFlag('1', { description: 'Hoi' }),
+            new HumanRecord('2', { subjectId: SubjectIdAtGov }),
+            new AttributeKnowledge('3', {
                 issuerId: GovNym1,
                 subjectId: SubjectIdAtGov,
                 name: '18+',
                 value: 'WAAR',
-            } as AttributeKnowledge,
-            { kind: 'data', type: 'pubkey', id: 'pub', key: GovNym1 } as PubKey,
-            { kind: 'data', type: 'privkey', id: 'priv', key: 'asdpa8b348n' } as PrivKey,
-        ],
+            }),
+        ].map((a) => a.serialize()),
     },
     {
         definition: Subject,
         initialAssets: [
-            // {
-            //     kind: 'physical',
-            //     type: 'gov-passport',
-            //     id: 'passp',
-            //     name: Subject.name,
-            //     photo: { id: 'photox', type: 'face', kind: 'data', subjectId: Subject.id },
-            // } as GovPassport,
-            { kind: 'feature', type: 'face', id: 'face' } as FaceFeature,
-            { kind: 'data', type: 'pubkey', id: 'pub', key: SubjectNym1 } as PubKey,
-            { kind: 'data', type: 'privkey', id: 'priv', key: 'poweqopuo88' } as PrivKey,
-        ],
+            new GovPassport('4', {
+                subjectId: Subject.id,
+                name: Subject.name,
+                photo: new FaceScan('4x', { subjectId: Subject.id }),
+            }),
+            new FaceFeature('5', { subjectId: Subject.id }),
+        ].map((a) => a.serialize()),
     },
     {
         definition: Shop,
-        initialAssets: [
-            { kind: 'data', type: 'pubkey', id: 'pub', key: ShopNym1 } as PubKey,
-            { kind: 'data', type: 'privkey', id: 'priv', key: '113fasfa' } as PrivKey,
-        ],
+        initialAssets: [],
     },
 ];
 

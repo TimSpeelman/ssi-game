@@ -1,8 +1,8 @@
 import { lens } from 'lens.ts';
+import { Asset } from '../../model/logic/Asset/Asset';
 import { Props, ScenarioState } from '../../model/logic/State/ScenarioState';
 import { IOutcome } from '../../model/logic/Step/IOutcome';
 import { ucFirst } from '../../util/util';
-import { Asset } from '../assets/Asset';
 
 export class GainAssetOutcome implements IOutcome {
     constructor(
@@ -22,15 +22,6 @@ export class GainAssetOutcome implements IOutcome {
 
     describe(state: ScenarioState): string {
         const actor = state.props.byActor[this.props.actorId].actor;
-        return `${ucFirst(actor.nounPhrase)} krijgt ${assetToString(this.props.asset)}.`;
+        return `${ucFirst(actor.nounPhrase)} krijgt ${this.props.asset.describe(state).title}.`;
     }
-}
-
-function assetToString(a: Asset) {
-    const keys = Object.keys(a);
-    return `<${ucFirst(a.type)} ${keys
-        .filter((k) => k !== 'kind' && k !== 'type' && k !== 'id')
-        // @ts-ignore
-        .map((k) => `${k}:${a[k]}`)
-        .join(' | ')}>`;
 }

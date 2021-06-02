@@ -4,9 +4,6 @@ import { Action } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
-import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
-import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
-import { ValidationResult } from '../../validations/ValidationResult';
 
 export interface Props {
     verifierId: string;
@@ -33,33 +30,34 @@ export class PhysicalPassportAuthentication extends Action<Props> {
     validatePreConditions(state: ScenarioState): IValidationResult[] {
         const results: IValidationResult[] = [];
 
-        const subject = state.props.byActor[this.props.humanSubjectId];
-        const verifier = state.props.byActor[this.props.verifierId];
-        const subjectPassport = subject.assets.find((a) => a.type === 'gov-passport');
-        if (!subjectPassport)
-            results.push(new ValidationResult(false, `${ucFirst(subject.actor.nounPhrase)} heeft geen paspoort.`));
+        // const subject = state.props.byActor[this.props.humanSubjectId];
+        // const verifier = state.props.byActor[this.props.verifierId];
+        // const subjectPassport = subject.assets.find((a) => a.type === 'gov-passport');
+        // if (!subjectPassport)
+        //     results.push(new ValidationResult(false, `${ucFirst(subject.actor.nounPhrase)} heeft geen paspoort.`));
 
-        const humanRecord = verifier.assets.find((a) => a.type === 'human-record' && a.id === this.props.dataSubjectId);
-        if (!humanRecord)
-            results.push(
-                new ValidationResult(
-                    false,
-                    `${ucFirst(verifier.actor.nounPhrase)} heeft geen record van ${subject.actor.name}.`,
-                ),
-            );
+        // const humanRecord = verifier.assets.find((a) => a.type === 'human-record' && a.id === this.props.dataSubjectId);
+        // if (!humanRecord)
+        //     results.push(
+        //         new ValidationResult(
+        //             false,
+        //             `${ucFirst(verifier.actor.nounPhrase)} heeft geen record van ${subject.actor.name}.`,
+        //         ),
+        //     );
 
         return results;
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
-        const authResult: AuthenticationResult = {
-            kind: 'data',
-            type: 'authentication-result',
-            id: this.id + '-1',
-            sourceId: this.props.humanSubjectId,
-            targetId: this.props.dataSubjectId,
-        };
-        return [new GainAssetOutcome({ actorId: this.props.verifierId, asset: authResult })];
+        // const authResult: AuthenticationResult = {
+        //     kind: 'data',
+        //     type: 'authentication-result',
+        //     id: this.id + '-1',
+        //     sourceId: this.props.humanSubjectId,
+        //     targetId: this.props.dataSubjectId,
+        // };
+        // return [new GainAssetOutcome({ actorId: this.props.verifierId, asset: authResult })];
+        return [];
     }
 
     describe(state: ScenarioState): ActionDesc {

@@ -1,6 +1,6 @@
 import { DataAsset } from './data/DataAsset';
 import { FeatureAsset } from './feature/FeatureAsset';
-import { GreenFlag } from './Flag';
+import { GreenFlag } from './GreenFlag';
 import { PhysicalAsset } from './physical/PhysicalAsset';
 
 /**

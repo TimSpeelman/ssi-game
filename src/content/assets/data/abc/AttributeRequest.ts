@@ -1,12 +1,23 @@
-/**
- * Attribute Proof is equivalent to Attribute Knowledge, except it enables the possessing Actor to prove it.
- * - Note: a proof could be decomposed into other data elements, but this simplification is made for ease of play.
- */
-export interface AttributeRequest {
-    kind: 'data';
-    type: 'attribute-request';
+import { AssetDesc } from '../../../../model/description/Asset/AssetDesc';
+import { Asset } from '../../../../model/logic/Asset/Asset';
+import { ScenarioState } from '../../../../model/logic/State/ScenarioState';
+
+export interface Props {
     id: string;
     name: string;
     verifierId: string;
     subjectId: string;
+}
+
+export class AttributeRequest extends Asset<Props> {
+    protected typeName = AttributeRequest.name;
+
+    describe(state: ScenarioState): AssetDesc {
+        return {
+            id: this.id,
+            type: this.typeName,
+            sub: JSON.stringify(this.props),
+            title: 'AttribuutVerzoek',
+        };
+    }
 }

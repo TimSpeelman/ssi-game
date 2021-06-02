@@ -4,8 +4,6 @@ import { Action } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
-import { AttributeKnowledge } from '../../assets/data/abc/AttributeKnowledge';
-import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
 export interface Props {
     verifierId: string;
@@ -38,17 +36,18 @@ export class Presentation extends Action<Props> {
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
-        const attr: AttributeKnowledge = {
-            kind: 'data',
-            type: 'attribute-knowledge',
-            id: this.id + '-1',
+        // const attr: AttributeKnowledge = {
+        //     kind: 'data',
+        //     type: 'attribute-knowledge',
+        //     id: this.id + '-1',
 
-            name: this.props.attributeName,
-            issuerId: this.props.issuerNym,
-            subjectId: this.props.subjectNym,
-            value: this.props.attributeValue,
-        };
-        return [new GainAssetOutcome({ actorId: this.props.verifierId, asset: attr })];
+        //     name: this.props.attributeName,
+        //     issuerId: this.props.issuerNym,
+        //     subjectId: this.props.subjectNym,
+        //     value: this.props.attributeValue,
+        // };
+        // return [new GainAssetOutcome({ actorId: this.props.verifierId, asset: attr })];
+        return [];
     }
 
     describe(state: ScenarioState): ActionDesc {

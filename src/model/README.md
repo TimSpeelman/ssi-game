@@ -1,6 +1,11 @@
 # Game Model
 With the SSI game players can construct _narratives_ to model (electronic) identification **scenario's**; e.g. a human shows its passport to a store to prove that he exceeds an age threshold. The purpose of this modelling practice is for players to understand, explore and explain how (electronic) identitification processes work, and why.
 
+The game model is separated in three stages:
+1. **Definition**: the player **defines** his or her own scenario
+2. **Computation (logic)**: the game logic takes a definition and computes the resulting states and outcomes.
+3. **Description**: the states and outcomes are described/displayed to the user.
+
 The player constructs a **scenario** by..
 1. .. picking some **actors** (e.g. humans, organisations, governments, autonomous actors);
 2. .. providing them with some initial **assets** (e.g. a passport, a piece of knowledge or a human trait or feature);

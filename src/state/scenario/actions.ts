@@ -1,5 +1,5 @@
 import { ActorConfig } from '../../model/definition/ActorConfig';
-import { ScenarioDef } from '../../model/definition/ScenarioConfig';
+import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { ScenarioMeta } from '../../model/definition/ScenarioMeta';
 import { PlainAction } from '../../model/game/Action/PlainAction';
 import { ActorDefinition } from '../../model/game/Actor/ActorDefinition';

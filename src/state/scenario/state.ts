@@ -1,4 +1,4 @@
-import { ScenarioDef } from '../../model/definition/ScenarioConfig';
+import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 
 export interface RootState {

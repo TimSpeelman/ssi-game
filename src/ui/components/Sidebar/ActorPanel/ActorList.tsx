@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { actorImage } from '../../../../config/actorImage';
 import { ActorConfig } from '../../../../model/definition/ActorConfig';
-import { ScenarioDef } from '../../../../model/definition/ScenarioConfig';
+import { ScenarioDef } from '../../../../model/definition/ScenarioDef';
 import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectInvolvedActors, selectScenarioConfiguration } from '../../../../state/scenario/selectors';
 import { reorder } from '../../../../util/util';

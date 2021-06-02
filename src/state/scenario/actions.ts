@@ -14,6 +14,7 @@ export const ScenarioActions = {
     REMOVE_ACTOR: event<{ id: string }>('REMOVE_ACTOR'),
     UPDATE_ACTOR_DEFINITION: event<{ def: ActorDefinition }>('UPDATE_ACTOR_DEFINITION'),
     ADD_STEP: event<{ step: SerializedAction<any> }>('ADD_STEP'),
+    UPDATE_STEP: event<{ step: SerializedAction<any> }>('UPDATE_STEP'),
     REMOVE_STEP: event<{ id: string }>('REMOVE_STEP'),
     REORDER_STEP: event<{ sourceIndex: number; targetIndex: number }>('REORDER_STEP'),
 

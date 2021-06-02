@@ -3,7 +3,7 @@ import React, { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ScenarioStepDescription } from '../../../../model/view/ScenarioStepDescription';
 import { ScenarioActions } from '../../../../state/scenario/actions';
-import { selectSteps } from '../../../../state/scenario/selectors';
+import { selectActiveStepSerialized, selectSteps } from '../../../../state/scenario/selectors';
 import { StepDialog } from '../SequencePanel/StepDialog';
 import { StepLabel } from './StepLabel';
 import { StepNav } from './StepNav';
@@ -18,13 +18,15 @@ export function StepInspector({ step }: Props) {
     const dispatch = useDispatch();
     const index = steps.findIndex((s) => step.action.id === s.action.id);
     const [editing, setEditing] = useState(false);
+    const stepSerial = useSelector(selectActiveStepSerialized);
     return (
         <div>
             <StepDialog
                 open={editing}
                 isCreate={false}
+                action={stepSerial}
                 onSubmit={(step) => {
-                    dispatch(ScenarioActions.ADD_STEP({ step }));
+                    dispatch(ScenarioActions.UPDATE_STEP({ step }));
                     setEditing(false);
                 }}
                 onCancel={() => setEditing(false)}

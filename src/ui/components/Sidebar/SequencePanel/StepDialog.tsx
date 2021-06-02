@@ -21,32 +21,44 @@ import { selectUsedActors } from '../../../../state/scenario/selectors';
 
 interface Props {
     open: boolean;
+    action?: SerializedAction<any>;
     onSubmit: (act: SerializedAction<any>) => void;
     onCancel: () => void;
     isCreate: boolean;
 }
 
 export function StepDialog(props: Props) {
+    const [type, setType] = useState<string | undefined>(undefined);
+    const [actProps, setActProps] = useState<any>({});
+
+    // Clear data when changing type
+    useEffect(() => setActProps({}), [type]);
+
+    // When an action is provided, load its data into local state
+    useEffect(() => {
+        if (props.action) {
+            setType(props.action.typeName);
+            setTimeout(() => {
+                setActProps(props.action!.props);
+            }, 200);
+        }
+    }, [props.action]);
+
     // Depending on the chosen action type, select the appropriate form
-    const [actTypeIndex, setActType] = React.useState<number>(-1);
-    const actType = actTypeIndex < 0 ? undefined : ActionForms[actTypeIndex];
+    const actType = type === undefined ? undefined : ActionForms.find((f) => f.typeName === type)!;
 
     const availableActors = useSelector(selectUsedActors);
 
-    // If the action type changes, clear the data.
-    const [data, setData] = useState<any>({});
-    useEffect(() => setData({}), [actTypeIndex]);
-
     function setField(name: string, value: any) {
-        setData({ ...data, [name]: value });
+        setActProps({ ...actProps, [name]: value });
     }
 
     function handleSubmit() {
-        if (!actType) return;
+        if (!type) return;
         const serializedAction: SerializedAction<any> = {
-            id: uuid(),
-            props: data,
-            typeName: actType.typeName,
+            id: props.action?.id || uuid(),
+            props: actProps,
+            typeName: type!,
         };
         props.onSubmit(serializedAction);
     }
@@ -60,9 +72,9 @@ export function StepDialog(props: Props) {
                 <DialogContentText>Kies een handeling</DialogContentText>
                 <FormControl fullWidth style={{ marginBottom: '1em' }}>
                     <InputLabel>Handeling</InputLabel>
-                    <Select value={actTypeIndex} onChange={(e) => setActType(e.target.value as number)}>
-                        {ActionForms.map((actType, i) => (
-                            <MenuItem key={i} value={i}>
+                    <Select value={type} onChange={(e) => setType(e.target.value as string)}>
+                        {ActionForms.map((actType) => (
+                            <MenuItem key={actType.typeName} value={actType.typeName}>
                                 {actType.title}
                             </MenuItem>
                         ))}
@@ -74,7 +86,7 @@ export function StepDialog(props: Props) {
                         {field.type === 'actor' && (
                             <FormControl fullWidth style={{ marginBottom: '1em' }}>
                                 <InputLabel>{field.title}</InputLabel>
-                                <Select value={data[prop] || ''} onChange={(e) => setField(prop, e.target.value)}>
+                                <Select value={actProps[prop] || ''} onChange={(e) => setField(prop, e.target.value)}>
                                     {availableActors.map((actor) => (
                                         <MenuItem key={actor.id} value={actor.id}>
                                             <img src={actorImage(actor.image)} style={{ height: '2rem' }} />
@@ -91,7 +103,7 @@ export function StepDialog(props: Props) {
                                 margin="dense"
                                 id={'input-' + prop}
                                 label={field.title}
-                                value={data[prop] || ''}
+                                value={actProps[prop] || ''}
                                 onChange={(e) => setField(prop, e.target.value)}
                                 fullWidth
                             />

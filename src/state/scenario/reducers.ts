@@ -14,6 +14,7 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
     SET_SCENARIO_CONFIG: (p) => L.scenario.config.set(p.config),
 
     ADD_STEP: (p) => L.scenario.steps.set((steps) => [...steps, p.step]),
+    UPDATE_STEP: (p) => L.scenario.steps.set((steps) => steps.map((s) => (s.id === p.step.id ? p.step : s))),
 
     REMOVE_STEP: (p) => L.scenario.steps.set((steps) => steps.filter((a) => a.id !== p.id)),
 

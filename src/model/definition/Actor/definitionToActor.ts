@@ -1,5 +1,5 @@
-import { Actor } from '../../definition/Actor';
-import { ActorDefinition } from '../../definition/ActorDefinition';
+import { Actor } from './Actor';
+import { ActorDefinition } from './ActorDefinition';
 
 export function definitionToActor(def: ActorDefinition): Actor {
     return {

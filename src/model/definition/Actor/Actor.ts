@@ -1,4 +1,4 @@
-import { ImgName } from '../../config/actorImage';
+import { ImgName } from '../../../config/actorImage';
 
 export interface Actor {
     id: string;

@@ -1,5 +1,5 @@
 import { PlainAction } from '../game/Action/PlainAction';
-import { ActorConfig } from './ActorConfig';
+import { ActorConfig } from './Actor/ActorConfig';
 import { ScenarioMeta } from './ScenarioMeta';
 
 /** Complete definition of a user-defined scenario */

@@ -1,4 +1,4 @@
-import { Actor } from '../model/definition/Actor';
+import { Actor } from '../model/definition/Actor/Actor';
 
 export const allActorPresets = {
     person3: {

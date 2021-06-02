@@ -1,10 +1,10 @@
 import { lens } from 'lens.ts';
 import { Asset } from '../../content/assets/Asset';
 import { omit } from '../../util/util';
-import { Actor } from '../definition/Actor';
+import { Actor } from '../definition/Actor/Actor';
+import { definitionToActor } from '../definition/Actor/definitionToActor';
 import { ScenarioDef } from '../definition/ScenarioDef';
 import { ScenarioStateDescription } from '../view/ScenarioStateDescription';
-import { definitionToActor } from './Actor/definitionToActor';
 
 /** Represents the entire state of the scenario at any point in the scenario. */
 export class ScenarioState {

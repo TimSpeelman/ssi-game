@@ -1,10 +1,10 @@
 import { actorTypes } from '../../config/actorTypes';
-import { Actor } from '../../model/definition/Actor';
-import { ActorType } from '../../model/definition/ActorType';
+import { Actor } from '../../model/definition/Actor/Actor';
+import { ActorType } from '../../model/definition/Actor/ActorType';
+import { definitionToActor } from '../../model/definition/Actor/definitionToActor';
 import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { ScenarioMeta } from '../../model/definition/ScenarioMeta';
 import { PlainAction } from '../../model/game/Action/PlainAction';
-import { definitionToActor } from '../../model/game/Actor/definitionToActor';
 import { PlainScenario } from '../../model/game/Scenario/PlainScenario';
 import { Scenario } from '../../model/game/Scenario/Scenario';
 import { ActorState } from '../../model/view/ActorState';

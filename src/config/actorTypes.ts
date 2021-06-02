@@ -1,4 +1,4 @@
-import { ActorType } from '../model/definition/ActorType';
+import { ActorType } from '../model/definition/Actor/ActorType';
 
 export const actorTypes = {
     person1: {

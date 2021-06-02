@@ -1,5 +1,5 @@
 /** A list of default actors, used for predefined scenarios */
-import { ActorDefinition } from '../model/definition/ActorDefinition';
+import { ActorDefinition } from '../model/definition/Actor/ActorDefinition';
 import { actorTypes } from './actorTypes';
 
 export const defaultActors = {

@@ -1,4 +1,4 @@
-import { Asset } from '../../content/assets/Asset';
+import { Asset } from '../../../content/assets/Asset';
 import { ActorDefinition } from './ActorDefinition';
 
 /** A user definition of an actor and the initial assets it has */

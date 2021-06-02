@@ -1,5 +1,5 @@
 import { actorImage } from '../../config/actorImage';
-import { Actor } from '../../model/definition/Actor';
+import { Actor } from '../../model/definition/Actor/Actor';
 import { Locality } from '../../model/view/InteractionDescription';
 import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescription';
 import { ScenarioStepDescription } from '../../model/view/ScenarioStepDescription';

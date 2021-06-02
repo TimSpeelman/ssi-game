@@ -20,6 +20,7 @@ export const ScenarioActions = {
 
     // Definition Manipulation : Assets
     ADD_ASSET: event<{ actorId: string; asset: AssetDef }>('ADD_ASSET'),
+    UPDATE_ASSET: event<{ actorId: string; asset: AssetDef }>('UPDATE_ASSET'),
 
     // Definition Manipulation : Steps
     ADD_STEP: event<{ step: ActionDef<any> }>('ADD_STEP'),

@@ -13,12 +13,14 @@ export function ActorInspector() {
     const dispatch = useDispatch();
     const [editing, setEditing] = useState(false);
     const [adding, setAdding] = useState(false);
+    const [editedAsset, setEditAsset] = useState<string | undefined>(undefined);
     const actorState = useSelector(selectSelectedActorDesc)!;
     const { assets } = actorState;
     const scenarioDef = useSelector(selectScenarioDef);
     const { actors } = scenarioDef;
     const actorConfig = actors.find((a) => a.definition.id === actorState?.actor.id);
-    const { definition } = actorConfig!;
+    const { definition, initialAssets } = actorConfig!;
+    const isInitial = (id: string) => !!initialAssets.find((a) => a.id === id);
     return (
         <div>
             <AssetDialog
@@ -29,6 +31,16 @@ export function ActorInspector() {
                     setAdding(false);
                 }}
                 onCancel={() => setAdding(false)}
+            />
+            <AssetDialog
+                open={!!editedAsset}
+                asset={initialAssets.find((a) => a.id === editedAsset)}
+                isCreate={false}
+                onSubmit={(asset) => {
+                    dispatch(ScenarioActions.UPDATE_ASSET({ actorId: definition.id, asset }));
+                    setEditAsset(undefined);
+                }}
+                onCancel={() => setEditAsset(undefined)}
             />
             <ActorDefinitionDialog
                 isCreate={false}
@@ -79,6 +91,11 @@ export function ActorInspector() {
                     assets.map((a, i) => (
                         <ListItem key={i}>
                             <ListItemText primary={a.title} secondary={a.sub} />
+                            {isInitial(a.id) && (
+                                <Button onClick={() => setEditAsset(a.id)}>
+                                    <Edit />
+                                </Button>
+                            )}
                         </ListItem>
                     ))
                 ) : (

@@ -3,7 +3,7 @@ import { IOutcome } from '../../model/game/Action/IOutcome';
 import { IValidationResult } from '../../model/game/Action/IValidationResult';
 import { ScenarioState } from '../../model/game/State/ScenarioState';
 import { ActionFormConfig } from '../../model/view/ActionFormConfig';
-import { InteractionDescription, Locality } from './InteractionDescription';
+import { InteractionDescription, Locality } from '../../model/view/InteractionDescription';
 
 export interface Props {
     fromId: string;

@@ -3,10 +3,10 @@ import { IOutcome } from '../../../model/game/Action/IOutcome';
 import { IValidationResult } from '../../../model/game/Action/IValidationResult';
 import { ScenarioState } from '../../../model/game/State/ScenarioState';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
+import { InteractionDescription, Locality } from '../../../model/view/InteractionDescription';
 import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 import { ValidationResult } from '../../validations/ValidationResult';
-import { InteractionDescription, Locality } from '../InteractionDescription';
 
 export interface Props {
     verifierId: string;

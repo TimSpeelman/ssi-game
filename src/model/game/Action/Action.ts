@@ -1,4 +1,4 @@
-import { InteractionDescription } from '../../../content/actions/InteractionDescription';
+import { InteractionDescription } from '../../view/InteractionDescription';
 import { ScenarioState } from '../State/ScenarioState';
 import { ComputedStep } from './ComputedStep';
 import { IOutcome } from './IOutcome';

@@ -1,4 +1,4 @@
-import { InteractionDescription } from '../../content/actions/InteractionDescription';
+import { InteractionDescription } from './InteractionDescription';
 import { OutcomeDescription } from './OutcomeDescription';
 import { ScenarioStateDescription } from './ScenarioStateDescription';
 import { ValidationResultDesc } from './ValidationResultDesc';

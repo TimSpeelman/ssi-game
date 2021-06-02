@@ -10,7 +10,7 @@ import {
     selectActiveStep,
     selectActiveStepIndex,
     selectFailedStep,
-    selectScenario,
+    selectScenarioDesc,
     selectSelectedActorId,
     selectShowMeta,
     selectSnackbarIsOn,
@@ -34,7 +34,7 @@ export function NetworkCanvas() {
     const failedStep = useSelector(selectFailedStep);
     const showMeta = useSelector(selectShowMeta);
 
-    const scenario = useSelector(selectScenario);
+    const scenarioDesc = useSelector(selectScenarioDesc);
 
     const [hoveredElemId, setHoveredElemId] = useState('');
 
@@ -93,7 +93,7 @@ export function NetworkCanvas() {
     return (
         <div className="network-canvas">
             <ScenarioMetaDialog
-                meta={scenario.definition.meta}
+                meta={scenarioDesc.definition.meta}
                 open={showMeta}
                 handleClose={() => dispatch(ScenarioActions.HIDE_META())}
             />
@@ -102,7 +102,7 @@ export function NetworkCanvas() {
                 <SVGNetworkCanvas elems={elems} onEvent={handleEvent} />
                 {failedStep && (
                     <div className="scenario-status">
-                        <strong>Scenario faalt bij Stap {scenario.describe().failingAtIndex! + 1}!</strong>
+                        <strong>Scenario faalt bij Stap {scenarioDesc.failingAtIndex! + 1}!</strong>
                     </div>
                 )}
                 <div className="time-navigation">

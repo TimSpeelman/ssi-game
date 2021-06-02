@@ -5,28 +5,29 @@ import { ActorType } from '../../model/definition/Actor/ActorType';
 import { definitionToActor } from '../../model/definition/Actor/definitionToActor';
 import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { ScenarioMeta } from '../../model/definition/ScenarioMeta';
+import { ScenarioDesc } from '../../model/description/Scenario/ScenarioDesc';
 import { ActorStateDesc } from '../../model/description/State/ActorStateDesc';
 import { StateDesc } from '../../model/description/State/StateDesc';
 import { StepDesc } from '../../model/description/Step/StepDesc';
-import { Scenario } from '../../model/logic/Scenario/Scenario';
+import { computeScenarioFromDefinition } from '../../model/logic';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 import { w1th } from '../../util/w1th';
 import { RootState } from './state';
 
 export const root = (r: any): RootState => r.scenario;
 export const selectActiveSidebarTab = (r: any): SidebarTab => root(r).activeSidebarTab;
-export const selectScenario = (r: any): Scenario => new Scenario(root(r).scenario);
+export const selectScenarioDesc = (r: any): ScenarioDesc => computeScenarioFromDefinition(root(r).scenario);
 export const selectScenarioDef = (r: any): ScenarioDef => root(r).scenario;
 
 export const selectScenarioConfiguration = (r: any): ScenarioDef => root(r).scenario;
 export const selectScenarioMeta = (r: any): ScenarioMeta => selectScenarioConfiguration(r).meta;
-export const selectSteps = (r: any): StepDesc[] => selectScenario(r).describe().steps;
-export const selectInitialState = (r: any): StateDesc => selectScenario(r).initial.describe();
+export const selectSteps = (r: any): StepDesc[] => selectScenarioDesc(r).steps;
+export const selectInitialState = (r: any): StateDesc => selectScenarioDesc(r).initial;
 
 export const selectActiveState = (r: any): StateDesc =>
     w1th(selectActiveStep(r), (currentStep) => (currentStep ? currentStep.result : selectInitialState(r)));
 export const selectFailedStep = (r: any): StepDesc | undefined =>
-    w1th(selectScenario(r).describe().failingAtIndex, (index) =>
+    w1th(selectScenarioDesc(r).failingAtIndex, (index) =>
         index !== undefined && index >= 0 ? selectSteps(r)[index] : undefined,
     );
 export const selectActiveStepSerialized = (r: any): ActionDef<any> | undefined =>

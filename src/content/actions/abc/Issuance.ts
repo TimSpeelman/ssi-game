@@ -4,6 +4,8 @@ import { Action } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
+import { AttributeProof } from '../../assets/data/abc/AttributeProof';
+import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
 export interface Props {
     issuerId: string;
@@ -38,17 +40,13 @@ export class Issuance extends Action<Props> {
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
-        // const attr: AttributeProof = {
-        //     kind: 'data',
-        //     type: 'attribute-proof',
-        //     id: this.id + '-1',
-        //     name: this.props.attributeName,
-        //     value: this.props.attributeValue,
-        //     issuerId: this.props.issuerNym,
-        //     subjectId: this.props.subjectNym,
-        // };
-        // return [new GainAssetOutcome({ actorId: this.props.subjectId, asset: attr })];
-        return [];
+        const attr = new AttributeProof(this.id + '1', {
+            name: this.props.attributeName,
+            value: this.props.attributeValue,
+            issuerId: this.props.issuerNym,
+            subjectId: this.props.subjectNym,
+        });
+        return [new GainAssetOutcome({ actorId: this.props.subjectId, asset: attr })];
     }
 
     describe(state: ScenarioState): ActionDesc {

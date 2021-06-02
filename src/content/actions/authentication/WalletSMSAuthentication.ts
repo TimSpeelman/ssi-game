@@ -4,6 +4,9 @@ import { Action } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
+import { AttributeKnowledge } from '../../assets/data/abc/AttributeKnowledge';
+import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
+import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
 export interface Props {
     verifierId: string;
@@ -28,27 +31,20 @@ export class WalletSMSAuthentication extends Action<Props> {
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
-        // const authResult: AuthenticationResult = {
-        //     kind: 'data',
-        //     type: 'authentication-result',
-        //     id: this.id + '-1',
-        //     sourceId: this.props.humanSubjectId,
-        //     targetId: this.props.dataSubjectId,
-        // };
-        // const phoneNumber: AttributeKnowledge = {
-        //     kind: 'data',
-        //     type: 'attribute-knowledge',
-        //     id: this.id + '-2',
-        //     subjectId: this.props.humanSubjectId,
-        //     name: 'telefoonnummer',
-        //     value: '06123456789',
-        //     issuerId: '',
-        // };
-        // return [
-        //     new GainAssetOutcome({ actorId: this.props.verifierId, asset: authResult }),
-        //     new GainAssetOutcome({ actorId: this.props.verifierId, asset: phoneNumber }),
-        // ];
-        return [];
+        const authResult = new AuthenticationResult(this.id + '1', {
+            sourceId: this.props.humanSubjectId,
+            targetId: this.props.dataSubjectId,
+        });
+        const phoneNumber = new AttributeKnowledge(this.id + '2', {
+            subjectId: this.props.humanSubjectId,
+            name: 'telefoonnummer',
+            value: '06123456789',
+            issuerId: '',
+        });
+        return [
+            new GainAssetOutcome({ actorId: this.props.verifierId, asset: authResult }),
+            new GainAssetOutcome({ actorId: this.props.verifierId, asset: phoneNumber }),
+        ];
     }
 
     describe(state: ScenarioState): ActionDesc {

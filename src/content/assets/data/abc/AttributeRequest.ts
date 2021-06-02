@@ -3,7 +3,6 @@ import { Asset } from '../../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../../model/logic/State/ScenarioState';
 
 export interface Props {
-    id: string;
     name: string;
     verifierId: string;
     subjectId: string;

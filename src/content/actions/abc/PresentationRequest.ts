@@ -4,6 +4,8 @@ import { Action } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
+import { AttributeRequest } from '../../assets/data/abc/AttributeRequest';
+import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
 export interface Props {
     verifierId: string;
@@ -32,17 +34,12 @@ export class PresentationRequest extends Action<Props> {
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
-        // const req: AttributeRequest = {
-        //     kind: 'data',
-        //     type: 'attribute-request',
-        //     id: this.id + '-1',
-
-        //     name: this.props.attributeName,
-        //     verifierId: this.props.verifierId,
-        //     subjectId: this.props.subjectNym,
-        // };
-        // return [new GainAssetOutcome({ actorId: this.props.subjectId, asset: req })];
-        return [];
+        const req = new AttributeRequest(this.id + '1', {
+            name: this.props.attributeName,
+            verifierId: this.props.verifierId,
+            subjectId: this.props.subjectNym,
+        });
+        return [new GainAssetOutcome({ actorId: this.props.subjectId, asset: req })];
     }
 
     describe(state: ScenarioState): ActionDesc {

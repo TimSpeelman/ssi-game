@@ -4,6 +4,8 @@ import { Action } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
+import { Consent } from '../../assets/data/abc/Consent';
+import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
 export interface Props {
     verifierId: string;
@@ -32,17 +34,12 @@ export class PresentationConsent extends Action<Props> {
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
-        // const consent: Consent = {
-        //     kind: 'data',
-        //     type: 'consent',
-        //     id: this.id + '-1',
-
-        //     attributeName: this.props.attributeName,
-        //     verifierId: this.props.verifierId,
-        //     subjectId: this.props.subjectNym,
-        // };
-        // return [new GainAssetOutcome({ actorId: this.props.verifierId, asset: consent })];
-        return [];
+        const consent = new Consent(this.id + '1', {
+            attributeName: this.props.attributeName,
+            verifierId: this.props.verifierId,
+            subjectId: this.props.subjectNym,
+        });
+        return [new GainAssetOutcome({ actorId: this.props.verifierId, asset: consent })];
     }
 
     describe(state: ScenarioState): ActionDesc {

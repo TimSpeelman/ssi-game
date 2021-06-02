@@ -10,7 +10,6 @@ import { saveScenarioToLocalStorage } from '../persistence/saveScenarioToLocalSt
 import { ScenarioActions } from '../state/scenario/actions';
 import { selectScenario, selectScenarioProps } from '../state/scenario/selectors';
 import { NetworkCanvas } from './pages/NetworkCanvasPage';
-import { ScenarioConfigPage } from './pages/ScenarioConfigPage';
 
 export function App() {
     const scenario = useSelector(selectScenario);
@@ -79,9 +78,6 @@ export function App() {
                 <Switch>
                     <Route exact path={'/netwerk'}>
                         <NetworkCanvas />
-                    </Route>
-                    <Route exact path={'/configuratie'}>
-                        <ScenarioConfigPage />
                     </Route>
                     {/* Default to Log Start Page */}
                     <Redirect exact from="/" to={'netwerk'} />

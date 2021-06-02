@@ -1,4 +1,5 @@
 import { Action } from '../../model/game/Action';
+import { ActorDefinition } from '../../model/game/ActorDefinition';
 import { ActorConfig, ScenarioConfig, ScenarioMeta, ScenarioProps } from '../../model/game/Scenario';
 import { event } from '../../util/redux';
 
@@ -8,6 +9,7 @@ export const ScenarioActions = {
 
     ADD_ACTOR: event<{ actor: ActorConfig }>('ADD_ACTOR'),
     REMOVE_ACTOR: event<{ id: string }>('REMOVE_ACTOR'),
+    UPDATE_ACTOR_DEFINITION: event<{ def: ActorDefinition }>('UPDATE_ACTOR_DEFINITION'),
     ADD_STEP: event<{ step: Action }>('ADD_STEP'),
     REMOVE_STEP: event<{ id: string }>('REMOVE_STEP'),
     REORDER_STEP: event<{ sourceIndex: number; targetIndex: number }>('REORDER_STEP'),

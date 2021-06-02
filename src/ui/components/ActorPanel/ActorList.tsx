@@ -10,7 +10,7 @@ import { ActorConfig, ScenarioConfig } from '../../../model/game/Scenario';
 import { ScenarioActions } from '../../../state/scenario/actions';
 import { selectInvolvedActors, selectScenarioConfiguration } from '../../../state/scenario/selectors';
 import { reorder } from '../../../util/util';
-import { ActorConfigDialog } from './ActorConfigDialog';
+import { ActorDefinitionDialog } from './ActorConfigDialog';
 
 export function ActorList() {
     const dispatch = useDispatch();
@@ -36,12 +36,13 @@ export function ActorList() {
 
     return (
         <div>
-            <ActorConfigDialog
+            <ActorDefinitionDialog
                 isCreate={true}
                 open={creatingActor}
                 handleClose={() => setCreatingActor(false)}
                 handleSubmit={(newActor) => {
-                    addActor(newActor);
+                    const newActorConfig: ActorConfig = { initialAssets: [], definition: newActor };
+                    addActor(newActorConfig);
                     setCreatingActor(false);
                 }}
             />
@@ -74,6 +75,8 @@ export function ActorList() {
                                                     width: '3rem',
                                                     textAlign: 'center',
                                                     marginRight: '1rem',
+                                                    flexGrow: 0,
+                                                    flexShrink: 0,
                                                 }}
                                             >
                                                 <img

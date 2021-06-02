@@ -16,6 +16,10 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
     REMOVE_STEP: (p) => L.scenario.steps.set((steps) => steps.filter((a) => a.id !== p.id)),
 
     ADD_ACTOR: (p) => L.scenario.config.actors.set((actors) => [...actors, p.actor]),
+    UPDATE_ACTOR_DEFINITION: (p) =>
+        L.scenario.config.actors.set((actors) =>
+            actors.map((a) => (a.definition.id === p.def.id ? { ...a, definition: p.def } : a)),
+        ),
     //  L.scenario.initial.actors.k(p.actor.id).set({ actor: p.actor, assets: [] }),
 
     REMOVE_ACTOR: (p) => L.scenario.config.actors.set((actors) => actors.filter((a) => a.definition.id !== p.id)),

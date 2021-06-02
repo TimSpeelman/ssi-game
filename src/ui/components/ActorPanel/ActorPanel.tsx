@@ -9,7 +9,7 @@ export function ActorPanel() {
 
     return (
         <div style={{ padding: '1rem' }}>
-            {selectedActor && <ActorInspector actor={selectedActor.actor} assets={selectedActor.assets} />}
+            {selectedActor && <ActorInspector />}
             {!selectedActor && <ActorList />}
         </div>
     );

@@ -16,14 +16,14 @@ import { lens } from 'lens.ts';
 import React, { useEffect, useState } from 'react';
 import { actorImage } from '../../../config/actorImage';
 import { actorTypes } from '../../../config/actorTypes';
+import { ActorDefinition } from '../../../model/game/ActorDefinition';
 import { ActorType } from '../../../model/game/ActorType';
-import { ActorConfig } from '../../../model/game/Scenario';
 
 export interface Props {
-    actorConfig?: ActorConfig;
+    definition?: ActorDefinition;
     open: boolean;
     handleClose: () => void;
-    handleSubmit: (actor: ActorConfig) => void;
+    handleSubmit: (actor: ActorDefinition) => void;
     isCreate: boolean;
 }
 
@@ -37,35 +37,30 @@ export interface Props {
 //     isHuman: boolean;
 // }
 
-const defaultActorConfig: ActorConfig = {
-    definition: {
-        id: '',
-        type: actorTypes.person1,
-        name: '',
-        nounPhrase: '',
-    },
-    initialAssets: [],
+const defaults: ActorDefinition = {
+    id: '',
+    type: actorTypes.person1,
+    name: '',
+    nounPhrase: '',
 };
 
-const L = lens<ActorConfig>();
+const L = lens<ActorDefinition>();
 
-export function ActorConfigDialog(props: Props) {
-    const [config, setConfig] = useState(defaultActorConfig);
-    useEffect(() => (props.actorConfig ? setConfig(props.actorConfig) : setConfig(defaultActorConfig)), [
-        props.actorConfig,
-    ]);
+export function ActorDefinitionDialog(props: Props) {
+    const [def, setDef] = useState(defaults);
+    useEffect(() => (props.definition ? setDef(props.definition) : setDef(defaults)), [props.definition]);
 
-    const setType = (actorType: ActorType) => setConfig(L.definition.type.set(actorType));
-    const setName = (name: string) => setConfig(L.definition.set((m) => ({ ...m, name, nounPhrase: name })));
-    const setDesc = (description: string) => setConfig(L.definition.description!.set(description));
+    const setType = (actorType: ActorType) => setDef(L.type.set(actorType));
+    const setName = (name: string) => setDef(L.set((m) => ({ ...m, name, nounPhrase: name })));
+    const setDesc = (description: string) => setDef(L.description!.set(description));
 
     const save = () => {
         // dispatch(ScenarioActions.CHANGE_META({ meta }));
-        const L = lens<ActorConfig>();
-        const typeName = L.definition.type.typeName.get()(config);
-        const withName = L.definition.name.set((n) => (n ? n : typeName))(config);
-        const name = L.definition.name.get()(withName);
-        const withNounPhrase = L.definition.nounPhrase.set((n) => (n ? n : name))(withName);
+        const L = lens<ActorDefinition>();
+        const typeName = L.type.typeName.get()(def);
+        const withName = L.name.set((n) => (n ? n : typeName))(def);
+        const name = L.name.get()(withName);
+        const withNounPhrase = L.nounPhrase.set((n) => (n ? n : name))(withName);
         props.handleSubmit(withNounPhrase);
     };
 
@@ -85,7 +80,7 @@ export function ActorConfigDialog(props: Props) {
                         <InputLabel>Type</InputLabel>
                         <Select
                             fullWidth
-                            value={config.definition.type}
+                            value={def.type}
                             onChange={(e) => setType(actorTypes[e.target.value as keyof typeof actorTypes])}
                             renderValue={(a: ActorType) => (
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -127,8 +122,8 @@ export function ActorConfigDialog(props: Props) {
                         fullWidth
                         InputLabelProps={{ shrink: true }}
                         label={'Naam'}
-                        value={config.definition.name}
-                        placeholder={config.definition.type.typeName}
+                        value={def.name}
+                        placeholder={def.type.typeName}
                         onChange={(e) => setName(e.target.value)}
                         style={{ marginBottom: '1em' }}
                     />
@@ -136,7 +131,7 @@ export function ActorConfigDialog(props: Props) {
                         fullWidth
                         InputLabelProps={{ shrink: true }}
                         label={'Omschrijving'}
-                        value={config.definition.description}
+                        value={def.description}
                         onChange={(e) => setDesc(e.target.value)}
                         style={{ marginBottom: '1em' }}
                     />

@@ -1,6 +1,7 @@
 import { AssetDesc } from '../../../../model/description/Asset/AssetDesc';
 import { Asset } from '../../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../../model/logic/State/ScenarioState';
+import { AssetFormConfig } from '../../../../model/view/AssetFormConfig';
 
 export interface Props {
     sourceId: string;
@@ -9,6 +10,14 @@ export interface Props {
 
 export class AuthenticationResult extends Asset<Props> {
     protected typeName = AuthenticationResult.name;
+
+    static config: AssetFormConfig<keyof Props> = {
+        title: 'Authenticatieresultaat',
+        fields: {
+            sourceId: { type: 'actor', title: 'Subject' },
+            targetId: { type: 'string', title: 'Identifier' },
+        },
+    };
 
     describe(state: ScenarioState): AssetDesc {
         return {

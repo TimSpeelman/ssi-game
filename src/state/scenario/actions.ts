@@ -1,6 +1,7 @@
 import { ActionDef } from '../../model/definition/Action/ActionDef';
 import { ActorConfig } from '../../model/definition/Actor/ActorConfig';
 import { ActorDefinition } from '../../model/definition/Actor/ActorDefinition';
+import { AssetDef } from '../../model/definition/Asset/AssetDef';
 import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { ScenarioMeta } from '../../model/definition/ScenarioMeta';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
@@ -16,6 +17,9 @@ export const ScenarioActions = {
     ADD_ACTOR: event<{ actor: ActorConfig }>('ADD_ACTOR'),
     REMOVE_ACTOR: event<{ id: string }>('REMOVE_ACTOR'),
     UPDATE_ACTOR_DEFINITION: event<{ def: ActorDefinition }>('UPDATE_ACTOR_DEFINITION'),
+
+    // Definition Manipulation : Assets
+    ADD_ASSET: event<{ actorId: string; asset: AssetDef }>('ADD_ASSET'),
 
     // Definition Manipulation : Steps
     ADD_STEP: event<{ step: ActionDef<any> }>('ADD_STEP'),

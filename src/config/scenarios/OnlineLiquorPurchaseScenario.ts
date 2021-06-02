@@ -9,7 +9,6 @@ import { CustomInteraction } from '../../content/actions/CustomInteraction';
 import { GrantGreenFlag } from '../../content/actions/GrantGreenFlag';
 import { AttributeKnowledge } from '../../content/assets/data/abc/AttributeKnowledge';
 import { HumanRecord } from '../../content/assets/data/abc/HumanRecord';
-import { FaceScan } from '../../content/assets/data/feature/FaceScan';
 import { FaceFeature } from '../../content/assets/feature/FaceFeature';
 import { GovPassport } from '../../content/assets/physical/GovPassport';
 import { ActorConfig } from '../../model/definition/Actor/ActorConfig';
@@ -44,7 +43,6 @@ const actors: ActorConfig[] = [
             new GovPassport('4', {
                 subjectId: Subject.id,
                 name: Subject.name,
-                photo: new FaceScan('4x', { subjectId: Subject.id }),
             }),
             new FaceFeature('5', { subjectId: Subject.id }),
         ].map((a) => a.serialize()),

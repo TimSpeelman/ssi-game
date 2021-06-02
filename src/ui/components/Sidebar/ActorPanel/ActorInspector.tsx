@@ -1,16 +1,18 @@
 import { Button, Divider, List, ListItem, ListItemText, Typography } from '@material-ui/core';
-import { ChevronLeft, Edit } from '@material-ui/icons';
+import { Add, ChevronLeft, Edit } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../../../config/actorImage';
 import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectScenarioDef, selectSelectedActorDesc } from '../../../../state/scenario/selectors';
 import { ActorDefinitionDialog } from './ActorConfigDialog';
+import { AssetDialog } from './AssetDialog';
 
 /** Shows the details of a scenario step */
 export function ActorInspector() {
     const dispatch = useDispatch();
     const [editing, setEditing] = useState(false);
+    const [adding, setAdding] = useState(false);
     const actorState = useSelector(selectSelectedActorDesc)!;
     const { assets } = actorState;
     const scenarioDef = useSelector(selectScenarioDef);
@@ -19,6 +21,15 @@ export function ActorInspector() {
     const { definition } = actorConfig!;
     return (
         <div>
+            <AssetDialog
+                open={adding}
+                isCreate={true}
+                onSubmit={(asset) => {
+                    dispatch(ScenarioActions.ADD_ASSET({ actorId: definition.id, asset }));
+                    setAdding(false);
+                }}
+                onCancel={() => setAdding(false)}
+            />
             <ActorDefinitionDialog
                 isCreate={false}
                 open={editing}
@@ -57,7 +68,12 @@ export function ActorInspector() {
                 </Button>
             </div>
 
-            <Typography variant="h6">Assets</Typography>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
+                <Typography variant="h6">Assets ({assets.length})</Typography>
+                <Button onClick={() => setAdding(true)}>
+                    <Add /> Toevoegen
+                </Button>
+            </div>
             <List dense>
                 {assets.length > 0 ? (
                     assets.map((a, i) => (

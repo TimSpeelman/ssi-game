@@ -1,6 +1,7 @@
 import { AssetDesc } from '../../../model/description/Asset/AssetDesc';
 import { Asset } from '../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
+import { AssetFormConfig } from '../../../model/view/AssetFormConfig';
 
 export interface Props {
     secret: string;
@@ -14,6 +15,13 @@ export interface Props {
  */
 export class PUF extends Asset<Props> {
     protected typeName = PUF.name;
+
+    static config: AssetFormConfig<keyof Props> = {
+        title: 'Physically Uncloneable Function (PUF)',
+        fields: {
+            secret: { type: 'string', title: 'Geheim' },
+        },
+    };
 
     describe(state: ScenarioState): AssetDesc {
         return {

@@ -18,8 +18,8 @@ import {
     selectUsedActors,
 } from '../../state/scenario/selectors';
 import { createNetworkCanvasData } from '../components/networkToCanvas';
-import { ScenarioMetaDialog } from '../components/ScenarioMetaDialog';
-import { Sidebar } from '../components/Sidebar';
+import { ScenarioMetaDialog } from '../components/Sidebar/InfoPanel/ScenarioMetaDialog';
+import { Sidebar } from '../components/Sidebar/Sidebar';
 import { CanvasEvent, SVGNetworkCanvas } from '../components/SVGNetworkCanvas';
 
 export function NetworkCanvas() {

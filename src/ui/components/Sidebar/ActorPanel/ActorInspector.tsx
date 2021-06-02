@@ -2,11 +2,11 @@ import { Button, Divider, List, ListItem, ListItemText, Typography } from '@mate
 import { ChevronLeft, Edit } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actorImage } from '../../../config/actorImage';
-import { Asset } from '../../../content/assets/Asset';
-import { ScenarioActions } from '../../../state/scenario/actions';
-import { selectScenarioConfiguration, selectSelectedActor } from '../../../state/scenario/selectors';
-import { ucFirst } from '../../../util/util';
+import { actorImage } from '../../../../config/actorImage';
+import { Asset } from '../../../../content/assets/Asset';
+import { ScenarioActions } from '../../../../state/scenario/actions';
+import { selectScenarioConfiguration, selectSelectedActor } from '../../../../state/scenario/selectors';
+import { ucFirst } from '../../../../util/util';
 import { ActorDefinitionDialog } from './ActorConfigDialog';
 
 /** Shows the details of a scenario step */

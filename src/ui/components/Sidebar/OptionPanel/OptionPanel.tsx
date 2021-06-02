@@ -1,8 +1,8 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ScenarioActions } from '../../../state/scenario/actions';
-import { selectSnackbarIsOn } from '../../../state/scenario/selectors';
+import { ScenarioActions } from '../../../../state/scenario/actions';
+import { selectSnackbarIsOn } from '../../../../state/scenario/selectors';
 
 export function OptionPanel() {
     const snackbarIsOn = useSelector(selectSnackbarIsOn);

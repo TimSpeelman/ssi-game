@@ -12,14 +12,14 @@ import classNames from 'classnames';
 import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { actorImage } from '../../../config/actorImage';
-import { ScenarioActions } from '../../../state/scenario/actions';
+import { actorImage } from '../../../../config/actorImage';
+import { ScenarioActions } from '../../../../state/scenario/actions';
 import {
     selectActiveStepId,
     selectSelectedStepId,
     selectSteps,
     selectUsedActors,
-} from '../../../state/scenario/selectors';
+} from '../../../../state/scenario/selectors';
 import { AddStepMenu } from './AddStepMenu';
 
 export function StepSequence() {

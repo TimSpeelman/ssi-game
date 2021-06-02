@@ -2,8 +2,8 @@ import { Button } from '@material-ui/core';
 import { NavigateBefore, NavigateNext } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ScenarioActions } from '../../../state/scenario/actions';
-import { selectActiveStepIndex, selectSteps } from '../../../state/scenario/selectors';
+import { ScenarioActions } from '../../../../state/scenario/actions';
+import { selectActiveStepIndex, selectSteps } from '../../../../state/scenario/selectors';
 
 /** Shows the details of a scenario step */
 export function StepNav() {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectActiveStep } from '../../../state/scenario/selectors';
+import { selectActiveStep } from '../../../../state/scenario/selectors';
 import { InitialStateInspector } from './InitialStateInspector';
 import { StepInspector } from './StepInspector';
 

@@ -1,9 +1,9 @@
 import { Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ScenarioStepDescription } from '../../../model/view/ScenarioStepDescription';
-import { selectSteps } from '../../../state/scenario/selectors';
-import { StepLabel } from '../StepLabel';
+import { ScenarioStepDescription } from '../../../../model/view/ScenarioStepDescription';
+import { selectSteps } from '../../../../state/scenario/selectors';
+import { StepLabel } from './StepLabel';
 import { StepNav } from './StepNav';
 
 interface Props {

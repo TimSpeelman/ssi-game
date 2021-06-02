@@ -14,10 +14,10 @@ import {
 import { Add } from '@material-ui/icons';
 import React, { Fragment, useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
-import { actorImage } from '../../../config/actorImage';
-import { ActionForms } from '../../../content/actions/forms';
-import { Action } from '../../../model/game/Action';
-import { Actor } from '../../../model/game/Actor';
+import { actorImage } from '../../../../config/actorImage';
+import { ActionForms } from '../../../../content/actions/forms';
+import { Action } from '../../../../model/game/Action';
+import { Actor } from '../../../../model/game/Actor';
 
 interface Props {
     onAdd: (act: Action) => void;

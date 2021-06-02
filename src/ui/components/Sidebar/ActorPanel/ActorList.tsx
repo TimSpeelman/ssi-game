@@ -6,8 +6,8 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { actorImage } from '../../../../config/actorImage';
-import { ActorConfig } from '../../../../model/game/Scenario/Config/ActorConfig';
-import { ScenarioConfig } from '../../../../model/game/Scenario/Config/ScenarioConfig';
+import { ActorConfig } from '../../../../model/setup/ActorConfig';
+import { ScenarioConfig } from '../../../../model/setup/ScenarioConfig';
 import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectInvolvedActors, selectScenarioConfiguration } from '../../../../state/scenario/selectors';
 import { reorder } from '../../../../util/util';
@@ -15,7 +15,7 @@ import { ActorDefinitionDialog } from './ActorConfigDialog';
 
 export function ActorList() {
     const dispatch = useDispatch();
-    const setConf = (config: ScenarioConfig) => dispatch(ScenarioActions.SET_SCENARIO_CONFIG({ config }));
+    const setConf = (scenario: ScenarioConfig) => dispatch(ScenarioActions.SET_SCENARIO({ scenario }));
     const involvedActors = useSelector(selectInvolvedActors);
     const originalConfig = useSelector(selectScenarioConfiguration);
     const { meta, actors } = originalConfig;

@@ -1,9 +1,9 @@
 import { lens } from 'lens.ts';
 import { omit } from '../../../util/util';
+import { ScenarioConfig } from '../../setup/ScenarioConfig';
 import { ScenarioStateDescription } from '../../view/ScenarioStateDescription';
 import { Actor } from '../Actor/Actor';
 import { definitionToActor } from '../Actor/definitionToActor';
-import { ScenarioConfig } from '../Scenario/Config/ScenarioConfig';
 import { ActorState } from './ActorState';
 
 /** Represents the entire state of the scenario at any point in the scenario. */

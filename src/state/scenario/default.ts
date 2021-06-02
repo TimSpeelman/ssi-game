@@ -6,13 +6,11 @@ import { RootState } from './state';
 export const defaultScenario = OnlineLiquorPurchaseScenario.serialize().props;
 
 export const emptyScenario = new Scenario({
-    config: {
-        actors: [],
-        meta: {
-            title: 'Scenario zonder naam',
-            author: '',
-            body: '(leeg)',
-        },
+    actors: [],
+    meta: {
+        title: 'Scenario zonder naam',
+        author: '',
+        body: '(leeg)',
     },
     steps: [],
 }).serialize().props;

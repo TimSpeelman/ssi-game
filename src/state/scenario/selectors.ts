@@ -3,10 +3,10 @@ import { PlainAction } from '../../model/game/Action/PlainAction';
 import { Actor } from '../../model/game/Actor/Actor';
 import { ActorType } from '../../model/game/Actor/ActorType';
 import { definitionToActor } from '../../model/game/Actor/definitionToActor';
-import { ScenarioConfig } from '../../model/game/Scenario/Config/ScenarioConfig';
-import { ScenarioMeta } from '../../model/game/Scenario/Config/ScenarioMeta';
 import { PlainScenario } from '../../model/game/Scenario/PlainScenario';
 import { Scenario } from '../../model/game/Scenario/Scenario';
+import { ScenarioConfig } from '../../model/setup/ScenarioConfig';
+import { ScenarioMeta } from '../../model/setup/ScenarioMeta';
 import { ActorState } from '../../model/view/ActorState';
 import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescription';
 import { ScenarioStepDescription } from '../../model/view/ScenarioStepDescription';
@@ -19,7 +19,7 @@ export const selectActiveSidebarTab = (r: any): SidebarTab => root(r).activeSide
 export const selectScenario = (r: any): Scenario => Scenario.deserialize({ props: root(r).scenario });
 export const selectPlainScenario = (r: any): PlainScenario => ({ props: root(r).scenario });
 
-export const selectScenarioConfiguration = (r: any): ScenarioConfig => root(r).scenario.config;
+export const selectScenarioConfiguration = (r: any): ScenarioConfig => root(r).scenario;
 export const selectScenarioMeta = (r: any): ScenarioMeta => selectScenarioConfiguration(r).meta;
 export const selectSteps = (r: any): ScenarioStepDescription[] => selectScenario(r).describe().steps;
 export const selectInitialState = (r: any): ScenarioStateDescription => selectScenario(r).initial.describe();
@@ -43,7 +43,7 @@ export const selectSelectedStepId = (r: any): string | undefined => root(r).sele
 export const selectSelectedActorId = (r: any): string | undefined => root(r).selectedActorId;
 export const selectActorTypes = (r: any): ActorType[] => Object.values(actorTypes);
 export const selectUsedActors = (r: any): Actor[] =>
-    root(r).scenario.config.actors.map((a) => definitionToActor(a.definition));
+    root(r).scenario.actors.map((a) => definitionToActor(a.definition));
 
 export const selectSelectedActor = (r: any): ActorState | undefined =>
     w1th(root(r).selectedActorId, (id) => (id ? selectActiveState(r).actors[id] : undefined));

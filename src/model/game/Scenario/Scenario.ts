@@ -1,9 +1,9 @@
 import { deserialize as deserializeAction } from '../../../content/actions/actions';
+import { ScenarioConfig } from '../../setup/ScenarioConfig';
 import { ScenarioDescription } from '../../view/ScenarioDescription';
 import { Action } from '../Action/Action';
 import { ComputedStep } from '../Action/ComputedStep';
 import { ScenarioState } from '../State/ScenarioState';
-import { ScenarioConfig } from './Config/ScenarioConfig';
 import { PlainScenario } from './PlainScenario';
 
 export class Scenario {
@@ -11,16 +11,13 @@ export class Scenario {
     readonly initial: ScenarioState;
 
     static deserialize(s: PlainScenario) {
-        const props = {
-            config: s.props.config,
-            steps: s.props.steps.map((s) => deserializeAction(s)),
-        };
+        const props = s.props;
         return new Scenario(props);
     }
 
-    constructor(readonly props: ScenarioProps) {
-        const steps = props.steps;
-        this.initial = ScenarioState.fromConfig(props.config);
+    constructor(readonly props: ScenarioConfig) {
+        const steps = props.steps.map((s) => deserializeAction(s));
+        this.initial = ScenarioState.fromConfig(props);
         let state = this.initial;
 
         // Cache the outcome and result computation.
@@ -34,7 +31,7 @@ export class Scenario {
     describe(): ScenarioDescription {
         return {
             initial: this.initial.describe(),
-            meta: this.props.config.meta,
+            meta: this.props.meta,
             steps: this.steps.map((s) => s.describe()),
             failingAtIndex: this.steps.findIndex((s) => !s.hasSucceeded()),
         };
@@ -42,10 +39,7 @@ export class Scenario {
 
     serialize(): PlainScenario {
         return {
-            props: {
-                config: this.props.config,
-                steps: this.props.steps.map((s) => s.serialize()),
-            },
+            props: this.props,
         };
     }
 }

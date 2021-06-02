@@ -11,21 +11,20 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
     NAVIGATE_SIDEBAR: (p) => L.activeSidebarTab.set(p.to),
 
     SET_SCENARIO: (p) => L.scenario.set(p.scenario),
-    SET_SCENARIO_CONFIG: (p) => L.scenario.config.set(p.config),
 
     ADD_STEP: (p) => L.scenario.steps.set((steps) => [...steps, p.step]),
     UPDATE_STEP: (p) => L.scenario.steps.set((steps) => steps.map((s) => (s.id === p.step.id ? p.step : s))),
 
     REMOVE_STEP: (p) => L.scenario.steps.set((steps) => steps.filter((a) => a.id !== p.id)),
 
-    ADD_ACTOR: (p) => L.scenario.config.actors.set((actors) => [...actors, p.actor]),
+    ADD_ACTOR: (p) => L.scenario.actors.set((actors) => [...actors, p.actor]),
     UPDATE_ACTOR_DEFINITION: (p) =>
-        L.scenario.config.actors.set((actors) =>
+        L.scenario.actors.set((actors) =>
             actors.map((a) => (a.definition.id === p.def.id ? { ...a, definition: p.def } : a)),
         ),
     //  L.scenario.initial.actors.k(p.actor.id).set({ actor: p.actor, assets: [] }),
 
-    REMOVE_ACTOR: (p) => L.scenario.config.actors.set((actors) => actors.filter((a) => a.definition.id !== p.id)),
+    REMOVE_ACTOR: (p) => L.scenario.actors.set((actors) => actors.filter((a) => a.definition.id !== p.id)),
 
     REORDER_STEP: (p) => L.scenario.steps.set((steps) => reorder(steps, p.sourceIndex, p.targetIndex)),
 
@@ -54,7 +53,7 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
 
     TOGGLE_SNACKBAR: (p) => L.snackbarOn.set((on) => !on),
 
-    CHANGE_META: (p) => L.scenario.config.meta.set(p.meta),
+    CHANGE_META: (p) => L.scenario.meta.set(p.meta),
     SHOW_META: () => L.showMeta.set(true),
     HIDE_META: () => L.showMeta.set(false),
 };

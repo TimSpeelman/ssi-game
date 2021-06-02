@@ -11,8 +11,8 @@ import { AttributeKnowledge } from '../../content/assets/data/abc/AttributeKnowl
 import { PrivKey } from '../../content/assets/data/cryptography/PrivKey';
 import { PubKey } from '../../content/assets/data/cryptography/PubKey';
 import { FaceFeature } from '../../content/assets/feature/FaceFeature';
-import { ActorConfig } from '../../model/game/Scenario/Config/ActorConfig';
 import { Scenario } from '../../model/game/Scenario/Scenario';
+import { ActorConfig } from '../../model/setup/ActorConfig';
 import { defaultActors } from '../defaultActors';
 
 const Government = defaultActors.government_1;
@@ -88,19 +88,17 @@ const actors: ActorConfig[] = [
  * Liveness detection / realtime authentication may not be necessary in this scenario (wallet possession is strong one-factor authentication and therefore sufficient).
  */
 export const OnlineLiquorPurchaseScenario = new Scenario({
-    config: {
-        meta: {
-            title: 'Online alcoholverkoop met Self-Sovereign Identity',
-            author: 'Tim Speelman',
-            body:
-                'Om de online verkoop van alcohol veilig te maken, dient worden gecontroleerd ' +
-                'dat de koper ten minste 18 jaar oud is. In dit scenario bewijst een koper dit ' +
-                'met behulp van Self-Sovereign Identity. Daartoe haalt hij een ' +
-                'bewijs van 18+ zijn op bij het gemeenteloket, welke hij vervolgens gebruikt ' +
-                'om online alcohol te kopen.',
-        },
-        actors,
+    meta: {
+        title: 'Online alcoholverkoop met Self-Sovereign Identity',
+        author: 'Tim Speelman',
+        body:
+            'Om de online verkoop van alcohol veilig te maken, dient worden gecontroleerd ' +
+            'dat de koper ten minste 18 jaar oud is. In dit scenario bewijst een koper dit ' +
+            'met behulp van Self-Sovereign Identity. Daartoe haalt hij een ' +
+            'bewijs van 18+ zijn op bij het gemeenteloket, welke hij vervolgens gebruikt ' +
+            'om online alcohol te kopen.',
     },
+    actors,
     steps: [
         // Issuance Phase
         new PhysicalPassportAuthentication('1', {

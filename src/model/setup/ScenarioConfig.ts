@@ -1,3 +1,4 @@
+import { PlainAction } from '../game/Action/PlainAction';
 import { ActorConfig } from './ActorConfig';
 import { ScenarioMeta } from './ScenarioMeta';
 
@@ -5,4 +6,5 @@ import { ScenarioMeta } from './ScenarioMeta';
 export interface ScenarioConfig {
     meta: ScenarioMeta;
     actors: ActorConfig[];
+    steps: PlainAction[];
 }

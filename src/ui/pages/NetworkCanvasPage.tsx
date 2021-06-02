@@ -20,6 +20,7 @@ import {
 import { createNetworkCanvasData } from '../components/networkToCanvas';
 import { ScenarioMetaDialog } from '../components/Sidebar/InfoPanel/ScenarioMetaDialog';
 import { Sidebar } from '../components/Sidebar/Sidebar';
+import { SidebarTab } from '../components/Sidebar/SidebarTab';
 import { CanvasEvent, SVGNetworkCanvas } from '../components/SVGNetworkCanvas';
 
 export function NetworkCanvas() {
@@ -51,6 +52,7 @@ export function NetworkCanvas() {
             dispatch(ScenarioActions.CLEAR_SELECTION());
         } else {
             dispatch(ScenarioActions.SELECT_ACTOR({ id }));
+            dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
         }
     }
 

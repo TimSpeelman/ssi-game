@@ -1,8 +1,8 @@
-import { ScenarioStepDescription } from '../view/ScenarioStepDescription';
-import { Action } from './Action/Action';
+import { ScenarioStepDescription } from '../../view/ScenarioStepDescription';
+import { ScenarioState } from '../ScenarioState';
+import { Action } from './Action';
 import { IOutcome } from './IOutcome';
 import { IValidationResult } from './IValidationResult';
-import { ScenarioState } from './ScenarioState';
 
 /**
  * A computed step collects the results of an Action occurring during a particular (pre) state,

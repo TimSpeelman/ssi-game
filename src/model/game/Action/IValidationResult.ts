@@ -1,5 +1,5 @@
-import { ValidationResultDesc } from '../view/ValidationResultDesc';
-import { ScenarioState } from './ScenarioState';
+import { ValidationResultDesc } from '../../view/ValidationResultDesc';
+import { ScenarioState } from '../ScenarioState';
 
 export interface IValidationResult {
     success: boolean;

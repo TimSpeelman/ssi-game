@@ -1,6 +1,6 @@
 import { Action } from '../../../model/game/Action/Action';
-import { IOutcome } from '../../../model/game/IOutcome';
-import { IValidationResult } from '../../../model/game/IValidationResult';
+import { IOutcome } from '../../../model/game/Action/IOutcome';
+import { IValidationResult } from '../../../model/game/Action/IValidationResult';
 import { ScenarioState } from '../../../model/game/ScenarioState';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { AttributeKnowledge } from '../../assets/data/abc/AttributeKnowledge';

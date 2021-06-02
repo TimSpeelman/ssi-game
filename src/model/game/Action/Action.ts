@@ -1,8 +1,8 @@
 import { InteractionDescription } from '../../../content/actions/InteractionDescription';
-import { ComputedStep } from '../ComputedStep';
-import { IOutcome } from '../IOutcome';
-import { IValidationResult } from '../IValidationResult';
 import { ScenarioState } from '../ScenarioState';
+import { ComputedStep } from './ComputedStep';
+import { IOutcome } from './IOutcome';
+import { IValidationResult } from './IValidationResult';
 import { PlainAction } from './PlainAction';
 
 /**

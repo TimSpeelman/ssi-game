@@ -1,9 +1,12 @@
 import { Action } from '../../model/game/Action';
 import { ActorDefinition } from '../../model/game/ActorDefinition';
 import { ActorConfig, ScenarioConfig, ScenarioMeta, ScenarioProps } from '../../model/game/Scenario';
+import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 import { event } from '../../util/redux';
 
 export const ScenarioActions = {
+    NAVIGATE_SIDEBAR: event<{ to: SidebarTab }>('NAVIGATE_SIDEBAR'),
+
     SET_SCENARIO: event<{ scenario: ScenarioProps }>('SET_SCENARIO'),
     SET_SCENARIO_CONFIG: event<{ config: ScenarioConfig }>('SET_SCENARIO_CONFIG'),
 

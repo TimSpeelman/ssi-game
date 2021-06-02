@@ -1,6 +1,9 @@
 import { Group, Info, Settings, SwapHoriz, Timeline } from '@material-ui/icons';
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ScenarioActions } from '../../../state/scenario/actions';
+import { selectActiveSidebarTab } from '../../../state/scenario/selectors';
 import { ActionPanel } from './ActionPanel/ActionPanel';
 import { ActorPanel } from './ActorPanel/ActorPanel';
 import { InfoPanel } from './InfoPanel/InfoPanel';
@@ -23,8 +26,9 @@ const sidebarItems: Record<Tab, { Icon: React.FC; Panel: React.FC }> = {
  */
 export function Sidebar() {
     // TODO move active state outside, so we can control it externally.
-    const [active, setActive] = useState(0);
-    const panels = tabOrder.map((key: Tab) => sidebarItems[key]);
+    const active = useSelector(selectActiveSidebarTab);
+    const dispatch = useDispatch();
+    const panels = tabOrder.map((key: Tab) => ({ ...sidebarItems[key], key }));
     return (
         <div className="sidebar">
             {panels.map(({ Panel }, i) => (
@@ -33,11 +37,11 @@ export function Sidebar() {
                 </div>
             ))}
             <div className="sidebar-menu">
-                {panels.map(({ Icon }, i) => (
+                {panels.map(({ Icon, key }, i) => (
                     <div
                         className={classNames(['item', { active: i === active }])}
-                        key={i}
-                        onClick={() => setActive(i)}
+                        key={key}
+                        onClick={() => dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: key }))}
                     >
                         <Icon />
                     </div>

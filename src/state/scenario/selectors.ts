@@ -6,10 +6,12 @@ import { Scenario, ScenarioConfig, ScenarioMeta, ScenarioProps } from '../../mod
 import { ActorState } from '../../model/view/ActorState';
 import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescription';
 import { ScenarioStepDescription } from '../../model/view/ScenarioStepDescription';
+import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 import { w1th } from '../../util/w1th';
 import { RootState } from './state';
 
 export const root = (r: any): RootState => r.scenario;
+export const selectActiveSidebarTab = (r: any): SidebarTab => root(r).activeSidebarTab;
 export const selectScenario = (r: any): Scenario => new Scenario(root(r).scenario);
 export const selectScenarioConfiguration = (r: any): ScenarioConfig => root(r).scenario.config;
 export const selectScenarioMeta = (r: any): ScenarioMeta => selectScenarioConfiguration(r).meta;

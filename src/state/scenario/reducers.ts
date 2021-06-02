@@ -8,6 +8,8 @@ import { RootState } from './state';
 const L = lens<RootState>();
 
 const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
+    NAVIGATE_SIDEBAR: (p) => L.activeSidebarTab.set(p.to),
+
     SET_SCENARIO: (p) => L.scenario.set(p.scenario),
     SET_SCENARIO_CONFIG: (p) => L.scenario.config.set(p.config),
 

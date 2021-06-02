@@ -1,5 +1,6 @@
 import { OnlineLiquorPurchaseScenario } from '../../config/scenarios/OnlineLiquorPurchaseScenario';
 import { ScenarioProps } from '../../model/game/Scenario';
+import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 import { RootState } from './state';
 
 export const defaultScenario: ScenarioProps = OnlineLiquorPurchaseScenario.props;
@@ -23,4 +24,5 @@ export const defaultState: RootState = {
     selectedActorId: undefined,
     selectedStepId: undefined,
     snackbarOn: true,
+    activeSidebarTab: SidebarTab.INFO,
 };

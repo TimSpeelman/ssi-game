@@ -1,4 +1,5 @@
 import { ScenarioProps } from '../../model/game/Scenario';
+import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 
 export interface RootState {
     scenario: ScenarioProps;
@@ -9,4 +10,5 @@ export interface RootState {
     activeStepId?: string;
 
     snackbarOn: boolean;
+    activeSidebarTab: SidebarTab;
 }

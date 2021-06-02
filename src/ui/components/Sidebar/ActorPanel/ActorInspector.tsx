@@ -40,7 +40,15 @@ export function ActorInspector() {
                 <Typography variant="h6">Geselecteerde Actor</Typography>
             </div>
 
-            <div style={{ display: 'flex', marginTop: '1rem', alignItems: 'center', justifyContent: 'stretch' }}>
+            <div
+                style={{
+                    display: 'flex',
+                    marginTop: '1rem',
+                    alignItems: 'center',
+                    justifyContent: 'stretch',
+                    background: '#eee',
+                }}
+            >
                 <img src={actorImage(definition.type.image)} style={{ height: '6rem' }} />
                 <div style={{ flexGrow: 1 }}>
                     <Typography variant="h6">{definition.name}</Typography>

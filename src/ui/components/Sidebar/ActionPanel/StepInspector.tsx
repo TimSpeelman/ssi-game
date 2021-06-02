@@ -26,7 +26,7 @@ export function StepInspector({ step }: Props) {
             </div>
 
             {/* Same label as shown in the StepSequence */}
-            <StepLabel step={step} />
+            <StepLabel step={step} onEdit={() => undefined} />
 
             {/* Additional explanation */}
             <p style={{ marginBottom: '1em' }}>{step.action.long}</p>

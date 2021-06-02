@@ -8,11 +8,11 @@ import { loadScenarioFromLocalStorage } from '../persistence/loadScenarioFromLoc
 import { saveScenarioToFile } from '../persistence/saveScenarioToFile';
 import { saveScenarioToLocalStorage } from '../persistence/saveScenarioToLocalStorage';
 import { ScenarioActions } from '../state/scenario/actions';
-import { selectScenario } from '../state/scenario/selectors';
+import { selectPlainScenario } from '../state/scenario/selectors';
 import { NetworkCanvas } from './pages/NetworkCanvasPage';
 
 export function App() {
-    const scenario = useSelector(selectScenario);
+    const scenario = useSelector(selectPlainScenario);
 
     const dispatch = useDispatch();
 

@@ -1,8 +1,8 @@
 import FileSaver from 'file-saver';
-import { Scenario } from '../model/game/Scenario/Scenario';
+import { PlainScenario } from '../model/game/Scenario/PlainScenario';
 
-export function saveScenarioToFile(scenario: Scenario) {
-    const blob = new Blob([JSON.stringify(scenario.serialize())], { type: 'application/json;charset=utf-8' });
+export function saveScenarioToFile(scenario: PlainScenario) {
+    const blob = new Blob([JSON.stringify(scenario)], { type: 'application/json;charset=utf-8' });
     const date = new Date().toLocaleString().replace(/:/g, '.');
     const fileName = `SSI-Game Scenario ${date}.json`;
     FileSaver.saveAs(blob, fileName);

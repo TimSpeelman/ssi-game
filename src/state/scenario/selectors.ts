@@ -5,6 +5,7 @@ import { ActorType } from '../../model/game/Actor/ActorType';
 import { definitionToActor } from '../../model/game/Actor/definitionToActor';
 import { ScenarioConfig } from '../../model/game/Scenario/Config/ScenarioConfig';
 import { ScenarioMeta } from '../../model/game/Scenario/Config/ScenarioMeta';
+import { PlainScenario } from '../../model/game/Scenario/PlainScenario';
 import { Scenario } from '../../model/game/Scenario/Scenario';
 import { ActorState } from '../../model/view/ActorState';
 import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescription';
@@ -16,6 +17,8 @@ import { RootState } from './state';
 export const root = (r: any): RootState => r.scenario;
 export const selectActiveSidebarTab = (r: any): SidebarTab => root(r).activeSidebarTab;
 export const selectScenario = (r: any): Scenario => Scenario.deserialize({ props: root(r).scenario });
+export const selectPlainScenario = (r: any): PlainScenario => ({ props: root(r).scenario });
+
 export const selectScenarioConfiguration = (r: any): ScenarioConfig => root(r).scenario.config;
 export const selectScenarioMeta = (r: any): ScenarioMeta => selectScenarioConfiguration(r).meta;
 export const selectSteps = (r: any): ScenarioStepDescription[] => selectScenario(r).describe().steps;

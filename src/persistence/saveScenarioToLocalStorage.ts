@@ -1,5 +1,5 @@
-import { Scenario } from '../model/game/Scenario/Scenario';
+import { PlainScenario } from '../model/game/Scenario/PlainScenario';
 
-export function saveScenarioToLocalStorage(scenario: Scenario): void {
-    localStorage.setItem('scenario', JSON.stringify(scenario.serialize()));
+export function saveScenarioToLocalStorage(scenario: PlainScenario): void {
+    localStorage.setItem('scenario', JSON.stringify(scenario));
 }

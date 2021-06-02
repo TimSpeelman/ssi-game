@@ -16,12 +16,12 @@ import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { actorImage } from '../../../../config/actorImage';
 import { ActionForms } from '../../../../content/actions/forms';
-import { Action } from '../../../../model/game/Action';
+import { SerializedAction } from '../../../../model/game/Action';
 import { selectUsedActors } from '../../../../state/scenario/selectors';
 
 interface Props {
     open: boolean;
-    onSubmit: (act: Action) => void;
+    onSubmit: (act: SerializedAction<any>) => void;
     onCancel: () => void;
     isCreate: boolean;
 }
@@ -43,7 +43,12 @@ export function StepDialog(props: Props) {
 
     function handleSubmit() {
         if (!actType) return;
-        props.onSubmit(actType.create(uuid(), data)); // new id?
+        const serializedAction: SerializedAction<any> = {
+            id: uuid(),
+            props: data,
+            typeName: actType.typeName,
+        };
+        props.onSubmit(serializedAction);
     }
 
     const fields = actType ? Object.entries(actType.fields) : [];

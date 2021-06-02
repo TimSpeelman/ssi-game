@@ -1,5 +1,5 @@
-import { ScenarioConfig } from '../../setup/ScenarioConfig';
+import { ScenarioDef } from '../../definition/ScenarioConfig';
 
 export interface PlainScenario {
-    props: ScenarioConfig;
+    props: ScenarioDef;
 }

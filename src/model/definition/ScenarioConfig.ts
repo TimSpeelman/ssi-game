@@ -2,8 +2,8 @@ import { PlainAction } from '../game/Action/PlainAction';
 import { ActorConfig } from './ActorConfig';
 import { ScenarioMeta } from './ScenarioMeta';
 
-/** A user's configuration of a scenario */
-export interface ScenarioConfig {
+/** Complete definition of a user-defined scenario */
+export interface ScenarioDef {
     meta: ScenarioMeta;
     actors: ActorConfig[];
     steps: PlainAction[];

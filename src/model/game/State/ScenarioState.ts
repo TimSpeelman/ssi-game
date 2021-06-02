@@ -1,6 +1,6 @@
 import { lens } from 'lens.ts';
 import { omit } from '../../../util/util';
-import { ScenarioConfig } from '../../setup/ScenarioConfig';
+import { ScenarioDef } from '../../definition/ScenarioConfig';
 import { ScenarioStateDescription } from '../../view/ScenarioStateDescription';
 import { Actor } from '../Actor/Actor';
 import { definitionToActor } from '../Actor/definitionToActor';
@@ -12,7 +12,7 @@ export class ScenarioState {
         valid: true,
     };
 
-    static fromConfig(s: ScenarioConfig): ScenarioState {
+    static fromConfig(s: ScenarioDef): ScenarioState {
         const actors = s.actors.map(
             (a): ActorState => ({
                 actor: definitionToActor(a.definition),

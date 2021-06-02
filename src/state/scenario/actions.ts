@@ -1,15 +1,15 @@
+import { ActorConfig } from '../../model/definition/ActorConfig';
+import { ScenarioDef } from '../../model/definition/ScenarioConfig';
+import { ScenarioMeta } from '../../model/definition/ScenarioMeta';
 import { PlainAction } from '../../model/game/Action/PlainAction';
 import { ActorDefinition } from '../../model/game/Actor/ActorDefinition';
-import { ActorConfig } from '../../model/setup/ActorConfig';
-import { ScenarioConfig } from '../../model/setup/ScenarioConfig';
-import { ScenarioMeta } from '../../model/setup/ScenarioMeta';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 import { event } from '../../util/redux';
 
 export const ScenarioActions = {
     NAVIGATE_SIDEBAR: event<{ to: SidebarTab }>('NAVIGATE_SIDEBAR'),
 
-    SET_SCENARIO: event<{ scenario: ScenarioConfig }>('SET_SCENARIO'),
+    SET_SCENARIO: event<{ scenario: ScenarioDef }>('SET_SCENARIO'),
 
     ADD_ACTOR: event<{ actor: ActorConfig }>('ADD_ACTOR'),
     REMOVE_ACTOR: event<{ id: string }>('REMOVE_ACTOR'),

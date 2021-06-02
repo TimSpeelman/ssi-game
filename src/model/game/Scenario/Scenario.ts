@@ -1,5 +1,5 @@
 import { deserialize as deserializeAction } from '../../../content/actions/actions';
-import { ScenarioConfig } from '../../setup/ScenarioConfig';
+import { ScenarioDef } from '../../definition/ScenarioConfig';
 import { ScenarioDescription } from '../../view/ScenarioDescription';
 import { Action } from '../Action/Action';
 import { ComputedStep } from '../Action/ComputedStep';
@@ -15,7 +15,7 @@ export class Scenario {
         return new Scenario(props);
     }
 
-    constructor(readonly props: ScenarioConfig) {
+    constructor(readonly props: ScenarioDef) {
         const steps = props.steps.map((s) => deserializeAction(s));
         this.initial = ScenarioState.fromConfig(props);
         let state = this.initial;
@@ -45,6 +45,6 @@ export class Scenario {
 }
 
 export interface ScenarioProps {
-    config: ScenarioConfig;
+    config: ScenarioDef;
     steps: Action<any>[];
 }

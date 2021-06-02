@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { ScenarioMeta } from '../../../../model/setup/ScenarioMeta';
+import { ScenarioMeta } from '../../../../model/definition/ScenarioMeta';
 import { ScenarioActions } from '../../../../state/scenario/actions';
 
 export interface Props {

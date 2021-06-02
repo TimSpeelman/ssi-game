@@ -1,8 +1,8 @@
-import { ScenarioConfig } from '../../model/setup/ScenarioConfig';
+import { ScenarioDef } from '../../model/definition/ScenarioConfig';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 
 export interface RootState {
-    scenario: ScenarioConfig;
+    scenario: ScenarioDef;
     showMeta: boolean;
 
     selectedActorId?: string;

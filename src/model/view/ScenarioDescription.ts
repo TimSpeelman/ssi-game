@@ -1,4 +1,4 @@
-import { ScenarioMeta } from '../setup/ScenarioMeta';
+import { ScenarioMeta } from '../definition/ScenarioMeta';
 import { ScenarioStateDescription } from './ScenarioStateDescription';
 import { ScenarioStepDescription } from './ScenarioStepDescription';
 

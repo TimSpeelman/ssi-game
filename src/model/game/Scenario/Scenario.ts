@@ -1,16 +1,16 @@
 import { deserialize as deserializeAction } from '../../../content/actions/actions';
-import { Asset } from '../../../content/assets/Asset';
 import { ScenarioDescription } from '../../view/ScenarioDescription';
 import { ComputedStep } from '../Action/ComputedStep';
 import { PlainAction } from '../Action/PlainAction';
-import { ActorDefinition } from '../Actor/ActorDefinition';
+import { PlainScenario } from './PlainScenario';
+import { ScenarioConfig } from './ScenarioConfig';
 import { ScenarioState } from './ScenarioState';
 
 export class Scenario {
     readonly steps: ComputedStep[];
     readonly initial: ScenarioState;
 
-    static deserialize(s: SerializedScenario) {
+    static deserialize(s: PlainScenario) {
         const props = {
             config: s.props.config,
             steps: s.props.steps,
@@ -40,7 +40,7 @@ export class Scenario {
         };
     }
 
-    serialize(): SerializedScenario {
+    serialize(): PlainScenario {
         return {
             props: {
                 config: this.props.config,
@@ -53,29 +53,4 @@ export class Scenario {
 export interface ScenarioProps {
     config: ScenarioConfig;
     steps: PlainAction<any>[];
-}
-
-export interface ScenarioMeta {
-    title: string;
-    author: string;
-    body: string;
-}
-
-export interface ScenarioConfig {
-    meta: ScenarioMeta;
-    actors: ActorConfig[];
-}
-
-export interface ActorConfig {
-    definition: ActorDefinition;
-    initialAssets: Asset[];
-}
-
-export interface SerializedScenario {
-    props: SerializedScenarioProps;
-}
-
-export interface SerializedScenarioProps {
-    config: ScenarioConfig;
-    steps: PlainAction[];
 }

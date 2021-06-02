@@ -11,7 +11,8 @@ import { AttributeKnowledge } from '../../content/assets/data/abc/AttributeKnowl
 import { PrivKey } from '../../content/assets/data/cryptography/PrivKey';
 import { PubKey } from '../../content/assets/data/cryptography/PubKey';
 import { FaceFeature } from '../../content/assets/feature/FaceFeature';
-import { ActorConfig, Scenario } from '../../model/game/Scenario/Scenario';
+import { ActorConfig } from '../../model/game/Scenario/ActorConfig';
+import { Scenario } from '../../model/game/Scenario/Scenario';
 import { defaultActors } from '../defaultActors';
 
 const Government = defaultActors.government_1;

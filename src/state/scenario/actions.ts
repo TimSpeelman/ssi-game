@@ -1,6 +1,9 @@
 import { PlainAction } from '../../model/game/Action/PlainAction';
 import { ActorDefinition } from '../../model/game/Actor/ActorDefinition';
-import { ActorConfig, ScenarioConfig, ScenarioMeta, ScenarioProps } from '../../model/game/Scenario/Scenario';
+import { ActorConfig } from '../../model/game/Scenario/ActorConfig';
+import { ScenarioProps } from '../../model/game/Scenario/Scenario';
+import { ScenarioConfig } from '../../model/game/Scenario/ScenarioConfig';
+import { ScenarioMeta } from '../../model/game/Scenario/ScenarioMeta';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 import { event } from '../../util/redux';
 

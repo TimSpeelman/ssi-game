@@ -2,10 +2,10 @@ import { Button, ListItemProps, Typography } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
 import React from 'react';
 import { actorImage } from '../../../../config/actorImage';
-import { ScenarioStepDescription } from '../../../../model/view/ScenarioStepDescription';
+import { StepDesc } from '../../../../model/description/StepDesc';
 
 export interface Props extends ListItemProps {
-    step: ScenarioStepDescription;
+    step: StepDesc;
     onEdit: () => void;
 }
 

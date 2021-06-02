@@ -1,9 +1,9 @@
+import { ActionDesc, Locality } from '../../model/description/ActionDesc';
 import { Action } from '../../model/game/Action/Action';
 import { IOutcome } from '../../model/game/Action/IOutcome';
 import { IValidationResult } from '../../model/game/Action/IValidationResult';
 import { ScenarioState } from '../../model/game/State/ScenarioState';
 import { ActionFormConfig } from '../../model/view/ActionFormConfig';
-import { InteractionDescription, Locality } from '../../model/view/InteractionDescription';
 
 export interface Props {
     fromId: string;
@@ -37,7 +37,7 @@ export class CustomInteraction extends Action<Props> {
         return [];
     }
 
-    describe(state: ScenarioState): InteractionDescription {
+    describe(state: ScenarioState): ActionDesc {
         return {
             id: this.id,
             type: 'CustomInteraction',

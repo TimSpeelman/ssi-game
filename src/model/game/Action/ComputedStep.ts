@@ -1,4 +1,4 @@
-import { ScenarioStepDescription } from '../../view/ScenarioStepDescription';
+import { StepDesc } from '../../description/StepDesc';
 import { ScenarioState } from '../State/ScenarioState';
 import { Action } from './Action';
 import { IOutcome } from './IOutcome';
@@ -15,7 +15,7 @@ export class ComputedStep {
         return this.props.validation.every((v) => v.success);
     }
 
-    describe(): ScenarioStepDescription {
+    describe(): StepDesc {
         return {
             success: this.hasSucceeded(),
             active: this.props.preState.props.valid,

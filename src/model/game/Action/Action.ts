@@ -1,5 +1,5 @@
 import { ActionDef } from '../../definition/Action/ActionDef';
-import { InteractionDescription } from '../../view/InteractionDescription';
+import { ActionDesc } from '../../description/ActionDesc';
 import { ScenarioState } from '../State/ScenarioState';
 import { ComputedStep } from './ComputedStep';
 import { IOutcome } from './IOutcome';
@@ -39,7 +39,7 @@ export abstract class Action<Props = any> {
     abstract computeOutcomes(state: ScenarioState): IOutcome[];
 
     /** Provide a generic description of this action for viewing purposes */
-    abstract describe(state: ScenarioState): InteractionDescription;
+    abstract describe(state: ScenarioState): ActionDesc;
 
     serialize(): ActionDef<Props> {
         return { id: this.id, props: this.props, typeName: this.typeName };

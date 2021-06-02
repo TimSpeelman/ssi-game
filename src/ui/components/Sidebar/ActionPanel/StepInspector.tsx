@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core';
 import React, { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ScenarioStepDescription } from '../../../../model/view/ScenarioStepDescription';
+import { StepDesc } from '../../../../model/description/StepDesc';
 import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectActiveStepSerialized, selectSteps } from '../../../../state/scenario/selectors';
 import { StepDialog } from '../SequencePanel/StepDialog';
@@ -9,7 +9,7 @@ import { StepLabel } from './StepLabel';
 import { StepNav } from './StepNav';
 
 interface Props {
-    step: ScenarioStepDescription;
+    step: StepDesc;
 }
 
 /** Shows the details of a scenario step */

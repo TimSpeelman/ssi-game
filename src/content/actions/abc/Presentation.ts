@@ -1,9 +1,9 @@
+import { ActionDesc, Locality } from '../../../model/description/ActionDesc';
 import { Action } from '../../../model/game/Action/Action';
 import { IOutcome } from '../../../model/game/Action/IOutcome';
 import { IValidationResult } from '../../../model/game/Action/IValidationResult';
 import { ScenarioState } from '../../../model/game/State/ScenarioState';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
-import { InteractionDescription, Locality } from '../../../model/view/InteractionDescription';
 import { AttributeKnowledge } from '../../assets/data/abc/AttributeKnowledge';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
@@ -52,7 +52,7 @@ export class Presentation extends Action<Props> {
         return [new GainAssetOutcome({ actorId: this.props.verifierId, asset: attr })];
     }
 
-    describe(state: ScenarioState): InteractionDescription {
+    describe(state: ScenarioState): ActionDesc {
         const subject = state.props.byActor[this.props.subjectId].actor;
         const verifier = state.props.byActor[this.props.verifierId].actor;
         return {

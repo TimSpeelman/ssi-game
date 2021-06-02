@@ -1,9 +1,9 @@
+import { ActionDesc, Locality } from '../../model/description/ActionDesc';
 import { Action } from '../../model/game/Action/Action';
 import { IOutcome } from '../../model/game/Action/IOutcome';
 import { IValidationResult } from '../../model/game/Action/IValidationResult';
 import { ScenarioState } from '../../model/game/State/ScenarioState';
 import { ActionFormConfig } from '../../model/view/ActionFormConfig';
-import { InteractionDescription, Locality } from '../../model/view/InteractionDescription';
 import { ucFirst } from '../../util/util';
 import { GreenFlag } from '../assets/Flag';
 import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
@@ -42,7 +42,7 @@ export class GrantGreenFlag extends Action<Props> {
         return [new GainAssetOutcome({ actorId: this.props.toId, asset: flag })];
     }
 
-    describe(state: ScenarioState): InteractionDescription {
+    describe(state: ScenarioState): ActionDesc {
         const from = state.props.byActor[this.props.fromId].actor;
         const to = state.props.byActor[this.props.toId].actor;
         const desc = this.props.description;

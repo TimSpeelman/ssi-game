@@ -1,11 +1,11 @@
 import { ScenarioDef } from '../definition/ScenarioDef';
-import { ScenarioStateDescription } from '../view/ScenarioStateDescription';
-import { ScenarioStepDescription } from '../view/ScenarioStepDescription';
+import { StateDesc } from './StateDesc';
+import { StepDesc } from './StepDesc';
 
-/** A Scenario Description describes the entire computed scenario */
+/** Describes a computed scenario */
 export interface ScenarioDesc {
     definition: ScenarioDef;
-    initial: ScenarioStateDescription;
-    steps: ScenarioStepDescription[];
+    initial: StateDesc;
+    steps: StepDesc[];
     failingAtIndex?: number;
 }

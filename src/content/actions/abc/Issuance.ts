@@ -1,9 +1,9 @@
+import { ActionDesc, Locality } from '../../../model/description/ActionDesc';
 import { Action } from '../../../model/game/Action/Action';
 import { IOutcome } from '../../../model/game/Action/IOutcome';
 import { IValidationResult } from '../../../model/game/Action/IValidationResult';
 import { ScenarioState } from '../../../model/game/State/ScenarioState';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
-import { InteractionDescription, Locality } from '../../../model/view/InteractionDescription';
 import { AttributeProof } from '../../assets/data/abc/AttributeProof';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
@@ -53,7 +53,7 @@ export class Issuance extends Action<Props> {
         return [new GainAssetOutcome({ actorId: this.props.subjectId, asset: attr })];
     }
 
-    describe(state: ScenarioState): InteractionDescription {
+    describe(state: ScenarioState): ActionDesc {
         const subject = state.props.byActor[this.props.subjectId].actor;
         const issuer = state.props.byActor[this.props.issuerId].actor;
         return {

@@ -1,9 +1,9 @@
+import { ActionDesc, Locality } from '../../../model/description/ActionDesc';
 import { Action } from '../../../model/game/Action/Action';
 import { IOutcome } from '../../../model/game/Action/IOutcome';
 import { IValidationResult } from '../../../model/game/Action/IValidationResult';
 import { ScenarioState } from '../../../model/game/State/ScenarioState';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
-import { InteractionDescription, Locality } from '../../../model/view/InteractionDescription';
 import { AttributeKnowledge } from '../../assets/data/abc/AttributeKnowledge';
 import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
@@ -54,7 +54,7 @@ export class WalletSMSAuthentication extends Action<Props> {
         ];
     }
 
-    describe(state: ScenarioState): InteractionDescription {
+    describe(state: ScenarioState): ActionDesc {
         const subject = state.props.byActor[this.props.humanSubjectId].actor;
         const verifier = state.props.byActor[this.props.verifierId].actor;
         return {

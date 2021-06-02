@@ -1,10 +1,10 @@
 import { lens } from 'lens.ts';
-import { omit } from '../../../util/util';
-import { Actor } from '../../definition/Actor/Actor';
-import { definitionToActor } from '../../definition/Actor/definitionToActor';
-import { ScenarioDef } from '../../definition/ScenarioDef';
-import { StateDesc } from '../../description/StateDesc';
-import { ActorState } from './ActorState';
+import { Asset } from '../../content/assets/Asset';
+import { omit } from '../../util/util';
+import { Actor } from '../definition/Actor/Actor';
+import { definitionToActor } from '../definition/Actor/definitionToActor';
+import { ScenarioDef } from '../definition/ScenarioDef';
+import { StateDesc } from '../description/StateDesc';
 
 /** Represents the entire state of the scenario at any point in the scenario. */
 export class ScenarioState {
@@ -12,7 +12,8 @@ export class ScenarioState {
         valid: true,
     };
 
-    static fromConfig(s: ScenarioDef): ScenarioState {
+    /** Compute the initial state from a Scenario Definition */
+    static fromDefinition(s: ScenarioDef): ScenarioState {
         const actors = s.actors.map(
             (a): ActorState => ({
                 actor: definitionToActor(a.definition),
@@ -23,6 +24,14 @@ export class ScenarioState {
         const byActor = actors.reduce((obj, a) => ({ ...obj, [a.actor.id]: a }), {});
 
         return new ScenarioState({ byActor });
+    }
+
+    static deserialize(s: SerializedScenarioState) {
+        const props: Props = {
+            byActor: s.actors,
+            valid: s.valid,
+        };
+        return new ScenarioState(props);
     }
 
     readonly props: Props;
@@ -64,3 +73,14 @@ export interface Props {
 export interface DefaultProps {
     valid: boolean;
 }
+
+export interface ActorState {
+    assets: Asset[];
+    actor: Actor;
+    mode?: string;
+}
+
+export type SerializedScenarioState = {
+    actors: Record<string, ActorState>;
+    valid: boolean;
+};

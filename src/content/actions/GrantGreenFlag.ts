@@ -24,7 +24,6 @@ export class GrantGreenFlag extends Action<Props> {
             toId: { type: 'actor', title: 'Naar Actor' },
             description: { type: 'string', title: 'Omschrijving' },
         },
-        create: (id, d) => new GrantGreenFlag(id, d),
     };
 
     validatePreConditions(): IValidationResult[] {

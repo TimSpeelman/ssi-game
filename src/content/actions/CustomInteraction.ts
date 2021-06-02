@@ -26,7 +26,6 @@ export class CustomInteraction extends Action<Props> {
             description: { type: 'string', title: 'Omschrijving 1' },
             sub: { type: 'string', title: 'Omschrijving 2' },
         },
-        create: (id, d) => new CustomInteraction(id, d),
     };
 
     validatePreConditions(): IValidationResult[] {

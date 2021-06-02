@@ -24,7 +24,6 @@ export class WalletSMSAuthentication extends Action<Props> {
             humanSubjectId: { type: 'actor', title: 'Subject' },
             dataSubjectId: { type: 'string', title: 'Pseudoniem van Subject' },
         },
-        create: (id, d) => new WalletSMSAuthentication(id, d),
     };
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {

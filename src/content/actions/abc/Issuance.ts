@@ -33,7 +33,6 @@ export class Issuance extends Action<Props> {
             attributeName: { type: 'string', title: 'Attribuutnaam' },
             attributeValue: { type: 'string', title: 'Attribuutwaarde' },
         },
-        create: (id, d) => new Issuance(id, d),
     };
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {

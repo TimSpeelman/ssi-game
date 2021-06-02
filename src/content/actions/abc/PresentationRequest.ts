@@ -27,7 +27,6 @@ export class PresentationRequest extends Action<Props> {
             subjectNym: { type: 'string', title: 'Pseudoniem van Subject' },
             attributeName: { type: 'string', title: 'Attribuutnaam' },
         },
-        create: (id, d) => new PresentationRequest(id, d),
     };
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {

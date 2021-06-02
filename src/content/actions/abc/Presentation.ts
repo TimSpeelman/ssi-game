@@ -31,7 +31,6 @@ export class Presentation extends Action<Props> {
             attributeName: { type: 'string', title: 'Attribuutnaam' },
             attributeValue: { type: 'string', title: 'Attribuutwaarde' },
         },
-        create: (id, d) => new Presentation(id, d),
     };
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {

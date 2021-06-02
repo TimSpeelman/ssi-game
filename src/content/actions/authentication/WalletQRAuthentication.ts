@@ -23,7 +23,6 @@ export class WalletQRAuthentication extends Action<Props> {
             humanSubjectId: { type: 'actor', title: 'Subject' },
             dataSubjectId: { type: 'string', title: 'Pseudoniem van Subject' },
         },
-        create: (id, d) => new WalletQRAuthentication(id, d),
     };
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {

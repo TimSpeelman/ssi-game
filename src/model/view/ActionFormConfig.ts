@@ -1,5 +1,3 @@
-import { Action } from '../logic/Step/Action';
-
 export interface ActionFormConfig<Prop extends string> {
     title: string;
     fields: Record<
@@ -9,5 +7,4 @@ export interface ActionFormConfig<Prop extends string> {
             title: string;
         }
     >;
-    create: (id: string, data: Record<Prop, any>) => Action;
 }

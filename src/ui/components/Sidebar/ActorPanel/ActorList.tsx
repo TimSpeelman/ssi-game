@@ -86,7 +86,7 @@ export function ActorList() {
                                             </div>
                                             <ListItemText
                                                 primary={actor.definition.name}
-                                                secondary={actorSubtitle(actor)}
+                                                secondary={actor.definition.description}
                                             />
 
                                             <Tooltip

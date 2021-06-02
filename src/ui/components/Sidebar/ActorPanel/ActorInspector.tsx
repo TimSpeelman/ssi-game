@@ -37,14 +37,19 @@ export function ActorInspector() {
             <Divider />
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
-                <Typography variant="h6">Geselecteerde Actor: {definition.name}</Typography>
+                <Typography variant="h6">Geselecteerde Actor</Typography>
             </div>
 
-            <img src={actorImage(definition.type.image)} style={{ height: '6rem' }} />
-
-            <Button variant={'outlined'} onClick={() => setEditing(true)}>
-                <Edit /> Bewerken
-            </Button>
+            <div style={{ display: 'flex', marginTop: '1rem', alignItems: 'center', justifyContent: 'stretch' }}>
+                <img src={actorImage(definition.type.image)} style={{ height: '6rem' }} />
+                <div style={{ flexGrow: 1 }}>
+                    <Typography variant="h6">{definition.name}</Typography>
+                    <Typography variant="subtitle2">{definition.description}</Typography>
+                </div>
+                <Button onClick={() => setEditing(true)}>
+                    <Edit />
+                </Button>
+            </div>
 
             <Typography variant="h6">Assets</Typography>
             <List dense>

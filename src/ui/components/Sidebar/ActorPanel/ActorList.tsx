@@ -9,7 +9,7 @@ import { actorImage } from '../../../../config/actorImage';
 import { ActorConfig } from '../../../../model/definition/Actor/ActorConfig';
 import { ScenarioDef } from '../../../../model/definition/ScenarioDef';
 import { ScenarioActions } from '../../../../state/scenario/actions';
-import { selectInvolvedActors, selectScenarioConfiguration } from '../../../../state/scenario/selectors';
+import { selectInvolvedActors, selectScenarioDef } from '../../../../state/scenario/selectors';
 import { reorder } from '../../../../util/util';
 import { ActorDefinitionDialog } from './ActorConfigDialog';
 
@@ -17,12 +17,12 @@ export function ActorList() {
     const dispatch = useDispatch();
     const setConf = (scenario: ScenarioDef) => dispatch(ScenarioActions.SET_SCENARIO({ scenario }));
     const involvedActors = useSelector(selectInvolvedActors);
-    const originalConfig = useSelector(selectScenarioConfiguration);
-    const { meta, actors } = originalConfig;
+    const scenarioDef = useSelector(selectScenarioDef);
+    const { meta, actors } = scenarioDef;
 
     // Actor Setters
     const canRemoveActor = (id: string) => !(id in involvedActors);
-    const setActors = (actors: ActorConfig[]) => setConf({ ...originalConfig, actors });
+    const setActors = (actors: ActorConfig[]) => setConf({ ...scenarioDef, actors });
     const handleReorder = (fromIndex: number, toIndex: number) => setActors(reorder(actors, fromIndex, toIndex));
     const removeActor = (id: string) => setActors(actors.filter((a) => a.definition.id !== id));
     const addActor = (actor: ActorConfig) =>

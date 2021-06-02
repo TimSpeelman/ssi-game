@@ -18,8 +18,7 @@ export const root = (r: any): RootState => r.scenario;
 
 // Definition
 export const selectScenarioDef = (r: any): ScenarioDef => root(r).scenario;
-export const selectScenarioConfiguration = (r: any): ScenarioDef => root(r).scenario;
-export const selectScenarioMeta = (r: any): ScenarioMeta => selectScenarioConfiguration(r).meta;
+export const selectScenarioMeta = (r: any): ScenarioMeta => selectScenarioDef(r).meta;
 export const selectActorTypes = (r: any): ActorType[] => Object.values(actorTypes);
 export const selectUsedActors = (r: any): Actor[] =>
     root(r).scenario.actors.map((a) => definitionToActor(a.definition));

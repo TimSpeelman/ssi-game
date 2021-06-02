@@ -1,8 +1,10 @@
 import { Typography } from '@material-ui/core';
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ScenarioStepDescription } from '../../../../model/view/ScenarioStepDescription';
+import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectSteps } from '../../../../state/scenario/selectors';
+import { StepDialog } from '../SequencePanel/StepDialog';
 import { StepLabel } from './StepLabel';
 import { StepNav } from './StepNav';
 
@@ -15,9 +17,19 @@ export function StepInspector({ step }: Props) {
     const steps = useSelector(selectSteps);
     const dispatch = useDispatch();
     const index = steps.findIndex((s) => step.action.id === s.action.id);
-
+    const [editing, setEditing] = useState(false);
     return (
         <div>
+            <StepDialog
+                open={editing}
+                isCreate={false}
+                onSubmit={(step) => {
+                    dispatch(ScenarioActions.ADD_STEP({ step }));
+                    setEditing(false);
+                }}
+                onCancel={() => setEditing(false)}
+            />
+
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Typography variant="h6">
                     Stap {index + 1} van {steps.length}
@@ -26,7 +38,7 @@ export function StepInspector({ step }: Props) {
             </div>
 
             {/* Same label as shown in the StepSequence */}
-            <StepLabel step={step} onEdit={() => undefined} />
+            <StepLabel step={step} onEdit={() => setEditing(true)} />
 
             {/* Additional explanation */}
             <p style={{ marginBottom: '1em' }}>{step.action.long}</p>

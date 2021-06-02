@@ -1,4 +1,5 @@
 import {
+    Button,
     Divider,
     IconButton,
     List,
@@ -7,9 +8,10 @@ import {
     ListItemText,
     Typography,
 } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
 import DeleteIcon from '@material-ui/icons/Delete';
 import classNames from 'classnames';
-import React from 'react';
+import React, { useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../../../config/actorImage';
@@ -20,7 +22,7 @@ import {
     selectSteps,
     selectUsedActors,
 } from '../../../../state/scenario/selectors';
-import { AddStepMenu } from './AddStepMenu';
+import { StepDialog } from './StepDialog';
 
 export function StepSequence() {
     const steps = useSelector(selectSteps);
@@ -46,14 +48,26 @@ export function StepSequence() {
         dispatch(ScenarioActions.REORDER_STEP({ sourceIndex, targetIndex }));
     }
 
+    const [creating, setCreating] = useState(false);
+
     return (
         <div style={{ padding: '1rem' }}>
+            <StepDialog
+                open={creating}
+                isCreate={true}
+                onSubmit={(step) => {
+                    dispatch(ScenarioActions.ADD_STEP({ step }));
+                    setCreating(false);
+                }}
+                onCancel={() => setCreating(false)}
+            />
+
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Typography variant="h6">Stappen ({steps.length})</Typography>
-                <AddStepMenu
-                    availableActors={usedActors}
-                    onAdd={(step) => dispatch(ScenarioActions.ADD_STEP({ step }))}
-                />
+                <Button variant={'outlined'} onClick={() => setCreating(true)}>
+                    {' '}
+                    <Add /> Stap Toevoegen
+                </Button>
             </div>
             <DragDropContext onDragEnd={(x) => handleReorder(x.source!.index, x.destination!.index)}>
                 <Droppable droppableId={'d123'}>

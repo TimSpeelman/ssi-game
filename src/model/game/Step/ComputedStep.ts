@@ -1,4 +1,4 @@
-import { StepDesc } from '../../description/StepDesc';
+import { StepDesc } from '../../description/Step/StepDesc';
 import { ScenarioState } from '../State/ScenarioState';
 import { Action } from './Action';
 import { IOutcome } from './IOutcome';

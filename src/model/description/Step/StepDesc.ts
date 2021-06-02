@@ -1,6 +1,6 @@
+import { StateDesc } from '../State/StateDesc';
 import { ActionDesc } from './ActionDesc';
 import { OutcomeDesc } from './OutcomeDesc';
-import { StateDesc } from './StateDesc';
 import { ValidationResultDesc } from './ValidationResultDesc';
 
 /** Describes a computed step */

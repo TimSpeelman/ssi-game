@@ -1,6 +1,6 @@
 import { deserialize as deserializeAction } from '../../../content/actions/actions';
 import { ScenarioDef } from '../../definition/ScenarioDef';
-import { ScenarioDesc } from '../../description/ScenarioDesc';
+import { ScenarioDesc } from '../../description/Scenario/ScenarioDesc';
 import { ScenarioState } from '../State/ScenarioState';
 import { Action } from '../Step/Action';
 import { ComputedStep } from '../Step/ComputedStep';

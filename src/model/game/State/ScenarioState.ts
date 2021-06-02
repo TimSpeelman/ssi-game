@@ -3,7 +3,7 @@ import { omit } from '../../../util/util';
 import { Actor } from '../../definition/Actor/Actor';
 import { definitionToActor } from '../../definition/Actor/definitionToActor';
 import { ScenarioDef } from '../../definition/ScenarioDef';
-import { StateDesc } from '../../description/StateDesc';
+import { StateDesc } from '../../description/State/StateDesc';
 import { ActorState } from './ActorState';
 
 /** Represents the entire state of the scenario at any point in the scenario. */

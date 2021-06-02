@@ -1,4 +1,4 @@
-import { Actor } from '../definition/Actor/Actor';
+import { Actor } from '../../definition/Actor/Actor';
 
 /** A generic description of an interaction, for view purposes */
 export interface ActionDesc {

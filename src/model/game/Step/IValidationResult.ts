@@ -1,4 +1,4 @@
-import { ValidationResultDesc } from '../../description/ValidationResultDesc';
+import { ValidationResultDesc } from '../../description/Step/ValidationResultDesc';
 import { ScenarioState } from '../State/ScenarioState';
 
 export interface IValidationResult {

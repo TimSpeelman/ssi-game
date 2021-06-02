@@ -1,5 +1,5 @@
 import { ActionDef } from '../../definition/Action/ActionDef';
-import { ActionDesc } from '../../description/ActionDesc';
+import { ActionDesc } from '../../description/Step/ActionDesc';
 import { ScenarioState } from '../State/ScenarioState';
 import { ComputedStep } from './ComputedStep';
 import { IOutcome } from './IOutcome';

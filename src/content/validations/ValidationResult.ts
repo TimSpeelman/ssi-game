@@ -1,4 +1,4 @@
-import { ValidationResultDesc } from '../../model/description/ValidationResultDesc';
+import { ValidationResultDesc } from '../../model/description/Step/ValidationResultDesc';
 import { IValidationResult } from '../../model/game/Step/IValidationResult';
 
 export class ValidationResult implements IValidationResult {

@@ -1,6 +1,6 @@
-import { ScenarioDef } from '../definition/ScenarioDef';
-import { StateDesc } from './StateDesc';
-import { StepDesc } from './StepDesc';
+import { ScenarioDef } from '../../definition/ScenarioDef';
+import { StateDesc } from '../State/StateDesc';
+import { StepDesc } from '../Step/StepDesc';
 
 /** Describes a computed scenario */
 export interface ScenarioDesc {

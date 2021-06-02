@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core';
 import React, { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StepDesc } from '../../../../model/description/StepDesc';
+import { StepDesc } from '../../../../model/description/Step/StepDesc';
 import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectActiveStepSerialized, selectSteps } from '../../../../state/scenario/selectors';
 import { StepDialog } from '../SequencePanel/StepDialog';

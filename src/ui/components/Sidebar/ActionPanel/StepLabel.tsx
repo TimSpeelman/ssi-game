@@ -2,7 +2,7 @@ import { Button, ListItemProps, Typography } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
 import React from 'react';
 import { actorImage } from '../../../../config/actorImage';
-import { StepDesc } from '../../../../model/description/StepDesc';
+import { StepDesc } from '../../../../model/description/Step/StepDesc';
 
 export interface Props extends ListItemProps {
     step: StepDesc;

@@ -1,8 +1,8 @@
 import { actorImage } from '../../config/actorImage';
 import { Actor } from '../../model/definition/Actor/Actor';
-import { Locality } from '../../model/description/ActionDesc';
-import { StateDesc } from '../../model/description/StateDesc';
-import { StepDesc } from '../../model/description/StepDesc';
+import { StateDesc } from '../../model/description/State/StateDesc';
+import { Locality } from '../../model/description/Step/ActionDesc';
+import { StepDesc } from '../../model/description/Step/StepDesc';
 import { pointsOnCircleEquidistant, pointsOnCircleFixedRangeCentered } from '../../util/circle';
 import { scaleQuadraticBezierCurve } from '../../util/curve';
 import { add, avg, eq, fractionOfLine, scale, Vec } from '../../util/vec';

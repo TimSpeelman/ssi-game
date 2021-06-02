@@ -1,4 +1,4 @@
-import { ActionDesc, Locality } from '../../../model/description/ActionDesc';
+import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/game/State/ScenarioState';
 import { Action } from '../../../model/game/Step/Action';
 import { IOutcome } from '../../../model/game/Step/IOutcome';

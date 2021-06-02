@@ -8,33 +8,34 @@ import { RootState } from './state';
 const L = lens<RootState>();
 
 const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
-    NAVIGATE_SIDEBAR: (p) => L.activeSidebarTab.set(p.to),
-
+    // Definition
+    CLEAR: (p) => L.scenario.set(emptyScenario),
+    RESET: (p) => L.scenario.set(defaultScenario),
     SET_SCENARIO: (p) => L.scenario.set(p.scenario),
 
-    ADD_STEP: (p) => L.scenario.steps.set((steps) => [...steps, p.step]),
-    UPDATE_STEP: (p) => L.scenario.steps.set((steps) => steps.map((s) => (s.id === p.step.id ? p.step : s))),
-
-    REMOVE_STEP: (p) => L.scenario.steps.set((steps) => steps.filter((a) => a.id !== p.id)),
-
+    // Definition Manipulation : Actors
     ADD_ACTOR: (p) => L.scenario.actors.set((actors) => [...actors, p.actor]),
+    REMOVE_ACTOR: (p) => L.scenario.actors.set((actors) => actors.filter((a) => a.definition.id !== p.id)),
     UPDATE_ACTOR_DEFINITION: (p) =>
         L.scenario.actors.set((actors) =>
             actors.map((a) => (a.definition.id === p.def.id ? { ...a, definition: p.def } : a)),
         ),
-    //  L.scenario.initial.actors.k(p.actor.id).set({ actor: p.actor, assets: [] }),
 
-    REMOVE_ACTOR: (p) => L.scenario.actors.set((actors) => actors.filter((a) => a.definition.id !== p.id)),
-
+    // Definition Manipulation : Steps
+    ADD_STEP: (p) => L.scenario.steps.set((steps) => [...steps, p.step]),
+    REMOVE_STEP: (p) => L.scenario.steps.set((steps) => steps.filter((a) => a.id !== p.id)),
     REORDER_STEP: (p) => L.scenario.steps.set((steps) => reorder(steps, p.sourceIndex, p.targetIndex)),
+    UPDATE_STEP: (p) => L.scenario.steps.set((steps) => steps.map((s) => (s.id === p.step.id ? p.step : s))),
 
-    RESET: (p) => L.scenario.set(defaultScenario),
-    CLEAR: (p) => L.scenario.set(emptyScenario),
+    // Definition Manipulation : Meta
+    CHANGE_META: (p) => L.scenario.meta.set(p.meta),
 
+    // Selection
+    CLEAR_SELECTION: (p) => (s): RootState => ({ ...s, selectedStepId: undefined, selectedActorId: undefined }),
     SELECT_ACTOR: (p) => (s): RootState => ({ ...s, selectedStepId: undefined, selectedActorId: p.id }),
     SELECT_STEP: (p) => (s): RootState => ({ ...s, selectedStepId: p.id, selectedActorId: undefined }),
-    CLEAR_SELECTION: (p) => (s): RootState => ({ ...s, selectedStepId: undefined, selectedActorId: undefined }),
 
+    // Sequence Navigation
     GOTO_STEP: (p) => L.activeStepId!.set(p.id),
     NEXT_STEP: (p) => (s): RootState => {
         const activeIndex = s.activeStepId ? s.scenario.steps.findIndex((step) => step.id === s.activeStepId) : -1;
@@ -51,11 +52,15 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
         return { ...s, activeStepId: nextId };
     },
 
-    TOGGLE_SNACKBAR: (p) => L.snackbarOn.set((on) => !on),
+    // Sidebar Navigation
+    NAVIGATE_SIDEBAR: (p) => L.activeSidebarTab.set(p.to),
 
-    CHANGE_META: (p) => L.scenario.meta.set(p.meta),
-    SHOW_META: () => L.showMeta.set(true),
+    // Display Meta Dialog
     HIDE_META: () => L.showMeta.set(false),
+    SHOW_META: () => L.showMeta.set(true),
+
+    // Options
+    TOGGLE_SNACKBAR: (p) => L.snackbarOn.set((on) => !on),
 };
 
 export function ScenarioReducer(s: RootState, e: IAction<any>) {

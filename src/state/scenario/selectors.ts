@@ -26,7 +26,7 @@ export const selectUsedActors = (r: any): Actor[] =>
 export const selectInvolvedActors = (r: any): Record<string, true> =>
     selectSteps(r).reduce((ids, step) => ({ ...ids, [step.action.from.id]: true, [step.action.to.id]: true }), {});
 
-// Description : Active
+// Description
 export const selectScenarioDesc = (r: any): ScenarioDesc => computeScenarioFromDefinition(root(r).scenario);
 export const selectSteps = (r: any): StepDesc[] => selectScenarioDesc(r).steps;
 export const selectInitialState = (r: any): StateDesc => selectScenarioDesc(r).initial;
@@ -39,7 +39,7 @@ export const selectFailedStep = (r: any): StepDesc | undefined =>
 // Description : Active
 export const selectActiveState = (r: any): StateDesc =>
     w1th(selectActiveStep(r), (currentStep) => (currentStep ? currentStep.result : selectInitialState(r)));
-export const selectActiveStepSerialized = (r: any): ActionDef<any> | undefined =>
+export const selectActiveActionDef = (r: any): ActionDef<any> | undefined =>
     root(r).scenario.steps.find((s) => s.id === root(r).activeStepId);
 export const selectActiveStep = (r: any): StepDesc | undefined =>
     selectSteps(r).find((step) => step.action.id === selectActiveStepId(r));

@@ -1,5 +1,5 @@
 import { ValidationResultDesc } from '../../model/description/ValidationResultDesc';
-import { IValidationResult } from '../../model/game/Action/IValidationResult';
+import { IValidationResult } from '../../model/game/Step/IValidationResult';
 
 export class ValidationResult implements IValidationResult {
     constructor(readonly success: boolean, readonly message: string) {}

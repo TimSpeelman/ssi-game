@@ -1,5 +1,5 @@
 import { ActionDef } from '../../model/definition/Action/ActionDef';
-import { Action } from '../../model/game/Action/Action';
+import { Action } from '../../model/game/Step/Action';
 import { Issuance } from './abc/Issuance';
 import { Presentation } from './abc/Presentation';
 import { PresentationConsent } from './abc/PresentationConsent';

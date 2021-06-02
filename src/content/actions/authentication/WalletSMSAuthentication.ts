@@ -1,8 +1,8 @@
 import { ActionDesc, Locality } from '../../../model/description/ActionDesc';
-import { Action } from '../../../model/game/Action/Action';
-import { IOutcome } from '../../../model/game/Action/IOutcome';
-import { IValidationResult } from '../../../model/game/Action/IValidationResult';
 import { ScenarioState } from '../../../model/game/State/ScenarioState';
+import { Action } from '../../../model/game/Step/Action';
+import { IOutcome } from '../../../model/game/Step/IOutcome';
+import { IValidationResult } from '../../../model/game/Step/IValidationResult';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { AttributeKnowledge } from '../../assets/data/abc/AttributeKnowledge';
 import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';

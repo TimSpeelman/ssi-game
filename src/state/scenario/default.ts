@@ -23,6 +23,6 @@ export const defaultState: RootState = {
     activeStepId: undefined,
     selectedActorId: undefined,
     selectedStepId: undefined,
-    snackbarOn: true,
+    snackbarOn: false,
     activeSidebarTab: SidebarTab.INFO,
 };

@@ -1,5 +1,5 @@
 /** A plain object describing an Action */
-export interface PlainAction<Props = any> {
+export interface ActionDef<Props = any> {
     id: string;
     props: Props;
     typeName: string;

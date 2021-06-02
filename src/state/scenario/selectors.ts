@@ -1,10 +1,10 @@
 import { actorTypes } from '../../config/actorTypes';
+import { ActionDef } from '../../model/definition/Action/ActionDef';
 import { Actor } from '../../model/definition/Actor/Actor';
 import { ActorType } from '../../model/definition/Actor/ActorType';
 import { definitionToActor } from '../../model/definition/Actor/definitionToActor';
 import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { ScenarioMeta } from '../../model/definition/ScenarioMeta';
-import { PlainAction } from '../../model/game/Action/PlainAction';
 import { PlainScenario } from '../../model/game/Scenario/PlainScenario';
 import { Scenario } from '../../model/game/Scenario/Scenario';
 import { ActorState } from '../../model/view/ActorState';
@@ -16,7 +16,7 @@ import { RootState } from './state';
 
 export const root = (r: any): RootState => r.scenario;
 export const selectActiveSidebarTab = (r: any): SidebarTab => root(r).activeSidebarTab;
-export const selectScenario = (r: any): Scenario => Scenario.deserialize({ props: root(r).scenario });
+export const selectScenario = (r: any): Scenario => new Scenario(root(r).scenario);
 export const selectPlainScenario = (r: any): PlainScenario => ({ props: root(r).scenario });
 
 export const selectScenarioConfiguration = (r: any): ScenarioDef => root(r).scenario;
@@ -30,7 +30,7 @@ export const selectFailedStep = (r: any): ScenarioStepDescription | undefined =>
     w1th(selectScenario(r).describe().failingAtIndex, (index) =>
         index !== undefined && index >= 0 ? selectSteps(r)[index] : undefined,
     );
-export const selectActiveStepSerialized = (r: any): PlainAction<any> | undefined =>
+export const selectActiveStepSerialized = (r: any): ActionDef<any> | undefined =>
     root(r).scenario.steps.find((s) => s.id === root(r).activeStepId);
 export const selectActiveStep = (r: any): ScenarioStepDescription | undefined =>
     selectSteps(r).find((step) => step.action.id === selectActiveStepId(r));

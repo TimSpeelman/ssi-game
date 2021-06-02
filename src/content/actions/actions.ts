@@ -1,5 +1,5 @@
+import { ActionDef } from '../../model/definition/Action/ActionDef';
 import { Action } from '../../model/game/Action/Action';
-import { PlainAction } from '../../model/game/Action/PlainAction';
 import { Issuance } from './abc/Issuance';
 import { Presentation } from './abc/Presentation';
 import { PresentationConsent } from './abc/PresentationConsent';
@@ -22,7 +22,7 @@ export const Actions = {
     CustomInteraction,
 };
 
-export function deserialize(s: PlainAction<any>): Action<any> {
+export function deserialize(s: ActionDef<any>): Action<any> {
     // @ts-ignore
     const constructor: any = Actions[s.typeName];
     return new constructor(s.id, s.props);

@@ -1,11 +1,11 @@
 import { OnlineLiquorPurchaseScenario } from '../../config/scenarios/OnlineLiquorPurchaseScenario';
-import { Scenario } from '../../model/game/Scenario/Scenario';
+import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 import { RootState } from './state';
 
-export const defaultScenario = OnlineLiquorPurchaseScenario.serialize().props;
+export const defaultScenario = OnlineLiquorPurchaseScenario;
 
-export const emptyScenario = new Scenario({
+export const emptyScenario: ScenarioDef = {
     actors: [],
     meta: {
         title: 'Scenario zonder naam',
@@ -13,7 +13,7 @@ export const emptyScenario = new Scenario({
         body: '(leeg)',
     },
     steps: [],
-}).serialize().props;
+};
 
 export const defaultState: RootState = {
     scenario: defaultScenario,

@@ -1,4 +1,4 @@
-import { PlainAction } from '../game/Action/PlainAction';
+import { ActionDef } from './Action/ActionDef';
 import { ActorConfig } from './Actor/ActorConfig';
 import { ScenarioMeta } from './ScenarioMeta';
 
@@ -9,5 +9,5 @@ export interface ScenarioDef {
     /** The actor's and their initial assets */
     actors: ActorConfig[];
     /** All steps of this scenario */
-    steps: PlainAction[];
+    steps: ActionDef[];
 }

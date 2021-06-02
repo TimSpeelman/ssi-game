@@ -1,8 +1,8 @@
+import { ActionDef } from '../../model/definition/Action/ActionDef';
 import { ActorConfig } from '../../model/definition/Actor/ActorConfig';
 import { ActorDefinition } from '../../model/definition/Actor/ActorDefinition';
 import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { ScenarioMeta } from '../../model/definition/ScenarioMeta';
-import { PlainAction } from '../../model/game/Action/PlainAction';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 import { event } from '../../util/redux';
 
@@ -14,8 +14,8 @@ export const ScenarioActions = {
     ADD_ACTOR: event<{ actor: ActorConfig }>('ADD_ACTOR'),
     REMOVE_ACTOR: event<{ id: string }>('REMOVE_ACTOR'),
     UPDATE_ACTOR_DEFINITION: event<{ def: ActorDefinition }>('UPDATE_ACTOR_DEFINITION'),
-    ADD_STEP: event<{ step: PlainAction<any> }>('ADD_STEP'),
-    UPDATE_STEP: event<{ step: PlainAction<any> }>('UPDATE_STEP'),
+    ADD_STEP: event<{ step: ActionDef<any> }>('ADD_STEP'),
+    UPDATE_STEP: event<{ step: ActionDef<any> }>('UPDATE_STEP'),
     REMOVE_STEP: event<{ id: string }>('REMOVE_STEP'),
     REORDER_STEP: event<{ sourceIndex: number; targetIndex: number }>('REORDER_STEP'),
 

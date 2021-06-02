@@ -29,7 +29,7 @@ export function App() {
 
         loadScenarioFromFile(files[0])
             .then((scenario) => {
-                dispatch(ScenarioActions.SET_SCENARIO({ scenario: scenario.serialize().props }));
+                dispatch(ScenarioActions.SET_SCENARIO({ scenario }));
                 alert('Bestand geladen!');
             })
             .catch((e) => alert(e));
@@ -38,7 +38,7 @@ export function App() {
     useEffect(() => {
         const restored = loadScenarioFromLocalStorage();
         if (restored) {
-            dispatch(ScenarioActions.SET_SCENARIO({ scenario: restored.serialize().props }));
+            dispatch(ScenarioActions.SET_SCENARIO({ scenario: restored }));
         } else {
             dispatch(ScenarioActions.RESET());
         }

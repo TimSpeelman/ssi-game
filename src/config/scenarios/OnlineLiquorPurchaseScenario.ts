@@ -12,7 +12,7 @@ import { PrivKey } from '../../content/assets/data/cryptography/PrivKey';
 import { PubKey } from '../../content/assets/data/cryptography/PubKey';
 import { FaceFeature } from '../../content/assets/feature/FaceFeature';
 import { ActorConfig } from '../../model/definition/Actor/ActorConfig';
-import { Scenario } from '../../model/game/Scenario/Scenario';
+import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { defaultActors } from '../defaultActors';
 
 const Government = defaultActors.government_1;
@@ -87,7 +87,7 @@ const actors: ActorConfig[] = [
  *
  * Liveness detection / realtime authentication may not be necessary in this scenario (wallet possession is strong one-factor authentication and therefore sufficient).
  */
-export const OnlineLiquorPurchaseScenario = new Scenario({
+export const OnlineLiquorPurchaseScenario: ScenarioDef = {
     meta: {
         title: 'Online alcoholverkoop met Self-Sovereign Identity',
         author: 'Tim Speelman',
@@ -163,5 +163,5 @@ export const OnlineLiquorPurchaseScenario = new Scenario({
             toId: Subject.id,
             description: 'Toegang tot 18+ verkoop',
         }),
-    ],
-});
+    ].map((s) => s.serialize()),
+};

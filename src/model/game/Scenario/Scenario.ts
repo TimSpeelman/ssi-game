@@ -10,11 +10,6 @@ export class Scenario {
     readonly steps: ComputedStep[];
     readonly initial: ScenarioState;
 
-    static deserialize(s: PlainScenario) {
-        const props = s.props;
-        return new Scenario(props);
-    }
-
     constructor(readonly props: ScenarioDef) {
         const steps = props.steps.map((s) => deserializeAction(s));
         this.initial = ScenarioState.fromConfig(props);

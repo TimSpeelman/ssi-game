@@ -29,8 +29,8 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
 
     REORDER_STEP: (p) => L.scenario.steps.set((steps) => reorder(steps, p.sourceIndex, p.targetIndex)),
 
-    RESET: (p) => L.scenario.set(defaultScenario),
-    CLEAR: (p) => L.scenario.set(emptyScenario),
+    RESET: (p) => L.scenario.set(defaultScenario.serialize().props),
+    CLEAR: (p) => L.scenario.set(emptyScenario.serialize().props),
 
     SELECT_ACTOR: (p) => (s): RootState => ({ ...s, selectedStepId: undefined, selectedActorId: p.id }),
     SELECT_STEP: (p) => (s): RootState => ({ ...s, selectedStepId: p.id, selectedActorId: undefined }),

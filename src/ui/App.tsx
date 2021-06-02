@@ -8,12 +8,11 @@ import { loadScenarioFromLocalStorage } from '../persistence/loadScenarioFromLoc
 import { saveScenarioToFile } from '../persistence/saveScenarioToFile';
 import { saveScenarioToLocalStorage } from '../persistence/saveScenarioToLocalStorage';
 import { ScenarioActions } from '../state/scenario/actions';
-import { selectScenario, selectScenarioProps } from '../state/scenario/selectors';
+import { selectScenario } from '../state/scenario/selectors';
 import { NetworkCanvas } from './pages/NetworkCanvasPage';
 
 export function App() {
     const scenario = useSelector(selectScenario);
-    const scenarioProps = useSelector(selectScenarioProps);
 
     const dispatch = useDispatch();
 
@@ -30,7 +29,7 @@ export function App() {
 
         loadScenarioFromFile(files[0])
             .then((scenario) => {
-                dispatch(ScenarioActions.SET_SCENARIO({ scenario: scenario.props }));
+                dispatch(ScenarioActions.SET_SCENARIO({ scenario: scenario.serialize().props }));
                 alert('Bestand geladen!');
             })
             .catch((e) => alert(e));
@@ -39,7 +38,7 @@ export function App() {
     useEffect(() => {
         const restored = loadScenarioFromLocalStorage();
         if (restored) {
-            dispatch(ScenarioActions.SET_SCENARIO({ scenario: restored.props }));
+            dispatch(ScenarioActions.SET_SCENARIO({ scenario: restored.serialize().props }));
         } else {
             dispatch(ScenarioActions.RESET());
         }
@@ -47,7 +46,7 @@ export function App() {
 
     useEffect(() => {
         saveScenarioToLocalStorage(scenario);
-    }, [scenarioProps]);
+    }, [scenario]);
 
     return (
         <div className="fill">

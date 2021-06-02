@@ -1,7 +1,7 @@
 import { deserialize as deserializeAction } from '../../../content/actions/actions';
 import { ScenarioDescription } from '../../view/ScenarioDescription';
+import { Action } from '../Action/Action';
 import { ComputedStep } from '../Action/ComputedStep';
-import { PlainAction } from '../Action/PlainAction';
 import { ScenarioConfig } from './Config/ScenarioConfig';
 import { PlainScenario } from './PlainScenario';
 import { ScenarioState } from './ScenarioState';
@@ -13,13 +13,13 @@ export class Scenario {
     static deserialize(s: PlainScenario) {
         const props = {
             config: s.props.config,
-            steps: s.props.steps,
+            steps: s.props.steps.map((s) => deserializeAction(s)),
         };
         return new Scenario(props);
     }
 
     constructor(readonly props: ScenarioProps) {
-        const steps = props.steps.map((s) => deserializeAction(s));
+        const steps = props.steps;
         this.initial = ScenarioState.fromConfig(props.config);
         let state = this.initial;
 
@@ -44,7 +44,7 @@ export class Scenario {
         return {
             props: {
                 config: this.props.config,
-                steps: this.props.steps,
+                steps: this.props.steps.map((s) => s.serialize()),
             },
         };
     }
@@ -52,5 +52,5 @@ export class Scenario {
 
 export interface ScenarioProps {
     config: ScenarioConfig;
-    steps: PlainAction<any>[];
+    steps: Action<any>[];
 }

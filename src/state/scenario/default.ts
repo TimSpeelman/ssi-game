@@ -1,11 +1,11 @@
 import { OnlineLiquorPurchaseScenario } from '../../config/scenarios/OnlineLiquorPurchaseScenario';
-import { ScenarioProps } from '../../model/game/Scenario/Scenario';
+import { Scenario } from '../../model/game/Scenario/Scenario';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 import { RootState } from './state';
 
-export const defaultScenario: ScenarioProps = OnlineLiquorPurchaseScenario.props;
+export const defaultScenario = OnlineLiquorPurchaseScenario;
 
-export const emptyScenario: ScenarioProps = {
+export const emptyScenario = new Scenario({
     config: {
         actors: [],
         meta: {
@@ -15,10 +15,10 @@ export const emptyScenario: ScenarioProps = {
         },
     },
     steps: [],
-};
+});
 
 export const defaultState: RootState = {
-    scenario: defaultScenario,
+    scenario: defaultScenario.serialize().props,
     showMeta: true,
     activeStepId: undefined,
     selectedActorId: undefined,

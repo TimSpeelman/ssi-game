@@ -4,14 +4,13 @@ import NavigateNext from '@material-ui/icons/NavigateNext';
 import { useSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Scenario } from '../../model/game/Scenario/Scenario';
 import { ScenarioActions } from '../../state/scenario/actions';
 import {
     selectActiveState,
     selectActiveStep,
     selectActiveStepIndex,
     selectFailedStep,
-    selectScenarioProps,
+    selectScenario,
     selectSelectedActorId,
     selectShowMeta,
     selectSnackbarIsOn,
@@ -26,7 +25,6 @@ import { CanvasEvent, SVGNetworkCanvas } from '../components/SVGNetworkCanvas';
 export function NetworkCanvas() {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const dispatch = useDispatch();
-    const scenarioProps = useSelector(selectScenarioProps);
     const selectedActorId = useSelector(selectSelectedActorId);
     const usedActors = useSelector(selectUsedActors);
     const snackbarIsOn = useSelector(selectSnackbarIsOn);
@@ -36,7 +34,7 @@ export function NetworkCanvas() {
     const failedStep = useSelector(selectFailedStep);
     const showMeta = useSelector(selectShowMeta);
 
-    const scenario = new Scenario(scenarioProps);
+    const scenario = useSelector(selectScenario);
 
     const [hoveredElemId, setHoveredElemId] = useState('');
 

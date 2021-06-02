@@ -18,6 +18,7 @@ export const root = (r: any): RootState => r.scenario;
 export const selectActiveSidebarTab = (r: any): SidebarTab => root(r).activeSidebarTab;
 export const selectScenario = (r: any): Scenario => new Scenario(root(r).scenario);
 export const selectPlainScenario = (r: any): PlainScenario => ({ props: root(r).scenario });
+export const selectScenarioDef = (r: any): ScenarioDef => root(r).scenario;
 
 export const selectScenarioConfiguration = (r: any): ScenarioDef => root(r).scenario;
 export const selectScenarioMeta = (r: any): ScenarioMeta => selectScenarioConfiguration(r).meta;

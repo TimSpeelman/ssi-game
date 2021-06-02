@@ -4,7 +4,6 @@ import { ScenarioDescription } from '../../view/ScenarioDescription';
 import { Action } from '../Action/Action';
 import { ComputedStep } from '../Action/ComputedStep';
 import { ScenarioState } from '../State/ScenarioState';
-import { PlainScenario } from './PlainScenario';
 
 export class Scenario {
     readonly steps: ComputedStep[];
@@ -29,12 +28,6 @@ export class Scenario {
             meta: this.props.meta,
             steps: this.steps.map((s) => s.describe()),
             failingAtIndex: this.steps.findIndex((s) => !s.hasSucceeded()),
-        };
-    }
-
-    serialize(): PlainScenario {
-        return {
-            props: this.props,
         };
     }
 }

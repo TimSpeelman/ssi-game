@@ -8,7 +8,7 @@ import { ScenarioMeta } from '../../model/definition/ScenarioMeta';
 import { ActorStateDesc } from '../../model/description/State/ActorStateDesc';
 import { StateDesc } from '../../model/description/State/StateDesc';
 import { StepDesc } from '../../model/description/Step/StepDesc';
-import { Scenario } from '../../model/game/Scenario/Scenario';
+import { Scenario } from '../../model/logic/Scenario/Scenario';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 import { w1th } from '../../util/w1th';
 import { RootState } from './state';

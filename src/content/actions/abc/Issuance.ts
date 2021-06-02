@@ -1,8 +1,8 @@
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
-import { ScenarioState } from '../../../model/game/State/ScenarioState';
-import { Action } from '../../../model/game/Step/Action';
-import { IOutcome } from '../../../model/game/Step/IOutcome';
-import { IValidationResult } from '../../../model/game/Step/IValidationResult';
+import { ScenarioState } from '../../../model/logic/State/ScenarioState';
+import { Action } from '../../../model/logic/Step/Action';
+import { IOutcome } from '../../../model/logic/Step/IOutcome';
+import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { AttributeProof } from '../../assets/data/abc/AttributeProof';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';

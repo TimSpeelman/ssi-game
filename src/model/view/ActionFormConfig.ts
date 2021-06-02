@@ -1,4 +1,4 @@
-import { Action } from '../game/Step/Action';
+import { Action } from '../logic/Step/Action';
 
 export interface ActionFormConfig<Prop extends string> {
     title: string;

@@ -1,5 +1,5 @@
 import { PlainAction } from '../Action/PlainAction';
-import { ScenarioConfig } from './ScenarioConfig';
+import { ScenarioConfig } from './Config/ScenarioConfig';
 
 export interface PlainScenarioProps {
     config: ScenarioConfig;

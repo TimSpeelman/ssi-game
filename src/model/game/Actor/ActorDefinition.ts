@@ -1,7 +1,7 @@
 import { Actor } from './Actor';
 import { ActorType } from './ActorType';
 
-/** The game predefines some actor types a player can choose from */
+/** A player made actor definition */
 export interface ActorDefinition {
     id: string;
     type: ActorType;

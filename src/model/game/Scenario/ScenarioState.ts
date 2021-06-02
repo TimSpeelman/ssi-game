@@ -4,7 +4,7 @@ import { omit } from '../../../util/util';
 import { ScenarioStateDescription } from '../../view/ScenarioStateDescription';
 import { Actor } from '../Actor/Actor';
 import { definitionToActor } from '../Actor/ActorDefinition';
-import { ScenarioConfig } from './ScenarioConfig';
+import { ScenarioConfig } from './Config/ScenarioConfig';
 
 /** Represents the entire state of the scenario at any point in the scenario. */
 export class ScenarioState {

@@ -11,7 +11,7 @@ import { AttributeKnowledge } from '../../content/assets/data/abc/AttributeKnowl
 import { PrivKey } from '../../content/assets/data/cryptography/PrivKey';
 import { PubKey } from '../../content/assets/data/cryptography/PubKey';
 import { FaceFeature } from '../../content/assets/feature/FaceFeature';
-import { ActorConfig } from '../../model/game/Scenario/ActorConfig';
+import { ActorConfig } from '../../model/game/Scenario/Config/ActorConfig';
 import { Scenario } from '../../model/game/Scenario/Scenario';
 import { defaultActors } from '../defaultActors';
 

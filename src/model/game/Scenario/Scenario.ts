@@ -2,8 +2,8 @@ import { deserialize as deserializeAction } from '../../../content/actions/actio
 import { ScenarioDescription } from '../../view/ScenarioDescription';
 import { ComputedStep } from '../Action/ComputedStep';
 import { PlainAction } from '../Action/PlainAction';
+import { ScenarioConfig } from './Config/ScenarioConfig';
 import { PlainScenario } from './PlainScenario';
-import { ScenarioConfig } from './ScenarioConfig';
 import { ScenarioState } from './ScenarioState';
 
 export class Scenario {

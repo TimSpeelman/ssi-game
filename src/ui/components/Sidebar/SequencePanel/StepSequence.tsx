@@ -16,32 +16,22 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../../../config/actorImage';
 import { ScenarioActions } from '../../../../state/scenario/actions';
-import {
-    selectActiveStepId,
-    selectSelectedStepId,
-    selectSteps,
-    selectUsedActors,
-} from '../../../../state/scenario/selectors';
+import { selectActiveStepId, selectStepDescs, selectUsedActors } from '../../../../state/scenario/selectors';
 import { StepDialog } from './StepDialog';
 
 export function StepSequence() {
-    const steps = useSelector(selectSteps);
+    const steps = useSelector(selectStepDescs);
     const activeStepId = useSelector(selectActiveStepId);
-    const selectedStepId = useSelector(selectSelectedStepId);
     const dispatch = useDispatch();
     const usedActors = useSelector(selectUsedActors);
 
     function handleClick(id: string | undefined) {
-        if (selectedStepId === id) {
+        if (id === undefined) {
             dispatch(ScenarioActions.CLEAR_SELECTION());
         } else {
-            if (id === undefined) {
-                dispatch(ScenarioActions.CLEAR_SELECTION());
-            } else {
-                dispatch(ScenarioActions.SELECT_STEP({ id }));
-            }
-            dispatch(ScenarioActions.GOTO_STEP({ id }));
+            dispatch(ScenarioActions.SELECT_STEP({ id }));
         }
+        dispatch(ScenarioActions.GOTO_STEP({ id }));
     }
 
     function handleReorder(sourceIndex: number, targetIndex: number) {
@@ -91,13 +81,12 @@ export function StepSequence() {
                                             button
                                             className={classNames({
                                                 'step-item': true,
-                                                'active-step': activeStepId === step.action.id,
                                                 'step-success': step.success,
                                                 'step-failed': !step.success,
                                                 'step-inactive': !step.active,
                                             })}
                                             onClick={() => handleClick(step.action.id)}
-                                            selected={selectedStepId === step.action.id}
+                                            selected={activeStepId === step.action.id}
                                         >
                                             <img src={actorImage(step.action.from.image)} style={{ height: '3rem' }} />
                                             <i className="fas fa-chevron-right"></i>

@@ -9,14 +9,14 @@ import { actorImage } from '../../../../config/actorImage';
 import { ActorConfig } from '../../../../model/definition/Actor/ActorConfig';
 import { ScenarioDef } from '../../../../model/definition/ScenarioDef';
 import { ScenarioActions } from '../../../../state/scenario/actions';
-import { selectInvolvedActors, selectScenarioDef } from '../../../../state/scenario/selectors';
+import { selectIdsOfInvolvedActors, selectScenarioDef } from '../../../../state/scenario/selectors';
 import { reorder } from '../../../../util/util';
 import { ActorDefinitionDialog } from './ActorConfigDialog';
 
 export function ActorList() {
     const dispatch = useDispatch();
     const setConf = (scenario: ScenarioDef) => dispatch(ScenarioActions.SET_SCENARIO({ scenario }));
-    const involvedActors = useSelector(selectInvolvedActors);
+    const involvedActors = useSelector(selectIdsOfInvolvedActors);
     const scenarioDef = useSelector(selectScenarioDef);
     const { meta, actors } = scenarioDef;
 

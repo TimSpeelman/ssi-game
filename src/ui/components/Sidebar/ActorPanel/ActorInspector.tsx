@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../../../config/actorImage';
 import { Asset } from '../../../../content/assets/Asset';
 import { ScenarioActions } from '../../../../state/scenario/actions';
-import { selectScenarioDef, selectSelectedActor } from '../../../../state/scenario/selectors';
+import { selectScenarioDef, selectSelectedActorDesc } from '../../../../state/scenario/selectors';
 import { ucFirst } from '../../../../util/util';
 import { ActorDefinitionDialog } from './ActorConfigDialog';
 
@@ -13,7 +13,7 @@ import { ActorDefinitionDialog } from './ActorConfigDialog';
 export function ActorInspector() {
     const dispatch = useDispatch();
     const [editing, setEditing] = useState(false);
-    const actorState = useSelector(selectSelectedActor)!;
+    const actorState = useSelector(selectSelectedActorDesc)!;
     const { assets } = actorState;
     const scenarioDef = useSelector(selectScenarioDef);
     const { actors } = scenarioDef;

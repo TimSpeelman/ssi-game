@@ -3,7 +3,7 @@ import React, { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StepDesc } from '../../../../model/description/Step/StepDesc';
 import { ScenarioActions } from '../../../../state/scenario/actions';
-import { selectActiveActionDef, selectSteps } from '../../../../state/scenario/selectors';
+import { selectActiveActionDef, selectStepDescs } from '../../../../state/scenario/selectors';
 import { StepDialog } from '../SequencePanel/StepDialog';
 import { StepLabel } from './StepLabel';
 import { StepNav } from './StepNav';
@@ -14,7 +14,7 @@ interface Props {
 
 /** Shows the details of a scenario step */
 export function StepInspector({ step }: Props) {
-    const steps = useSelector(selectSteps);
+    const steps = useSelector(selectStepDescs);
     const dispatch = useDispatch();
     const index = steps.findIndex((s) => step.action.id === s.action.id);
     const [editing, setEditing] = useState(false);

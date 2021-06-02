@@ -6,10 +6,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ScenarioActions } from '../../state/scenario/actions';
 import {
-    selectActiveState,
-    selectActiveStep,
+    selectActiveStateDesc,
+    selectActiveStepDesc,
     selectActiveStepIndex,
-    selectFailedStep,
+    selectFailedStepDesc,
     selectScenarioDesc,
     selectSelectedActorId,
     selectShowMeta,
@@ -28,10 +28,10 @@ export function NetworkCanvas() {
     const selectedActorId = useSelector(selectSelectedActorId);
     const usedActors = useSelector(selectUsedActors);
     const snackbarIsOn = useSelector(selectSnackbarIsOn);
-    const currentStep = useSelector(selectActiveStep);
+    const currentStep = useSelector(selectActiveStepDesc);
     const currentStepIndex = useSelector(selectActiveStepIndex);
-    const currentState = useSelector(selectActiveState);
-    const failedStep = useSelector(selectFailedStep);
+    const currentState = useSelector(selectActiveStateDesc);
+    const failedStep = useSelector(selectFailedStepDesc);
     const showMeta = useSelector(selectShowMeta);
 
     const scenarioDesc = useSelector(selectScenarioDesc);

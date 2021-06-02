@@ -1,11 +1,11 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectSteps } from '../../../../state/scenario/selectors';
+import { selectStepDescs } from '../../../../state/scenario/selectors';
 import { StepNav } from './StepNav';
 
 export function InitialStateInspector() {
-    const steps = useSelector(selectSteps);
+    const steps = useSelector(selectStepDescs);
 
     return (
         <div>

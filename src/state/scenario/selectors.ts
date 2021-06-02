@@ -1,8 +1,8 @@
 import { actorTypes } from '../../config/actorTypes';
+import { Actor } from '../../model/definition/Actor';
 import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { ScenarioMeta } from '../../model/definition/ScenarioMeta';
 import { PlainAction } from '../../model/game/Action/PlainAction';
-import { Actor } from '../../model/game/Actor/Actor';
 import { ActorType } from '../../model/game/Actor/ActorType';
 import { definitionToActor } from '../../model/game/Actor/definitionToActor';
 import { PlainScenario } from '../../model/game/Scenario/PlainScenario';

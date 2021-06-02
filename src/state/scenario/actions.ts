@@ -1,8 +1,8 @@
 import { ActorConfig } from '../../model/definition/ActorConfig';
+import { ActorDefinition } from '../../model/definition/ActorDefinition';
 import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { ScenarioMeta } from '../../model/definition/ScenarioMeta';
 import { PlainAction } from '../../model/game/Action/PlainAction';
-import { ActorDefinition } from '../../model/game/Actor/ActorDefinition';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 import { event } from '../../util/redux';
 

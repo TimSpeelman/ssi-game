@@ -1,4 +1,4 @@
-import { ActorType } from './ActorType';
+import { ActorType } from '../game/Actor/ActorType';
 
 /** A player made actor definition */
 export interface ActorDefinition {

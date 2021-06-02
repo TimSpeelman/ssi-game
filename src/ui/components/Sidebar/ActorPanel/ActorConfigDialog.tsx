@@ -16,7 +16,7 @@ import { lens } from 'lens.ts';
 import React, { useEffect, useState } from 'react';
 import { actorImage } from '../../../../config/actorImage';
 import { actorTypes } from '../../../../config/actorTypes';
-import { ActorDefinition } from '../../../../model/game/Actor/ActorDefinition';
+import { ActorDefinition } from '../../../../model/definition/ActorDefinition';
 import { ActorType } from '../../../../model/game/Actor/ActorType';
 
 export interface Props {

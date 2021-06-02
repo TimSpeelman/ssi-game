@@ -1,5 +1,5 @@
 import { actorTypes } from '../../config/actorTypes';
-import { SerializedAction } from '../../model/game/Action';
+import { PlainAction } from '../../model/game/Action/PlainAction';
 import { Actor } from '../../model/game/Actor';
 import { definitionToActor } from '../../model/game/ActorDefinition';
 import { ActorType } from '../../model/game/ActorType';
@@ -27,7 +27,7 @@ export const selectFailedStep = (r: any): ScenarioStepDescription | undefined =>
     w1th(selectScenario(r).describe().failingAtIndex, (index) =>
         index !== undefined && index >= 0 ? selectSteps(r)[index] : undefined,
     );
-export const selectActiveStepSerialized = (r: any): SerializedAction<any> | undefined =>
+export const selectActiveStepSerialized = (r: any): PlainAction<any> | undefined =>
     root(r).scenario.steps.find((s) => s.id === root(r).activeStepId);
 export const selectActiveStep = (r: any): ScenarioStepDescription | undefined =>
     selectSteps(r).find((step) => step.action.id === selectActiveStepId(r));

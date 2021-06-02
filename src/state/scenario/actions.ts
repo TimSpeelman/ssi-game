@@ -1,4 +1,4 @@
-import { SerializedAction } from '../../model/game/Action';
+import { PlainAction } from '../../model/game/Action/PlainAction';
 import { ActorDefinition } from '../../model/game/ActorDefinition';
 import { ActorConfig, ScenarioConfig, ScenarioMeta, ScenarioProps } from '../../model/game/Scenario';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
@@ -13,8 +13,8 @@ export const ScenarioActions = {
     ADD_ACTOR: event<{ actor: ActorConfig }>('ADD_ACTOR'),
     REMOVE_ACTOR: event<{ id: string }>('REMOVE_ACTOR'),
     UPDATE_ACTOR_DEFINITION: event<{ def: ActorDefinition }>('UPDATE_ACTOR_DEFINITION'),
-    ADD_STEP: event<{ step: SerializedAction<any> }>('ADD_STEP'),
-    UPDATE_STEP: event<{ step: SerializedAction<any> }>('UPDATE_STEP'),
+    ADD_STEP: event<{ step: PlainAction<any> }>('ADD_STEP'),
+    UPDATE_STEP: event<{ step: PlainAction<any> }>('UPDATE_STEP'),
     REMOVE_STEP: event<{ id: string }>('REMOVE_STEP'),
     REORDER_STEP: event<{ sourceIndex: number; targetIndex: number }>('REORDER_STEP'),
 

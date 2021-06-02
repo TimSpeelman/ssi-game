@@ -1,8 +1,9 @@
-import { InteractionDescription } from '../../content/actions/InteractionDescription';
-import { ComputedStep } from './ComputedStep';
-import { IOutcome } from './IOutcome';
-import { IValidationResult } from './IValidationResult';
-import { ScenarioState } from './ScenarioState';
+import { InteractionDescription } from '../../../content/actions/InteractionDescription';
+import { ComputedStep } from '../ComputedStep';
+import { IOutcome } from '../IOutcome';
+import { IValidationResult } from '../IValidationResult';
+import { ScenarioState } from '../ScenarioState';
+import { PlainAction } from './PlainAction';
 
 /**
  * The player programs Actions. The action type defines what preconditions must be met before this action can occur and
@@ -40,13 +41,7 @@ export abstract class Action<Props = any> {
     /** Provide a generic description of this action for viewing purposes */
     abstract describe(state: ScenarioState): InteractionDescription;
 
-    serialize(): SerializedAction<Props> {
+    serialize(): PlainAction<Props> {
         return { id: this.id, props: this.props, typeName: this.typeName };
     }
-}
-
-export interface SerializedAction<Props = any> {
-    id: string;
-    props: Props;
-    typeName: string;
 }

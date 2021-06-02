@@ -1,7 +1,7 @@
 import { deserialize as deserializeAction } from '../../content/actions/actions';
 import { Asset } from '../../content/assets/Asset';
 import { ScenarioDescription } from '../view/ScenarioDescription';
-import { SerializedAction } from './Action';
+import { PlainAction } from './Action/PlainAction';
 import { ActorDefinition } from './ActorDefinition';
 import { ComputedStep } from './ComputedStep';
 import { ScenarioState } from './ScenarioState';
@@ -52,7 +52,7 @@ export class Scenario {
 
 export interface ScenarioProps {
     config: ScenarioConfig;
-    steps: SerializedAction<any>[];
+    steps: PlainAction<any>[];
 }
 
 export interface ScenarioMeta {
@@ -77,5 +77,5 @@ export interface SerializedScenario {
 
 export interface SerializedScenarioProps {
     config: ScenarioConfig;
-    steps: SerializedAction[];
+    steps: PlainAction[];
 }

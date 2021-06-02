@@ -1,4 +1,4 @@
-import { Action } from '../../model/game/Action';
+import { Action } from '../../model/game/Action/Action';
 import { IOutcome } from '../../model/game/IOutcome';
 import { IValidationResult } from '../../model/game/IValidationResult';
 import { ScenarioState } from '../../model/game/ScenarioState';

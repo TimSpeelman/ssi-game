@@ -1,6 +1,6 @@
 import { deserialize as deserializeAction } from '../../../content/actions/actions';
 import { ScenarioDef } from '../../definition/ScenarioDef';
-import { ScenarioDescription } from '../../view/ScenarioDescription';
+import { ScenarioDesc } from '../../description/ScenarioDesc';
 import { Action } from '../Action/Action';
 import { ComputedStep } from '../Action/ComputedStep';
 import { ScenarioState } from '../State/ScenarioState';
@@ -9,9 +9,9 @@ export class Scenario {
     readonly steps: ComputedStep[];
     readonly initial: ScenarioState;
 
-    constructor(readonly props: ScenarioDef) {
-        const steps = props.steps.map((s) => deserializeAction(s));
-        this.initial = ScenarioState.fromConfig(props);
+    constructor(readonly definition: ScenarioDef) {
+        const steps = definition.steps.map((s) => deserializeAction(s));
+        this.initial = ScenarioState.fromConfig(definition);
         let state = this.initial;
 
         // Cache the outcome and result computation.
@@ -22,10 +22,10 @@ export class Scenario {
         });
     }
 
-    describe(): ScenarioDescription {
+    describe(): ScenarioDesc {
         return {
             initial: this.initial.describe(),
-            meta: this.props.meta,
+            definition: this.definition,
             steps: this.steps.map((s) => s.describe()),
             failingAtIndex: this.steps.findIndex((s) => !s.hasSucceeded()),
         };

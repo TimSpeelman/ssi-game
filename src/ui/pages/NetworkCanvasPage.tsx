@@ -93,7 +93,7 @@ export function NetworkCanvas() {
     return (
         <div className="network-canvas">
             <ScenarioMetaDialog
-                meta={scenario.props.meta}
+                meta={scenario.definition.meta}
                 open={showMeta}
                 handleClose={() => dispatch(ScenarioActions.HIDE_META())}
             />

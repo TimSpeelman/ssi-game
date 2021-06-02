@@ -3,7 +3,7 @@ import { PlainAction } from '../../model/game/Action/PlainAction';
 import { Actor } from '../../model/game/Actor/Actor';
 import { definitionToActor } from '../../model/game/Actor/ActorDefinition';
 import { ActorType } from '../../model/game/Actor/ActorType';
-import { Scenario, ScenarioConfig, ScenarioMeta, ScenarioProps } from '../../model/game/Scenario';
+import { Scenario, ScenarioConfig, ScenarioMeta, ScenarioProps } from '../../model/game/Scenario/Scenario';
 import { ActorState } from '../../model/view/ActorState';
 import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescription';
 import { ScenarioStepDescription } from '../../model/view/ScenarioStepDescription';

@@ -1,5 +1,5 @@
 import FileSaver from 'file-saver';
-import { Scenario } from '../model/game/Scenario';
+import { Scenario } from '../model/game/Scenario/Scenario';
 
 export function saveScenarioToFile(scenario: Scenario) {
     const blob = new Blob([JSON.stringify(scenario.serialize())], { type: 'application/json;charset=utf-8' });

@@ -1,4 +1,4 @@
-import { Scenario } from '../model/game/Scenario';
+import { Scenario } from '../model/game/Scenario/Scenario';
 
 export function loadScenarioFromFile(jsonFile: File) {
     const reader = new FileReader();

@@ -1,9 +1,9 @@
-import { deserialize as deserializeAction } from '../../content/actions/actions';
-import { Asset } from '../../content/assets/Asset';
-import { ScenarioDescription } from '../view/ScenarioDescription';
-import { ComputedStep } from './Action/ComputedStep';
-import { PlainAction } from './Action/PlainAction';
-import { ActorDefinition } from './Actor/ActorDefinition';
+import { deserialize as deserializeAction } from '../../../content/actions/actions';
+import { Asset } from '../../../content/assets/Asset';
+import { ScenarioDescription } from '../../view/ScenarioDescription';
+import { ComputedStep } from '../Action/ComputedStep';
+import { PlainAction } from '../Action/PlainAction';
+import { ActorDefinition } from '../Actor/ActorDefinition';
 import { ScenarioState } from './ScenarioState';
 
 export class Scenario {

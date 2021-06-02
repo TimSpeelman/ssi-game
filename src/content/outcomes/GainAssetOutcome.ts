@@ -1,6 +1,6 @@
 import { lens } from 'lens.ts';
 import { IOutcome } from '../../model/game/Action/IOutcome';
-import { Props, ScenarioState } from '../../model/game/ScenarioState';
+import { Props, ScenarioState } from '../../model/game/Scenario/ScenarioState';
 import { ucFirst } from '../../util/util';
 import { Asset } from '../assets/Asset';
 

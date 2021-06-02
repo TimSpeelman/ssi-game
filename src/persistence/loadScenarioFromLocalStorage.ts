@@ -1,4 +1,4 @@
-import { Scenario } from '../model/game/Scenario';
+import { Scenario } from '../model/game/Scenario/Scenario';
 
 export function loadScenarioFromLocalStorage(): Scenario | undefined {
     const storedScenario = localStorage.getItem('scenario');

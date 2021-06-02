@@ -6,7 +6,7 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { actorImage } from '../../../../config/actorImage';
-import { ActorConfig, ScenarioConfig } from '../../../../model/game/Scenario';
+import { ActorConfig, ScenarioConfig } from '../../../../model/game/Scenario/Scenario';
 import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectInvolvedActors, selectScenarioConfiguration } from '../../../../state/scenario/selectors';
 import { reorder } from '../../../../util/util';

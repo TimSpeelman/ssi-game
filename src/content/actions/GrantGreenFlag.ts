@@ -1,7 +1,7 @@
 import { Action } from '../../model/game/Action/Action';
 import { IOutcome } from '../../model/game/Action/IOutcome';
 import { IValidationResult } from '../../model/game/Action/IValidationResult';
-import { ScenarioState } from '../../model/game/ScenarioState';
+import { ScenarioState } from '../../model/game/Scenario/ScenarioState';
 import { ActionFormConfig } from '../../model/view/ActionFormConfig';
 import { ucFirst } from '../../util/util';
 import { GreenFlag } from '../assets/Flag';

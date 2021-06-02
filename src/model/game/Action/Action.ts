@@ -1,5 +1,5 @@
 import { InteractionDescription } from '../../../content/actions/InteractionDescription';
-import { ScenarioState } from '../ScenarioState';
+import { ScenarioState } from '../Scenario/ScenarioState';
 import { ComputedStep } from './ComputedStep';
 import { IOutcome } from './IOutcome';
 import { IValidationResult } from './IValidationResult';

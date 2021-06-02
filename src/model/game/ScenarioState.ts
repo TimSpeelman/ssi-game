@@ -12,7 +12,8 @@ export class ScenarioState {
         valid: true,
     };
 
-    static fromConfig(s: ScenarioDef): ScenarioState {
+    /** Compute the initial state from a Scenario Definition */
+    static fromDefinition(s: ScenarioDef): ScenarioState {
         const actors = s.actors.map(
             (a): ActorState => ({
                 actor: definitionToActor(a.definition),

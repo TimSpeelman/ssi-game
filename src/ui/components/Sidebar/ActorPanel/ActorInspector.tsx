@@ -1,5 +1,5 @@
 import { Button, Divider, List, ListItem, ListItemText, Typography } from '@material-ui/core';
-import { Add, ChevronLeft, Edit } from '@material-ui/icons';
+import { Add, ChevronLeft, Delete, Edit } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../../../config/actorImage';
@@ -21,6 +21,7 @@ export function ActorInspector() {
     const actorConfig = actors.find((a) => a.definition.id === actorState?.actor.id);
     const { definition, initialAssets } = actorConfig!;
     const isInitial = (id: string) => !!initialAssets.find((a) => a.id === id);
+
     return (
         <div>
             <AssetDialog
@@ -94,6 +95,15 @@ export function ActorInspector() {
                             {isInitial(a.id) && (
                                 <Button onClick={() => setEditAsset(a.id)}>
                                     <Edit />
+                                </Button>
+                            )}
+                            {isInitial(a.id) && (
+                                <Button
+                                    onClick={() =>
+                                        dispatch(ScenarioActions.REMOVE_ASSET({ actorId: definition.id, id: a.id }))
+                                    }
+                                >
+                                    <Delete />
                                 </Button>
                             )}
                         </ListItem>

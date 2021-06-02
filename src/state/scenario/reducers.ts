@@ -36,6 +36,14 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
                     : a,
             ),
         ),
+    REMOVE_ASSET: (p) =>
+        L.scenario.actors.set((actors) =>
+            actors.map((a) =>
+                a.definition.id === p.actorId
+                    ? { ...a, initialAssets: a.initialAssets.filter((a) => a.id !== p.id) }
+                    : a,
+            ),
+        ),
 
     // Definition Manipulation : Steps
     ADD_STEP: (p) => L.scenario.steps.set((steps) => [...steps, p.step]),

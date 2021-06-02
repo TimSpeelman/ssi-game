@@ -10,14 +10,14 @@ import {
     ListItemText,
     MenuItem,
     Select,
-    TextField,
+    TextField
 } from '@material-ui/core';
 import { lens } from 'lens.ts';
 import React, { useEffect, useState } from 'react';
 import { actorImage } from '../../../../config/actorImage';
 import { actorTypes } from '../../../../config/actorTypes';
 import { ActorDefinition } from '../../../../model/game/Actor/ActorDefinition';
-import { ActorType } from '../../../../model/game/Actor/ActorType';
+import { ActorType } from '../../../../model/game/ActorType';
 
 export interface Props {
     definition?: ActorDefinition;

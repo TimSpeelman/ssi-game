@@ -2,7 +2,7 @@ import { deserialize as deserializeAction } from '../../content/actions/actions'
 import { Asset } from '../../content/assets/Asset';
 import { ScenarioDescription } from '../view/ScenarioDescription';
 import { PlainAction } from './Action/PlainAction';
-import { ActorDefinition } from './ActorDefinition';
+import { ActorDefinition } from './Actor/ActorDefinition';
 import { ComputedStep } from './ComputedStep';
 import { ScenarioState } from './ScenarioState';
 

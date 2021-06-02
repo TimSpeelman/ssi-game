@@ -1,6 +1,6 @@
 import { actorImage } from '../../config/actorImage';
 import { Locality } from '../../content/actions/InteractionDescription';
-import { Actor } from '../../model/game/Actor';
+import { Actor } from '../../model/game/Actor/Actor';
 import { ScenarioStateDescription } from '../../model/view/ScenarioStateDescription';
 import { ScenarioStepDescription } from '../../model/view/ScenarioStepDescription';
 import { pointsOnCircleEquidistant, pointsOnCircleFixedRangeCentered } from '../../util/circle';

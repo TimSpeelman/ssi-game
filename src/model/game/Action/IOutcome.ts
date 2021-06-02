@@ -1,4 +1,4 @@
-import { ScenarioState } from '../Scenario/ScenarioState';
+import { ScenarioState } from '../State/ScenarioState';
 
 /** An Outcome describes any change in state resulting from an action */
 export interface IOutcome {

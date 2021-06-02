@@ -1,10 +1,10 @@
 import { lens } from 'lens.ts';
-import { Asset } from '../../../content/assets/Asset';
 import { omit } from '../../../util/util';
 import { ScenarioStateDescription } from '../../view/ScenarioStateDescription';
 import { Actor } from '../Actor/Actor';
 import { definitionToActor } from '../Actor/ActorDefinition';
-import { ScenarioConfig } from './Config/ScenarioConfig';
+import { ScenarioConfig } from '../Scenario/Config/ScenarioConfig';
+import { ActorState } from './ActorState';
 
 /** Represents the entire state of the scenario at any point in the scenario. */
 export class ScenarioState {
@@ -23,14 +23,6 @@ export class ScenarioState {
         const byActor = actors.reduce((obj, a) => ({ ...obj, [a.actor.id]: a }), {});
 
         return new ScenarioState({ byActor });
-    }
-
-    static deserialize(s: SerializedScenarioState) {
-        const props: Props = {
-            byActor: s.actors,
-            valid: s.valid,
-        };
-        return new ScenarioState(props);
     }
 
     readonly props: Props;
@@ -72,14 +64,3 @@ export interface Props {
 export interface DefaultProps {
     valid: boolean;
 }
-
-export interface ActorState {
-    assets: Asset[];
-    actor: Actor;
-    mode?: string;
-}
-
-export type SerializedScenarioState = {
-    actors: Record<string, ActorState>;
-    valid: boolean;
-};

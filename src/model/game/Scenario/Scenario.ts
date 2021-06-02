@@ -2,9 +2,9 @@ import { deserialize as deserializeAction } from '../../../content/actions/actio
 import { ScenarioDescription } from '../../view/ScenarioDescription';
 import { Action } from '../Action/Action';
 import { ComputedStep } from '../Action/ComputedStep';
+import { ScenarioState } from '../State/ScenarioState';
 import { ScenarioConfig } from './Config/ScenarioConfig';
 import { PlainScenario } from './PlainScenario';
-import { ScenarioState } from './ScenarioState';
 
 export class Scenario {
     readonly steps: ComputedStep[];

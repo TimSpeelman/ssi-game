@@ -30,7 +30,12 @@ module.exports = {
         "@typescript-eslint/no-non-null-assertion": "off",
         "react/prop-types": "off",
         "object-curly-newline": "off",
-        "prettier/prettier": "warn",
+        "prettier/prettier": [
+            "warn",
+            {
+                endOfLine: 'auto',
+            },
+        ],
         "comma-dangle": "off", // handled by prettier
     },
     "settings": {

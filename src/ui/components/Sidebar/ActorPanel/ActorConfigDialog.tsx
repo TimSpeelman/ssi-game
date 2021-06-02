@@ -17,7 +17,7 @@ import React, { useEffect, useState } from 'react';
 import { actorImage } from '../../../../config/actorImage';
 import { actorTypes } from '../../../../config/actorTypes';
 import { ActorDefinition } from '../../../../model/definition/ActorDefinition';
-import { ActorType } from '../../../../model/game/Actor/ActorType';
+import { ActorType } from '../../../../model/definition/ActorType';
 
 export interface Props {
     definition?: ActorDefinition;

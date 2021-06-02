@@ -1,4 +1,4 @@
-import { ActorType } from '../model/game/Actor/ActorType';
+import { ActorType } from '../model/definition/ActorType';
 
 export const actorTypes = {
     person1: {

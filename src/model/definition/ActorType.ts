@@ -1,4 +1,4 @@
-import { ImgName } from '../../../config/actorImage';
+import { ImgName } from '../../config/actorImage';
 
 /** The game predefines some actor types a player can choose from */
 export interface ActorType {

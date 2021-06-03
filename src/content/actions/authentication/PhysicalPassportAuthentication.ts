@@ -21,6 +21,7 @@ export class PhysicalPassportAuthentication extends Action<Props> {
     typeName = 'PhysicalPassportAuthentication';
 
     static config: ActionFormConfig<keyof Props> = {
+        typeName: 'PhysicalPassportAuthentication',
         title: 'Authenticatie o.b.v. paspoort',
         fields: {
             verifierId: { type: 'actor', title: 'Verifier' },

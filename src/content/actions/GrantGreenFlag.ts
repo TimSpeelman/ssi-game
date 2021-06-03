@@ -18,6 +18,7 @@ export class GrantGreenFlag extends Action<Props> {
     typeName = 'GrantGreenFlag';
 
     static config: ActionFormConfig<keyof Props> = {
+        typeName: 'GrantGreenFlag',
         title: 'Groene vlag toekennen',
         fields: {
             fromId: { type: 'actor', title: 'Van Actor' },

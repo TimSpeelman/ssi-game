@@ -13,6 +13,7 @@ export class GovPassport extends Asset<Props> {
     protected typeName = 'GovPassport';
 
     static config: AssetFormConfig<keyof Props> = {
+        typeName: 'GovPassport',
         title: 'Paspoort',
         fields: {
             subjectId: { type: 'actor', title: 'Subject' },

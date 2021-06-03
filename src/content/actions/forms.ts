@@ -18,4 +18,4 @@ export const ActionForms = [
     PresentationConsent,
     Presentation,
     CustomInteraction,
-].map((c) => ({ ...c.config, typeName: c.name }));
+].map((c) => c.config);

@@ -24,6 +24,7 @@ export class Issuance extends Action<Props> {
     typeName = 'Issuance';
 
     static config: ActionFormConfig<keyof Props> = {
+        typeName: 'Issuance',
         title: 'Uitgifte van credential',
         fields: {
             issuerId: { type: 'actor', title: 'Issuer' },

@@ -13,6 +13,7 @@ export class AttributeRequest extends Asset<Props> {
     protected typeName = 'AttributeRequest';
 
     static config: AssetFormConfig<keyof Props> = {
+        typeName: 'AttributeRequest',
         title: 'AttribuutVerzoek',
         fields: {
             subjectId: { type: 'actor', title: 'Subject' },

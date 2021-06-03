@@ -11,6 +11,7 @@ export class HumanRecord extends Asset<Props> {
     protected typeName = 'HumanRecord';
 
     static config: AssetFormConfig<keyof Props> = {
+        typeName: 'HumanRecord',
         title: 'Administratief Beeld',
         fields: {
             subjectId: { type: 'actor', title: 'Subject' },

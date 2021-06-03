@@ -18,6 +18,7 @@ export class WalletSMSAuthentication extends Action<Props> {
     typeName = 'WalletSMSAuthentication';
 
     static config: ActionFormConfig<keyof Props> = {
+        typeName: 'WalletSMSAuthentication',
         title: 'Authenticatie van Wallet via SMS',
         fields: {
             verifierId: { type: 'actor', title: 'Verifier' },

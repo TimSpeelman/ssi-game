@@ -7,4 +7,5 @@ export interface ActionFormConfig<Prop extends string> {
             title: string;
         }
     >;
+    typeName: string;
 }

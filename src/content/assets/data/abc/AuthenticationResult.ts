@@ -12,6 +12,7 @@ export class AuthenticationResult extends Asset<Props> {
     protected typeName = 'AuthenticationResult';
 
     static config: AssetFormConfig<keyof Props> = {
+        typeName: 'AuthenticationResult',
         title: 'Authenticatieresultaat',
         fields: {
             sourceId: { type: 'actor', title: 'Subject' },

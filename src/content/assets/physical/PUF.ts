@@ -17,6 +17,7 @@ export class PUF extends Asset<Props> {
     protected typeName = 'PUF';
 
     static config: AssetFormConfig<keyof Props> = {
+        typeName: 'PUF',
         title: 'Physically Uncloneable Function (PUF)',
         fields: {
             secret: { type: 'string', title: 'Geheim' },

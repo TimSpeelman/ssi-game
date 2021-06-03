@@ -17,6 +17,7 @@ export class WalletQRAuthentication extends Action<Props> {
     typeName = 'WalletQRAuthentication';
 
     static config: ActionFormConfig<keyof Props> = {
+        typeName: 'WalletQRAuthentication',
         title: 'Authenticatie van Wallet via QR',
         fields: {
             verifierId: { type: 'actor', title: 'Verifier' },

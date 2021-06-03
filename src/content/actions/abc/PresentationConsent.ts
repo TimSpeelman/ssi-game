@@ -19,6 +19,7 @@ export class PresentationConsent extends Action<Props> {
     typeName = 'PresentationConsent';
 
     static config: ActionFormConfig<keyof Props> = {
+        typeName: 'PresentationConsent',
         title: 'Toestemming voor Presentatie',
         fields: {
             verifierId: { type: 'actor', title: 'Verifier' },

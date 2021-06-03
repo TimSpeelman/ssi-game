@@ -15,6 +15,7 @@ export class AttributeKnowledge extends Asset<Props> {
     protected typeName = 'AttributeKnowledge';
 
     static config: AssetFormConfig<keyof Props> = {
+        typeName: 'AttributeKnowledge',
         title: 'Attribuutkennis',
         fields: {
             subjectId: { type: 'actor', title: 'Subject' },

@@ -12,6 +12,7 @@ export class FingerprintFeature extends Asset<Props> {
     protected typeName = 'FingerprintFeature';
 
     static config: AssetFormConfig<keyof Props> = {
+        typeName: 'FingerprintFeature',
         title: 'Vingerafdruk',
         fields: {
             subjectId: { type: 'actor', title: 'Subject' },

@@ -13,6 +13,7 @@ export class Consent extends Asset<Props> {
     protected typeName = 'Consent';
 
     static config: AssetFormConfig<keyof Props> = {
+        typeName: 'Consent',
         title: 'Toestemming',
         fields: {
             subjectId: { type: 'actor', title: 'Subject' },

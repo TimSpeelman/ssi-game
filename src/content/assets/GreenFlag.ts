@@ -11,6 +11,7 @@ export class GreenFlag extends Asset<Props> {
     protected typeName = 'GreenFlag';
 
     static config: AssetFormConfig<keyof Props> = {
+        typeName: 'GreenFlag',
         title: 'Groene Vlag',
         fields: {
             description: { type: 'string', title: 'Omschrijving' },

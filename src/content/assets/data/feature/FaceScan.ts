@@ -11,6 +11,7 @@ export class FaceScan extends Asset<Props> {
     protected typeName = 'FaceScan';
 
     static config: AssetFormConfig<keyof Props> = {
+        typeName: 'FaceScan',
         title: 'Portret',
         fields: {
             subjectId: { type: 'actor', title: 'Subject' },

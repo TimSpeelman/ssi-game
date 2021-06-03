@@ -7,4 +7,5 @@ export interface AssetFormConfig<Prop extends string> {
             title: string;
         }
     >;
+    typeName: string;
 }

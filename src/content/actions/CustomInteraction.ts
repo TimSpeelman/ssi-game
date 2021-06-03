@@ -19,6 +19,7 @@ export class CustomInteraction extends Action<Props> {
     typeName = 'CustomInteraction';
 
     static config: ActionFormConfig<keyof Props> = {
+        typeName: 'CustomInteraction',
         title: 'Vrije Interactie',
         fields: {
             fromId: { type: 'actor', title: 'Van' },

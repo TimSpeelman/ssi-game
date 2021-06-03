@@ -54,8 +54,8 @@ export class Presentation extends Action<Props> {
         return {
             id: this.id,
             type: 'Presentation',
-            from: verifier,
-            to: subject,
+            from: subject,
+            to: verifier,
             to_mode: 'phone',
             description: `Toon ${this.props.attributeName} credential`,
             sub: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,

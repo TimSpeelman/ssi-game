@@ -49,8 +49,8 @@ export class PresentationConsent extends Action<Props> {
         return {
             id: this.id,
             type: 'PresentationConsent',
-            from: verifier,
-            to: subject,
+            from: subject,
+            to: verifier,
             to_mode: 'phone',
             description: `Geef toestemming om ${this.props.attributeName} credential te gebruiken`,
             sub: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,

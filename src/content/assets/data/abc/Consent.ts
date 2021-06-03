@@ -10,7 +10,7 @@ export interface Props {
 }
 
 export class Consent extends Asset<Props> {
-    protected typeName = Consent.name;
+    protected typeName = 'Consent';
 
     static config: AssetFormConfig<keyof Props> = {
         title: 'Toestemming',

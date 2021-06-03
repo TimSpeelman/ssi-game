@@ -9,7 +9,7 @@ export interface Props {
 
 /** Possession means that the subject has these fingerprints. Non-transferrable. FingerprintScan can however be transferred. */
 export class FingerprintFeature extends Asset<Props> {
-    protected typeName = FingerprintFeature.name;
+    protected typeName = 'FingerprintFeature';
 
     static config: AssetFormConfig<keyof Props> = {
         title: 'Vingerafdruk',

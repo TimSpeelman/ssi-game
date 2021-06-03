@@ -10,7 +10,7 @@ export interface Props {
 }
 
 export class AttributeRequest extends Asset<Props> {
-    protected typeName = AttributeRequest.name;
+    protected typeName = 'AttributeRequest';
 
     static config: AssetFormConfig<keyof Props> = {
         title: 'AttribuutVerzoek',

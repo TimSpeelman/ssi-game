@@ -8,7 +8,7 @@ export interface Props {
 }
 
 export class GreenFlag extends Asset<Props> {
-    protected typeName = GreenFlag.name;
+    protected typeName = 'GreenFlag';
 
     static config: AssetFormConfig<keyof Props> = {
         title: 'Groene Vlag',

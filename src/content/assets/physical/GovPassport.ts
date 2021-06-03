@@ -10,7 +10,7 @@ export interface Props {
 
 /** Possession means that the subject has these fingerprints. Non-transferrable. FingerprintScan can however be transferred. */
 export class GovPassport extends Asset<Props> {
-    protected typeName = GovPassport.name;
+    protected typeName = 'GovPassport';
 
     static config: AssetFormConfig<keyof Props> = {
         title: 'Paspoort',

@@ -15,7 +15,7 @@ export interface Props {
  * - Note: a proof could be decomposed into other data elements, but this simplification is made for ease of play.
  */
 export class AttributeProof extends Asset<Props> {
-    protected typeName = AttributeProof.name;
+    protected typeName = 'AttributeProof';
 
     static config: AssetFormConfig<keyof Props> = {
         title: 'Attribuutkennis',

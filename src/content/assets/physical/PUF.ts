@@ -14,7 +14,7 @@ export interface Props {
  * - https://en.wikipedia.org/wiki/Physical_unclonable_function
  */
 export class PUF extends Asset<Props> {
-    protected typeName = PUF.name;
+    protected typeName = 'PUF';
 
     static config: AssetFormConfig<keyof Props> = {
         title: 'Physically Uncloneable Function (PUF)',

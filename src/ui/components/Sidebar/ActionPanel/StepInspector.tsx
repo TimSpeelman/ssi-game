@@ -1,10 +1,9 @@
 import { Typography } from '@material-ui/core';
-import React, { Fragment, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { Fragment } from 'react';
+import { useSelector } from 'react-redux';
 import { StepDesc } from '../../../../model/description/Step/StepDesc';
-import { ScenarioActions } from '../../../../state/scenario/actions';
-import { selectActiveActionDef, selectStepDescs } from '../../../../state/scenario/selectors';
-import { StepDialog } from '../SequencePanel/StepDialog';
+import { selectStepDescs } from '../../../../state/scenario/selectors';
+import { useDialog } from '../../../dialogs/dialogs';
 import { StepLabel } from './StepLabel';
 import { StepNav } from './StepNav';
 
@@ -15,23 +14,11 @@ interface Props {
 /** Shows the details of a scenario step */
 export function StepInspector({ step }: Props) {
     const steps = useSelector(selectStepDescs);
-    const dispatch = useDispatch();
     const index = steps.findIndex((s) => step.action.id === s.action.id);
-    const [editing, setEditing] = useState(false);
-    const actionDef = useSelector(selectActiveActionDef);
+    const { openDialog } = useDialog();
+
     return (
         <div>
-            <StepDialog
-                open={editing}
-                isCreate={false}
-                action={actionDef}
-                onSubmit={(step) => {
-                    dispatch(ScenarioActions.UPDATE_STEP({ step }));
-                    setEditing(false);
-                }}
-                onCancel={() => setEditing(false)}
-            />
-
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Typography variant="h6">
                     Stap {index + 1} van {steps.length}
@@ -40,7 +27,7 @@ export function StepInspector({ step }: Props) {
             </div>
 
             {/* Same label as shown in the StepSequence */}
-            <StepLabel step={step} onEdit={() => setEditing(true)} />
+            <StepLabel step={step} onEdit={() => openDialog('EditStep', { stepId: step.action.id })} />
 
             {/* Additional explanation */}
             <p style={{ marginBottom: '1em' }}>{step.action.long}</p>

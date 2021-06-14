@@ -1,6 +1,5 @@
 import {
     Button,
-    Dialog,
     DialogActions,
     DialogContent,
     DialogContentText,
@@ -11,16 +10,15 @@ import {
     Select,
     TextField,
 } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { actorImage } from '../../../../config/actorImage';
-import { ActionForms } from '../../../../content/actions/forms';
-import { ActionDef } from '../../../../model/definition/Action/ActionDef';
-import { selectUsedActors } from '../../../../state/scenario/selectors';
+import { actorImage } from '../../../config/actorImage';
+import { ActionForms } from '../../../content/actions/forms';
+import { ActionDef } from '../../../model/definition/Action/ActionDef';
+import { selectUsedActors } from '../../../state/scenario/selectors';
 
 interface Props {
-    open: boolean;
     action?: ActionDef<any>;
     onSubmit: (act: ActionDef<any>) => void;
     onCancel: () => void;
@@ -68,7 +66,7 @@ export function StepDialog(props: Props) {
     const fields = actType ? Object.entries(actType.fields) : [];
 
     return (
-        <Dialog open={props.open} onClose={props.onCancel} aria-labelledby="form-dialog-title">
+        <Fragment>
             <DialogTitle id="form-dialog-title">Handeling {props.isCreate ? 'Toevoegen' : 'Bewerken'}</DialogTitle>
             <DialogContent>
                 <DialogContentText>Kies een handeling</DialogContentText>
@@ -121,6 +119,6 @@ export function StepDialog(props: Props) {
                     {props.isCreate ? 'Toevoegen' : 'Opslaan'}
                 </Button>
             </DialogActions>
-        </Dialog>
+        </Fragment>
     );
 }

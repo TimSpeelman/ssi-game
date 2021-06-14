@@ -33,6 +33,7 @@ export const selectAssetDefinitions = createSelector(selectScenarioDef, (def) =>
 export const selectActorDefById = (id: string) => (r: any) =>
     selectScenarioDef(r).actors.find((a) => a.definition.id === id);
 export const selectAssetDefById = (id: string) => (r: any) => selectAssetDefinitions(r)[id];
+export const selectActionDefById = (id: string) => (r: any) => selectScenarioDef(r).steps.find((s) => s.id === id);
 
 // Description
 export const selectScenarioDesc = createSelector(selectScenarioDef, (def) => computeScenarioFromDefinition(def));

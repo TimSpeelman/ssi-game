@@ -3,9 +3,13 @@ import { EditActorDialogCtr, EditActorDialogOptions } from './Actor/EditActorDia
 import { AddAssetDialogCtr, AddAssetDialogOptions } from './Asset/AddAssetDialogCtr';
 import { EditAssetDialogCtr, EditAssetDialogOptions } from './Asset/EditAssetDialogCtr';
 import { useDialogService } from './DialogContext';
+import { AddStepDialogCtr, AddStepDialogOptions } from './Step/AddStepDialogCtr';
+import { EditStepDialogCtr, EditStepDialogOptions } from './Step/EditStepDialogCtr';
 
 /** Register all global dialog options (for type safety) */
 interface IGlobalDialogs {
+    AddStep: AddStepDialogOptions;
+    EditStep: EditStepDialogOptions;
     AddAsset: AddAssetDialogOptions;
     EditAsset: EditAssetDialogOptions;
     AddActor: AddActorDialogOptions;
@@ -14,6 +18,8 @@ interface IGlobalDialogs {
 
 /** Register all global dialog components */
 export const GlobalDialogs: { [K in keyof IGlobalDialogs]: React.FC<DialogProps<IGlobalDialogs[K]>> } = {
+    AddStep: AddStepDialogCtr,
+    EditStep: EditStepDialogCtr,
     AddAsset: AddAssetDialogCtr,
     EditAsset: EditAssetDialogCtr,
     AddActor: AddActorDialogCtr,

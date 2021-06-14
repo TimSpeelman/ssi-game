@@ -2,14 +2,14 @@ import { Button, IconButton, List, ListItem, ListItemText, Typography } from '@m
 import { Add, Group } from '@material-ui/icons';
 import DeleteIcon from '@material-ui/icons/Delete';
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../../../config/actorImage';
 import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectActiveStepId, selectStepDescs, selectUsedActors } from '../../../../state/scenario/selectors';
+import { useDialog } from '../../../dialogs/dialogs';
 import { SidebarTab } from '../SidebarTab';
-import { StepDialog } from './StepDialog';
 
 export function StepSequence() {
     const steps = useSelector(selectStepDescs);
@@ -30,23 +30,13 @@ export function StepSequence() {
         dispatch(ScenarioActions.REORDER_STEP({ sourceIndex, targetIndex }));
     }
 
-    const [creating, setCreating] = useState(false);
+    const { openDialog } = useDialog();
 
     return (
         <div style={{ padding: '1rem' }}>
-            <StepDialog
-                open={creating}
-                isCreate={true}
-                onSubmit={(step) => {
-                    dispatch(ScenarioActions.ADD_STEP({ step }));
-                    setCreating(false);
-                }}
-                onCancel={() => setCreating(false)}
-            />
-
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
                 <Typography variant="h6">Stappen ({steps.length})</Typography>
-                <Button variant={'outlined'} onClick={() => setCreating(true)}>
+                <Button variant={'outlined'} onClick={() => openDialog('AddStep', undefined)}>
                     {' '}
                     <Add /> Stap Toevoegen
                 </Button>

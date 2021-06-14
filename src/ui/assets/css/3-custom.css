@@ -173,4 +173,12 @@ p {
 .sidebar-menu .item.active {
   background: #eee;
 }
+
+.asset-number-of-children {
+  text-align: center;
+  font-size: 0.8em;
+  font-weight: bold;
+  -webkit-transform: translateY(0.4em);
+          transform: translateY(0.4em);
+}
 /*# sourceMappingURL=3-custom.css.map */

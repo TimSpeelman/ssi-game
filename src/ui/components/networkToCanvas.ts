@@ -147,6 +147,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
                 lit: false,
                 r: assetRadius,
                 url: '',
+                numberOfChildren: a.children.length,
             }),
         );
 

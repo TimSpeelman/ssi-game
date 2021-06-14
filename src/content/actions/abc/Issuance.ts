@@ -5,6 +5,7 @@ import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { AttributeProof } from '../../assets/data/abc/AttributeProof';
+import { Wallet } from '../../assets/software/Wallet';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
 export interface Props {
@@ -41,7 +42,9 @@ export class Issuance extends Action<Props> {
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
+        const subjectWallet = state.props.byActor[this.props.subjectId].assets.find((a) => a instanceof Wallet);
         const attr = new AttributeProof(this.id + '1', {
+            parentId: subjectWallet?.id,
             name: this.props.attributeName,
             value: this.props.attributeValue,
             issuerId: this.props.issuerNym,

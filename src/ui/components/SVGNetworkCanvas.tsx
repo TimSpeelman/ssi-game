@@ -101,7 +101,22 @@ const connection = (e: ConnectionEl, dispatch: (e: CanvasEvent) => void) => (
     </g>
 );
 
-const asset = (e: AssetEl) => <circle key={e.id} cx={e.c[0]} cy={e.c[1]} r={e.r} fill={'green'} />;
+const asset = (e: AssetEl) => (
+    <g>
+        <circle key={e.id} cx={e.c[0]} cy={e.c[1]} r={e.r} fill={'green'} />
+        {e.numberOfChildren > 0 && (
+            <text
+                key={e.id + '-children'}
+                x={e.c[0]}
+                y={e.c[1]}
+                textAnchor="middle"
+                className="asset-number-of-children"
+            >
+                {e.numberOfChildren}
+            </text>
+        )}
+    </g>
+);
 
 const spotlight = (e: Spotlight) => (
     <g style={{ pointerEvents: 'none' }}>
@@ -170,6 +185,7 @@ export interface AssetEl {
     url: string;
     lit?: boolean;
     hovered?: boolean;
+    numberOfChildren: number;
 }
 
 export interface ActorEl {

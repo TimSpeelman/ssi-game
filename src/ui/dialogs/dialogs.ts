@@ -1,14 +1,20 @@
+import { AddActorDialogCtr, AddActorDialogOptions } from './Actor/AddActorDialogCtr';
+import { EditActorDialogCtr, EditActorDialogOptions } from './Actor/EditActorDialogCtr';
 import { AssetDialogContainer, EditAssetDialogOptions } from './Asset/AssetDialogContainer';
 import { useDialogService } from './DialogContext';
 
 /** Register all global dialog options (for type safety) */
 interface IGlobalDialogs {
     EditAsset: EditAssetDialogOptions;
+    AddActor: AddActorDialogOptions;
+    EditActor: EditActorDialogOptions;
 }
 
 /** Register all global dialog components */
 export const GlobalDialogs: { [K in keyof IGlobalDialogs]: React.FC<DialogProps<IGlobalDialogs[K]>> } = {
     EditAsset: AssetDialogContainer,
+    AddActor: AddActorDialogCtr,
+    EditActor: EditActorDialogCtr,
 };
 
 /** Use this hook to open a dialog */

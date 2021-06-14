@@ -11,13 +11,14 @@ import { ScenarioDef } from '../../../../model/definition/ScenarioDef';
 import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectIdsOfInvolvedActors, selectScenarioDef } from '../../../../state/scenario/selectors';
 import { reorder } from '../../../../util/util';
-import { ActorDefinitionDialog } from './ActorConfigDialog';
+import { useDialog } from '../../../dialogs/dialogs';
 
 export function ActorList() {
     const dispatch = useDispatch();
     const setConf = (scenario: ScenarioDef) => dispatch(ScenarioActions.SET_SCENARIO({ scenario }));
     const involvedActors = useSelector(selectIdsOfInvolvedActors);
     const scenarioDef = useSelector(selectScenarioDef);
+    const { open } = useDialog();
     const { meta, actors } = scenarioDef;
 
     // Actor Setters
@@ -37,20 +38,9 @@ export function ActorList() {
 
     return (
         <div>
-            <ActorDefinitionDialog
-                isCreate={true}
-                open={creatingActor}
-                handleClose={() => setCreatingActor(false)}
-                handleSubmit={(newActor) => {
-                    const newActorConfig: ActorConfig = { initialAssets: [], definition: newActor };
-                    addActor(newActorConfig);
-                    setCreatingActor(false);
-                }}
-            />
-
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
                 <Typography variant="h6">Actoren ({actors.length})</Typography>
-                <Button variant={'outlined'} onClick={() => setCreatingActor(true)}>
+                <Button variant={'outlined'} onClick={() => open('AddActor', undefined)}>
                     <Add /> Actor Toevoegen
                 </Button>
             </div>

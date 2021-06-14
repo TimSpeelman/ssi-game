@@ -30,6 +30,8 @@ export const selectAssetDefinitions = createSelector(selectScenarioDef, (def) =>
 );
 
 // .reduce((all, a) => ({ ...all, ...a.initialAssets.reduce((x, y) => ) }), {} as Record<string, AssetDef>)
+export const selectActorDefById = (id: string) => (r: any) =>
+    selectScenarioDef(r).actors.find((a) => a.definition.id === id);
 export const selectAssetDefById = (id: string) => (r: any) => selectAssetDefinitions(r)[id];
 
 // Description

@@ -35,15 +35,25 @@ export class ScenarioState {
     }
 
     describe(): StateDesc {
-        return {
-            actors: mapValues(
-                this.props.byActor,
-                (byActor): ActorStateDesc => ({
+        const actorStates = mapValues(
+            this.props.byActor,
+            (byActor): ActorStateDesc => {
+                const { trees, record } = assetsToTree(byActor.assets.map((a) => a.describe(this)));
+                return {
                     actor: byActor.actor,
-                    assets: assetsToTree(byActor.assets.map((a) => a.describe(this))),
+                    assetTrees: trees,
+                    assetsById: record,
                     mode: byActor.mode,
-                }),
-            ),
+                };
+            },
+        );
+        const allAssetsById = Object.values(actorStates).reduce(
+            (assets, actor) => ({ ...assets, ...actor.assetsById }),
+            {},
+        );
+        return {
+            actors: actorStates,
+            assets: allAssetsById,
             valid: this.props.valid,
         };
     }

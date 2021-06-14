@@ -1,4 +1,4 @@
-import { Group, Info, Settings, SwapHoriz, Timeline } from '@material-ui/icons';
+import { Category, Group, Info, Settings, SwapHoriz, Timeline } from '@material-ui/icons';
 import classNames from 'classnames';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,16 +6,18 @@ import { ScenarioActions } from '../../../state/scenario/actions';
 import { selectActiveSidebarTab } from '../../../state/scenario/selectors';
 import { ActionPanel } from './ActionPanel/ActionPanel';
 import { ActorPanel } from './ActorPanel/ActorPanel';
+import { AssetPanel } from './AssetPanel/AssetPanel';
 import { InfoPanel } from './InfoPanel/InfoPanel';
 import { OptionPanel } from './OptionPanel/OptionPanel';
 import { SequencePanel } from './SequencePanel/SequencePanel';
 import { SidebarTab as Tab } from './SidebarTab';
 
-const tabOrder = [Tab.INFO, Tab.ACTORS, Tab.TIMELINE, Tab.STEP, Tab.SETTINGS];
+const tabOrder = [Tab.INFO, Tab.ACTORS, Tab.ASSETS, Tab.TIMELINE, Tab.STEP, Tab.SETTINGS];
 
 const sidebarItems: Record<Tab, { Icon: React.FC; Panel: React.FC }> = {
     [Tab.INFO]: { Icon: Info, Panel: InfoPanel },
     [Tab.ACTORS]: { Icon: Group, Panel: ActorPanel },
+    [Tab.ASSETS]: { Icon: Category, Panel: AssetPanel },
     [Tab.TIMELINE]: { Icon: Timeline, Panel: SequencePanel },
     [Tab.STEP]: { Icon: SwapHoriz, Panel: ActionPanel },
     [Tab.SETTINGS]: { Icon: Settings, Panel: OptionPanel },

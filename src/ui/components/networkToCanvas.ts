@@ -129,7 +129,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
     // The assets
     const assetRadius = 10;
     const assets = actors.reduce((all, actor, actorIndex): AssetEl[] => {
-        const assets = props.state.actors[actor.id].assets;
+        const assets = props.state.actors[actor.id].assetTrees;
         const numAssets = assets.length;
 
         const actorCenter = actorHomePos[actorIndex];

@@ -1,10 +1,12 @@
-import { Button, Divider, List, ListItem, ListItemText, Typography } from '@material-ui/core';
-import { Add, ChevronLeft, Delete, Edit } from '@material-ui/icons';
+import { Button, Divider, Typography } from '@material-ui/core';
+import { Add, ChevronLeft, Edit } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../../../config/actorImage';
 import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectScenarioDef, selectSelectedActorDesc } from '../../../../state/scenario/selectors';
+import { AssetList } from '../AssetPanel/AssetList';
+import { SidebarTab } from '../SidebarTab';
 import { ActorDefinitionDialog } from './ActorConfigDialog';
 import { AssetDialog } from './AssetDialog';
 
@@ -15,7 +17,7 @@ export function ActorInspector() {
     const [adding, setAdding] = useState(false);
     const [editedAsset, setEditAsset] = useState<string | undefined>(undefined);
     const actorState = useSelector(selectSelectedActorDesc)!;
-    const { assets } = actorState;
+    const { assetTrees: assets } = actorState;
     const scenarioDef = useSelector(selectScenarioDef);
     const { actors } = scenarioDef;
     const actorConfig = actors.find((a) => a.definition.id === actorState?.actor.id);
@@ -87,35 +89,16 @@ export function ActorInspector() {
                     <Add /> Toevoegen
                 </Button>
             </div>
-            <List dense>
-                {assets.length > 0 ? (
-                    assets.map((a, i) => (
-                        <ListItem key={i}>
-                            <ListItemText primary={a.asset.title} secondary={`(${a.children.length}) ` + a.asset.sub} />
-                            {isInitial(a.asset.id) && (
-                                <Button onClick={() => setEditAsset(a.asset.id)}>
-                                    <Edit />
-                                </Button>
-                            )}
-                            {isInitial(a.asset.id) && (
-                                <Button
-                                    onClick={() =>
-                                        dispatch(
-                                            ScenarioActions.REMOVE_ASSET({ actorId: definition.id, id: a.asset.id }),
-                                        )
-                                    }
-                                >
-                                    <Delete />
-                                </Button>
-                            )}
-                        </ListItem>
-                    ))
-                ) : (
-                    <ListItem>
-                        <ListItemText primary={'- geen -'} />
-                    </ListItem>
-                )}
-            </List>
+            <AssetList
+                assets={assets}
+                isInitial={isInitial}
+                onEdit={setEditAsset}
+                onDelete={(id) => dispatch(ScenarioActions.REMOVE_ASSET({ actorId: definition.id, id: id }))}
+                onClick={(id) => {
+                    dispatch(ScenarioActions.SELECT_ASSET({ id: id }));
+                    dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ASSETS }));
+                }}
+            />
         </div>
     );
 }

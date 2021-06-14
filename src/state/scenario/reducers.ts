@@ -55,9 +55,30 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
     CHANGE_META: (p) => L.scenario.meta.set(p.meta),
 
     // Selection
-    CLEAR_SELECTION: (p) => (s): RootState => ({ ...s, selectedStepId: undefined, selectedActorId: undefined }),
-    SELECT_ACTOR: (p) => (s): RootState => ({ ...s, selectedStepId: undefined, selectedActorId: p.id }),
-    SELECT_STEP: (p) => (s): RootState => ({ ...s, selectedStepId: p.id, selectedActorId: undefined }),
+    CLEAR_SELECTION: (p) => (s): RootState => ({
+        ...s,
+        selectedStepId: undefined,
+        selectedActorId: undefined,
+        selectedAssetId: undefined,
+    }),
+    SELECT_ACTOR: (p) => (s): RootState => ({
+        ...s,
+        selectedStepId: undefined,
+        selectedActorId: p.id,
+        selectedAssetId: undefined,
+    }),
+    SELECT_ASSET: (p) => (s): RootState => ({
+        ...s,
+        selectedStepId: undefined,
+        selectedActorId: undefined,
+        selectedAssetId: p.id,
+    }),
+    SELECT_STEP: (p) => (s): RootState => ({
+        ...s,
+        selectedStepId: p.id,
+        selectedActorId: undefined,
+        selectedAssetId: undefined,
+    }),
 
     // Sequence Navigation
     GOTO_STEP: (p) => L.activeStepId!.set(p.id),

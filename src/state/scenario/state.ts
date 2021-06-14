@@ -6,6 +6,7 @@ export interface RootState {
     showMeta: boolean;
 
     selectedActorId?: string;
+    selectedAssetId?: string;
     selectedStepId?: string;
     activeStepId?: string;
 

@@ -4,6 +4,7 @@ import { Actor } from '../../model/definition/Actor/Actor';
 import { definitionToActor } from '../../model/definition/Actor/definitionToActor';
 import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { ScenarioMeta } from '../../model/definition/ScenarioMeta';
+import { AssetTreeNode } from '../../model/description/Asset/AssetTreeNode';
 import { ActorStateDesc } from '../../model/description/State/ActorStateDesc';
 import { StateDesc } from '../../model/description/State/StateDesc';
 import { StepDesc } from '../../model/description/Step/StepDesc';
@@ -48,6 +49,8 @@ export const selectActiveStepIndex = (r: any): number =>
 export const selectSelectedActorId = (r: any): string | undefined => root(r).selectedActorId;
 export const selectSelectedActorDesc = (r: any): ActorStateDesc | undefined =>
     w1th(root(r).selectedActorId, (id) => (id ? selectActiveStateDesc(r).actors[id] : undefined));
+export const selectSelectedAssetNode = (r: any): AssetTreeNode | undefined =>
+    w1th(root(r).selectedAssetId, (id) => (id ? selectActiveStateDesc(r).assets[id] : undefined));
 
 // Sidebar Navigation
 export const selectActiveSidebarTab = (r: any): SidebarTab => root(r).activeSidebarTab;

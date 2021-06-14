@@ -1,5 +1,5 @@
 import each from 'jest-each';
-import { reorder } from './util';
+import { cascadeRemove, reorder } from './util';
 
 describe('angle', function () {
     const list = [1, 2, 3, 4, 5];
@@ -15,5 +15,24 @@ describe('angle', function () {
     ]).test('moving %s to %s', (fromI, toI, expected) => {
         const result = reorder(list, fromI, toI);
         expect(result).toEqual(expected);
+    });
+});
+
+describe('cascadeRemove', function () {
+    test('removes deps', function () {
+        const items = [
+            { id: '1', parentId: undefined },
+            { id: '2', parentId: undefined },
+            { id: '3', parentId: '2' },
+            { id: '4', parentId: '3' },
+            { id: '5', parentId: '1' },
+        ];
+        const removed = cascadeRemove(
+            '2',
+            items,
+            (t) => t.id,
+            (t) => t.parentId,
+        );
+        expect(removed).toEqual([items[0], items[4]]);
     });
 });

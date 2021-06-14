@@ -1,6 +1,6 @@
 import { lens } from 'lens.ts';
 import { IAction, ReducerMap } from '../../util/redux';
-import { reorder } from '../../util/util';
+import { cascadeRemove, reorder } from '../../util/util';
 import { ScenarioActions } from './actions';
 import { defaultScenario, emptyScenario } from './default';
 import { RootState } from './state';
@@ -40,7 +40,15 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
         L.scenario.actors.set((actors) =>
             actors.map((a) =>
                 a.definition.id === p.actorId
-                    ? { ...a, initialAssets: a.initialAssets.filter((a) => a.id !== p.id) }
+                    ? {
+                          ...a,
+                          initialAssets: cascadeRemove(
+                              p.id,
+                              a.initialAssets,
+                              (a) => a.id,
+                              (a) => a.props.parentId,
+                          ),
+                      }
                     : a,
             ),
         ),

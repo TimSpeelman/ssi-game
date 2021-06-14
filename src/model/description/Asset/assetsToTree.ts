@@ -11,7 +11,7 @@ export function assetsToTree(
         record[node.asset.id] = node;
     });
     nodes.forEach((node) => {
-        if (node.asset.parentId) {
+        if (node.asset.parentId && node.asset.parentId in record) {
             record[node.asset.parentId].children.push(node);
         }
     });

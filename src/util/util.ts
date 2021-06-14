@@ -80,3 +80,18 @@ export function groupBy<T extends Record<string, any>>(items: T[], by: (t: T) =>
         return { ...rec, [group]: [...(rec[group] || []), item] };
     }, {} as Record<string, T[]>);
 }
+
+export function cascadeRemove<T>(
+    id: string,
+    items: T[],
+    getId: (t: T) => string,
+    getParentId: (t: T) => string | undefined,
+): T[] {
+    const withoutId = items.filter((i) => getId(i) !== id);
+    const deps = withoutId.filter((i) => getParentId(i) === id);
+    const noDeps = deps.reduce(
+        (withoutDeps, dep) => cascadeRemove(getId(dep), withoutDeps, getId, getParentId),
+        withoutId,
+    );
+    return noDeps;
+}

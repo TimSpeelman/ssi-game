@@ -12,12 +12,14 @@ export interface Props {
 }
 
 export function AssetList({ assets, onEdit, onDelete, onClick }: Props) {
+    const title = (a: AssetTreeNode) =>
+        a.asset.canHaveChildren ? `${a.asset.title} (${a.children.length})` : a.asset.title;
     return (
         <List dense>
             {assets.length > 0 ? (
                 assets.map((a, i) => (
                     <ListItem key={i} onClick={() => onClick(a.asset.id)}>
-                        <ListItemText primary={a.asset.title} secondary={`(${a.children.length}) ` + a.asset.sub} />
+                        <ListItemText primary={title(a)} secondary={''} />
                         {a.asset.isInitial && (
                             <Button onClick={stopPropagation<any>(() => onEdit(a.asset.id))}>
                                 <Edit />

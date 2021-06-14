@@ -2,6 +2,7 @@ import { Button, Divider, Typography } from '@material-ui/core';
 import { Add, ChevronLeft, Edit } from '@material-ui/icons';
 import React, { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { AssetForms } from '../../../../content/assets/forms';
 import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode';
 import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectSelectedAssetNode, selectUsedActors } from '../../../../state/scenario/selectors';
@@ -17,6 +18,13 @@ export function AssetInspector() {
     const actors = useSelector(selectUsedActors);
     const actor = actors.find((a) => a.id === asset?.ownerId);
 
+    if (!asset) return <div>Geen asset geselecteerd</div>;
+
+    // Depending on the chosen action type, select the appropriate form
+    const type = asset?.asset.type;
+    const assetType = type === undefined ? undefined : AssetForms.find((f) => f.typeName === type)!;
+    const fields = assetType ? Object.entries(assetType.fields) : [];
+
     function handleAssetClick(id: string) {
         dispatch(ScenarioActions.SELECT_ASSET({ id }));
     }
@@ -26,9 +34,7 @@ export function AssetInspector() {
         dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
     }
 
-    return !asset ? (
-        <div>Geen asset geselecteerd</div>
-    ) : (
+    return (
         <div>
             <Button onClick={backToOwner}>
                 <ChevronLeft /> Assets van {actor!.name}
@@ -51,12 +57,22 @@ export function AssetInspector() {
             >
                 <div style={{ flexGrow: 1 }}>
                     <Typography variant="h6">{asset.asset.title}</Typography>
-                    <Typography variant="subtitle2">{asset.asset.sub}</Typography>
+                    {/* <Typography variant="subtitle2">{asset.asset.sub}</Typography> */}
                 </div>
                 <Button onClick={() => setEditing(true)}>
                     <Edit />
                 </Button>
             </div>
+
+            {fields.map(([prop, field]) =>
+                !field ? (
+                    ''
+                ) : (
+                    <div key={prop}>
+                        <strong>{field.title}: </strong> {asset.asset.props[prop] || ''}
+                    </div>
+                ),
+            )}
 
             {asset.asset.canHaveChildren && (
                 <Fragment>

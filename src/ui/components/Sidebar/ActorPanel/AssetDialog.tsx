@@ -74,7 +74,7 @@ export function AssetDialog(props: Props) {
                 <DialogContentText>Kies een Asset</DialogContentText>
                 <FormControl fullWidth style={{ marginBottom: '1em' }}>
                     <InputLabel>Asset</InputLabel>
-                    <Select value={type} onChange={(e) => setType(e.target.value as string)}>
+                    <Select disabled={!props.isCreate} value={type} onChange={(e) => setType(e.target.value as string)}>
                         {AssetForms.map((actType) => (
                             <MenuItem key={actType.typeName} value={actType.typeName}>
                                 {actType.title}

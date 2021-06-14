@@ -9,13 +9,14 @@ export abstract class Asset<Props extends AssetBaseProps = any> {
     constructor(readonly id: string, readonly props: Props) {}
 
     /** Provide a generic description of this action for viewing purposes */
-    describe(state: ScenarioState): AssetDesc {
+    describe(state: ScenarioState): AssetDesc<Props> {
         return {
             ...this._describe(state),
             isInitial: state.props.isInitial,
             parentId: this.props.parentId,
             id: this.id,
             type: this.typeName,
+            props: this.props,
         };
     }
 
@@ -31,6 +32,6 @@ export interface AssetBaseProps {
     parentId?: string;
 }
 
-export type AssetBaseDesc = Pick<AssetDesc, 'parentId' | 'id' | 'type' | 'isInitial'>;
+export type AssetBaseDesc = Pick<AssetDesc, 'parentId' | 'id' | 'type' | 'isInitial' | 'props'>;
 
 export type CustomAssetDesc = Omit<AssetDesc, keyof AssetBaseDesc>;

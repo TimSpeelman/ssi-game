@@ -8,6 +8,7 @@ export interface Props extends AssetBaseProps {
 
 export class HumanRecord extends Asset<Props> {
     protected typeName = 'HumanRecord';
+    protected kindName = 'Data';
 
     static config: AssetFormConfig<keyof Props> = {
         typeName: 'HumanRecord',

@@ -10,6 +10,7 @@ export interface Props extends AssetBaseProps {
 
 export class AttributeRequest extends Asset<Props> {
     protected typeName = 'AttributeRequest';
+    protected kindName = 'Data';
 
     static config: AssetFormConfig<keyof Props> = {
         typeName: 'AttributeRequest',

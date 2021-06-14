@@ -14,6 +14,7 @@ export interface Props extends AssetBaseProps {
  */
 export class PUF extends Asset<Props> {
     protected typeName = 'PUF';
+    protected kindName = 'Physical';
 
     static config: AssetFormConfig<keyof Props> = {
         typeName: 'PUF',

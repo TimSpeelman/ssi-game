@@ -6,6 +6,7 @@ export type Props = AssetBaseProps;
 
 export class Wallet extends Asset<Props> {
     protected typeName = 'Wallet';
+    protected kindName = 'Software';
 
     static config: AssetFormConfig<keyof Props> = {
         typeName: 'Wallet',

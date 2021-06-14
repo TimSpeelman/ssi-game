@@ -15,6 +15,7 @@ export interface Props extends AssetBaseProps {
  */
 export class AttributeProof extends Asset<Props> {
     protected typeName = 'AttributeProof';
+    protected kindName = 'Data';
 
     static config: AssetFormConfig<keyof Props> = {
         typeName: 'AttributeProof',

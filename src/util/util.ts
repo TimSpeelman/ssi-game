@@ -73,3 +73,10 @@ export function keyBy<T extends Record<string, any>>(items: T[], key: keyof T): 
 export function mergeRecords<T>(maps: Record<string, T>[]): Record<string, T> {
     return maps.reduce((all, map) => ({ ...all, ...map }), {});
 }
+
+export function groupBy<T extends Record<string, any>>(items: T[], by: (t: T) => string): Record<string, T[]> {
+    return items.reduce((rec, item) => {
+        const group = by(item);
+        return { ...rec, [group]: [...(rec[group] || []), item] };
+    }, {} as Record<string, T[]>);
+}

@@ -8,6 +8,7 @@ export interface Props extends AssetBaseProps {
 
 export class FaceFeature extends Asset<Props> {
     protected typeName = 'FaceFeature';
+    protected kindName = 'Feature';
 
     static config: AssetFormConfig<keyof Props> = {
         typeName: 'FaceFeature',

@@ -5,6 +5,8 @@ import { ScenarioState } from '../State/ScenarioState';
 export abstract class Asset<Props extends AssetBaseProps = any> {
     /** Type Name used for serialization */
     protected abstract readonly typeName: string;
+    /** Kind Name used for categorization */
+    protected abstract readonly kindName: string;
 
     constructor(readonly id: string, readonly props: Props, readonly isInitial: boolean = false) {}
 
@@ -16,6 +18,7 @@ export abstract class Asset<Props extends AssetBaseProps = any> {
             parentId: this.props.parentId,
             id: this.id,
             type: this.typeName,
+            kind: this.kindName,
             props: this.props,
         };
     }
@@ -32,6 +35,6 @@ export interface AssetBaseProps {
     parentId?: string;
 }
 
-export type AssetBaseDesc = Pick<AssetDesc, 'parentId' | 'id' | 'type' | 'isInitial' | 'props'>;
+export type AssetBaseDesc = Pick<AssetDesc, 'parentId' | 'id' | 'type' | 'kind' | 'isInitial' | 'props'>;
 
 export type CustomAssetDesc = Omit<AssetDesc, keyof AssetBaseDesc>;

@@ -1,10 +1,11 @@
-import { Button, Divider, Typography } from '@material-ui/core';
+import { Button, Divider, ListSubheader, Typography } from '@material-ui/core';
 import { Add, ChevronLeft, Edit } from '@material-ui/icons';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../../../config/actorImage';
 import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectScenarioDef, selectSelectedActorDesc } from '../../../../state/scenario/selectors';
+import { groupBy } from '../../../../util/util';
 import { useDialog } from '../../../dialogs/dialogs';
 import { AssetList } from '../AssetPanel/AssetList';
 import { SidebarTab } from '../SidebarTab';
@@ -19,6 +20,16 @@ export function ActorInspector() {
     const actorConfig = actors.find((a) => a.definition.id === actorState?.actor.id);
     const { definition, initialAssets } = actorConfig!;
     const { openDialog } = useDialog();
+
+    const grouped = groupBy(assets, (a) => a.asset.kind);
+    const groups = Object.entries(grouped).map(([group, items]) => ({ group, items }));
+    const kinds = {
+        Feature: 'Kenmerken',
+        Data: 'Gegevens',
+        Physical: 'Fysieke Zaken',
+        Software: 'Software',
+        Flag: 'Vlaggen',
+    };
 
     return (
         <div>
@@ -56,15 +67,22 @@ export function ActorInspector() {
                     <Add /> Toevoegen
                 </Button>
             </div>
-            <AssetList
-                assets={assets}
-                onEdit={(id) => openDialog('EditAsset', { actorId: definition.id, assetId: id })}
-                onDelete={(id) => dispatch(ScenarioActions.REMOVE_ASSET({ actorId: definition.id, id: id }))}
-                onClick={(id) => {
-                    dispatch(ScenarioActions.SELECT_ASSET({ id: id }));
-                    dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ASSETS }));
-                }}
-            />
+            {groups.map(({ group, items }) => (
+                <Fragment key={group}>
+                    <ListSubheader style={{ padding: 0 }}>
+                        {kinds[group as keyof typeof kinds]} ({items.length})
+                    </ListSubheader>
+                    <AssetList
+                        assets={items}
+                        onEdit={(id) => openDialog('EditAsset', { actorId: definition.id, assetId: id })}
+                        onDelete={(id) => dispatch(ScenarioActions.REMOVE_ASSET({ actorId: definition.id, id: id }))}
+                        onClick={(id) => {
+                            dispatch(ScenarioActions.SELECT_ASSET({ id: id }));
+                            dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ASSETS }));
+                        }}
+                    />
+                </Fragment>
+            ))}
         </div>
     );
 }

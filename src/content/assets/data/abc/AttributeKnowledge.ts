@@ -12,6 +12,7 @@ export interface Props extends AssetBaseProps {
 /** Attribute Knowledge means that the possessing Actor knows a particular attribute value of some subject */
 export class AttributeKnowledge extends Asset<Props> {
     protected typeName = 'AttributeKnowledge';
+    protected kindName = 'Data';
 
     static config: AssetFormConfig<keyof Props> = {
         typeName: 'AttributeKnowledge',

@@ -9,6 +9,7 @@ export interface Props extends AssetBaseProps {
 
 export class AuthenticationResult extends Asset<Props> {
     protected typeName = 'AuthenticationResult';
+    protected kindName = 'Data';
 
     static config: AssetFormConfig<keyof Props> = {
         typeName: 'AuthenticationResult',

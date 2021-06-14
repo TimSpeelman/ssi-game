@@ -5,6 +5,7 @@ export interface AssetDesc<Props = any> {
     isInitial: boolean;
     props: Props;
     type: string;
+    kind: string;
     title: string;
     sub: string;
 }

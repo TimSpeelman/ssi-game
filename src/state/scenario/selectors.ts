@@ -10,6 +10,7 @@ import { StateDesc } from '../../model/description/State/StateDesc';
 import { StepDesc } from '../../model/description/Step/StepDesc';
 import { computeScenarioFromDefinition } from '../../model/logic';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
+import { keyBy, mergeRecords } from '../../util/util';
 import { w1th } from '../../util/w1th';
 import { RootState } from './state';
 
@@ -23,6 +24,13 @@ export const selectUsedActors = (r: any): Actor[] =>
 /** Involved actors are actors that are involved in at least one step */
 export const selectIdsOfInvolvedActors = (r: any): Record<string, true> =>
     selectStepDescs(r).reduce((ids, step) => ({ ...ids, [step.action.from.id]: true, [step.action.to.id]: true }), {});
+
+export const selectAssetDefinitions = createSelector(selectScenarioDef, (def) =>
+    mergeRecords(def.actors.map((actor) => keyBy(actor.initialAssets, 'id'))),
+);
+
+// .reduce((all, a) => ({ ...all, ...a.initialAssets.reduce((x, y) => ) }), {} as Record<string, AssetDef>)
+export const selectAssetDefById = (id: string) => (r: any) => selectAssetDefinitions(r)[id];
 
 // Description
 export const selectScenarioDesc = createSelector(selectScenarioDef, (def) => computeScenarioFromDefinition(def));

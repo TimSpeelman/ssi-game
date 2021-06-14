@@ -9,6 +9,8 @@ import { saveScenarioToFile } from '../persistence/saveScenarioToFile';
 import { saveScenarioToLocalStorage } from '../persistence/saveScenarioToLocalStorage';
 import { ScenarioActions } from '../state/scenario/actions';
 import { selectScenarioDef } from '../state/scenario/selectors';
+import { useDialogService } from './dialogs/DialogContext';
+import { GlobalDialogRouter } from './dialogs/GlobalDialogRouter';
 import { NetworkCanvas } from './pages/NetworkCanvasPage';
 
 export function App() {
@@ -48,8 +50,11 @@ export function App() {
         saveScenarioToLocalStorage(scenario);
     }, [scenario]);
 
+    const dialogCtx = useDialogService();
+
     return (
         <div className="fill">
+            <GlobalDialogRouter />
             <AppBar position="static">
                 <Toolbar>
                     {/* <IconButton edge="start" color="inherit" aria-label="menu">

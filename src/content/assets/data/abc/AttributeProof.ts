@@ -18,7 +18,7 @@ export class AttributeProof extends Asset<Props> {
 
     static config: AssetFormConfig<keyof Props> = {
         typeName: 'AttributeProof',
-        title: 'Attribuutkennis',
+        title: 'Attribuutbewijs',
         fields: {
             subjectId: { type: 'actor', title: 'Subject' },
             issuerId: { type: 'actor', title: 'Issuer' },

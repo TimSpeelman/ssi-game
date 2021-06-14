@@ -65,3 +65,11 @@ export function stopPropagation<E extends { stopPropagation: () => void }>(handl
         handle(e);
     };
 }
+
+export function keyBy<T extends Record<string, any>>(items: T[], key: keyof T): Record<string, T> {
+    return items.reduce((rec, item) => ({ ...rec, [item[key]]: item }), {});
+}
+
+export function mergeRecords<T>(maps: Record<string, T>[]): Record<string, T> {
+    return maps.reduce((all, map) => ({ ...all, ...map }), {});
+}

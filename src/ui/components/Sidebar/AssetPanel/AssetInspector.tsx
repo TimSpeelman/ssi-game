@@ -6,11 +6,13 @@ import { AssetForms } from '../../../../content/assets/forms';
 import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode';
 import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectSelectedAssetNode, selectUsedActors } from '../../../../state/scenario/selectors';
+import { useDialog } from '../../../dialogs/dialogs';
 import { SidebarTab } from '../SidebarTab';
 import { AssetList } from './AssetList';
 
 export function AssetInspector() {
     const dispatch = useDispatch();
+    const { open } = useDialog();
     const [editing, setEditing] = useState(false);
     const [adding, setAdding] = useState(false);
 
@@ -84,7 +86,7 @@ export function AssetInspector() {
                     </div>
                     <AssetList
                         assets={asset.children}
-                        onEdit={() => undefined}
+                        onEdit={(id) => open('EditAsset', { assetId: id, actorId: asset.ownerId })}
                         onDelete={() => undefined}
                         onClick={handleAssetClick}
                     />

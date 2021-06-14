@@ -2,6 +2,7 @@ import { Issuance } from './abc/Issuance';
 import { Presentation } from './abc/Presentation';
 import { PresentationConsent } from './abc/PresentationConsent';
 import { PresentationRequest } from './abc/PresentationRequest';
+import { Revocation } from './abc/Revocation';
 import { PhysicalPassportAuthentication } from './authentication/PhysicalPassportAuthentication';
 import { WalletQRAuthentication } from './authentication/WalletQRAuthentication';
 import { WalletSMSAuthentication } from './authentication/WalletSMSAuthentication';
@@ -14,6 +15,7 @@ export const ActionForms = [
     WalletQRAuthentication,
     WalletSMSAuthentication,
     Issuance,
+    Revocation,
     PresentationRequest,
     PresentationConsent,
     Presentation,

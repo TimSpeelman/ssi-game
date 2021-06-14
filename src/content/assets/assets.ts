@@ -3,6 +3,7 @@ import { Asset } from '../../model/logic/Asset/Asset';
 import { AttributeKnowledge } from './data/abc/AttributeKnowledge';
 import { AttributeProof } from './data/abc/AttributeProof';
 import { AttributeRequest } from './data/abc/AttributeRequest';
+import { AttributeRevocation } from './data/abc/AttributeRevocation';
 import { AuthenticationResult } from './data/abc/AuthenticationResult';
 import { Consent } from './data/abc/Consent';
 import { HumanRecord } from './data/abc/HumanRecord';
@@ -19,6 +20,8 @@ export const Assets = {
     AttributeKnowledge,
     AttributeProof,
     AttributeRequest,
+    AttributeRevocation,
+
     AuthenticationResult,
     Consent,
     HumanRecord,

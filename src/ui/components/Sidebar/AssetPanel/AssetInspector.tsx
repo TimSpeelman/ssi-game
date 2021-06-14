@@ -87,7 +87,7 @@ export function AssetInspector() {
                     <AssetList
                         assets={asset.children}
                         onEdit={(id) => openDialog('EditAsset', { assetId: id, actorId: asset.ownerId })}
-                        onDelete={() => undefined}
+                        onDelete={(id) => dispatch(ScenarioActions.REMOVE_ASSET({ actorId: asset.ownerId, id: id }))}
                         onClick={handleAssetClick}
                     />
                 </Fragment>

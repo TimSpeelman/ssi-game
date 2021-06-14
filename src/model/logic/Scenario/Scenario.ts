@@ -12,10 +12,10 @@ export class Scenario {
     constructor(readonly definition: ScenarioDef) {
         const steps = definition.steps.map((s) => deserializeAction(s));
         this.initial = ScenarioState.fromConfig(definition);
-        let state = this.initial;
+        let state = this.initial.withUpdate((s) => ({ ...s, isInitial: false }));
 
         // Cache the outcome and result computation.
-        this.steps = steps.map((step) => {
+        this.steps = steps.map((step, i) => {
             const computedStep = step.computeStep(state);
             state = computedStep.props.postState;
             return computedStep;

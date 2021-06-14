@@ -6,13 +6,13 @@ export abstract class Asset<Props extends AssetBaseProps = any> {
     /** Type Name used for serialization */
     protected abstract readonly typeName: string;
 
-    constructor(readonly id: string, readonly props: Props) {}
+    constructor(readonly id: string, readonly props: Props, readonly isInitial: boolean = false) {}
 
     /** Provide a generic description of this action for viewing purposes */
     describe(state: ScenarioState): AssetDesc<Props> {
         return {
             ...this._describe(state),
-            isInitial: state.props.isInitial,
+            isInitial: this.isInitial,
             parentId: this.props.parentId,
             id: this.id,
             type: this.typeName,

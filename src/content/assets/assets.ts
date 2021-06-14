@@ -36,5 +36,5 @@ export function deserialize(s: AssetDef<any>): Asset<any> {
     }
     // @ts-ignore
     const constructor: any = Assets[s.typeName];
-    return new constructor(s.id, s.props);
+    return new constructor(s.id, s.props, true);
 }

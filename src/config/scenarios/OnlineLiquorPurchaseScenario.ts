@@ -30,31 +30,43 @@ const actors: ActorConfig[] = [
     {
         definition: Government,
         initialAssets: [
-            new HumanRecord('2', { subjectId: SubjectIdAtGov }),
-            new AttributeKnowledge('3', {
-                issuerId: GovNym1,
-                subjectId: SubjectIdAtGov,
-                name: '18+',
-                value: 'WAAR',
-            }),
+            new HumanRecord('2', { subjectId: SubjectIdAtGov }, true),
+            new AttributeKnowledge(
+                '3',
+                {
+                    issuerId: GovNym1,
+                    subjectId: SubjectIdAtGov,
+                    name: '18+',
+                    value: 'WAAR',
+                },
+                true,
+            ),
         ].map((a) => a.serialize()),
     },
     {
         definition: Subject,
         initialAssets: [
-            new Wallet('wallet1', {}),
-            new AttributeProof('proof1', {
-                subjectId: Subject.id,
-                issuerId: Government.id,
-                name: 'attr',
-                value: 'val',
-                parentId: 'wallet1',
-            }),
-            new GovPassport('4', {
-                subjectId: Subject.id,
-                name: Subject.name,
-            }),
-            new FaceFeature('5', { subjectId: Subject.id }),
+            new Wallet('wallet1', {}, true),
+            new AttributeProof(
+                'proof1',
+                {
+                    subjectId: Subject.id,
+                    issuerId: Government.id,
+                    name: 'attr',
+                    value: 'val',
+                    parentId: 'wallet1',
+                },
+                true,
+            ),
+            new GovPassport(
+                '4',
+                {
+                    subjectId: Subject.id,
+                    name: Subject.name,
+                },
+                true,
+            ),
+            new FaceFeature('5', { subjectId: Subject.id }, true),
         ].map((a) => a.serialize()),
     },
     {

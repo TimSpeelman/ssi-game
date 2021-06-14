@@ -22,7 +22,6 @@ export function ActorInspector() {
     const { actors } = scenarioDef;
     const actorConfig = actors.find((a) => a.definition.id === actorState?.actor.id);
     const { definition, initialAssets } = actorConfig!;
-    const isInitial = (id: string) => !!initialAssets.find((a) => a.id === id);
 
     return (
         <div>
@@ -91,7 +90,6 @@ export function ActorInspector() {
             </div>
             <AssetList
                 assets={assets}
-                isInitial={isInitial}
                 onEdit={setEditAsset}
                 onDelete={(id) => dispatch(ScenarioActions.REMOVE_ASSET({ actorId: definition.id, id: id }))}
                 onClick={(id) => {

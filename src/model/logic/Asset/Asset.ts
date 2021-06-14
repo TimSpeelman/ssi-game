@@ -9,7 +9,18 @@ export abstract class Asset<Props extends AssetBaseProps = any> {
     constructor(readonly id: string, readonly props: Props) {}
 
     /** Provide a generic description of this action for viewing purposes */
-    abstract describe(state: ScenarioState): AssetDesc;
+    describe(state: ScenarioState): AssetDesc {
+        return {
+            ...this._describe(state),
+            isInitial: state.props.isInitial,
+            parentId: this.props.parentId,
+            id: this.id,
+            type: this.typeName,
+        };
+    }
+
+    /** Provide a generic description of this action for viewing purposes */
+    abstract _describe(state: ScenarioState): Pick<AssetDesc, 'sub' | 'title'>;
 
     serialize(): AssetDef<Props> {
         return { id: this.id, props: this.props, typeName: this.typeName };

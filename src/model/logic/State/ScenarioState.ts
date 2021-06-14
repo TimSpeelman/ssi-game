@@ -13,6 +13,7 @@ import { ActorState } from './ActorState';
 export class ScenarioState {
     static defaults: DefaultProps = {
         valid: true,
+        isInitial: false,
     };
 
     static fromConfig(s: ScenarioDef): ScenarioState {
@@ -25,7 +26,7 @@ export class ScenarioState {
 
         const byActor = actors.reduce((obj, a) => ({ ...obj, [a.actor.id]: a }), {});
 
-        return new ScenarioState({ byActor });
+        return new ScenarioState({ byActor, isInitial: true });
     }
 
     readonly props: Props;
@@ -38,7 +39,10 @@ export class ScenarioState {
         const actorStates = mapValues(
             this.props.byActor,
             (byActor): ActorStateDesc => {
-                const { trees, record } = assetsToTree(byActor.assets.map((a) => a.describe(this)));
+                const { trees, record } = assetsToTree(
+                    byActor.assets.map((a) => a.describe(this)),
+                    byActor.actor.id,
+                );
                 return {
                     actor: byActor.actor,
                     assetTrees: trees,
@@ -77,10 +81,12 @@ export class ScenarioState {
 }
 
 export interface Props {
+    isInitial: boolean;
     byActor: Record<string, ActorState>;
     valid: boolean;
 }
 
 export interface DefaultProps {
+    isInitial: boolean;
     valid: boolean;
 }

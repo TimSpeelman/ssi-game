@@ -1,4 +1,3 @@
-import { AssetDesc } from '../../../../model/description/Asset/AssetDesc';
 import { Asset, AssetBaseProps } from '../../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../../model/logic/State/ScenarioState';
 import { AssetFormConfig } from '../../../../model/view/AssetFormConfig';
@@ -28,11 +27,8 @@ export class AttributeProof extends Asset<Props> {
         },
     };
 
-    describe(state: ScenarioState): AssetDesc {
+    _describe(state: ScenarioState) {
         return {
-            parentId: this.props.parentId,
-            id: this.id,
-            type: this.typeName,
             sub: JSON.stringify(this.props),
             title: 'Attribuutbewijs',
         };

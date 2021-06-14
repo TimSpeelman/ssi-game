@@ -1,9 +1,12 @@
 import { AssetDesc } from './AssetDesc';
 import { AssetTreeNode } from './AssetTreeNode';
 
-export function assetsToTree(assets: AssetDesc[]): { trees: AssetTreeNode[]; record: Record<string, AssetTreeNode> } {
+export function assetsToTree(
+    assets: AssetDesc[],
+    ownerId: string,
+): { trees: AssetTreeNode[]; record: Record<string, AssetTreeNode> } {
     const record: Record<string, AssetTreeNode> = {};
-    const nodes = assets.map((a) => ({ asset: a, children: [] }));
+    const nodes = assets.map((a) => ({ asset: a, children: [], ownerId }));
     nodes.forEach((node) => {
         record[node.asset.id] = node;
     });

@@ -12,6 +12,7 @@ import {
     selectFailedStepDesc,
     selectScenarioDesc,
     selectSelectedActorId,
+    selectSelectedAssetId,
     selectShowMeta,
     selectSnackbarIsOn,
     selectUsedActors,
@@ -26,6 +27,7 @@ export function NetworkCanvas() {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const dispatch = useDispatch();
     const selectedActorId = useSelector(selectSelectedActorId);
+    const selectedAssetId = useSelector(selectSelectedAssetId);
     const usedActors = useSelector(selectUsedActors);
     const snackbarIsOn = useSelector(selectSnackbarIsOn);
     const currentStep = useSelector(selectActiveStepDesc);
@@ -54,6 +56,15 @@ export function NetworkCanvas() {
         }
     }
 
+    function handleClickAsset(id: string) {
+        if (selectedAssetId === id) {
+            dispatch(ScenarioActions.CLEAR_SELECTION());
+        } else {
+            dispatch(ScenarioActions.SELECT_ASSET({ id }));
+            dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ASSETS }));
+        }
+    }
+
     const handleEvent = (ev: CanvasEvent) => {
         switch (ev.type) {
             case 'slot-enter':
@@ -62,6 +73,12 @@ export function NetworkCanvas() {
                 return hoveredElemId === ev.id ? setHoveredElemId('') : null;
             case 'slot-click':
                 return handleClickActor(ev.id);
+            case 'asset-enter':
+                return setHoveredElemId(ev.id);
+            case 'asset-click':
+                return handleClickAsset(ev.id);
+            case 'asset-leave':
+                return hoveredElemId === ev.id ? setHoveredElemId('') : null;
             case 'conn-enter':
                 return setHoveredElemId(ev.id);
             case 'conn-leave':
@@ -87,6 +104,7 @@ export function NetworkCanvas() {
         modes,
         step: currentStep,
         selectedActorId,
+        selectedAssetId,
         hoveredElemId,
     });
 

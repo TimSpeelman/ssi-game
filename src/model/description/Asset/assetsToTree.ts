@@ -16,6 +16,5 @@ export function assetsToTree(
         }
     });
     const roots = Object.values(record).filter((node) => !node.asset.parentId);
-    console.log('ATT', roots);
     return { trees: roots, record };
 }

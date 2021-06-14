@@ -49,6 +49,7 @@ export const selectActiveStepIndex = (r: any): number =>
 export const selectSelectedActorId = (r: any): string | undefined => root(r).selectedActorId;
 export const selectSelectedActorDesc = (r: any): ActorStateDesc | undefined =>
     w1th(root(r).selectedActorId, (id) => (id ? selectActiveStateDesc(r).actors[id] : undefined));
+export const selectSelectedAssetId = (r: any): string | undefined => root(r).selectedAssetId;
 export const selectSelectedAssetNode = (r: any): AssetTreeNode | undefined =>
     w1th(root(r).selectedAssetId, (id) => (id ? selectActiveStateDesc(r).assets[id] : undefined));
 

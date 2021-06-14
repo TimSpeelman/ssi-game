@@ -16,6 +16,7 @@ interface NetworkProps {
     state: StateDesc;
     step?: StepDesc;
     selectedActorId?: string;
+    selectedAssetId?: string;
     hoveredElemId?: string;
 }
 
@@ -142,8 +143,11 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
             (a, assetIndex): AssetEl => ({
                 type: 'asset',
                 active: false,
+                selected: a.asset.id === props.selectedAssetId,
+                hovered: a.asset.id === props.hoveredElemId,
                 c: assetPositionsAbs[assetIndex],
-                id: `asset-${actorIndex}-${assetIndex}`, // todo fixme
+                // id: `asset-${actorIndex}-${assetIndex}`, // todo fixme
+                id: a.asset.id,
                 lit: false,
                 r: assetRadius,
                 url: '',

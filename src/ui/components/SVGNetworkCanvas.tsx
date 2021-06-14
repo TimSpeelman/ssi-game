@@ -7,6 +7,9 @@ export type CanvasEvent =
     | SlotClickEvent
     | SlotEnterEvent
     | SlotLeaveEvent
+    | AssetEnterEvent
+    | AssetClickEvent
+    | AssetLeaveEvent
     | ConnEnterEvent
     | ConnLeaveEvent
     | SlotDeleteEvent;
@@ -33,6 +36,18 @@ interface ConnLeaveEvent {
 }
 interface SlotDeleteEvent {
     type: 'slot-delete';
+    id: string;
+}
+interface AssetEnterEvent {
+    type: 'asset-enter';
+    id: string;
+}
+interface AssetClickEvent {
+    type: 'asset-click';
+    id: string;
+}
+interface AssetLeaveEvent {
+    type: 'asset-leave';
     id: string;
 }
 
@@ -101,20 +116,27 @@ const connection = (e: ConnectionEl, dispatch: (e: CanvasEvent) => void) => (
     </g>
 );
 
-const asset = (e: AssetEl) => (
-    <g>
-        <circle key={e.id} cx={e.c[0]} cy={e.c[1]} r={e.r} fill={'green'} />
+const asset = (e: AssetEl, dispatch: (e: CanvasEvent) => void) => (
+    <g key={e.id}>
+        {/* Selection or hover */}
+        <circle cx={e.c[0]} cy={e.c[1]} r={e.selected || e.hovered ? e.r * 1.3 : 0} opacity={0.9} fill={'#fef4bd'} />
+
+        <circle cx={e.c[0]} cy={e.c[1]} r={e.r} fill={'green'} />
         {e.numberOfChildren > 0 && (
-            <text
-                key={e.id + '-children'}
-                x={e.c[0]}
-                y={e.c[1]}
-                textAnchor="middle"
-                className="asset-number-of-children"
-            >
+            <text x={e.c[0]} y={e.c[1]} textAnchor="middle" className="asset-number-of-children">
                 {e.numberOfChildren}
             </text>
         )}
+        <circle
+            cx={e.c[0]}
+            cy={e.c[1]}
+            style={{ cursor: 'pointer' }}
+            r={e.r * 1.2}
+            fill={'transparent'}
+            onClick={() => dispatch({ type: 'asset-click', id: e.id })}
+            onMouseEnter={() => dispatch({ type: 'asset-enter', id: e.id })}
+            onMouseLeave={() => dispatch({ type: 'asset-leave', id: e.id })}
+        />
     </g>
 );
 
@@ -154,7 +176,7 @@ export function SVGNetworkCanvas(props: Props) {
                     case 'connection':
                         return connection(e, props.onEvent);
                     case 'asset':
-                        return asset(e);
+                        return asset(e, props.onEvent);
                 }
             })}
             {spotlightCover(600, 600)}
@@ -182,6 +204,7 @@ export interface AssetEl {
     c: Vec;
     r: number;
     active?: boolean;
+    selected?: boolean;
     url: string;
     lit?: boolean;
     hovered?: boolean;

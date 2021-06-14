@@ -20,7 +20,7 @@ export abstract class Asset<Props extends AssetBaseProps = any> {
     }
 
     /** Provide a generic description of this action for viewing purposes */
-    abstract _describe(state: ScenarioState): Pick<AssetDesc, 'sub' | 'title'>;
+    abstract _describe(state: ScenarioState): CustomAssetDesc;
 
     serialize(): AssetDef<Props> {
         return { id: this.id, props: this.props, typeName: this.typeName };
@@ -30,3 +30,7 @@ export abstract class Asset<Props extends AssetBaseProps = any> {
 export interface AssetBaseProps {
     parentId?: string;
 }
+
+export type AssetBaseDesc = Pick<AssetDesc, 'parentId' | 'id' | 'type' | 'isInitial'>;
+
+export type CustomAssetDesc = Omit<AssetDesc, keyof AssetBaseDesc>;

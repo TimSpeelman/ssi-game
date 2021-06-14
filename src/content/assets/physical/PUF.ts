@@ -1,4 +1,4 @@
-import { Asset, AssetBaseProps } from '../../../model/logic/Asset/Asset';
+import { Asset, AssetBaseProps, CustomAssetDesc } from '../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { AssetFormConfig } from '../../../model/view/AssetFormConfig';
 
@@ -23,7 +23,7 @@ export class PUF extends Asset<Props> {
         },
     };
 
-    _describe(state: ScenarioState) {
+    _describe(state: ScenarioState): CustomAssetDesc {
         return {
             sub: JSON.stringify(this.props),
             title: 'Physically Uncloneable Function (PUF)',

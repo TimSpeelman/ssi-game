@@ -1,6 +1,6 @@
 import { Button, Divider, Typography } from '@material-ui/core';
 import { Add, ChevronLeft, Edit } from '@material-ui/icons';
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode';
 import { ScenarioActions } from '../../../../state/scenario/actions';
@@ -58,18 +58,22 @@ export function AssetInspector() {
                 </Button>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
-                <Typography variant="h6">Assets ({asset.children.length})</Typography>
-                <Button onClick={() => setAdding(true)}>
-                    <Add /> Toevoegen
-                </Button>
-            </div>
-            <AssetList
-                assets={asset.children}
-                onEdit={() => undefined}
-                onDelete={() => undefined}
-                onClick={handleAssetClick}
-            />
+            {asset.asset.canHaveChildren && (
+                <Fragment>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
+                        <Typography variant="h6">Inhoud ({asset.children.length})</Typography>
+                        <Button onClick={() => setAdding(true)}>
+                            <Add /> Toevoegen
+                        </Button>
+                    </div>
+                    <AssetList
+                        assets={asset.children}
+                        onEdit={() => undefined}
+                        onDelete={() => undefined}
+                        onClick={handleAssetClick}
+                    />
+                </Fragment>
+            )}
         </div>
     );
 }

@@ -121,7 +121,7 @@ const asset = (e: AssetEl, dispatch: (e: CanvasEvent) => void) => (
         {/* Selection or hover */}
         <circle cx={e.c[0]} cy={e.c[1]} r={e.selected || e.hovered ? e.r * 1.3 : 0} opacity={0.9} fill={'#fef4bd'} />
 
-        <circle cx={e.c[0]} cy={e.c[1]} r={e.r} fill={'green'} />
+        <circle cx={e.c[0]} cy={e.c[1]} r={e.r} fill={'#aaa'} />
         {e.numberOfChildren > 0 && (
             <text x={e.c[0]} y={e.c[1]} textAnchor="middle" className="asset-number-of-children">
                 {e.numberOfChildren}

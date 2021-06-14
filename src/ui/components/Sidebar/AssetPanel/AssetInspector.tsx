@@ -59,9 +59,13 @@ export function AssetInspector() {
                     <Typography variant="h6">{asset.asset.title}</Typography>
                     {/* <Typography variant="subtitle2">{asset.asset.sub}</Typography> */}
                 </div>
-                <Button onClick={() => openDialog('EditAsset', { actorId: asset.ownerId, assetId: asset.asset.id })}>
-                    <Edit />
-                </Button>
+                {asset.asset.isInitial && (
+                    <Button
+                        onClick={() => openDialog('EditAsset', { actorId: asset.ownerId, assetId: asset.asset.id })}
+                    >
+                        <Edit />
+                    </Button>
+                )}
             </div>
 
             {fields.map(([prop, field]) =>

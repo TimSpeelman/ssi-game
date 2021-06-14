@@ -18,7 +18,7 @@ export function AssetList({ assets, onEdit, onDelete, onClick }: Props) {
         <List dense>
             {assets.length > 0 ? (
                 assets.map((a, i) => (
-                    <ListItem key={i} onClick={() => onClick(a.asset.id)}>
+                    <ListItem key={i} onClick={() => onClick(a.asset.id)} button>
                         <ListItemText primary={title(a)} secondary={''} />
                         {a.asset.isInitial && (
                             <Button onClick={stopPropagation<any>(() => onEdit(a.asset.id))}>

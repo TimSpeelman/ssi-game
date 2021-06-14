@@ -1,9 +1,9 @@
 import { AssetDesc } from '../../../../model/description/Asset/AssetDesc';
-import { Asset } from '../../../../model/logic/Asset/Asset';
+import { Asset, AssetBaseProps } from '../../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../../model/logic/State/ScenarioState';
 import { AssetFormConfig } from '../../../../model/view/AssetFormConfig';
 
-export interface Props {
+export interface Props extends AssetBaseProps {
     name: string;
     value: string;
     issuerId: string;
@@ -30,6 +30,7 @@ export class AttributeProof extends Asset<Props> {
 
     describe(state: ScenarioState): AssetDesc {
         return {
+            parentId: this.props.parentId,
             id: this.id,
             type: this.typeName,
             sub: JSON.stringify(this.props),

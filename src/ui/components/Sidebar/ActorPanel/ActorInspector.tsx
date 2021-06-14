@@ -91,16 +91,18 @@ export function ActorInspector() {
                 {assets.length > 0 ? (
                     assets.map((a, i) => (
                         <ListItem key={i}>
-                            <ListItemText primary={a.title} secondary={a.sub} />
-                            {isInitial(a.id) && (
-                                <Button onClick={() => setEditAsset(a.id)}>
+                            <ListItemText primary={a.asset.title} secondary={`(${a.children.length}) ` + a.asset.sub} />
+                            {isInitial(a.asset.id) && (
+                                <Button onClick={() => setEditAsset(a.asset.id)}>
                                     <Edit />
                                 </Button>
                             )}
-                            {isInitial(a.id) && (
+                            {isInitial(a.asset.id) && (
                                 <Button
                                     onClick={() =>
-                                        dispatch(ScenarioActions.REMOVE_ASSET({ actorId: definition.id, id: a.id }))
+                                        dispatch(
+                                            ScenarioActions.REMOVE_ASSET({ actorId: definition.id, id: a.asset.id }),
+                                        )
                                     }
                                 >
                                     <Delete />

@@ -4,6 +4,7 @@ import { mapValues, omit } from '../../../util/util';
 import { Actor } from '../../definition/Actor/Actor';
 import { definitionToActor } from '../../definition/Actor/definitionToActor';
 import { ScenarioDef } from '../../definition/ScenarioDef';
+import { assetsToTree } from '../../description/Asset/assetsToTree';
 import { ActorStateDesc } from '../../description/State/ActorStateDesc';
 import { StateDesc } from '../../description/State/StateDesc';
 import { ActorState } from './ActorState';
@@ -39,7 +40,7 @@ export class ScenarioState {
                 this.props.byActor,
                 (byActor): ActorStateDesc => ({
                     actor: byActor.actor,
-                    assets: byActor.assets.map((a) => a.describe(this)),
+                    assets: assetsToTree(byActor.assets.map((a) => a.describe(this))),
                     mode: byActor.mode,
                 }),
             ),

@@ -83,35 +83,42 @@ export function AssetDialog(props: Props) {
                     </Select>
                 </FormControl>
 
-                {fields.map(([prop, field]) => (
-                    <div key={prop}>
-                        {field.type === 'actor' && (
-                            <FormControl fullWidth style={{ marginBottom: '1em' }}>
-                                <InputLabel>{field.title}</InputLabel>
-                                <Select value={assetProps[prop] || ''} onChange={(e) => setField(prop, e.target.value)}>
-                                    {availableActors.map((actor) => (
-                                        <MenuItem key={actor.id} value={actor.id}>
-                                            <img src={actorImage(actor.image)} style={{ height: '2rem' }} />
-                                            {actor.name}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        )}
+                {fields.map(([prop, field]) =>
+                    !field ? (
+                        ''
+                    ) : (
+                        <div key={prop}>
+                            {field.type === 'actor' && (
+                                <FormControl fullWidth style={{ marginBottom: '1em' }}>
+                                    <InputLabel>{field.title}</InputLabel>
+                                    <Select
+                                        value={assetProps[prop] || ''}
+                                        onChange={(e) => setField(prop, e.target.value)}
+                                    >
+                                        {availableActors.map((actor) => (
+                                            <MenuItem key={actor.id} value={actor.id}>
+                                                <img src={actorImage(actor.image)} style={{ height: '2rem' }} />
+                                                {actor.name}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            )}
 
-                        {field.type === 'string' && (
-                            <TextField
-                                style={{ marginBottom: '1em' }}
-                                margin="dense"
-                                id={'input-' + prop}
-                                label={field.title}
-                                value={assetProps[prop] || ''}
-                                onChange={(e) => setField(prop, e.target.value)}
-                                fullWidth
-                            />
-                        )}
-                    </div>
-                ))}
+                            {field.type === 'string' && (
+                                <TextField
+                                    style={{ marginBottom: '1em' }}
+                                    margin="dense"
+                                    id={'input-' + prop}
+                                    label={field.title}
+                                    value={assetProps[prop] || ''}
+                                    onChange={(e) => setField(prop, e.target.value)}
+                                    fullWidth
+                                />
+                            )}
+                        </div>
+                    ),
+                )}
             </DialogContent>
             <DialogActions>
                 <Button onClick={props.onCancel} color="primary">

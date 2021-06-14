@@ -12,6 +12,7 @@ import { FingerprintFeature } from './feature/FingerprintFeature';
 import { GreenFlag } from './GreenFlag';
 import { GovPassport } from './physical/GovPassport';
 import { PUF } from './physical/PUF';
+import { Wallet } from './software/Wallet';
 
 export const Assets = {
     GreenFlag,
@@ -25,6 +26,7 @@ export const Assets = {
     FaceFeature,
     FingerprintFeature,
     GovPassport,
+    Wallet,
     PUF,
 };
 

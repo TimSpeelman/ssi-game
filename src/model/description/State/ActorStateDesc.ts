@@ -1,8 +1,8 @@
 import { Actor } from '../../definition/Actor/Actor';
-import { AssetDesc } from '../Asset/AssetDesc';
+import { AssetTreeNode } from '../Asset/AssetTreeNode';
 
 export interface ActorStateDesc {
-    assets: AssetDesc[];
+    assets: AssetTreeNode[];
     actor: Actor;
     mode?: string;
 }

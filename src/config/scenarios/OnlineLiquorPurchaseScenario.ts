@@ -8,9 +8,11 @@ import { WalletSMSAuthentication } from '../../content/actions/authentication/Wa
 import { CustomInteraction } from '../../content/actions/CustomInteraction';
 import { GrantGreenFlag } from '../../content/actions/GrantGreenFlag';
 import { AttributeKnowledge } from '../../content/assets/data/abc/AttributeKnowledge';
+import { AttributeProof } from '../../content/assets/data/abc/AttributeProof';
 import { HumanRecord } from '../../content/assets/data/abc/HumanRecord';
 import { FaceFeature } from '../../content/assets/feature/FaceFeature';
 import { GovPassport } from '../../content/assets/physical/GovPassport';
+import { Wallet } from '../../content/assets/software/Wallet';
 import { ActorConfig } from '../../model/definition/Actor/ActorConfig';
 import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { defaultActors } from '../defaultActors';
@@ -40,6 +42,14 @@ const actors: ActorConfig[] = [
     {
         definition: Subject,
         initialAssets: [
+            new Wallet('wallet1', {}),
+            new AttributeProof('proof1', {
+                subjectId: Subject.id,
+                issuerId: Government.id,
+                name: 'attr',
+                value: 'val',
+                parentId: 'wallet1',
+            }),
             new GovPassport('4', {
                 subjectId: Subject.id,
                 name: Subject.name,

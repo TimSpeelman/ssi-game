@@ -60,7 +60,7 @@ export class Presentation extends Action<Props> {
             description: `Toon ${this.props.attributeName} credential`,
             sub: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
             long: `${ucFirst(subject.nounPhrase)} toont het ${this.props.attributeName} credential aan ${
-                verifier.name
+                verifier.nounPhrase
             }.`,
             locality: Locality.REMOTE,
         };

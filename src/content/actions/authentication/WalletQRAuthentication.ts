@@ -49,9 +49,9 @@ export class WalletQRAuthentication extends Action<Props> {
             to_mode: 'selfie',
             description: 'Authenticatie van wallet (pseudoniem) via QR',
             sub: '..',
-            long: `${ucFirst(subject.nounPhrase)} scant QR van ${verifier.name} waarna ${verifier.name} de wallet van ${
-                subject.name
-            } authenticeert.`,
+            long: `${ucFirst(subject.nounPhrase)} scant QR van ${verifier.nounPhrase} waarna ${
+                verifier.nounPhrase
+            } de wallet van ${subject.nounPhrase} authenticeert.`,
             locality: Locality.REMOTE,
         };
     }

@@ -45,11 +45,11 @@ export class GrantGreenFlag extends Action<Props> {
         return {
             id: this.id,
             type: 'GreenFlag',
-            description: `${ucFirst(from.nounPhrase)} geeft ${to.name} de groene vlag`,
+            description: `${ucFirst(from.nounPhrase)} geeft ${to.nounPhrase} de groene vlag`,
             sub: desc,
             from: from,
             to: to,
-            long: `${ucFirst(from.nounPhrase)} geeft ${to.name} de groene vlag.`,
+            long: `${ucFirst(from.nounPhrase)} geeft ${to.nounPhrase} de groene vlag.`,
             locality: Locality.AT_CENTER,
         };
     }

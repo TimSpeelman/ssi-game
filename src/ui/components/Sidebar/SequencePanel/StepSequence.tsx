@@ -1,14 +1,5 @@
-import {
-    Button,
-    Divider,
-    IconButton,
-    List,
-    ListItem,
-    ListItemSecondaryAction,
-    ListItemText,
-    Typography,
-} from '@material-ui/core';
-import { Add } from '@material-ui/icons';
+import { Button, IconButton, List, ListItem, ListItemText, Typography } from '@material-ui/core';
+import { Add, Group } from '@material-ui/icons';
 import DeleteIcon from '@material-ui/icons/Delete';
 import classNames from 'classnames';
 import React, { useState } from 'react';
@@ -17,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../../../config/actorImage';
 import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectActiveStepId, selectStepDescs, selectUsedActors } from '../../../../state/scenario/selectors';
+import { SidebarTab } from '../SidebarTab';
 import { StepDialog } from './StepDialog';
 
 export function StepSequence() {
@@ -52,70 +44,120 @@ export function StepSequence() {
                 onCancel={() => setCreating(false)}
             />
 
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
                 <Typography variant="h6">Stappen ({steps.length})</Typography>
                 <Button variant={'outlined'} onClick={() => setCreating(true)}>
                     {' '}
                     <Add /> Stap Toevoegen
                 </Button>
             </div>
-            <DragDropContext onDragEnd={(x) => handleReorder(x.source!.index, x.destination!.index)}>
-                <Droppable droppableId={'d123'}>
-                    {(provided) => (
-                        <List innerRef={provided.innerRef} {...provided.droppableProps}>
-                            <Divider />
-                            <ListItem
-                                className={activeStepId === undefined ? 'active-step' : ''}
-                                onClick={() => handleClick(undefined)}
-                            >
-                                <ListItemText primary={'START'} />
-                            </ListItem>
+            {steps.length === 0 &&
+                (usedActors.length === 0 ? (
+                    <div style={{ textAlign: 'center' }}>
+                        <Typography variant={'body1'} style={{ marginBottom: '1rem' }}>
+                            Je hebt nog geen actoren. Voordat je je scenario kunt opbouwen moet je eerst actoren
+                            toevoegen.
+                        </Typography>
+                        <Button
+                            variant={'outlined'}
+                            onClick={() => dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }))}
+                        >
+                            {' '}
+                            <Group /> Naar Actoren
+                        </Button>
+                    </div>
+                ) : (
+                    <div style={{ textAlign: 'center' }}>
+                        <Typography variant={'body1'}>
+                            Je hebt nog geen stappen. Voeg stappen toe om een scenario te beschrijven.
+                        </Typography>
+                    </div>
+                ))}
+            {steps.length > 0 && (
+                <DragDropContext onDragEnd={(x) => handleReorder(x.source!.index, x.destination!.index)}>
+                    <Droppable droppableId={'d123'}>
+                        {(provided) => (
+                            <List innerRef={provided.innerRef} {...provided.droppableProps}>
+                                <ListItem
+                                    className={classNames({
+                                        'step-item': true,
+                                        'step-active': activeStepId === undefined,
+                                    })}
+                                    onClick={() => handleClick(undefined)}
+                                    button
+                                    style={{ textAlign: 'center' }}
+                                >
+                                    {/* <div style={{ width: '6rem' }} /> */}
+                                    <ListItemText primary={'Begintoestand'} />
+                                </ListItem>
 
-                            {steps.map((step, i) => (
-                                <Draggable draggableId={step.action.id} index={i} key={step.action.id}>
-                                    {(provided) => (
-                                        <ListItem
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            innerRef={provided.innerRef}
-                                            button
-                                            className={classNames({
-                                                'step-item': true,
-                                                'step-success': step.success,
-                                                'step-failed': !step.success,
-                                                'step-inactive': !step.active,
-                                            })}
-                                            onClick={() => handleClick(step.action.id)}
-                                            selected={activeStepId === step.action.id}
-                                        >
-                                            <img src={actorImage(step.action.from.image)} style={{ height: '3rem' }} />
-                                            <i className="fas fa-chevron-right"></i>
-                                            <img src={actorImage(step.action.to.image)} style={{ height: '3rem' }} />
-                                            <ListItemText
-                                                primary={`${i + 1}. ${step.action.description}`}
-                                                secondary={step.action.sub}
-                                            />
-
-                                            <IconButton
-                                                edge="end"
-                                                aria-label="delete"
-                                                onClick={() =>
-                                                    dispatch(ScenarioActions.REMOVE_STEP({ id: step.action.id }))
-                                                }
+                                {steps.map((step, i) => (
+                                    <Draggable draggableId={step.action.id} index={i} key={step.action.id}>
+                                        {(provided) => (
+                                            <div
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
+                                                ref={provided.innerRef}
+                                                // button
+                                                className={classNames({
+                                                    'step-item': true,
+                                                    'step-active': activeStepId === step.action.id,
+                                                    'step-success': step.success,
+                                                    'step-failed': !step.success,
+                                                    'step-inactive': !step.active,
+                                                })}
+                                                onClick={() => handleClick(step.action.id)}
                                             >
-                                                <DeleteIcon />
-                                            </IconButton>
-                                            <ListItemSecondaryAction />
-                                        </ListItem>
-                                    )}
-                                </Draggable>
-                            ))}
+                                                {/* <strong style={{ marginRight: '1rem' }}>Stap </strong> */}
+                                                <div style={{ width: '3rem', flexShrink: 0, flexGrow: 0 }}>
+                                                    <img
+                                                        src={actorImage(step.action.from.image)}
+                                                        style={{ height: '3rem', margin: '0 auto' }}
+                                                    />
+                                                </div>
+                                                {/* <div
+                                                style={{
+                                                    width: '1rem',
+                                                    textAlign: 'center',
+                                                    flexShrink: 0,
+                                                    flexGrow: 0,
+                                                }}
+                                            >
+                                                <i className="fas fa-chevron-right"></i>
+                                            </div> */}
 
-                            {provided.placeholder}
-                        </List>
-                    )}
-                </Droppable>
-            </DragDropContext>
+                                                <div style={{ width: '3rem', flexGrow: 0, flexShrink: 0 }}>
+                                                    <img
+                                                        src={actorImage(step.action.to.image)}
+                                                        style={{ height: '3rem', margin: '0 auto' }}
+                                                    />
+                                                </div>
+
+                                                <div style={{ flexGrow: 1, marginLeft: '.5rem' }}>
+                                                    <strong>Stap {i + 1}. </strong>
+                                                    <br />
+                                                    {step.action.description}
+                                                </div>
+                                                <IconButton
+                                                    edge="end"
+                                                    aria-label="delete"
+                                                    onClick={() =>
+                                                        dispatch(ScenarioActions.REMOVE_STEP({ id: step.action.id }))
+                                                    }
+                                                >
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </div>
+                                        )}
+                                    </Draggable>
+                                ))}
+
+                                {provided.placeholder}
+                            </List>
+                        )}
+                    </Droppable>
+                </DragDropContext>
+            )}
         </div>
     );
 }

@@ -58,7 +58,7 @@ export class WalletSMSAuthentication extends Action<Props> {
             to: subject,
             description: 'Authenticatie van wallet (pseudoniem) via SMS',
             sub: '..',
-            long: `${ucFirst(verifier.nounPhrase)} authenticeert de wallet van ${subject.name} door ${
+            long: `${ucFirst(verifier.nounPhrase)} authenticeert de wallet van ${subject.nounPhrase} door ${
                 subject.isMale ? 'hem' : 'haar'
             } een unieke code per SMS te sturen.`,
             locality: Locality.AT_FROM, // TODO not neccesarily (but in municipality onboarding, yes)

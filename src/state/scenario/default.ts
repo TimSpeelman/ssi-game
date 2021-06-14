@@ -22,5 +22,5 @@ export const defaultState: RootState = {
     selectedActorId: undefined,
     selectedStepId: undefined,
     snackbarOn: false,
-    activeSidebarTab: SidebarTab.INFO,
+    activeSidebarTab: SidebarTab.TIMELINE,
 };

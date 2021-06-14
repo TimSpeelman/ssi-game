@@ -70,7 +70,9 @@ export class PhysicalPassportAuthentication extends Action<Props> {
             to_mode: 'facescan',
             description: 'Fysieke authenticatie o.b.v. paspoort',
             sub: '..',
-            long: `${ucFirst(verifier.nounPhrase)} authenticeert ${subject.name}, in levende lijve, op basis van ${
+            long: `${ucFirst(verifier.nounPhrase)} authenticeert ${
+                subject.nounPhrase
+            }, in levende lijve, op basis van ${
                 subject.isMale ? 'zijn' : 'haar'
             } paspoort door de pasfoto te vergelijken met ${subject.isMale ? 'zijn' : 'haar'} gezicht.`,
             locality: Locality.AT_FROM,

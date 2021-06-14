@@ -54,7 +54,7 @@ export class PresentationRequest extends Action<Props> {
             to_mode: 'phone',
             description: `Vraag om ${this.props.attributeName} credential te tonen`,
             sub: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
-            long: `${ucFirst(verifier.nounPhrase)} verzoekt ${subject.name} om het attribuut ${
+            long: `${ucFirst(verifier.nounPhrase)} verzoekt ${subject.nounPhrase} om het attribuut ${
                 this.props.attributeName
             } te presenteren.`,
             locality: Locality.REMOTE,

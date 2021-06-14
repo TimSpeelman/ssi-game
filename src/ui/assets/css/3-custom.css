@@ -55,7 +55,8 @@ p {
 }
 
 .sidebar {
-  width: 30%;
+  max-width: 40rem;
+  width: 40%;
   -webkit-box-flex: 0;
       -ms-flex-positive: 0;
           flex-grow: 0;
@@ -98,9 +99,21 @@ p {
 }
 
 .step-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background: white !important;
   border-top: 1px solid #bbb !important;
   border-bottom: 1px solid #bbb !important;
+  margin-bottom: -1px !important;
+  padding: 1rem 0.5rem;
+}
+
+.step-active {
+  background: #ddd !important;
 }
 
 .step-failed {

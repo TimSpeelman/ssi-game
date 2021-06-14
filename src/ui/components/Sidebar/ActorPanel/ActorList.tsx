@@ -48,77 +48,85 @@ export function ActorList() {
                 }}
             />
 
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
                 <Typography variant="h6">Actoren ({actors.length})</Typography>
                 <Button variant={'outlined'} onClick={() => setCreatingActor(true)}>
                     <Add /> Actor Toevoegen
                 </Button>
             </div>
 
-            <DragDropContext onDragEnd={(x) => handleReorder(x.source!.index, x.destination!.index)}>
-                <Droppable droppableId={'d123'}>
-                    {(provided) => (
-                        <List innerRef={provided.innerRef} {...provided.droppableProps}>
-                            {actors.map((actor, i) => (
-                                <Draggable draggableId={actor.definition.id} index={i} key={actor.definition.id}>
-                                    {(provided) => (
-                                        <ListItem
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            innerRef={provided.innerRef}
-                                            button
-                                            onClick={() =>
-                                                dispatch(ScenarioActions.SELECT_ACTOR({ id: actor.definition.id }))
-                                            }
-                                        >
-                                            <div
-                                                style={{
-                                                    width: '3rem',
-                                                    textAlign: 'center',
-                                                    marginRight: '1rem',
-                                                    flexGrow: 0,
-                                                    flexShrink: 0,
-                                                }}
-                                            >
-                                                <img
-                                                    src={actorImage(actor.definition.type.image)}
-                                                    style={{ height: '3rem' }}
-                                                />
-                                            </div>
-                                            <ListItemText
-                                                primary={actor.definition.name}
-                                                secondary={actor.definition.description}
-                                            />
-
-                                            <Tooltip
-                                                title={
-                                                    !canRemoveActor(actor.definition.id)
-                                                        ? `Verwijder eerst alle acties waar ${actor.definition.name} in is betrokken.`
-                                                        : `${actor.definition.name} verwijderen`
+            {actors.length === 0 ? (
+                <div style={{ textAlign: 'center' }}>
+                    <Typography variant={'body1'} style={{ marginBottom: '1rem' }}>
+                        Je hebt nog geen actoren. Voeg een actor toe.
+                    </Typography>
+                </div>
+            ) : (
+                <DragDropContext onDragEnd={(x) => handleReorder(x.source!.index, x.destination!.index)}>
+                    <Droppable droppableId={'d123'}>
+                        {(provided) => (
+                            <List innerRef={provided.innerRef} {...provided.droppableProps}>
+                                {actors.map((actor, i) => (
+                                    <Draggable draggableId={actor.definition.id} index={i} key={actor.definition.id}>
+                                        {(provided) => (
+                                            <ListItem
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
+                                                innerRef={provided.innerRef}
+                                                button
+                                                onClick={() =>
+                                                    dispatch(ScenarioActions.SELECT_ACTOR({ id: actor.definition.id }))
                                                 }
                                             >
-                                                <span>
-                                                    <IconButton
-                                                        edge="end"
-                                                        aria-label="delete"
-                                                        disabled={!canRemoveActor(actor.definition.id)}
-                                                        style={{ marginRight: '.5rem' }}
-                                                        onClick={() => removeActor(actor.definition.id)}
-                                                    >
-                                                        <DeleteIcon />
-                                                    </IconButton>
-                                                </span>
-                                            </Tooltip>
-                                        </ListItem>
-                                    )}
-                                </Draggable>
-                            ))}
+                                                <div
+                                                    style={{
+                                                        width: '3rem',
+                                                        textAlign: 'center',
+                                                        marginRight: '1rem',
+                                                        flexGrow: 0,
+                                                        flexShrink: 0,
+                                                    }}
+                                                >
+                                                    <img
+                                                        src={actorImage(actor.definition.type.image)}
+                                                        style={{ height: '3rem' }}
+                                                    />
+                                                </div>
+                                                <ListItemText
+                                                    primary={actor.definition.name}
+                                                    secondary={actor.definition.description}
+                                                />
 
-                            {provided.placeholder}
-                        </List>
-                    )}
-                </Droppable>
-            </DragDropContext>
+                                                <Tooltip
+                                                    title={
+                                                        !canRemoveActor(actor.definition.id)
+                                                            ? `Verwijder eerst alle acties waar ${actor.definition.name} in is betrokken.`
+                                                            : `${actor.definition.name} verwijderen`
+                                                    }
+                                                >
+                                                    <span>
+                                                        <IconButton
+                                                            edge="end"
+                                                            aria-label="delete"
+                                                            disabled={!canRemoveActor(actor.definition.id)}
+                                                            style={{ marginRight: '.5rem' }}
+                                                            onClick={() => removeActor(actor.definition.id)}
+                                                        >
+                                                            <DeleteIcon />
+                                                        </IconButton>
+                                                    </span>
+                                                </Tooltip>
+                                            </ListItem>
+                                        )}
+                                    </Draggable>
+                                ))}
+
+                                {provided.placeholder}
+                            </List>
+                        )}
+                    </Droppable>
+                </DragDropContext>
+            )}
         </div>
     );
 }

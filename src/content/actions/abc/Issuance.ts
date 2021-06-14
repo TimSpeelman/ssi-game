@@ -63,7 +63,7 @@ export class Issuance extends Action<Props> {
             description: `Uitgave van ${this.props.attributeName} credential`,
             sub: `Subject: ${this.props.subjectNym}, Issuer: ${this.props.issuerNym}`,
             long: `${ucFirst(issuer.nounPhrase)} geeft een ${this.props.attributeName} credential uit aan ${
-                subject.name
+                subject.nounPhrase
             }.`,
             locality: Locality.REMOTE,
         };

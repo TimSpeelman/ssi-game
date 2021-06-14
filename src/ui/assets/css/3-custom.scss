@@ -50,8 +50,8 @@ p {
 }
 
 .sidebar {
-    // width: 40rem;
-    width: 30%;
+    max-width: 40rem;
+    width: 40%;
     flex-grow: 0;
     flex-shrink: 0;
 
@@ -93,9 +93,17 @@ p {
     color: red;
 }
 .step-item {
+    display: flex;
+    align-items: center;
     background: white !important;
     border-top: 1px solid #bbb !important;
     border-bottom: 1px solid #bbb !important;
+    margin-bottom: -1px !important;
+    padding: 1rem 0.5rem;
+}
+
+.step-active {
+    background: #ddd !important;
 }
 
 .step-failed {

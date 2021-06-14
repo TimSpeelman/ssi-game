@@ -1,9 +1,9 @@
+import { createSelector } from 'reselect';
 import { ActionDef } from '../../model/definition/Action/ActionDef';
 import { Actor } from '../../model/definition/Actor/Actor';
 import { definitionToActor } from '../../model/definition/Actor/definitionToActor';
 import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { ScenarioMeta } from '../../model/definition/ScenarioMeta';
-import { ScenarioDesc } from '../../model/description/Scenario/ScenarioDesc';
 import { ActorStateDesc } from '../../model/description/State/ActorStateDesc';
 import { StateDesc } from '../../model/description/State/StateDesc';
 import { StepDesc } from '../../model/description/Step/StepDesc';
@@ -24,7 +24,7 @@ export const selectIdsOfInvolvedActors = (r: any): Record<string, true> =>
     selectStepDescs(r).reduce((ids, step) => ({ ...ids, [step.action.from.id]: true, [step.action.to.id]: true }), {});
 
 // Description
-export const selectScenarioDesc = (r: any): ScenarioDesc => computeScenarioFromDefinition(root(r).scenario);
+export const selectScenarioDesc = createSelector(selectScenarioDef, (def) => computeScenarioFromDefinition(def));
 export const selectStepDescs = (r: any): StepDesc[] => selectScenarioDesc(r).steps;
 export const selectInitialStateDesc = (r: any): StateDesc => selectScenarioDesc(r).initial;
 

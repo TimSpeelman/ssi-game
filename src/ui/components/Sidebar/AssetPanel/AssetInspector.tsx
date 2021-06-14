@@ -1,6 +1,6 @@
 import { Button, Divider, Typography } from '@material-ui/core';
 import { Add, ChevronLeft, Edit } from '@material-ui/icons';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AssetForms } from '../../../../content/assets/forms';
 import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode';
@@ -12,9 +12,7 @@ import { AssetList } from './AssetList';
 
 export function AssetInspector() {
     const dispatch = useDispatch();
-    const { open } = useDialog();
-    const [editing, setEditing] = useState(false);
-    const [adding, setAdding] = useState(false);
+    const { openDialog } = useDialog();
 
     const asset: AssetTreeNode | undefined = useSelector(selectSelectedAssetNode);
     const actors = useSelector(selectUsedActors);
@@ -61,7 +59,7 @@ export function AssetInspector() {
                     <Typography variant="h6">{asset.asset.title}</Typography>
                     {/* <Typography variant="subtitle2">{asset.asset.sub}</Typography> */}
                 </div>
-                <Button onClick={() => setEditing(true)}>
+                <Button onClick={() => openDialog('EditAsset', { actorId: asset.ownerId, assetId: asset.asset.id })}>
                     <Edit />
                 </Button>
             </div>
@@ -80,13 +78,15 @@ export function AssetInspector() {
                 <Fragment>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                         <Typography variant="h6">Inhoud ({asset.children.length})</Typography>
-                        <Button onClick={() => setAdding(true)}>
+                        <Button
+                            onClick={() => openDialog('AddAsset', { actorId: asset.ownerId, parentId: asset.asset.id })}
+                        >
                             <Add /> Toevoegen
                         </Button>
                     </div>
                     <AssetList
                         assets={asset.children}
-                        onEdit={(id) => open('EditAsset', { assetId: id, actorId: asset.ownerId })}
+                        onEdit={(id) => openDialog('EditAsset', { assetId: id, actorId: asset.ownerId })}
                         onDelete={() => undefined}
                         onClick={handleAssetClick}
                     />

@@ -15,7 +15,7 @@ export interface EditAssetDialogOptions {
     assetId: string;
 }
 
-export function AssetDialogContainer(props: Props) {
+export function EditAssetDialogCtr(props: Props) {
     const dispatch = useDispatch();
     const selector = selectAssetDefById(props.options.assetId);
     const asset = useSelector(selector);

@@ -1,10 +1,9 @@
 import { Button, IconButton, List, ListItem, ListItemText, Tooltip, Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import DeleteIcon from '@material-ui/icons/Delete';
-import React, { useState } from 'react';
+import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuid } from 'uuid';
 import { actorImage } from '../../../../config/actorImage';
 import { ActorConfig } from '../../../../model/definition/Actor/ActorConfig';
 import { ScenarioDef } from '../../../../model/definition/ScenarioDef';
@@ -18,7 +17,7 @@ export function ActorList() {
     const setConf = (scenario: ScenarioDef) => dispatch(ScenarioActions.SET_SCENARIO({ scenario }));
     const involvedActors = useSelector(selectIdsOfInvolvedActors);
     const scenarioDef = useSelector(selectScenarioDef);
-    const { open } = useDialog();
+    const { openDialog } = useDialog();
     const { meta, actors } = scenarioDef;
 
     // Actor Setters
@@ -26,21 +25,12 @@ export function ActorList() {
     const setActors = (actors: ActorConfig[]) => setConf({ ...scenarioDef, actors });
     const handleReorder = (fromIndex: number, toIndex: number) => setActors(reorder(actors, fromIndex, toIndex));
     const removeActor = (id: string) => setActors(actors.filter((a) => a.definition.id !== id));
-    const addActor = (actor: ActorConfig) =>
-        setActors([...actors, { ...actor, definition: { ...actor.definition, id: uuid() } }]);
-
-    const actorSubtitle = (actor: ActorConfig) =>
-        `id:${actor.definition.id} ` +
-        (actor.definition.type.isHuman ? (actor.definition.type.isMale ? 'Man' : 'Vrouw') : 'Organisatie') +
-        ` np:${actor.definition.nounPhrase}`;
-
-    const [creatingActor, setCreatingActor] = useState(false);
 
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
                 <Typography variant="h6">Actoren ({actors.length})</Typography>
-                <Button variant={'outlined'} onClick={() => open('AddActor', undefined)}>
+                <Button variant={'outlined'} onClick={() => openDialog('AddActor', undefined)}>
                     <Add /> Actor Toevoegen
                 </Button>
             </div>

@@ -49,3 +49,19 @@ export function reorder<T>(list: T[], fromIndex: number, toIndex: number) {
 export function seq<S>(ops: Array<(s: S) => S>): (s: S) => S {
     return (s0: S) => ops.reduce((s1, op) => op(s1), s0);
 }
+
+/** Wraps an event handler and runs preventDefault */
+export function preventDefault<E extends { preventDefault: () => void }>(handle: (e: E) => void): (e: E) => void {
+    return (e: E) => {
+        e.preventDefault();
+        handle(e);
+    };
+}
+
+/** Wraps an event handler and runs stopPropagation */
+export function stopPropagation<E extends { stopPropagation: () => void }>(handle: (e: E) => void): (e: E) => void {
+    return (e: E) => {
+        e.stopPropagation();
+        handle(e);
+    };
+}

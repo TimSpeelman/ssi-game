@@ -2,6 +2,7 @@ import { Button, List, ListItem, ListItemText } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons';
 import React from 'react';
 import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode';
+import { stopPropagation } from '../../../../util/util';
 
 export interface Props {
     assets: AssetTreeNode[];
@@ -18,12 +19,12 @@ export function AssetList({ assets, onEdit, onDelete, onClick }: Props) {
                     <ListItem key={i} onClick={() => onClick(a.asset.id)}>
                         <ListItemText primary={a.asset.title} secondary={`(${a.children.length}) ` + a.asset.sub} />
                         {a.asset.isInitial && (
-                            <Button onClick={() => onEdit(a.asset.id)}>
+                            <Button onClick={stopPropagation<any>(() => onEdit(a.asset.id))}>
                                 <Edit />
                             </Button>
                         )}
                         {a.asset.isInitial && (
-                            <Button onClick={() => onDelete(a.asset.id)}>
+                            <Button onClick={stopPropagation<any>(() => onDelete(a.asset.id))}>
                                 <Delete />
                             </Button>
                         )}

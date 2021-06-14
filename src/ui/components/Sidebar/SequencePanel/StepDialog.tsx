@@ -36,12 +36,14 @@ export function StepDialog(props: Props) {
 
     // When an action is provided, load its data into local state
     useEffect(() => {
+        let timer: any;
         if (props.action) {
             setType(props.action.typeName);
-            setTimeout(() => {
+            timer = setTimeout(() => {
                 setActProps(props.action!.props);
             }, 200);
         }
+        return () => clearTimeout(timer);
     }, [props.action]);
 
     // Depending on the chosen action type, select the appropriate form

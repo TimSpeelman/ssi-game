@@ -20,6 +20,7 @@ import { defaultActors } from '../defaultActors';
 const Government = defaultActors.government_1;
 const Shop = defaultActors.shop_1;
 const Subject = defaultActors.human_1;
+const Ledger = defaultActors.ledger_1;
 const SubjectIdAtGov = 'BSN_990223190';
 const SubjectNym1 = '215_JOHN';
 const GovNym1 = '829_GOV';
@@ -27,6 +28,10 @@ const ShopNym1 = '662_SHOP';
 const Attr18Plus = '18+';
 
 const actors: ActorConfig[] = [
+    {
+        definition: Ledger,
+        initialAssets: [],
+    },
     {
         definition: Government,
         initialAssets: [

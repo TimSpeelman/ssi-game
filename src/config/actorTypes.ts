@@ -1,6 +1,14 @@
 import { ActorType } from '../model/definition/Actor/ActorType';
 
 export const actorTypes = {
+    ledger1: {
+        id: 'ledger1',
+        image: 'ledger1',
+        typeName: 'Ledger',
+        nounPhrase: 'Ledger',
+        isMale: false,
+        isHuman: false,
+    } as ActorType,
     person1: {
         id: 'person1',
         image: 'person1',

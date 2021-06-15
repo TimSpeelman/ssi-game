@@ -3,6 +3,13 @@ import { ActorDefinition } from '../model/definition/Actor/ActorDefinition';
 import { actorTypes } from './actorTypes';
 
 export const defaultActors = {
+    ledger_1: {
+        type: actorTypes.ledger1,
+        id: 'ledger_1',
+        name: 'Ledger',
+        nounPhrase: 'Ledger',
+        description: 'Blockchain',
+    } as ActorDefinition,
     human_1: {
         type: actorTypes.person3,
         id: 'human_1',

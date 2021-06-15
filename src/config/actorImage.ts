@@ -1,5 +1,6 @@
 import gov1 from '../ui/assets/img/gov1.png';
 import gov1_issuing from '../ui/assets/img/gov1_issuing.png';
+import ledger1 from '../ui/assets/img/ledger1.png';
 import office1 from '../ui/assets/img/office1.png';
 import office2 from '../ui/assets/img/office2.png';
 import office3 from '../ui/assets/img/office3.png';
@@ -24,6 +25,7 @@ const images = {
     gov1,
     gov1_issuing,
     shop1,
+    ledger1,
 };
 
 export type ImgName = keyof typeof images;

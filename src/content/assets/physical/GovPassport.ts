@@ -11,7 +11,7 @@ export interface Props extends AssetBaseProps {
 
 const title: Translation = {
     NL: 'Paspoort',
-    EN: 'Paspoort',
+    EN: 'Passport',
 };
 /** Possession means that the subject has these fingerprints. Non-transferrable. FingerprintScan can however be transferred. */
 export class GovPassport extends Asset<Props> {

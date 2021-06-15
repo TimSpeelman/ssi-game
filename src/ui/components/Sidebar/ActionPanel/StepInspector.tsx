@@ -17,7 +17,7 @@ export function StepInspector({ step }: Props) {
     const steps = useSelector(selectStepDescs);
     const index = steps.findIndex((s) => step.action.id === s.action.id);
     const { openDialog } = useDialog();
-    const { dict } = useLang();
+    const { dict, lang } = useLang();
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -31,7 +31,7 @@ export function StepInspector({ step }: Props) {
             <StepLabel step={step} onEdit={() => openDialog('EditStep', { stepId: step.action.id })} />
 
             {/* Additional explanation */}
-            <p style={{ marginBottom: '1em' }}>{step.action.long}</p>
+            <p style={{ marginBottom: '1em' }}>{step.action.long ? step.action.long[lang] : ''}</p>
 
             {/* Optional validation errors */}
             {!step.success && (
@@ -54,7 +54,7 @@ export function StepInspector({ step }: Props) {
             {step.outcomes.length > 0 ? (
                 <ul>
                     {step.outcomes.map((o, i) => (
-                        <li key={i}>{o}</li>
+                        <li key={i}>{o[lang]}</li>
                     ))}
                 </ul>
             ) : (

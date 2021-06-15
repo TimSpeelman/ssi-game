@@ -1,6 +1,22 @@
 import { Dictionary } from '../Dict';
 
 export const DictionaryNL: Dictionary = {
+    issuer: 'Uitgever',
+    verifier: 'Controleur',
+    subject: 'Subject',
+    attribute: 'Attribuut',
+    attributeName: 'Attribuutnaam',
+    attributeValue: 'Attribuutwaarde',
+    pseudonym: 'Pseudoniem',
+    issuerPseudonym: 'Pseudoniem van Uitgever',
+    subjectPseudonym: 'Pseudoniem van Subject',
+    verifierPseudonym: 'Pseudoniem van Controleur',
+    fromActor: 'Van actor',
+    toActor: 'Naar actor',
+    description: 'Omschrijving',
+    name: 'Naam',
+    identifier: 'Identifier',
+
     step: 'Stap',
     outOf: 'van',
     steps: 'Stappen',

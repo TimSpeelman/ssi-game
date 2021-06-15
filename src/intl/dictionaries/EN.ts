@@ -1,6 +1,22 @@
 import { Dictionary } from '../Dict';
 
 export const DictionaryEN: Dictionary = {
+    issuer: 'Issuer',
+    verifier: 'Verifier',
+    subject: 'Subject',
+    attribute: 'Attribute',
+    attributeName: 'Attribuut Name',
+    attributeValue: 'Attribuut Value',
+    pseudonym: 'Pseudonym',
+    issuerPseudonym: 'Pseudonym of Issuer',
+    subjectPseudonym: 'Pseudonym of Subject',
+    verifierPseudonym: 'Pseudonym of Verifier',
+    fromActor: 'From actor',
+    toActor: 'To actor',
+    description: 'Description',
+    name: 'Name',
+    identifier: 'Identifier',
+
     step: 'Step',
     outOf: 'out of',
     steps: 'Steps',

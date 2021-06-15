@@ -1,3 +1,4 @@
+import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
@@ -27,14 +28,17 @@ export class Issuance extends Action<Props> {
 
     static config: ActionFormConfig<keyof Props> = {
         typeName: 'Issuance',
-        title: 'Uitgifte van credential',
+        title: {
+            [Language.NL]: 'Uitgifte van credential',
+            [Language.EN]: 'Issuance of credential',
+        },
         fields: {
-            issuerId: { type: 'actor', title: 'Issuer' },
-            subjectId: { type: 'actor', title: 'Subject' },
-            issuerNym: { type: 'string', title: 'Pseudoniem van issuer' },
-            subjectNym: { type: 'string', title: 'Pseudoniem van subject' },
-            attributeName: { type: 'string', title: 'Attribuutnaam' },
-            attributeValue: { type: 'string', title: 'Attribuutwaarde' },
+            issuerId: { type: 'actor', title: translations.issuer },
+            subjectId: { type: 'actor', title: translations.subject },
+            issuerNym: { type: 'string', title: translations.issuerPseudonym },
+            subjectNym: { type: 'string', title: translations.subjectPseudonym },
+            attributeName: { type: 'string', title: translations.attributeName },
+            attributeValue: { type: 'string', title: translations.attributeValue },
         },
     };
 
@@ -68,10 +72,18 @@ export class Issuance extends Action<Props> {
                 [Language.NL]: `Uitgave van ${this.props.attributeName} credential`,
                 [Language.EN]: `Issuance of ${this.props.attributeName} credential`,
             },
-            sub: `Subject: ${this.props.subjectNym}, Issuer: ${this.props.issuerNym}`,
-            long: `${ucFirst(issuer.nounPhrase)} geeft een ${this.props.attributeName} credential uit aan ${
-                subject.nounPhrase
-            }.`,
+            sub: {
+                [Language.NL]: `Subject: ${this.props.subjectNym}, Issuer: ${this.props.issuerNym}`,
+                [Language.EN]: `Subject: ${this.props.subjectNym}, Issuer: ${this.props.issuerNym}`,
+            },
+            long: {
+                [Language.NL]: `${ucFirst(issuer.nounPhrase)} geeft een ${
+                    this.props.attributeName
+                } credential uit aan ${subject.nounPhrase}.`,
+                [Language.EN]: `${ucFirst(issuer.nounPhrase)} issues a ${this.props.attributeName} credential to ${
+                    subject.nounPhrase
+                }.`,
+            },
             locality: Locality.REMOTE,
         };
     }

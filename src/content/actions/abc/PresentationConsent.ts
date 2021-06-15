@@ -1,3 +1,4 @@
+import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
@@ -21,13 +22,16 @@ export class PresentationConsent extends Action<Props> {
 
     static config: ActionFormConfig<keyof Props> = {
         typeName: 'PresentationConsent',
-        title: 'Toestemming voor Presentatie',
+        title: {
+            [Language.NL]: 'Toestemming voor Presentatie',
+            [Language.EN]: 'Consent for Presentation',
+        },
         fields: {
-            verifierId: { type: 'actor', title: 'Verifier' },
-            subjectId: { type: 'actor', title: 'Subject' },
-            verifierNym: { type: 'string', title: 'Pseudoniem van Verifier' },
-            subjectNym: { type: 'string', title: 'Pseudoniem van Subject' },
-            attributeName: { type: 'string', title: 'Attribuutnaam' },
+            verifierId: { type: 'actor', title: translations.verifier },
+            subjectId: { type: 'actor', title: translations.subject },
+            verifierNym: { type: 'string', title: translations.verifierPseudonym },
+            subjectNym: { type: 'string', title: translations.subjectPseudonym },
+            attributeName: { type: 'string', title: translations.attributeName },
         },
     };
 
@@ -55,12 +59,20 @@ export class PresentationConsent extends Action<Props> {
             to_mode: 'phone',
             description: {
                 [Language.NL]: `Geef toestemming om ${this.props.attributeName} credential te gebruiken`,
-                [Language.EN]: `Geef toestemming om ${this.props.attributeName} credential te gebruiken`,
+                [Language.EN]: `Consent to use ${this.props.attributeName} credential`,
             },
-            sub: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
-            long: `${ucFirst(subject.nounPhrase)} geeft ${verifier.nounPhrase} toestemming om het attribuut ${
-                this.props.attributeName
-            } te gebruiken.`,
+            sub: {
+                [Language.NL]: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
+                [Language.EN]: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
+            },
+            long: {
+                [Language.NL]: `${ucFirst(subject.nounPhrase)} geeft ${
+                    verifier.nounPhrase
+                } toestemming om het attribuut ${this.props.attributeName} te gebruiken.`,
+                [Language.EN]: `${ucFirst(subject.nounPhrase)} consents to ${verifier.nounPhrase} using the attribute ${
+                    this.props.attributeName
+                }.`,
+            },
             locality: Locality.REMOTE,
         };
     }

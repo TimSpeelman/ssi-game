@@ -1,3 +1,4 @@
+import { translations } from '../../intl/dictionaries';
 import { Language } from '../../intl/Language';
 import { ActionDesc, Locality } from '../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../model/logic/State/ScenarioState';
@@ -20,11 +21,14 @@ export class GrantGreenFlag extends Action<Props> {
 
     static config: ActionFormConfig<keyof Props> = {
         typeName: 'GrantGreenFlag',
-        title: 'Groene vlag toekennen',
+        title: {
+            [Language.NL]: 'Groene vlag toekennen',
+            [Language.EN]: 'Grant Green Flag',
+        },
         fields: {
-            fromId: { type: 'actor', title: 'Van Actor' },
-            toId: { type: 'actor', title: 'Naar Actor' },
-            description: { type: 'string', title: 'Omschrijving' },
+            fromId: { type: 'actor', title: translations.fromActor },
+            toId: { type: 'actor', title: translations.toActor },
+            description: { type: 'string', title: translations.description },
         },
     };
 
@@ -48,12 +52,18 @@ export class GrantGreenFlag extends Action<Props> {
             type: 'GreenFlag',
             description: {
                 [Language.NL]: `${ucFirst(from.nounPhrase)} geeft ${to.nounPhrase} de groene vlag`,
-                [Language.EN]: `${ucFirst(from.nounPhrase)} geeft ${to.nounPhrase} de groene vlag`,
+                [Language.EN]: `${ucFirst(from.nounPhrase)} gives ${to.nounPhrase} the green flag`,
             },
-            sub: desc,
+            sub: {
+                [Language.NL]: desc,
+                [Language.EN]: desc,
+            },
             from: from,
             to: to,
-            long: `${ucFirst(from.nounPhrase)} geeft ${to.nounPhrase} de groene vlag.`,
+            long: {
+                [Language.NL]: `${ucFirst(from.nounPhrase)} geeft ${to.nounPhrase} de groene vlag.`,
+                [Language.EN]: `${ucFirst(from.nounPhrase)} gives ${to.nounPhrase} the green flag.`,
+            },
             locality: Locality.AT_CENTER,
         };
     }

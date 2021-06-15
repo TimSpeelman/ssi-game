@@ -1,3 +1,4 @@
+import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
@@ -23,11 +24,14 @@ export class PhysicalPassportAuthentication extends Action<Props> {
 
     static config: ActionFormConfig<keyof Props> = {
         typeName: 'PhysicalPassportAuthentication',
-        title: 'Authenticatie o.b.v. paspoort',
+        title: {
+            [Language.NL]: 'Authenticatie o.b.v. paspoort',
+            [Language.EN]: 'Authentication based on paspoort',
+        },
         fields: {
-            verifierId: { type: 'actor', title: 'Verifier' },
-            humanSubjectId: { type: 'actor', title: 'Subject' },
-            dataSubjectId: { type: 'string', title: 'Pseudoniem van Subject' },
+            verifierId: { type: 'actor', title: translations.verifier },
+            humanSubjectId: { type: 'actor', title: translations.subject },
+            dataSubjectId: { type: 'string', title: translations.subjectPseudonym },
         },
     };
 
@@ -71,14 +75,25 @@ export class PhysicalPassportAuthentication extends Action<Props> {
             to_mode: 'facescan',
             description: {
                 [Language.NL]: 'Fysieke authenticatie o.b.v. paspoort',
-                [Language.EN]: 'Fysieke authenticatie o.b.v. paspoort',
+                [Language.EN]: 'Physical authentication based on paspoort',
             },
-            sub: '..',
-            long: `${ucFirst(verifier.nounPhrase)} authenticeert ${
-                subject.nounPhrase
-            }, in levende lijve, op basis van ${
-                subject.isMale ? 'zijn' : 'haar'
-            } paspoort door de pasfoto te vergelijken met ${subject.isMale ? 'zijn' : 'haar'} gezicht.`,
+            sub: {
+                [Language.NL]: '',
+                [Language.EN]: '',
+            },
+            long: {
+                [Language.NL]: `${ucFirst(verifier.nounPhrase)} authenticeert ${
+                    subject.nounPhrase
+                }, in levende lijve, op basis van ${
+                    subject.isMale ? 'zijn' : 'haar'
+                } paspoort door de pasfoto te vergelijken met ${subject.isMale ? 'zijn' : 'haar'} gezicht.`,
+
+                [Language.EN]: `${ucFirst(verifier.nounPhrase)} authenticates ${
+                    subject.nounPhrase
+                }, in real life, based on ${
+                    subject.isMale ? 'his' : 'her'
+                } passport by comparing the photo on it with  ${subject.isMale ? 'his' : 'her'} face.`,
+            },
             locality: Locality.AT_FROM,
         };
     }

@@ -1,3 +1,4 @@
+import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
@@ -19,11 +20,14 @@ export class WalletQRAuthentication extends Action<Props> {
 
     static config: ActionFormConfig<keyof Props> = {
         typeName: 'WalletQRAuthentication',
-        title: 'Authenticatie van Wallet via QR',
+        title: {
+            [Language.NL]: 'Authenticatie van Wallet via QR',
+            [Language.EN]: 'Authentication of Wallet via QR',
+        },
         fields: {
-            verifierId: { type: 'actor', title: 'Verifier' },
-            humanSubjectId: { type: 'actor', title: 'Subject' },
-            dataSubjectId: { type: 'string', title: 'Pseudoniem van Subject' },
+            verifierId: { type: 'actor', title: translations.verifier },
+            humanSubjectId: { type: 'actor', title: translations.subject },
+            dataSubjectId: { type: 'string', title: translations.subjectPseudonym },
         },
     };
 
@@ -50,12 +54,20 @@ export class WalletQRAuthentication extends Action<Props> {
             to_mode: 'selfie',
             description: {
                 [Language.NL]: 'Authenticatie van wallet (pseudoniem) via QR',
-                [Language.EN]: 'Authenticatie van wallet (pseudoniem) via QR',
+                [Language.EN]: 'Authentication of wallet (pseudonym) via QR',
             },
-            sub: '..',
-            long: `${ucFirst(subject.nounPhrase)} scant QR van ${verifier.nounPhrase} waarna ${
-                verifier.nounPhrase
-            } de wallet van ${subject.nounPhrase} authenticeert.`,
+            sub: {
+                [Language.NL]: '',
+                [Language.EN]: '',
+            },
+            long: {
+                [Language.NL]: `${ucFirst(subject.nounPhrase)} scant QR van ${verifier.nounPhrase} waarna ${
+                    verifier.nounPhrase
+                } de wallet van ${subject.nounPhrase} authenticeert.`,
+                [Language.EN]: `${ucFirst(subject.nounPhrase)} scans QR code of ${verifier.nounPhrase} after which ${
+                    verifier.nounPhrase
+                } authenticates the wallet of ${subject.nounPhrase}.`,
+            },
             locality: Locality.REMOTE,
         };
     }

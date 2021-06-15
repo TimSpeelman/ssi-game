@@ -18,7 +18,7 @@ export function AssetInspector() {
     const asset: AssetTreeNode | undefined = useSelector(selectSelectedAssetNode);
     const actors = useSelector(selectUsedActors);
     const actor = actors.find((a) => a.id === asset?.ownerId);
-    const { dict } = useLang();
+    const { dict, lang } = useLang();
 
     if (!asset) return <div>{dict.msgNoAssetSelected}</div>;
 
@@ -58,8 +58,7 @@ export function AssetInspector() {
                 }}
             >
                 <div style={{ flexGrow: 1 }}>
-                    <Typography variant="h6">{asset.asset.title}</Typography>
-                    {/* <Typography variant="subtitle2">{asset.asset.sub}</Typography> */}
+                    <Typography variant="h6">{asset.asset.title[lang]}</Typography>
                 </div>
                 {asset.asset.isInitial && (
                     <Button
@@ -75,7 +74,7 @@ export function AssetInspector() {
                     ''
                 ) : (
                     <div key={prop}>
-                        <strong>{field.title}: </strong> {asset.asset.props[prop] || ''}
+                        <strong>{field.title[lang]}: </strong> {asset.asset.props[prop] || ''}
                     </div>
                 ),
             )}

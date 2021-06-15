@@ -13,9 +13,9 @@ export interface Props {
 }
 
 export function AssetList({ assets, onEdit, onDelete, onClick }: Props) {
-    const { dict } = useLang();
+    const { dict, lang } = useLang();
     const title = (a: AssetTreeNode) =>
-        a.asset.canHaveChildren ? `${a.asset.title} (${a.children.length})` : a.asset.title;
+        a.asset.canHaveChildren ? `${a.asset.title[lang]} (${a.children.length})` : a.asset.title[lang];
     return (
         <List dense>
             {assets.length > 0 ? (

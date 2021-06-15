@@ -1,3 +1,4 @@
+import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
@@ -23,15 +24,18 @@ export class Presentation extends Action<Props> {
 
     static config: ActionFormConfig<keyof Props> = {
         typeName: 'Presentation',
-        title: 'Presentatie van Credential',
+        title: {
+            [Language.NL]: 'Presentatie van Credential',
+            [Language.EN]: 'Presentation of Credential',
+        },
         fields: {
-            verifierId: { type: 'actor', title: 'Verifier' },
-            subjectId: { type: 'actor', title: 'Subject' },
-            verifierNym: { type: 'string', title: 'Pseudoniem van Verifier' },
-            subjectNym: { type: 'string', title: 'Pseudoniem van Subject' },
-            issuerNym: { type: 'string', title: 'Pseudoniem van Issuer' },
-            attributeName: { type: 'string', title: 'Attribuutnaam' },
-            attributeValue: { type: 'string', title: 'Attribuutwaarde' },
+            verifierId: { type: 'actor', title: translations.verifier },
+            subjectId: { type: 'actor', title: translations.subject },
+            verifierNym: { type: 'string', title: translations.verifierPseudonym },
+            subjectNym: { type: 'string', title: translations.subjectPseudonym },
+            issuerNym: { type: 'string', title: translations.issuerPseudonym },
+            attributeName: { type: 'string', title: translations.attributeName },
+            attributeValue: { type: 'string', title: translations.attributeValue },
         },
     };
 
@@ -60,12 +64,20 @@ export class Presentation extends Action<Props> {
             to_mode: 'phone',
             description: {
                 [Language.NL]: `Toon ${this.props.attributeName} credential`,
-                [Language.EN]: `Toon ${this.props.attributeName} credential`,
+                [Language.EN]: `Present ${this.props.attributeName} credential`,
             },
-            sub: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
-            long: `${ucFirst(subject.nounPhrase)} toont het ${this.props.attributeName} credential aan ${
-                verifier.nounPhrase
-            }.`,
+            sub: {
+                [Language.NL]: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
+                [Language.EN]: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
+            },
+            long: {
+                [Language.NL]: `${ucFirst(subject.nounPhrase)} toont het ${this.props.attributeName} credential aan ${
+                    verifier.nounPhrase
+                }.`,
+                [Language.EN]: `${ucFirst(subject.nounPhrase)} presents the ${this.props.attributeName} credential to ${
+                    verifier.nounPhrase
+                }.`,
+            },
             locality: Locality.REMOTE,
         };
     }

@@ -1,10 +1,12 @@
+import { Translation } from '../../intl/Language';
+
 export interface ActionFormConfig<Prop extends string> {
-    title: string;
+    title: Translation;
     fields: Record<
         Prop,
         {
             type: 'string' | 'actor';
-            title: string;
+            title: Translation;
         }
     >;
     typeName: string;

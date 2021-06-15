@@ -1,3 +1,4 @@
+import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
@@ -24,11 +25,14 @@ export class Revocation extends Action<Props> {
 
     static config: ActionFormConfig<keyof Props> = {
         typeName: 'Revocation',
-        title: 'Intrekken van credential',
+        title: {
+            [Language.NL]: 'Intrekken van credential',
+            [Language.EN]: 'Revocation of credential',
+        },
         fields: {
-            issuerId: { type: 'actor', title: 'Issuer' },
-            subjectId: { type: 'actor', title: 'Subject' },
-            attributeId: { type: 'string', title: 'Attribuut' },
+            issuerId: { type: 'actor', title: translations.issuer },
+            subjectId: { type: 'actor', title: translations.subject },
+            attributeId: { type: 'string', title: translations.attribute },
         },
     };
 
@@ -59,10 +63,18 @@ export class Revocation extends Action<Props> {
                 [Language.NL]: `Revocatie van ${this.props.attributeId} credential`,
                 [Language.EN]: `Revocation of ${this.props.attributeId} credential`,
             },
-            sub: ``,
-            long: `${ucFirst(issuer.nounPhrase)} trekt het attribuut ${this.props.attributeId} van ${
-                subject.nounPhrase
-            } in.`,
+            sub: {
+                [Language.NL]: '',
+                [Language.EN]: '',
+            },
+            long: {
+                [Language.NL]: `${ucFirst(issuer.nounPhrase)} trekt het attribuut ${this.props.attributeId} van ${
+                    subject.nounPhrase
+                } in.`,
+                [Language.EN]: `${ucFirst(issuer.nounPhrase)} revokes the attribute ${this.props.attributeId} of ${
+                    subject.nounPhrase
+                }.`,
+            },
             locality: Locality.REMOTE,
         };
     }

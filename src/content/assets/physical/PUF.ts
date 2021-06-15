@@ -1,3 +1,4 @@
+import { Translation } from '../../../intl/Language';
 import { Asset, AssetBaseProps, CustomAssetDesc } from '../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { AssetFormConfig } from '../../../model/view/AssetFormConfig';
@@ -6,6 +7,10 @@ export interface Props extends AssetBaseProps {
     secret: string;
 }
 
+const title: Translation = {
+    NL: 'Physically Uncloneable Function (PUF)',
+    EN: 'Physically Uncloneable Function (PUF)',
+};
 /**
  * A physically uncloneable function (PUF).
  *
@@ -18,16 +23,22 @@ export class PUF extends Asset<Props> {
 
     static config: AssetFormConfig<keyof Props> = {
         typeName: 'PUF',
-        title: 'Physically Uncloneable Function (PUF)',
+        title: title,
         fields: {
-            secret: { type: 'string', title: 'Geheim' },
+            secret: {
+                type: 'string',
+                title: {
+                    NL: 'Geheim',
+                    EN: 'Secret',
+                },
+            },
         },
     };
 
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
             sub: JSON.stringify(this.props),
-            title: 'Physically Uncloneable Function (PUF)',
+            title: title,
         };
     }
 }

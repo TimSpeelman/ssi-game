@@ -65,7 +65,7 @@ export function AssetDialog(props: Props) {
 
     const fields = assetType ? Object.entries(assetType.fields) : [];
 
-    const { dict } = useLang();
+    const { dict, lang } = useLang();
 
     return (
         <Fragment>
@@ -78,7 +78,7 @@ export function AssetDialog(props: Props) {
                     <Select disabled={!props.isCreate} value={type} onChange={(e) => setType(e.target.value as string)}>
                         {AssetForms.map((actType) => (
                             <MenuItem key={actType.typeName} value={actType.typeName}>
-                                {actType.title}
+                                {actType.title[lang]}
                             </MenuItem>
                         ))}
                     </Select>
@@ -91,7 +91,7 @@ export function AssetDialog(props: Props) {
                         <div key={prop}>
                             {field.type === 'actor' && (
                                 <FormControl fullWidth style={{ marginBottom: '1em' }}>
-                                    <InputLabel>{field.title}</InputLabel>
+                                    <InputLabel>{field.title[lang]}</InputLabel>
                                     <Select
                                         value={assetProps[prop] || ''}
                                         onChange={(e) => setField(prop, e.target.value)}
@@ -111,7 +111,7 @@ export function AssetDialog(props: Props) {
                                     style={{ marginBottom: '1em' }}
                                     margin="dense"
                                     id={'input-' + prop}
-                                    label={field.title}
+                                    label={field.title[lang]}
                                     value={assetProps[prop] || ''}
                                     onChange={(e) => setField(prop, e.target.value)}
                                     fullWidth

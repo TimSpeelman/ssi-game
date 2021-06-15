@@ -1,3 +1,5 @@
+import { translations } from '../../../../intl/dictionaries';
+import { Translation } from '../../../../intl/Language';
 import { Asset, AssetBaseProps, CustomAssetDesc } from '../../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../../model/logic/State/ScenarioState';
 import { AssetFormConfig } from '../../../../model/view/AssetFormConfig';
@@ -7,23 +9,27 @@ export interface Props extends AssetBaseProps {
     targetId: string;
 }
 
+const title: Translation = {
+    NL: 'Authenticatieresultaat',
+    EN: 'Authentication result',
+};
 export class AuthenticationResult extends Asset<Props> {
     protected typeName = 'AuthenticationResult';
     protected kindName = 'Data';
 
     static config: AssetFormConfig<keyof Props> = {
         typeName: 'AuthenticationResult',
-        title: 'Authenticatieresultaat',
+        title: title,
         fields: {
-            sourceId: { type: 'actor', title: 'Subject' },
-            targetId: { type: 'string', title: 'Identifier' },
+            sourceId: { type: 'actor', title: translations.subject },
+            targetId: { type: 'string', title: translations.identifier },
         },
     };
 
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
             sub: JSON.stringify(this.props),
-            title: 'Authenticatieresultaat',
+            title: title,
         };
     }
 }

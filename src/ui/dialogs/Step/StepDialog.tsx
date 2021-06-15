@@ -64,7 +64,7 @@ export function StepDialog(props: Props) {
     }
 
     const fields = actType ? Object.entries(actType.fields) : [];
-    const { dict } = useLang();
+    const { dict, lang } = useLang();
     return (
         <Fragment>
             <DialogTitle id="form-dialog-title">
@@ -76,7 +76,7 @@ export function StepDialog(props: Props) {
                     <Select value={type} onChange={(e) => setType(e.target.value as string)}>
                         {ActionForms.map((actType) => (
                             <MenuItem key={actType.typeName} value={actType.typeName}>
-                                {actType.title}
+                                {actType.title[lang]}
                             </MenuItem>
                         ))}
                     </Select>
@@ -86,7 +86,7 @@ export function StepDialog(props: Props) {
                     <div key={prop}>
                         {field.type === 'actor' && (
                             <FormControl fullWidth style={{ marginBottom: '1em' }}>
-                                <InputLabel>{field.title}</InputLabel>
+                                <InputLabel>{field.title[lang]}</InputLabel>
                                 <Select value={actProps[prop] || ''} onChange={(e) => setField(prop, e.target.value)}>
                                     {availableActors.map((actor) => (
                                         <MenuItem key={actor.id} value={actor.id}>
@@ -103,7 +103,7 @@ export function StepDialog(props: Props) {
                                 style={{ marginBottom: '1em' }}
                                 margin="dense"
                                 id={'input-' + prop}
-                                label={field.title}
+                                label={field.title[lang]}
                                 value={actProps[prop] || ''}
                                 onChange={(e) => setField(prop, e.target.value)}
                                 fullWidth

@@ -1,3 +1,4 @@
+import { translations } from '../../intl/dictionaries';
 import { Language } from '../../intl/Language';
 import { ActionDesc, Locality } from '../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../model/logic/State/ScenarioState';
@@ -21,12 +22,27 @@ export class CustomInteraction extends Action<Props> {
 
     static config: ActionFormConfig<keyof Props> = {
         typeName: 'CustomInteraction',
-        title: 'Vrije Interactie',
+        title: {
+            [Language.NL]: 'Vrije Interactie',
+            [Language.EN]: 'Vrije Interactie',
+        },
         fields: {
-            fromId: { type: 'actor', title: 'Van' },
-            toId: { type: 'actor', title: 'Naar' },
-            description: { type: 'string', title: 'Omschrijving 1' },
-            sub: { type: 'string', title: 'Omschrijving 2' },
+            fromId: { type: 'actor', title: translations.fromActor },
+            toId: { type: 'actor', title: translations.toActor },
+            description: {
+                type: 'string',
+                title: {
+                    NL: 'Omschrijving 1',
+                    EN: 'Description 1',
+                },
+            },
+            sub: {
+                type: 'string',
+                title: {
+                    NL: 'Omschrijving 2',
+                    EN: 'Description 2',
+                },
+            },
         },
     };
 
@@ -48,7 +64,10 @@ export class CustomInteraction extends Action<Props> {
                 [Language.NL]: this.props.description,
                 [Language.EN]: this.props.description,
             },
-            sub: this.props.sub,
+            sub: {
+                [Language.NL]: this.props.sub,
+                [Language.EN]: this.props.sub,
+            },
             locality: Locality.REMOTE,
         };
     }

@@ -1,4 +1,20 @@
 export interface Dictionary {
+    issuer: string;
+    verifier: string;
+    subject: string;
+    attribute: string;
+    attributeName: string;
+    attributeValue: string;
+    pseudonym: string;
+    issuerPseudonym: string;
+    subjectPseudonym: string;
+    verifierPseudonym: string;
+    fromActor: string;
+    toActor: string;
+    description: string;
+    name: string;
+    identifier: string;
+
     step: string;
     /** As in '3 out of 5' */
     outOf: string;

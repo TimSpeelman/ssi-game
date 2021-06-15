@@ -1,3 +1,4 @@
+import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
@@ -22,13 +23,16 @@ export class PresentationRequest extends Action<Props> {
 
     static config: ActionFormConfig<keyof Props> = {
         typeName: 'PresentationRequest',
-        title: 'Verzoek voor Presentatie',
+        title: {
+            [Language.NL]: 'Verzoek voor Presentatie',
+            [Language.EN]: 'Request for Presentation',
+        },
         fields: {
-            verifierId: { type: 'actor', title: 'Verifier' },
-            subjectId: { type: 'actor', title: 'Subject' },
-            verifierNym: { type: 'string', title: 'Pseudoniem van Verifier' },
-            subjectNym: { type: 'string', title: 'Pseudoniem van Subject' },
-            attributeName: { type: 'string', title: 'Attribuutnaam' },
+            verifierId: { type: 'actor', title: translations.verifier },
+            subjectId: { type: 'actor', title: translations.subject },
+            verifierNym: { type: 'string', title: translations.verifierPseudonym },
+            subjectNym: { type: 'string', title: translations.subjectPseudonym },
+            attributeName: { type: 'string', title: translations.attributeName },
         },
     };
 
@@ -58,12 +62,20 @@ export class PresentationRequest extends Action<Props> {
             to_mode: 'phone',
             description: {
                 [Language.NL]: `Vraag om ${this.props.attributeName} credential te tonen`,
-                [Language.EN]: `Vraag om ${this.props.attributeName} credential te tonen`,
+                [Language.EN]: `Request for presentation of ${this.props.attributeName} credential`,
             },
-            sub: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
-            long: `${ucFirst(verifier.nounPhrase)} verzoekt ${subject.nounPhrase} om het attribuut ${
-                this.props.attributeName
-            } te presenteren.`,
+            sub: {
+                [Language.NL]: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
+                [Language.EN]: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
+            },
+            long: {
+                [Language.NL]: `${ucFirst(verifier.nounPhrase)} verzoekt ${subject.nounPhrase} om het attribuut ${
+                    this.props.attributeName
+                } te presenteren.`,
+                [Language.EN]: `${ucFirst(verifier.nounPhrase)} requests ${
+                    subject.nounPhrase
+                } for a presentation of the ${this.props.attributeName} credential.`,
+            },
             locality: Locality.REMOTE,
         };
     }

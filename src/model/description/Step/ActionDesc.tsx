@@ -10,8 +10,8 @@ export interface ActionDesc {
     to: Actor;
     to_mode?: string;
     description: Translation;
-    long?: string;
-    sub: string;
+    long?: Translation;
+    sub: Translation;
     locality: Locality;
 }
 

@@ -16,7 +16,7 @@ export const translations = Object.keys(DictionaryEN).reduce(
         ...all,
         [str]: getTranslation(str as keyof Dictionary),
     }),
-    {},
+    {} as Record<keyof Dictionary, Record<Language, string>>,
 );
 
 export function translate(lang: Language, str: keyof Dictionary): string {

@@ -1,1 +1,3 @@
-export type OutcomeDesc = string;
+import { Translation } from '../../../intl/Language';
+
+export type OutcomeDesc = Translation;

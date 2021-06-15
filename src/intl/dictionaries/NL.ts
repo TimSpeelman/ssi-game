@@ -29,12 +29,10 @@ export const DictionaryNL: Dictionary = {
     initialStateInspector_msgNavigateSteps: 'Navigeer door de stappen om hier gedetailleerde informatie te zien.',
     initialStateInspector_msgYouHaveNoSteps: 'Je hebt nog geen stappen. Maak eerst een stap aan.',
 
-    /** Step Inspector */
     msgStepIsFailing: 'Deze stap mislukt..',
     titleOutcomes: 'Uitkomsten',
     emptyListIndicator: 'geen',
 
-    /** Actor Inspector */
     allActors: 'Alle actoren',
     selectedActor: 'Geselecteerde Actor',
     assets: 'Assets',
@@ -46,19 +44,14 @@ export const DictionaryNL: Dictionary = {
     kindSoftware: 'Software',
     kindFlag: 'Vlaggen',
 
-    /** Actor List */
     titleActors: 'Actoren',
     btnAddActor: 'Actor Toevoegen',
     actorList_msgYouHaveNoActors: 'Je hebt nog geen actoren. Voeg een actor toe.',
 
-    /** 0: actor name */
     actorList_msgFirstRemoveActionsOfActorX: 'Verwijder eerst alle acties waar {0} in is betrokken.',
-    /** 0: actor name */
     actorList_hintRemoveActorX: '{0} verwijderen.',
 
-    /** Asset Inspector */
     msgNoAssetSelected: 'Geen asset geselecteerd',
-    /** 0: actor name */
     assetsOfX: 'Assets van {0}',
     selectedAsset: 'Geselecteerde asset',
     assetContent: 'Inhoud',

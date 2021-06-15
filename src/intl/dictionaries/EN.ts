@@ -29,12 +29,10 @@ export const DictionaryEN: Dictionary = {
     initialStateInspector_msgNavigateSteps: 'Navigate through steps to see detailed information here.',
     initialStateInspector_msgYouHaveNoSteps: 'You have no steps yet. Add a step to see its details here.',
 
-    /** Step Inspector */
     msgStepIsFailing: 'This step fails.',
     titleOutcomes: 'Outcomes',
     emptyListIndicator: 'none',
 
-    /** Actor Inspector */
     allActors: 'All Actors',
     selectedActor: 'Selected Actor',
     assets: 'Assets',
@@ -46,19 +44,14 @@ export const DictionaryEN: Dictionary = {
     kindSoftware: 'Software',
     kindFlag: 'Flags',
 
-    /** Actor List */
     titleActors: 'Actors',
     btnAddActor: 'Add Actor',
     actorList_msgYouHaveNoActors: 'You have no actors yet. Add an actor to start building your scenario.',
 
-    /** 0: actor name */
     actorList_msgFirstRemoveActionsOfActorX: 'First remove all actions in which {0} is involved.',
-    /** 0: actor name */
     actorList_hintRemoveActorX: 'remove {0}.',
 
-    /** Asset Inspector */
     msgNoAssetSelected: 'No asset selected',
-    /** 0: actor name */
     assetsOfX: 'Assets of {0}',
     selectedAsset: 'Selected asset',
     assetContent: 'Contents',

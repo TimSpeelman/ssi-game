@@ -25,16 +25,19 @@ export interface Dictionary {
     stepSequence_msgYouHaveNoSteps: string;
     startingState: string;
 
-    /** Initial State Inspector */
+    // Initial State Inspector
+
     initialStateInspector_msgNavigateSteps: string;
     initialStateInspector_msgYouHaveNoSteps: string;
 
-    /** Step Inspector */
+    // Step Inspector
+
     msgStepIsFailing: string;
     titleOutcomes: string;
     emptyListIndicator: string;
 
-    /** Actor Inspector */
+    // Actor Inspector
+
     allActors: string;
     selectedActor: string;
     assets: string;
@@ -46,7 +49,8 @@ export interface Dictionary {
     kindSoftware: string;
     kindFlag: string;
 
-    /** Actor List */
+    // Actor List
+
     titleActors: string;
     btnAddActor: string;
     actorList_msgYouHaveNoActors: string;
@@ -54,7 +58,8 @@ export interface Dictionary {
     actorList_msgFirstRemoveActionsOfActorX: string;
     actorList_hintRemoveActorX: string;
 
-    /** Asset Inspector */
+    // Asset Inspector
+
     msgNoAssetSelected: string;
     assetsOfX: string;
     selectedAsset: string;

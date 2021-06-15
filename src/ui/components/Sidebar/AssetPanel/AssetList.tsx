@@ -3,6 +3,7 @@ import { Delete, Edit } from '@material-ui/icons';
 import React from 'react';
 import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode';
 import { stopPropagation } from '../../../../util/util';
+import { useLang } from '../../../hooks/useLang';
 
 export interface Props {
     assets: AssetTreeNode[];
@@ -12,6 +13,7 @@ export interface Props {
 }
 
 export function AssetList({ assets, onEdit, onDelete, onClick }: Props) {
+    const { dict } = useLang();
     const title = (a: AssetTreeNode) =>
         a.asset.canHaveChildren ? `${a.asset.title} (${a.children.length})` : a.asset.title;
     return (
@@ -34,7 +36,7 @@ export function AssetList({ assets, onEdit, onDelete, onClick }: Props) {
                 ))
             ) : (
                 <ListItem>
-                    <ListItemText primary={'- geen -'} />
+                    <ListItemText primary={`- ${dict.emptyListIndicator} -`} />
                 </ListItem>
             )}
         </List>

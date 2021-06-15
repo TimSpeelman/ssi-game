@@ -23,6 +23,7 @@ import { ScenarioMetaDialog } from '../components/Sidebar/InfoPanel/ScenarioMeta
 import { Sidebar } from '../components/Sidebar/Sidebar';
 import { SidebarTab } from '../components/Sidebar/SidebarTab';
 import { CanvasEvent, SVGNetworkCanvas } from '../components/SVGNetworkCanvas';
+import { useLang } from '../hooks/useLang';
 
 export function NetworkCanvas() {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -110,6 +111,8 @@ export function NetworkCanvas() {
         hoveredElemId,
     });
 
+    const { dict } = useLang();
+
     return (
         <div className="network-canvas">
             <ScenarioMetaDialog
@@ -122,13 +125,17 @@ export function NetworkCanvas() {
                 <SVGNetworkCanvas elems={elems} onEvent={handleEvent} />
                 {failedStep && (
                     <div className="scenario-status">
-                        <strong>Scenario faalt bij Stap {scenarioDesc.failingAtIndex! + 1}!</strong>
+                        <strong>
+                            {dict.networkCanvasPage_msgStepXFails.replace('{0}', `${scenarioDesc.failingAtIndex! + 1}`)}
+                        </strong>
                     </div>
                 )}
                 <div className="time-navigation">
                     {currentStep ? (
                         <span>
-                            <strong>Stap {currentStepIndex + 1}: </strong>
+                            <strong>
+                                {dict.step} {currentStepIndex + 1}:{' '}
+                            </strong>
                             {currentStep.action.description[lang]}
                         </span>
                     ) : (

@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { ScenarioMeta } from '../../../../model/definition/ScenarioMeta';
 import { ScenarioActions } from '../../../../state/scenario/actions';
+import { useLang } from '../../../hooks/useLang';
 import { useNav } from '../../../hooks/useNav';
 
 interface Props {
@@ -13,12 +14,15 @@ interface Props {
 export function ScenarioInspector({ meta }: Props) {
     const { goto } = useNav();
     const dispatch = useDispatch();
+    const { dict } = useLang();
     return (
         <div style={{ padding: '1rem' }}>
             <Typography variant="h6">{meta.title}</Typography>
-            <p>Auteur: {meta.author}</p>
+            <p>
+                {dict.author}: {meta.author}
+            </p>
             <p>{meta.body}</p>
-            <Button onClick={() => dispatch(ScenarioActions.SHOW_META())}>Bewerken</Button>
+            <Button onClick={() => dispatch(ScenarioActions.SHOW_META())}>{dict.btnEditScenarioMeta}</Button>
             {/* <Button onClick={() => goto('/configuratie')}>Instellingen</Button> */}
         </div>
     );

@@ -7,6 +7,7 @@ import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectScenarioDef, selectSelectedActorDesc } from '../../../../state/scenario/selectors';
 import { groupBy } from '../../../../util/util';
 import { useDialog } from '../../../dialogs/dialogs';
+import { useLang } from '../../../hooks/useLang';
 import { AssetList } from '../AssetPanel/AssetList';
 import { SidebarTab } from '../SidebarTab';
 
@@ -20,26 +21,27 @@ export function ActorInspector() {
     const actorConfig = actors.find((a) => a.definition.id === actorState?.actor.id);
     const { definition, initialAssets } = actorConfig!;
     const { openDialog } = useDialog();
+    const { dict } = useLang();
 
     const grouped = groupBy(assets, (a) => a.asset.kind);
     const groups = Object.entries(grouped).map(([group, items]) => ({ group, items }));
     const kinds = {
-        Feature: 'Kenmerken',
-        Data: 'Gegevens',
-        Physical: 'Fysieke Zaken',
-        Software: 'Software',
-        Flag: 'Vlaggen',
+        Feature: dict.kindFeature,
+        Data: dict.kindData,
+        Physical: dict.kindPhysical,
+        Software: dict.kindSoftware,
+        Flag: dict.kindFlag,
     };
 
     return (
         <div>
             <Button onClick={() => dispatch(ScenarioActions.CLEAR_SELECTION())}>
-                <ChevronLeft /> Alle Actoren
+                <ChevronLeft /> {dict.allActors}
             </Button>
             <Divider />
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
-                <Typography variant="h6">Geselecteerde Actor</Typography>
+                <Typography variant="h6">{dict.selectedActor}</Typography>
             </div>
 
             <div
@@ -62,9 +64,11 @@ export function ActorInspector() {
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
-                <Typography variant="h6">Assets ({assets.length})</Typography>
+                <Typography variant="h6">
+                    {dict.assets} ({assets.length})
+                </Typography>
                 <Button onClick={() => openDialog('AddAsset', { actorId: definition.id })}>
-                    <Add /> Toevoegen
+                    <Add /> {dict.btnAddAsset}
                 </Button>
             </div>
             {groups.map(({ group, items }) => (

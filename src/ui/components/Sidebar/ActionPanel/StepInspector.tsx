@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { StepDesc } from '../../../../model/description/Step/StepDesc';
 import { selectStepDescs } from '../../../../state/scenario/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
+import { useLang } from '../../../hooks/useLang';
 import { StepLabel } from './StepLabel';
 import { StepNav } from './StepNav';
 
@@ -16,12 +17,12 @@ export function StepInspector({ step }: Props) {
     const steps = useSelector(selectStepDescs);
     const index = steps.findIndex((s) => step.action.id === s.action.id);
     const { openDialog } = useDialog();
-
+    const { dict } = useLang();
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Typography variant="h6">
-                    Stap {index + 1} van {steps.length}
+                    {dict.step} {index + 1} {dict.outOf} {steps.length}
                 </Typography>
                 <StepNav />
             </div>
@@ -36,7 +37,7 @@ export function StepInspector({ step }: Props) {
             {!step.success && (
                 <Fragment>
                     <Typography variant="h6" style={{ color: 'red' }}>
-                        Deze stap mislukt..
+                        {dict.msgStepIsFailing}
                     </Typography>
                     <ul>
                         {step.validation
@@ -49,7 +50,7 @@ export function StepInspector({ step }: Props) {
             )}
 
             {/* Outcome list */}
-            <Typography variant="h6">Uitkomsten</Typography>
+            <Typography variant="h6">{dict.titleOutcomes}</Typography>
             {step.outcomes.length > 0 ? (
                 <ul>
                     {step.outcomes.map((o, i) => (
@@ -59,7 +60,7 @@ export function StepInspector({ step }: Props) {
             ) : (
                 <ul>
                     <li>
-                        <small>- Geen -</small>
+                        <small>- {dict.emptyListIndicator} -</small>
                     </li>
                 </ul>
             )}

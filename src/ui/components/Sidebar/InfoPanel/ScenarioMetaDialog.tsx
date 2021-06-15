@@ -11,6 +11,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ScenarioMeta } from '../../../../model/definition/ScenarioMeta';
 import { ScenarioActions } from '../../../../state/scenario/actions';
+import { useLang } from '../../../hooks/useLang';
 
 export interface Props {
     meta: ScenarioMeta;
@@ -34,6 +35,7 @@ export function ScenarioMetaDialog(props: Props) {
         setEdit(false);
         setMeta(props.meta);
     };
+    const { dict } = useLang();
     return (
         <Dialog open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title" maxWidth={'lg'}>
             <div style={{ minWidth: '50vw' }}>
@@ -41,23 +43,25 @@ export function ScenarioMetaDialog(props: Props) {
                     <Fragment>
                         <DialogTitle>{props.meta.title} </DialogTitle>
                         <DialogContent>
-                            <small>Auteur: {props.meta.author}</small>
+                            <small>
+                                {dict.author}: {props.meta.author}
+                            </small>
                         </DialogContent>
                         <DialogContent>
                             <DialogContentText>{props.meta.body}</DialogContentText>
                         </DialogContent>
                         <DialogActions style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <Button onClick={() => setEdit(true)}>Bewerken</Button>
+                            <Button onClick={() => setEdit(true)}>{dict.btnEditScenarioMeta}</Button>
                             <Button onClick={props.handleClose} color="primary">
-                                Sluiten
+                                {dict.btnClose}
                             </Button>
                         </DialogActions>
                     </Fragment>
                 ) : (
                     <Fragment>
-                        <DialogTitle>Scenario-omschrijving Aanpassen</DialogTitle>
+                        <DialogTitle>{dict.metaDialog_title}</DialogTitle>
                         <DialogContent>
-                            <DialogContentText>Pas de omschrijving aan:</DialogContentText>
+                            <DialogContentText>{dict.metaDialog_explanation}</DialogContentText>
 
                             <TextField
                                 fullWidth
@@ -84,9 +88,9 @@ export function ScenarioMetaDialog(props: Props) {
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={save} color="primary">
-                                Opslaan
+                                {dict.btnSave}
                             </Button>
-                            <Button onClick={cancel}>Annuleren</Button>
+                            <Button onClick={cancel}>{dict.btnCancel}</Button>
                         </DialogActions>
                     </Fragment>
                 )}

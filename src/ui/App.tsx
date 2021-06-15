@@ -12,16 +12,19 @@ import { selectScenarioDef } from '../state/scenario/selectors';
 import { LanguageMenu } from './components/LanguageMenu';
 import { useDialogService } from './dialogs/DialogContext';
 import { GlobalDialogRouter } from './dialogs/GlobalDialogRouter';
+import { useLang } from './hooks/useLang';
 import { NetworkCanvas } from './pages/NetworkCanvasPage';
 
 export function App() {
     const scenario = useSelector(selectScenarioDef);
 
+    const { dict } = useLang();
+
     const dispatch = useDispatch();
 
-    const clear = () => confirm('Weet je zeker dat je alles wilt wissen?') && dispatch(ScenarioActions.CLEAR());
+    const clear = () => confirm(dict.app_msgConfirmClear) && dispatch(ScenarioActions.CLEAR());
 
-    const reset = () => confirm('Weet je zeker dat je alles terug wilt zetten?') && dispatch(ScenarioActions.RESET());
+    const reset = () => confirm(dict.app_msgConfirmReset) && dispatch(ScenarioActions.RESET());
 
     const saveToFile = () => saveScenarioToFile(scenario);
 
@@ -33,7 +36,7 @@ export function App() {
         loadScenarioFromFile(files[0])
             .then((scenario) => {
                 dispatch(ScenarioActions.SET_SCENARIO({ scenario }));
-                alert('Bestand geladen!');
+                alert(dict.app_msgFileLoaded);
             })
             .catch((e) => alert(e));
     }
@@ -65,16 +68,16 @@ export function App() {
                         Identity Game
                     </Typography>
                     <Button color={'inherit'} onClick={clear} style={{ marginRight: '.5rem' }}>
-                        <Clear /> Legen
+                        <Clear /> {dict.btnClear}
                     </Button>
                     <Button color={'inherit'} onClick={reset} style={{ marginRight: '.5rem' }}>
-                        <Restore /> Reset
+                        <Restore /> {dict.btnReset}
                     </Button>
                     <Button color={'inherit'} onClick={saveToFile} style={{ marginRight: '.5rem' }}>
-                        <Save /> Opslaan
+                        <Save /> {dict.btnSaveToFile}
                     </Button>
                     <Button color={'inherit'} component={'label'}>
-                        <RestorePage /> Laden
+                        <RestorePage /> {dict.btnLoadFromFile}
                         <input type="file" hidden value={undefined} onChange={(e) => loadFromFile(e)} />
                     </Button>
                     <LanguageMenu />

@@ -7,6 +7,7 @@ import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode
 import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectSelectedAssetNode, selectUsedActors } from '../../../../state/scenario/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
+import { useLang } from '../../../hooks/useLang';
 import { SidebarTab } from '../SidebarTab';
 import { AssetList } from './AssetList';
 
@@ -17,8 +18,9 @@ export function AssetInspector() {
     const asset: AssetTreeNode | undefined = useSelector(selectSelectedAssetNode);
     const actors = useSelector(selectUsedActors);
     const actor = actors.find((a) => a.id === asset?.ownerId);
+    const { dict } = useLang();
 
-    if (!asset) return <div>Geen asset geselecteerd</div>;
+    if (!asset) return <div>{dict.msgNoAssetSelected}</div>;
 
     // Depending on the chosen action type, select the appropriate form
     const type = asset?.asset.type;
@@ -37,12 +39,12 @@ export function AssetInspector() {
     return (
         <div>
             <Button onClick={backToOwner}>
-                <ChevronLeft /> Assets van {actor!.name}
+                <ChevronLeft /> {dict.assetsOfX.replace('{0}', actor!.name)}
             </Button>
             <Divider />
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
-                <Typography variant="h6">Geselecteerde Asset</Typography>
+                <Typography variant="h6">{dict.selectedAsset}</Typography>
             </div>
 
             <div
@@ -81,11 +83,13 @@ export function AssetInspector() {
             {asset.asset.canHaveChildren && (
                 <Fragment>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
-                        <Typography variant="h6">Inhoud ({asset.children.length})</Typography>
+                        <Typography variant="h6">
+                            {dict.assetContent} ({asset.children.length})
+                        </Typography>
                         <Button
                             onClick={() => openDialog('AddAsset', { actorId: asset.ownerId, parentId: asset.asset.id })}
                         >
-                            <Add /> Toevoegen
+                            <Add /> {dict.btnAddChildAsset}
                         </Button>
                     </div>
                     <AssetList

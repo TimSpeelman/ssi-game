@@ -17,6 +17,7 @@ import { actorImage } from '../../../config/actorImage';
 import { actorTypes } from '../../../config/actorTypes';
 import { ActorDefinition } from '../../../model/definition/Actor/ActorDefinition';
 import { ActorType } from '../../../model/definition/Actor/ActorType';
+import { useLang } from '../../hooks/useLang';
 
 export interface Props {
     definition?: ActorDefinition;
@@ -42,6 +43,8 @@ export function ActorDefinitionDialog(props: Props) {
     const setName = (name: string) => setDef(L.set((m) => ({ ...m, name, nounPhrase: name })));
     const setDesc = (description: string) => setDef(L.description!.set(description));
 
+    const { dict } = useLang();
+
     const save = () => {
         // dispatch(ScenarioActions.CHANGE_META({ meta }));
         const L = lens<ActorDefinition>();
@@ -59,12 +62,12 @@ export function ActorDefinitionDialog(props: Props) {
 
     return (
         <Fragment>
-            <DialogTitle>Actor {props.isCreate ? 'toevoegen' : 'wijzigen'}</DialogTitle>
+            <DialogTitle>{props.isCreate ? dict.titleCreateActor : dict.titleEditActor}</DialogTitle>
             <DialogContent>
                 <DialogContentText></DialogContentText>
 
                 <FormControl fullWidth style={{ marginBottom: '1em' }}>
-                    <InputLabel>Type</InputLabel>
+                    <InputLabel>{dict.labelActorType}</InputLabel>
                     <Select
                         fullWidth
                         value={def.type}
@@ -95,20 +98,15 @@ export function ActorDefinitionDialog(props: Props) {
                                 >
                                     <img src={actorImage(actor.image)} style={{ height: '3rem' }} />
                                 </div>
-                                <ListItemText
-                                    primary={actor.typeName}
-                                    // secondary={actorSubtitle(actor)}
-                                />
+                                <ListItemText primary={actor.typeName} />
                             </MenuItem>
                         ))}
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
                     </Select>
                 </FormControl>
                 <TextField
                     fullWidth
                     InputLabelProps={{ shrink: true }}
-                    label={'Naam'}
+                    label={dict.labelActorName}
                     value={def.name}
                     placeholder={def.type.typeName}
                     onChange={(e) => setName(e.target.value)}
@@ -117,7 +115,7 @@ export function ActorDefinitionDialog(props: Props) {
                 <TextField
                     fullWidth
                     InputLabelProps={{ shrink: true }}
-                    label={'Omschrijving'}
+                    label={dict.labelActorDescription}
                     value={def.description}
                     onChange={(e) => setDesc(e.target.value)}
                     style={{ marginBottom: '1em' }}
@@ -125,9 +123,9 @@ export function ActorDefinitionDialog(props: Props) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={save} color="primary">
-                    Opslaan
+                    {dict.btnSave}
                 </Button>
-                <Button onClick={cancel}>Annuleren</Button>
+                <Button onClick={cancel}>{dict.btnCancel}</Button>
             </DialogActions>
         </Fragment>
     );

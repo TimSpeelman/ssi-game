@@ -2,7 +2,6 @@ import {
     Button,
     DialogActions,
     DialogContent,
-    DialogContentText,
     DialogTitle,
     FormControl,
     InputLabel,
@@ -19,6 +18,7 @@ import { ActionDef } from '../../../model/definition/Action/ActionDef';
 import { AssetDef } from '../../../model/definition/Asset/AssetDef';
 import { selectUsedActors } from '../../../state/scenario/selectors';
 import { mapValues } from '../../../util/util';
+import { useLang } from '../../hooks/useLang';
 
 interface Props {
     asset?: AssetDef<any>;
@@ -65,13 +65,16 @@ export function AssetDialog(props: Props) {
 
     const fields = assetType ? Object.entries(assetType.fields) : [];
 
+    const { dict } = useLang();
+
     return (
         <Fragment>
-            <DialogTitle id="form-dialog-title">Asset {props.isCreate ? 'Toevoegen' : 'Bewerken'}</DialogTitle>
+            <DialogTitle id="form-dialog-title">
+                {props.isCreate ? dict.titleCreateAsset : dict.titleEditAsset}
+            </DialogTitle>
             <DialogContent>
-                <DialogContentText>Kies een Asset</DialogContentText>
                 <FormControl fullWidth style={{ marginBottom: '1em' }}>
-                    <InputLabel shrink={true}>Asset</InputLabel>
+                    <InputLabel shrink={true}>{dict.labelAssetType}</InputLabel>
                     <Select disabled={!props.isCreate} value={type} onChange={(e) => setType(e.target.value as string)}>
                         {AssetForms.map((actType) => (
                             <MenuItem key={actType.typeName} value={actType.typeName}>
@@ -120,10 +123,10 @@ export function AssetDialog(props: Props) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={props.onCancel} color="primary">
-                    Annuleren
+                    {dict.btnCancel}
                 </Button>
                 <Button onClick={handleSubmit} color="primary">
-                    {props.isCreate ? 'Toevoegen' : 'Opslaan'}
+                    {props.isCreate ? dict.btnAdd : dict.btnSave}
                 </Button>
             </DialogActions>
         </Fragment>

@@ -2,7 +2,6 @@ import {
     Button,
     DialogActions,
     DialogContent,
-    DialogContentText,
     DialogTitle,
     FormControl,
     InputLabel,
@@ -17,6 +16,7 @@ import { actorImage } from '../../../config/actorImage';
 import { ActionForms } from '../../../content/actions/forms';
 import { ActionDef } from '../../../model/definition/Action/ActionDef';
 import { selectUsedActors } from '../../../state/scenario/selectors';
+import { useLang } from '../../hooks/useLang';
 
 interface Props {
     action?: ActionDef<any>;
@@ -64,14 +64,15 @@ export function StepDialog(props: Props) {
     }
 
     const fields = actType ? Object.entries(actType.fields) : [];
-
+    const { dict } = useLang();
     return (
         <Fragment>
-            <DialogTitle id="form-dialog-title">Handeling {props.isCreate ? 'Toevoegen' : 'Bewerken'}</DialogTitle>
+            <DialogTitle id="form-dialog-title">
+                {props.isCreate ? dict.titleCreateStep : dict.titleEditStep}
+            </DialogTitle>
             <DialogContent>
-                <DialogContentText>Kies een handeling</DialogContentText>
                 <FormControl fullWidth style={{ marginBottom: '1em' }}>
-                    <InputLabel>Handeling</InputLabel>
+                    <InputLabel>{dict.labelStepType}</InputLabel>
                     <Select value={type} onChange={(e) => setType(e.target.value as string)}>
                         {ActionForms.map((actType) => (
                             <MenuItem key={actType.typeName} value={actType.typeName}>
@@ -113,10 +114,10 @@ export function StepDialog(props: Props) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={props.onCancel} color="primary">
-                    Annuleren
+                    {dict.btnCancel}
                 </Button>
                 <Button onClick={handleSubmit} color="primary">
-                    {props.isCreate ? 'Toevoegen' : 'Opslaan'}
+                    {props.isCreate ? dict.btnAdd : dict.btnSave}
                 </Button>
             </DialogActions>
         </Fragment>

@@ -11,6 +11,7 @@ import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectIdsOfInvolvedActors, selectScenarioDef } from '../../../../state/scenario/selectors';
 import { reorder } from '../../../../util/util';
 import { useDialog } from '../../../dialogs/dialogs';
+import { useLang } from '../../../hooks/useLang';
 
 export function ActorList() {
     const dispatch = useDispatch();
@@ -25,20 +26,23 @@ export function ActorList() {
     const setActors = (actors: ActorConfig[]) => setConf({ ...scenarioDef, actors });
     const handleReorder = (fromIndex: number, toIndex: number) => setActors(reorder(actors, fromIndex, toIndex));
     const removeActor = (id: string) => setActors(actors.filter((a) => a.definition.id !== id));
+    const { dict } = useLang();
 
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                <Typography variant="h6">Actoren ({actors.length})</Typography>
+                <Typography variant="h6">
+                    {dict.titleActors} ({actors.length})
+                </Typography>
                 <Button variant={'outlined'} onClick={() => openDialog('AddActor', undefined)}>
-                    <Add /> Actor Toevoegen
+                    <Add /> {dict.btnAddActor}
                 </Button>
             </div>
 
             {actors.length === 0 ? (
                 <div style={{ textAlign: 'center' }}>
                     <Typography variant={'body1'} style={{ marginBottom: '1rem' }}>
-                        Je hebt nog geen actoren. Voeg een actor toe.
+                        {dict.actorList_msgYouHaveNoActors}
                     </Typography>
                 </div>
             ) : (
@@ -80,8 +84,14 @@ export function ActorList() {
                                                 <Tooltip
                                                     title={
                                                         !canRemoveActor(actor.definition.id)
-                                                            ? `Verwijder eerst alle acties waar ${actor.definition.name} in is betrokken.`
-                                                            : `${actor.definition.name} verwijderen`
+                                                            ? dict.actorList_msgFirstRemoveActionsOfActorX.replace(
+                                                                  '{0}',
+                                                                  actor.definition.name,
+                                                              )
+                                                            : dict.actorList_hintRemoveActorX.replace(
+                                                                  '{0}',
+                                                                  actor.definition.name,
+                                                              )
                                                     }
                                                 >
                                                     <span>

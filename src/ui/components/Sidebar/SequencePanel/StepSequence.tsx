@@ -67,7 +67,7 @@ export function StepSequence() {
                     </div>
                 ) : (
                     <div style={{ textAlign: 'center' }}>
-                        <Typography variant={'body1'}>{dict.msgYouHaveNoSteps}</Typography>
+                        <Typography variant={'body1'}>{dict.stepSequence_msgYouHaveNoSteps}</Typography>
                     </div>
                 ))}
             {steps.length > 0 && (

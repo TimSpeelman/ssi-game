@@ -8,6 +8,8 @@ import { RootState } from './state';
 const L = lens<RootState>();
 
 const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
+    SET_LANGUAGE: (p) => L.language.set(p.language),
+
     // Definition
     CLEAR: (p) => L.scenario.set(emptyScenario),
     RESET: (p) => L.scenario.set(defaultScenario),

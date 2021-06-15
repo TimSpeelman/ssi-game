@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { Language } from '../../intl/Language';
 import { ActionDef } from '../../model/definition/Action/ActionDef';
 import { Actor } from '../../model/definition/Actor/Actor';
 import { definitionToActor } from '../../model/definition/Actor/definitionToActor';
@@ -15,6 +16,8 @@ import { w1th } from '../../util/w1th';
 import { RootState } from './state';
 
 export const root = (r: any): RootState => r.scenario;
+
+export const selectLang = (r: any): Language => root(r).language;
 
 // Definition
 export const selectScenarioDef = (r: any): ScenarioDef => root(r).scenario;

@@ -7,13 +7,21 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../../../config/actorImage';
 import { ScenarioActions } from '../../../../state/scenario/actions';
-import { selectActiveStepId, selectStepDescs, selectUsedActors } from '../../../../state/scenario/selectors';
+import {
+    selectActiveStepId,
+    selectLang,
+    selectStepDescs,
+    selectUsedActors,
+} from '../../../../state/scenario/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
+import { useLang } from '../../../hooks/useLang';
 import { SidebarTab } from '../SidebarTab';
 
 export function StepSequence() {
+    const { dict } = useLang();
     const steps = useSelector(selectStepDescs);
     const activeStepId = useSelector(selectActiveStepId);
+    const lang = useSelector(selectLang);
     const dispatch = useDispatch();
     const usedActors = useSelector(selectUsedActors);
 
@@ -35,32 +43,31 @@ export function StepSequence() {
     return (
         <div style={{ padding: '1rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                <Typography variant="h6">Stappen ({steps.length})</Typography>
+                <Typography variant="h6">
+                    {dict.steps} ({steps.length})
+                </Typography>
                 <Button variant={'outlined'} onClick={() => openDialog('AddStep', undefined)}>
                     {' '}
-                    <Add /> Stap Toevoegen
+                    <Add /> {dict.addStep}
                 </Button>
             </div>
             {steps.length === 0 &&
                 (usedActors.length === 0 ? (
                     <div style={{ textAlign: 'center' }}>
                         <Typography variant={'body1'} style={{ marginBottom: '1rem' }}>
-                            Je hebt nog geen actoren. Voordat je je scenario kunt opbouwen moet je eerst actoren
-                            toevoegen.
+                            {dict.msgYouHaveNoActors}
                         </Typography>
                         <Button
                             variant={'outlined'}
                             onClick={() => dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }))}
                         >
                             {' '}
-                            <Group /> Naar Actoren
+                            <Group /> {dict.goToActors}
                         </Button>
                     </div>
                 ) : (
                     <div style={{ textAlign: 'center' }}>
-                        <Typography variant={'body1'}>
-                            Je hebt nog geen stappen. Voeg stappen toe om een scenario te beschrijven.
-                        </Typography>
+                        <Typography variant={'body1'}>{dict.msgYouHaveNoSteps}</Typography>
                     </div>
                 ))}
             {steps.length > 0 && (
@@ -78,7 +85,7 @@ export function StepSequence() {
                                     style={{ textAlign: 'center' }}
                                 >
                                     {/* <div style={{ width: '6rem' }} /> */}
-                                    <ListItemText primary={'Begintoestand'} />
+                                    <ListItemText primary={dict.startingState} />
                                 </ListItem>
 
                                 {steps.map((step, i) => (
@@ -124,9 +131,11 @@ export function StepSequence() {
                                                 </div>
 
                                                 <div style={{ flexGrow: 1, marginLeft: '.5rem' }}>
-                                                    <strong>Stap {i + 1}. </strong>
+                                                    <strong>
+                                                        {dict.step} {i + 1}.{' '}
+                                                    </strong>
                                                     <br />
-                                                    {step.action.description}
+                                                    {step.action.description[lang]}
                                                 </div>
                                                 <IconButton
                                                     edge="end"

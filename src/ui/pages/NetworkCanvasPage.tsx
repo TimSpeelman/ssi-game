@@ -10,6 +10,7 @@ import {
     selectActiveStepDesc,
     selectActiveStepIndex,
     selectFailedStepDesc,
+    selectLang,
     selectScenarioDesc,
     selectSelectedActorId,
     selectSelectedAssetId,
@@ -35,6 +36,7 @@ export function NetworkCanvas() {
     const currentState = useSelector(selectActiveStateDesc);
     const failedStep = useSelector(selectFailedStepDesc);
     const showMeta = useSelector(selectShowMeta);
+    const lang = useSelector(selectLang);
 
     const scenarioDesc = useSelector(selectScenarioDesc);
 
@@ -127,7 +129,7 @@ export function NetworkCanvas() {
                     {currentStep ? (
                         <span>
                             <strong>Stap {currentStepIndex + 1}: </strong>
-                            {currentStep.action.description}
+                            {currentStep.action.description[lang]}
                         </span>
                     ) : (
                         <span></span>

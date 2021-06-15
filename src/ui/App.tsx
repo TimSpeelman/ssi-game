@@ -9,6 +9,7 @@ import { saveScenarioToFile } from '../persistence/saveScenarioToFile';
 import { saveScenarioToLocalStorage } from '../persistence/saveScenarioToLocalStorage';
 import { ScenarioActions } from '../state/scenario/actions';
 import { selectScenarioDef } from '../state/scenario/selectors';
+import { LanguageMenu } from './components/LanguageMenu';
 import { useDialogService } from './dialogs/DialogContext';
 import { GlobalDialogRouter } from './dialogs/GlobalDialogRouter';
 import { NetworkCanvas } from './pages/NetworkCanvasPage';
@@ -76,6 +77,7 @@ export function App() {
                         <RestorePage /> Laden
                         <input type="file" hidden value={undefined} onChange={(e) => loadFromFile(e)} />
                     </Button>
+                    <LanguageMenu />
                 </Toolbar>
             </AppBar>
             <BrowserRouter>

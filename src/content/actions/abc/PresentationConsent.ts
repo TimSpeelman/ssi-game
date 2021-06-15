@@ -1,3 +1,4 @@
+import { Language } from '../../../intl/Language';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
@@ -52,7 +53,10 @@ export class PresentationConsent extends Action<Props> {
             from: subject,
             to: verifier,
             to_mode: 'phone',
-            description: `Geef toestemming om ${this.props.attributeName} credential te gebruiken`,
+            description: {
+                [Language.NL]: `Geef toestemming om ${this.props.attributeName} credential te gebruiken`,
+                [Language.EN]: `Geef toestemming om ${this.props.attributeName} credential te gebruiken`,
+            },
             sub: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
             long: `${ucFirst(subject.nounPhrase)} geeft ${verifier.nounPhrase} toestemming om het attribuut ${
                 this.props.attributeName

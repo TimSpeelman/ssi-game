@@ -1,3 +1,4 @@
+import { Language } from '../../intl/Language';
 import { ActionDesc, Locality } from '../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../model/logic/State/ScenarioState';
 import { Action } from '../../model/logic/Step/Action';
@@ -43,7 +44,10 @@ export class CustomInteraction extends Action<Props> {
             type: 'CustomInteraction',
             from: state.props.byActor[this.props.fromId].actor,
             to: state.props.byActor[this.props.toId].actor,
-            description: this.props.description,
+            description: {
+                [Language.NL]: this.props.description,
+                [Language.EN]: this.props.description,
+            },
             sub: this.props.sub,
             locality: Locality.REMOTE,
         };

@@ -1,3 +1,4 @@
+import { Language } from '../../../intl/Language';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
@@ -57,7 +58,10 @@ export class Presentation extends Action<Props> {
             from: subject,
             to: verifier,
             to_mode: 'phone',
-            description: `Toon ${this.props.attributeName} credential`,
+            description: {
+                [Language.NL]: `Toon ${this.props.attributeName} credential`,
+                [Language.EN]: `Toon ${this.props.attributeName} credential`,
+            },
             sub: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
             long: `${ucFirst(subject.nounPhrase)} toont het ${this.props.attributeName} credential aan ${
                 verifier.nounPhrase

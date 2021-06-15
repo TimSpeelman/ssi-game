@@ -1,4 +1,5 @@
 import { OnlineLiquorPurchaseScenario } from '../../config/scenarios/OnlineLiquorPurchaseScenario';
+import { Language } from '../../intl/Language';
 import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 import { RootState } from './state';
@@ -23,4 +24,5 @@ export const defaultState: RootState = {
     selectedStepId: undefined,
     snackbarOn: false,
     activeSidebarTab: SidebarTab.TIMELINE,
+    language: Language.NL,
 };

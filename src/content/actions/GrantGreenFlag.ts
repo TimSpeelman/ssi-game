@@ -1,3 +1,4 @@
+import { Language } from '../../intl/Language';
 import { ActionDesc, Locality } from '../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../model/logic/State/ScenarioState';
 import { Action } from '../../model/logic/Step/Action';
@@ -45,7 +46,10 @@ export class GrantGreenFlag extends Action<Props> {
         return {
             id: this.id,
             type: 'GreenFlag',
-            description: `${ucFirst(from.nounPhrase)} geeft ${to.nounPhrase} de groene vlag`,
+            description: {
+                [Language.NL]: `${ucFirst(from.nounPhrase)} geeft ${to.nounPhrase} de groene vlag`,
+                [Language.EN]: `${ucFirst(from.nounPhrase)} geeft ${to.nounPhrase} de groene vlag`,
+            },
             sub: desc,
             from: from,
             to: to,

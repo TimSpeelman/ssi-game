@@ -1,3 +1,4 @@
+import { Language } from '../../intl/Language';
 import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 
@@ -12,4 +13,6 @@ export interface RootState {
 
     snackbarOn: boolean;
     activeSidebarTab: SidebarTab;
+
+    language: Language;
 }

@@ -1,3 +1,4 @@
+import { Language } from '../../../intl/Language';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
@@ -56,7 +57,10 @@ export class WalletSMSAuthentication extends Action<Props> {
             type: 'WalletSMSAuthentication',
             from: verifier,
             to: subject,
-            description: 'Authenticatie van wallet (pseudoniem) via SMS',
+            description: {
+                [Language.NL]: 'Authenticatie van wallet (pseudoniem) via SMS',
+                [Language.EN]: 'Authenticatie van wallet (pseudoniem) via SMS',
+            },
             sub: '..',
             long: `${ucFirst(verifier.nounPhrase)} authenticeert de wallet van ${subject.nounPhrase} door ${
                 subject.isMale ? 'hem' : 'haar'

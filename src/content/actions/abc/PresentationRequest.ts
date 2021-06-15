@@ -1,3 +1,4 @@
+import { Language } from '../../../intl/Language';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
@@ -55,7 +56,10 @@ export class PresentationRequest extends Action<Props> {
             from: verifier,
             to: subject,
             to_mode: 'phone',
-            description: `Vraag om ${this.props.attributeName} credential te tonen`,
+            description: {
+                [Language.NL]: `Vraag om ${this.props.attributeName} credential te tonen`,
+                [Language.EN]: `Vraag om ${this.props.attributeName} credential te tonen`,
+            },
             sub: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
             long: `${ucFirst(verifier.nounPhrase)} verzoekt ${subject.nounPhrase} om het attribuut ${
                 this.props.attributeName

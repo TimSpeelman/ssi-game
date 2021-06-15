@@ -1,3 +1,4 @@
+import { Language } from '../../../intl/Language';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
@@ -47,7 +48,10 @@ export class WalletQRAuthentication extends Action<Props> {
             from: verifier,
             to: subject,
             to_mode: 'selfie',
-            description: 'Authenticatie van wallet (pseudoniem) via QR',
+            description: {
+                [Language.NL]: 'Authenticatie van wallet (pseudoniem) via QR',
+                [Language.EN]: 'Authenticatie van wallet (pseudoniem) via QR',
+            },
             sub: '..',
             long: `${ucFirst(subject.nounPhrase)} scant QR van ${verifier.nounPhrase} waarna ${
                 verifier.nounPhrase

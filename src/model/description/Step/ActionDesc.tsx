@@ -1,3 +1,4 @@
+import { Translation } from '../../../intl/Language';
 import { Actor } from '../../definition/Actor/Actor';
 
 /** A generic description of an interaction, for view purposes */
@@ -8,7 +9,7 @@ export interface ActionDesc {
     from_mode?: string;
     to: Actor;
     to_mode?: string;
-    description: string;
+    description: Translation;
     long?: string;
     sub: string;
     locality: Locality;

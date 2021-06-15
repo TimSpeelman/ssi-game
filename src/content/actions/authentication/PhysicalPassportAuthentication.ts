@@ -1,3 +1,4 @@
+import { Language } from '../../../intl/Language';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
@@ -68,7 +69,10 @@ export class PhysicalPassportAuthentication extends Action<Props> {
             from: verifier,
             to: subject,
             to_mode: 'facescan',
-            description: 'Fysieke authenticatie o.b.v. paspoort',
+            description: {
+                [Language.NL]: 'Fysieke authenticatie o.b.v. paspoort',
+                [Language.EN]: 'Fysieke authenticatie o.b.v. paspoort',
+            },
             sub: '..',
             long: `${ucFirst(verifier.nounPhrase)} authenticeert ${
                 subject.nounPhrase

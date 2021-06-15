@@ -1,3 +1,4 @@
+import { Language } from '../../../intl/Language';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
@@ -63,7 +64,10 @@ export class Issuance extends Action<Props> {
             from_mode: 'issuing',
             to: subject,
             to_mode: 'phone',
-            description: `Uitgave van ${this.props.attributeName} credential`,
+            description: {
+                [Language.NL]: `Uitgave van ${this.props.attributeName} credential`,
+                [Language.EN]: `Issuance of ${this.props.attributeName} credential`,
+            },
             sub: `Subject: ${this.props.subjectNym}, Issuer: ${this.props.issuerNym}`,
             long: `${ucFirst(issuer.nounPhrase)} geeft een ${this.props.attributeName} credential uit aan ${
                 subject.nounPhrase

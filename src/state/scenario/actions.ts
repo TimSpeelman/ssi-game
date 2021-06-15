@@ -1,3 +1,4 @@
+import { Language } from '../../intl/Language';
 import { ActionDef } from '../../model/definition/Action/ActionDef';
 import { ActorConfig } from '../../model/definition/Actor/ActorConfig';
 import { ActorDefinition } from '../../model/definition/Actor/ActorDefinition';
@@ -8,6 +9,8 @@ import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 import { event } from '../../util/redux';
 
 export const ScenarioActions = {
+    SET_LANGUAGE: event<{ language: Language }>('SET_LANGUAGE'),
+
     // Definition
     CLEAR: event<void>('CLEAR'),
     RESET: event<void>('RESET'),

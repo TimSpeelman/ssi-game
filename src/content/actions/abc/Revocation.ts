@@ -1,3 +1,4 @@
+import { Language } from '../../../intl/Language';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
@@ -54,7 +55,10 @@ export class Revocation extends Action<Props> {
             type: 'Revocation',
             from: issuer,
             to: subject,
-            description: `Revocatie van ${this.props.attributeId} credential`,
+            description: {
+                [Language.NL]: `Revocatie van ${this.props.attributeId} credential`,
+                [Language.EN]: `Revocation of ${this.props.attributeId} credential`,
+            },
             sub: ``,
             long: `${ucFirst(issuer.nounPhrase)} trekt het attribuut ${this.props.attributeId} van ${
                 subject.nounPhrase

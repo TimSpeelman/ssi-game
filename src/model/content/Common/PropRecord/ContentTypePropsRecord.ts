@@ -5,7 +5,9 @@ import { ContentTypeProps, DefTypesOfContentTypeProps, EvaluatedTypeOfContentPro
 
 /** Sugar for controlling a collection of content type props */
 export class ContentTypePropsRecord<Props extends ContentTypeProps> {
-    constructor(readonly props: Props) {}
+    constructor(readonly props: Props) {
+        this.assertCorrectPropKeys(props);
+    }
 
     /** Computes the default value of each prop. */
     getDefaultValues(): DefTypesOfContentTypeProps<Props> {
@@ -28,5 +30,14 @@ export class ContentTypePropsRecord<Props extends ContentTypeProps> {
     evaluateDefinitionProps(defProps: any, state: ScenarioState): EvaluatedTypeOfContentProps<Props> {
         // @ts-ignore
         return mapValues(this.props, (def) => def.evaluateDefinitionProp(defProps, state));
+    }
+
+    protected assertCorrectPropKeys(props: Props) {
+        const entries = Object.entries(props);
+        for (const [key, prop] of entries) {
+            if (prop.key !== key) {
+                throw new Error(`Illegal props record, at key '${key}' prop was found with key '${prop.key}'`);
+            }
+        }
     }
 }

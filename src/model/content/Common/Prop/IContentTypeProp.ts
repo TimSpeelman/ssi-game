@@ -5,6 +5,8 @@ import { Field } from '../View/Field';
  * A generic way of describing properties of content types like assets and actions.
  */
 export interface IContentTypeProp<DefType, EvaluatedType> {
+    readonly key: string;
+
     /** The default value of this property */
     getDefaultValue(): DefType;
 

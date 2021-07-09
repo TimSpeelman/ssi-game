@@ -11,8 +11,8 @@ export interface ActorPropOptions {
     autoFill?: boolean;
 }
 
-export class ActorProp<FormData> implements IContentTypeProp<string, ActorState> {
-    constructor(readonly key: keyof FormData, readonly options: ActorPropOptions) {}
+export class ActorProp implements IContentTypeProp<string, ActorState> {
+    constructor(readonly key: string, readonly options: ActorPropOptions) {}
 
     /** Computes the default value. */
     getDefaultValue() {

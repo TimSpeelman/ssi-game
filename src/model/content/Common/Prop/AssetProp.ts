@@ -12,8 +12,8 @@ export interface AssetPropOptions {
     autoFill?: boolean;
 }
 
-export class AssetProp<FormData> implements IContentTypeProp<string, Asset<any>> {
-    constructor(readonly key: keyof FormData, readonly options: AssetPropOptions) {}
+export class AssetProp implements IContentTypeProp<string, Asset<any>> {
+    constructor(readonly key: string, readonly options: AssetPropOptions) {}
 
     /** Computes the default value. */
     getDefaultValue() {

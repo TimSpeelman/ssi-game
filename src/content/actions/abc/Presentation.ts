@@ -34,7 +34,7 @@ export const PresentationSchema = new ActionSchema({
             filter: (a) => a.type === 'Wallet', // TODO ownerID
             autoFill: true,
         }),
-        issuerNym: new AssetProp('subjectNym', {
+        issuerNym: new AssetProp('issuerNym', {
             title: translations.subjectPseudonym,
             dependsOn: ['subject'],
             filter: (a) => a.type === 'Wallet', // TODO ownerID

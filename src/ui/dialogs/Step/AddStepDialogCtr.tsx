@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { ScenarioActions } from '../../../state/scenario/actions';
-import { StepDialog2 } from './StepDialog2';
+import { StepDialog } from './StepDialog';
 
 interface Props {
     options: AddStepDialogOptions;
@@ -15,7 +15,7 @@ export function AddStepDialogCtr(props: Props) {
     const dispatch = useDispatch();
 
     return (
-        <StepDialog2
+        <StepDialog
             onSubmit={(step) => {
                 dispatch(ScenarioActions.ADD_STEP({ step }));
                 props.onSubmit();

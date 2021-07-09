@@ -7,8 +7,8 @@ export interface StringPropOptions {
     title: Translation;
 }
 
-export class StringProp<FormData> implements IContentTypeProp<string, string> {
-    constructor(readonly key: keyof FormData, readonly options: StringPropOptions) {}
+export class StringProp implements IContentTypeProp<string, string> {
+    constructor(readonly key: string, readonly options: StringPropOptions) {}
 
     /** Computes the default value. */
     getDefaultValue() {

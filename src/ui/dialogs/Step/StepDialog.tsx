@@ -7,16 +7,16 @@ import {
     InputLabel,
     MenuItem,
     Select,
-    TextField,
 } from '@material-ui/core';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { actorImage } from '../../../config/actorImage';
-import { ActionForms } from '../../../content/actions/forms';
+import { DefaultActionsCollection } from '../../../content/actions/actions';
+import { ActionFormHandler } from '../../../model/content/Action/ActionFormHandler';
 import { ActionDef } from '../../../model/definition/Action/ActionDef';
-import { selectUsedActors } from '../../../state/scenario/selectors';
+import { selectActiveStepIndex, selectScenarioDef } from '../../../state/scenario/selectors';
 import { useLang } from '../../hooks/useLang';
+import { FormControlSwitch } from './Field/FormControlSwitch';
 
 interface Props {
     action?: ActionDef<any>;
@@ -25,29 +25,30 @@ interface Props {
     isCreate: boolean;
 }
 
+export const actionFrmHandler = new ActionFormHandler(DefaultActionsCollection);
+
 export function StepDialog(props: Props) {
-    const [type, setType] = useState<string | undefined>(undefined);
-    const [actProps, setActProps] = useState<any>({});
+    const [type, setType] = useState<string | undefined>(props.action?.typeName);
+    const [actProps, setActProps] = useState<any>(props.action?.props || {});
+    const def = useSelector(selectScenarioDef);
+    const step = useSelector(selectActiveStepIndex);
+    const isEditing = !!props.action;
 
     // Clear data when changing type
-    useEffect(() => setActProps({}), [type]);
+    useEffect(() => {
+        if (!isEditing) {
+            setActProps({});
+        }
+    }, [type]);
 
     // When an action is provided, load its data into local state
     useEffect(() => {
-        let timer: any;
-        if (props.action) {
-            setType(props.action.typeName);
-            timer = setTimeout(() => {
-                setActProps(props.action!.props);
-            }, 200);
+        console.log('ACT', props.action);
+        if (isEditing) {
+            setType(props.action!.typeName);
+            setActProps(props.action!.props);
         }
-        return () => clearTimeout(timer);
     }, [props.action]);
-
-    // Depending on the chosen action type, select the appropriate form
-    const actType = type === undefined ? undefined : ActionForms.find((f) => f.typeName === type)!;
-
-    const availableActors = useSelector(selectUsedActors);
 
     function setField(name: string, value: any) {
         setActProps({ ...actProps, [name]: value });
@@ -63,8 +64,15 @@ export function StepDialog(props: Props) {
         props.onSubmit(serializedAction);
     }
 
-    const fields: any[] = actType ? Object.entries(actType.fields) : [];
+    // const fields = actType ? Object.entries(actType.fields) : [];
     const { dict, lang } = useLang();
+
+    const actionTypes = actionFrmHandler.listAvailableActionTypes();
+    const formProps = actionFrmHandler.computeFormProperties(def, step, type, actProps);
+    const fields = Object.entries(formProps ? formProps.fields : {});
+
+    console.log('FORM PROPS', formProps);
+
     return (
         <Fragment>
             <DialogTitle id="form-dialog-title">
@@ -74,7 +82,7 @@ export function StepDialog(props: Props) {
                 <FormControl fullWidth style={{ marginBottom: '1em' }}>
                     <InputLabel>{dict.labelStepType}</InputLabel>
                     <Select value={type} onChange={(e) => setType(e.target.value as string)}>
-                        {ActionForms.map((actType) => (
+                        {actionTypes.map((actType) => (
                             <MenuItem key={actType.typeName} value={actType.typeName}>
                                 {actType.title[lang]}
                             </MenuItem>
@@ -82,34 +90,8 @@ export function StepDialog(props: Props) {
                     </Select>
                 </FormControl>
 
-                {fields.map(([prop, field]) => (
-                    <div key={prop}>
-                        {field.type === 'actor' && (
-                            <FormControl fullWidth style={{ marginBottom: '1em' }}>
-                                <InputLabel>{field.title[lang]}</InputLabel>
-                                <Select value={actProps[prop] || ''} onChange={(e) => setField(prop, e.target.value)}>
-                                    {availableActors.map((actor) => (
-                                        <MenuItem key={actor.id} value={actor.id}>
-                                            <img src={actorImage(actor.image)} style={{ height: '2rem' }} />
-                                            {actor.name}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        )}
-
-                        {field.type === 'string' && (
-                            <TextField
-                                style={{ marginBottom: '1em' }}
-                                margin="dense"
-                                id={'input-' + prop}
-                                label={field.title[lang]}
-                                value={actProps[prop] || ''}
-                                onChange={(e) => setField(prop, e.target.value)}
-                                fullWidth
-                            />
-                        )}
-                    </div>
+                {fields.map(([prop, fieldProps]) => (
+                    <FormControlSwitch key={prop} props={fieldProps} setField={(v) => setField(prop, v)} />
                 ))}
             </DialogContent>
             <DialogActions>

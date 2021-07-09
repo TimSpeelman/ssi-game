@@ -21,7 +21,9 @@ export class ActorProp<FormData> implements IContentTypeProp<string, ActorState>
 
     /** Computes the field properties to display in the creation or edit form. */
     getFormFieldProps(formData: any, state: ScenarioState): Field {
-        const actors = Object.values(state.describe().actors).map((a) => a.actor);
+        const allActors = Object.values(state.props.byActor);
+        const filteredActors = this.options.filter ? allActors.filter(this.options.filter) : allActors;
+        const actors = filteredActors.map((a) => a.actor);
         return {
             type: 'actor',
             title: this.options.title,

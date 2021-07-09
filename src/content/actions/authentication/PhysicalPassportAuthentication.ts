@@ -20,7 +20,7 @@ export const PhysicalPassportAuthenticationSchema = new ActionSchema({
     },
     props: {
         verifier: new ActorProp('verifier', { title: translations.verifier }),
-        subject: new ActorProp('subject', { title: translations.subject }),
+        subject: new ActorProp('subject', { title: translations.subject, filter: (a) => a.actor.isHuman }),
         dataSubject: new StringProp('dataSubject', { title: translations.subjectPseudonym }),
     },
 });

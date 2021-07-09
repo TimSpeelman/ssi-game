@@ -1,80 +1,94 @@
 import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
+import { ActionSchema, TypeOfSchema } from '../../../model/content/Action/ActionSchema';
+import { ActionType } from '../../../model/content/Action/ActionType';
+import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
+import { AssetProp } from '../../../model/content/Common/Prop/AssetProp';
+import { StringProp } from '../../../model/content/Common/Prop/StringProp';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
-import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { AttributeRequest } from '../../assets/data/abc/AttributeRequest';
 import { Wallet } from '../../assets/software/Wallet';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
-export interface Props {
-    verifierId: string;
-    subjectId: string;
-    verifierNym: string;
-    subjectNym: string;
-    attributeName: string;
-}
+export const PresentationRequestSchema = new ActionSchema({
+    typeName: 'PresentationRequest',
+    title: {
+        [Language.NL]: 'Verzoek voor Presentatie',
+        [Language.EN]: 'Request for Presentation',
+    },
+    props: {
+        verifier: new ActorProp('verifier', { title: translations.verifier }),
+        subject: new ActorProp('subject', { title: translations.subject }),
+        verifierNym: new AssetProp('verifierNym', {
+            title: translations.verifierPseudonym,
+            dependsOn: ['verifier'],
+            filter: (a) => a.type === 'Wallet', // TODO ownerID
+            autoFill: true,
+        }),
+        subjectNym: new AssetProp('subjectNym', {
+            title: translations.subjectPseudonym,
+            dependsOn: ['subject'],
+            filter: (a) => a.type === 'Wallet', // TODO ownerID
+            autoFill: true,
+        }),
+        attributeName: new StringProp('attributeName', { title: translations.attributeName }),
+    },
+});
+
+export type Props = TypeOfSchema<typeof PresentationRequestSchema>;
 
 export class PresentationRequest extends Action<Props> {
     typeName = 'PresentationRequest';
 
-    static config: ActionFormConfig<keyof Props> = {
-        typeName: 'PresentationRequest',
-        title: {
-            [Language.NL]: 'Verzoek voor Presentatie',
-            [Language.EN]: 'Request for Presentation',
-        },
-        fields: {
-            verifierId: { type: 'actor', title: translations.verifier },
-            subjectId: { type: 'actor', title: translations.subject },
-            verifierNym: { type: 'string', title: translations.verifierPseudonym },
-            subjectNym: { type: 'string', title: translations.subjectPseudonym },
-            attributeName: { type: 'string', title: translations.attributeName },
-        },
-    };
+    schema = PresentationRequestSchema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
         return []; // TODO
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
-        const subjectWallet = state.props.byActor[this.props.subjectId].assets.find((a) => a instanceof Wallet);
+        const props = this.evaluateProps(state);
+
+        const subjectWallet = props.subject.assets.find((a) => a instanceof Wallet);
         const req = new AttributeRequest(this.id + '1', {
             parentId: subjectWallet?.id,
-            name: this.props.attributeName,
-            verifierId: this.props.verifierId,
-            subjectId: this.props.subjectNym,
+            name: this.defProps.attributeName,
+            verifierId: this.defProps.verifier,
+            subjectId: this.defProps.subjectNym,
         });
-        return [new GainAssetOutcome({ actorId: this.props.subjectId, asset: req })];
+        return [new GainAssetOutcome({ actorId: this.defProps.subject, asset: req })];
     }
 
     describe(state: ScenarioState): ActionDesc {
-        const subject = state.props.byActor[this.props.subjectId].actor;
-        const verifier = state.props.byActor[this.props.verifierId].actor;
+        const props = this.evaluateProps(state);
+
+        const subject = props.subject.actor;
+        const verifier = props.verifier.actor;
         return {
             id: this.id,
-            type: 'PresentationRequest',
+            type: this.typeName,
             from: verifier,
             to: subject,
             to_mode: 'phone',
             description: {
-                [Language.NL]: `Vraag om ${this.props.attributeName} credential te tonen`,
-                [Language.EN]: `Request for presentation of ${this.props.attributeName} credential`,
+                [Language.NL]: `Vraag om ${this.defProps.attributeName} credential te tonen`,
+                [Language.EN]: `Request for presentation of ${this.defProps.attributeName} credential`,
             },
             sub: {
-                [Language.NL]: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
-                [Language.EN]: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
+                [Language.NL]: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
+                [Language.EN]: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
             },
             long: {
                 [Language.NL]: `${ucFirst(verifier.nounPhrase)} verzoekt ${subject.nounPhrase} om het attribuut ${
-                    this.props.attributeName
+                    this.defProps.attributeName
                 } te presenteren.`,
                 [Language.EN]: `${ucFirst(verifier.nounPhrase)} requests ${
                     subject.nounPhrase
-                } for a presentation of the ${this.props.attributeName} credential.`,
+                } for a presentation of the ${this.defProps.attributeName} credential.`,
             },
             locality: Locality.REMOTE,
         };
@@ -88,3 +102,7 @@ function assert(t: boolean, msg: string) {
 function ucFirst(str: string) {
     return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
 }
+export const PresentationRequestType = new ActionType(
+    PresentationRequestSchema,
+    (id, props) => new PresentationRequest(id, props),
+);

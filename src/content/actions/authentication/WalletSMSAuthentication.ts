@@ -1,36 +1,37 @@
 import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
+import { ActionSchema, TypeOfSchema } from '../../../model/content/Action/ActionSchema';
+import { ActionType } from '../../../model/content/Action/ActionType';
+import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
+import { StringProp } from '../../../model/content/Common/Prop/StringProp';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
-import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { AttributeKnowledge } from '../../assets/data/abc/AttributeKnowledge';
 import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
-export interface Props {
-    verifierId: string;
-    humanSubjectId: string;
-    dataSubjectId: string;
-}
+export const WalletSMSAuthenticationSchema = new ActionSchema({
+    typeName: 'WalletSMSAuthentication',
+    title: {
+        [Language.NL]: 'Authenticatie van Wallet via SMS',
+        [Language.EN]: 'Authenticatie of Wallet via SMS',
+    },
+    props: {
+        verifier: new ActorProp('verifier', { title: translations.verifier }),
+        subject: new ActorProp('subject', { title: translations.subject }),
+        dataSubject: new StringProp('dataSubject', { title: translations.subjectPseudonym }),
+    },
+});
+
+export type Props = TypeOfSchema<typeof WalletSMSAuthenticationSchema>;
 
 export class WalletSMSAuthentication extends Action<Props> {
     typeName = 'WalletSMSAuthentication';
 
-    static config: ActionFormConfig<keyof Props> = {
-        typeName: 'WalletSMSAuthentication',
-        title: {
-            [Language.NL]: 'Authenticatie van Wallet via SMS',
-            [Language.EN]: 'Authenticatie of Wallet via SMS',
-        },
-        fields: {
-            verifierId: { type: 'actor', title: translations.verifier },
-            humanSubjectId: { type: 'actor', title: translations.subject },
-            dataSubjectId: { type: 'string', title: translations.subjectPseudonym },
-        },
-    };
+    schema = WalletSMSAuthenticationSchema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
         return []; // TODO
@@ -38,27 +39,27 @@ export class WalletSMSAuthentication extends Action<Props> {
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
         const authResult = new AuthenticationResult(this.id + '1', {
-            sourceId: this.props.humanSubjectId,
-            targetId: this.props.dataSubjectId,
+            sourceId: this.defProps.subject,
+            targetId: this.defProps.dataSubject,
         });
         const phoneNumber = new AttributeKnowledge(this.id + '2', {
-            subjectId: this.props.humanSubjectId,
+            subjectId: this.defProps.dataSubject,
             name: 'telefoonnummer',
             value: '06123456789',
             issuerId: '',
         });
         return [
-            new GainAssetOutcome({ actorId: this.props.verifierId, asset: authResult }),
-            new GainAssetOutcome({ actorId: this.props.verifierId, asset: phoneNumber }),
+            new GainAssetOutcome({ actorId: this.defProps.verifier, asset: authResult }),
+            new GainAssetOutcome({ actorId: this.defProps.verifier, asset: phoneNumber }),
         ];
     }
 
     describe(state: ScenarioState): ActionDesc {
-        const subject = state.props.byActor[this.props.humanSubjectId].actor;
-        const verifier = state.props.byActor[this.props.verifierId].actor;
+        const subject = state.props.byActor[this.defProps.subject].actor;
+        const verifier = state.props.byActor[this.defProps.verifier].actor;
         return {
             id: this.id,
-            type: 'WalletSMSAuthentication',
+            type: this.typeName,
             from: verifier,
             to: subject,
             description: {
@@ -90,3 +91,7 @@ function assert(t: boolean, msg: string) {
 function ucFirst(str: string) {
     return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
 }
+export const WalletSMSAuthenticationType = new ActionType(
+    WalletSMSAuthenticationSchema,
+    (id, props) => new WalletSMSAuthentication(id, props),
+);

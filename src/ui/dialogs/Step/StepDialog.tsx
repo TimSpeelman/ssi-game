@@ -63,7 +63,7 @@ export function StepDialog(props: Props) {
         props.onSubmit(serializedAction);
     }
 
-    const fields = actType ? Object.entries(actType.fields) : [];
+    const fields: any[] = actType ? Object.entries(actType.fields) : [];
     const { dict, lang } = useLang();
     return (
         <Fragment>

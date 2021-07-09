@@ -1,23 +1,46 @@
 import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
+import { ActionSchema, TypeOfSchema } from '../../../model/content/Action/ActionSchema';
+import { ActionType } from '../../../model/content/Action/ActionType';
+import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
+import { AssetProp } from '../../../model/content/Common/Prop/AssetProp';
+import { StringProp } from '../../../model/content/Common/Prop/StringProp';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
-import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { AttributeProof } from '../../assets/data/abc/AttributeProof';
 import { Wallet } from '../../assets/software/Wallet';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
-export interface Props {
-    issuerId: string;
-    subjectId: string;
-    issuerNym: string;
-    subjectNym: string;
-    attributeName: string;
-    attributeValue: string;
-}
+export const IssuanceSchema = new ActionSchema({
+    typeName: 'Issuance',
+    title: {
+        [Language.NL]: 'Uitgifte van credential',
+        [Language.EN]: 'Issuance of credential',
+    },
+    props: {
+        issuer: new ActorProp('issuer', { title: translations.issuer }),
+        subject: new ActorProp('subject', { title: translations.subject }),
+        issuerNym: new AssetProp('issuerNym', {
+            title: translations.issuerPseudonym,
+            dependsOn: ['issuer'],
+            filter: (a) => a.type === 'Wallet', // TODO ownerID
+            autoFill: true,
+        }),
+        subjectNym: new AssetProp('subjectNym', {
+            title: translations.subjectPseudonym,
+            dependsOn: ['subject'],
+            filter: (a) => a.type === 'Wallet', // TODO ownerID
+            autoFill: true,
+        }),
+        attributeName: new StringProp('attributeName', { title: translations.attributeName }),
+        attributeValue: new StringProp('attributeValue', { title: translations.attributeValue }),
+    },
+});
+
+export type Props = TypeOfSchema<typeof IssuanceSchema>;
 
 /**
  * A Verifier authenticates a human Subject by comparing its physical appearance with its passport. We assume integrity
@@ -26,63 +49,66 @@ export interface Props {
 export class Issuance extends Action<Props> {
     typeName = 'Issuance';
 
-    static config: ActionFormConfig<keyof Props> = {
-        typeName: 'Issuance',
-        title: {
-            [Language.NL]: 'Uitgifte van credential',
-            [Language.EN]: 'Issuance of credential',
-        },
-        fields: {
-            issuerId: { type: 'actor', title: translations.issuer },
-            subjectId: { type: 'actor', title: translations.subject },
-            issuerNym: { type: 'string', title: translations.issuerPseudonym },
-            subjectNym: { type: 'string', title: translations.subjectPseudonym },
-            attributeName: { type: 'string', title: translations.attributeName },
-            attributeValue: { type: 'string', title: translations.attributeValue },
-        },
-    };
+    schema = IssuanceSchema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
+        // props = {
+        //     issuer: typeBuilder.actor({ title: 'Uitgever' }),
+        //     issuerNym: typeBuilder.assetOfActor('issuer', { type: 'Pseudonym', autoFill: true }),
+        //     subjectNym: typeBuilder.assetOfActor('subject', { type: 'Pseudonym', autoFill: true }),
+        // }
+        // derived = {
+        //     wallet: s => s.getAssetOfActor(p.subjectId, a => a instanceof Wallet),
+        //     issuerNym: s => s.getAssetOfActor(p.subjectId, a => a instanceof Wallet),
+        // }
+        // validator
+        // .requireActorHasAsset(p.subjectId, a => )
+        // .requireActorHasAsset(p.subjectId, a => a instanceof Wallet)
+
         return []; // TODO
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
-        const subjectWallet = state.props.byActor[this.props.subjectId].assets.find((a) => a instanceof Wallet);
+        const { subject } = this.evaluateProps(state);
+
+        const subjectWallet = subject.assets.find((a) => a instanceof Wallet);
         const attr = new AttributeProof(this.id + '1', {
             parentId: subjectWallet?.id,
-            name: this.props.attributeName,
-            value: this.props.attributeValue,
-            issuerId: this.props.issuerNym,
-            subjectId: this.props.subjectNym,
+            name: this.defProps.attributeName,
+            value: this.defProps.attributeValue,
+            issuerId: this.defProps.issuerNym,
+            subjectId: this.defProps.subjectNym,
         });
-        return [new GainAssetOutcome({ actorId: this.props.subjectId, asset: attr })];
+        return [new GainAssetOutcome({ actorId: subject.actor.id, asset: attr })];
     }
 
     describe(state: ScenarioState): ActionDesc {
-        const subject = state.props.byActor[this.props.subjectId].actor;
-        const issuer = state.props.byActor[this.props.issuerId].actor;
+        const { subject, issuer, ...props } = this.evaluateProps(state);
+
+        // const subject = state.props.byActor[this.props.subjectId].actor;
+        // const issuer = state.props.byActor[this.props.issuerId].actor;
         return {
             id: this.id,
-            type: 'Issuance',
-            from: issuer,
+            type: this.typeName,
+            from: issuer.actor,
             from_mode: 'issuing',
-            to: subject,
+            to: subject.actor,
             to_mode: 'phone',
             description: {
-                [Language.NL]: `Uitgave van ${this.props.attributeName} credential`,
-                [Language.EN]: `Issuance of ${this.props.attributeName} credential`,
+                [Language.NL]: `Uitgave van ${this.defProps.attributeName} credential`,
+                [Language.EN]: `Issuance of ${this.defProps.attributeName} credential`,
             },
             sub: {
-                [Language.NL]: `Subject: ${this.props.subjectNym}, Issuer: ${this.props.issuerNym}`,
-                [Language.EN]: `Subject: ${this.props.subjectNym}, Issuer: ${this.props.issuerNym}`,
+                [Language.NL]: `Subject: ${this.defProps.subjectNym}, Issuer: ${this.defProps.issuerNym}`,
+                [Language.EN]: `Subject: ${this.defProps.subjectNym}, Issuer: ${this.defProps.issuerNym}`,
             },
             long: {
-                [Language.NL]: `${ucFirst(issuer.nounPhrase)} geeft een ${
-                    this.props.attributeName
-                } credential uit aan ${subject.nounPhrase}.`,
-                [Language.EN]: `${ucFirst(issuer.nounPhrase)} issues a ${this.props.attributeName} credential to ${
-                    subject.nounPhrase
-                }.`,
+                [Language.NL]: `${ucFirst(issuer.actor.nounPhrase)} geeft een ${
+                    this.defProps.attributeName
+                } credential uit aan ${subject.actor.nounPhrase}.`,
+                [Language.EN]: `${ucFirst(issuer.actor.nounPhrase)} issues a ${
+                    this.defProps.attributeName
+                } credential to ${subject.actor.nounPhrase}.`,
             },
             locality: Locality.REMOTE,
         };
@@ -96,3 +122,5 @@ function assert(t: boolean, msg: string) {
 function ucFirst(str: string) {
     return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
 }
+
+export const IssuanceType = new ActionType(IssuanceSchema, (id, props) => new Issuance(id, props));

@@ -1,19 +1,31 @@
 import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
+import { ActionSchema, TypeOfSchema } from '../../../model/content/Action/ActionSchema';
+import { ActionType } from '../../../model/content/Action/ActionType';
+import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
+import { StringProp } from '../../../model/content/Common/Prop/StringProp';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
-import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
-export interface Props {
-    verifierId: string;
-    humanSubjectId: string;
-    dataSubjectId: string;
-}
+export const PhysicalPassportAuthenticationSchema = new ActionSchema({
+    typeName: 'PhysicalPassportAuthentication',
+    title: {
+        [Language.NL]: 'Authenticatie o.b.v. paspoort',
+        [Language.EN]: 'Authentication based on paspoort',
+    },
+    props: {
+        verifier: new ActorProp('verifier', { title: translations.verifier }),
+        subject: new ActorProp('subject', { title: translations.subject }),
+        dataSubject: new StringProp('dataSubject', { title: translations.subjectPseudonym }),
+    },
+});
+
+export type Props = TypeOfSchema<typeof PhysicalPassportAuthenticationSchema>;
 
 /**
  * A Verifier authenticates a human Subject by comparing its physical appearance with its passport. We assume integrity
@@ -22,18 +34,7 @@ export interface Props {
 export class PhysicalPassportAuthentication extends Action<Props> {
     typeName = 'PhysicalPassportAuthentication';
 
-    static config: ActionFormConfig<keyof Props> = {
-        typeName: 'PhysicalPassportAuthentication',
-        title: {
-            [Language.NL]: 'Authenticatie o.b.v. paspoort',
-            [Language.EN]: 'Authentication based on paspoort',
-        },
-        fields: {
-            verifierId: { type: 'actor', title: translations.verifier },
-            humanSubjectId: { type: 'actor', title: translations.subject },
-            dataSubjectId: { type: 'string', title: translations.subjectPseudonym },
-        },
-    };
+    schema = PhysicalPassportAuthenticationSchema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
         const results: IValidationResult[] = [];
@@ -57,19 +58,23 @@ export class PhysicalPassportAuthentication extends Action<Props> {
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
+        const props = this.evaluateProps(state);
+
         const authResult = new AuthenticationResult(this.id + '1', {
-            sourceId: this.props.humanSubjectId,
-            targetId: this.props.dataSubjectId,
+            sourceId: this.defProps.subject,
+            targetId: this.defProps.dataSubject,
         });
-        return [new GainAssetOutcome({ actorId: this.props.verifierId, asset: authResult })];
+        return [new GainAssetOutcome({ actorId: this.defProps.verifier, asset: authResult })];
     }
 
     describe(state: ScenarioState): ActionDesc {
-        const subject = state.props.byActor[this.props.humanSubjectId].actor;
-        const verifier = state.props.byActor[this.props.verifierId].actor;
+        const props = this.evaluateProps(state);
+
+        const subject = props.subject.actor;
+        const verifier = props.verifier.actor;
         return {
             id: this.id,
-            type: 'PhysicalPassportAuthentication',
+            type: this.typeName,
             from: verifier,
             to: subject,
             to_mode: 'facescan',
@@ -106,3 +111,7 @@ function assert(t: boolean, msg: string) {
 function ucFirst(str: string) {
     return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
 }
+export const PhysicalPassportAuthenticationType = new ActionType(
+    PhysicalPassportAuthenticationSchema,
+    (id, props) => new PhysicalPassportAuthentication(id, props),
+);

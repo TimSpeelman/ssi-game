@@ -20,4 +20,4 @@ export const ActionForms = [
     PresentationConsent,
     Presentation,
     CustomInteraction,
-].map((c) => c.config);
+].map((c): any => c);

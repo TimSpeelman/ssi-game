@@ -117,49 +117,49 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
     steps: [
         // Issuance Phase
         new PhysicalPassportAuthentication('1', {
-            verifierId: Government.id,
-            humanSubjectId: Subject.id,
-            dataSubjectId: SubjectIdAtGov,
+            verifier: Government.id,
+            subject: Subject.id,
+            dataSubject: SubjectIdAtGov,
         }),
         new WalletSMSAuthentication('2', {
             // Feitelijk is de contactlegging (en challenge) via SMS, authenticatie via P2P protocol
-            verifierId: Government.id,
-            humanSubjectId: Subject.id,
-            dataSubjectId: SubjectNym1, // TODO
+            verifier: Government.id,
+            subject: Subject.id,
+            dataSubject: SubjectNym1, // TODO
         }),
         new Issuance('3', {
             attributeName: '18+',
             attributeValue: 'waar',
             subjectNym: SubjectNym1, // TODO
             issuerNym: GovNym1, // TODO
-            issuerId: Government.id,
-            subjectId: Subject.id,
+            issuer: Government.id,
+            subject: Subject.id,
         }),
         // Verification Phase
         new WalletQRAuthentication('4', {
             // Feitelijk is de contactlegging via QR, authenticatie via P2P protocol
-            verifierId: Shop.id,
-            humanSubjectId: Subject.id,
-            dataSubjectId: SubjectNym1, // TODO
+            verifier: Shop.id,
+            subject: Subject.id,
+            dataSubject: SubjectNym1, // TODO
         }),
         new PresentationRequest('5', {
-            verifierId: Shop.id,
-            subjectId: Subject.id,
+            verifier: Shop.id,
+            subject: Subject.id,
             subjectNym: SubjectNym1, // TODO
             verifierNym: ShopNym1, // TODO
             attributeName: Attr18Plus,
         }),
         new PresentationConsent('6', {
             // Feitelijk geeft het subject toestemming aan de eigen wallet en wordt de toestemming meegestuurd dan wel geimpliceerd in de credentialpresentatie.
-            verifierId: Shop.id,
-            subjectId: Subject.id,
+            verifier: Shop.id,
+            subject: Subject.id,
             subjectNym: SubjectNym1, // TODO
             verifierNym: ShopNym1, // TODO
             attributeName: '18+',
         }),
         new Presentation('7', {
-            verifierId: Shop.id,
-            subjectId: Subject.id,
+            verifier: Shop.id,
+            subject: Subject.id,
             subjectNym: SubjectNym1, // TODO
             verifierNym: ShopNym1, // TODO
             attributeName: '18+',
@@ -168,14 +168,14 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
         }),
         new CustomInteraction('8', {
             // Feitelijk verifieert de Verifier zelfstandig de verzegeling en ondertekening, en via de ledger de actualiteit (hier wellicht niet relevant)
-            fromId: Shop.id,
-            toId: Subject.id,
+            from: Shop.id,
+            to: Subject.id,
             description: 'Verifieer 18+ bewijs',
             sub: '',
         }),
         new GrantGreenFlag('9', {
-            fromId: Shop.id,
-            toId: Subject.id,
+            from: Shop.id,
+            to: Subject.id,
             description: 'Toegang tot 18+ verkoop',
         }),
     ].map((s) => s.serialize()),

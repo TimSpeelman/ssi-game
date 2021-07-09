@@ -1,3 +1,5 @@
+import { ActionSchema } from '../../content/Action/ActionSchema';
+import { ContentTypeProps, DefTypesOfContentTypeProps } from '../../content/Common/PropRecord/ContentTypeProps';
 import { ActionDef } from '../../definition/Action/ActionDef';
 import { ActionDesc } from '../../description/Step/ActionDesc';
 import { ScenarioState } from '../State/ScenarioState';
@@ -9,11 +11,13 @@ import { IValidationResult } from './IValidationResult';
  * The player programs Actions. The action type defines what preconditions must be met before this action can occur and
  * computes the results of the action, which results in a new state.
  */
-export abstract class Action<Props = any> {
+export abstract class Action<Props extends ContentTypeProps> {
     /** Type Name used for serialization */
     protected abstract readonly typeName: string;
 
-    constructor(readonly id: string, readonly props: Props) {}
+    protected abstract readonly schema: ActionSchema<Props>;
+
+    constructor(readonly id: string, readonly defProps: DefTypesOfContentTypeProps<Props>) {}
 
     /** Compute the results of this action */
     public computeStep(preState: ScenarioState): ComputedStep {
@@ -42,6 +46,10 @@ export abstract class Action<Props = any> {
     abstract describe(state: ScenarioState): ActionDesc;
 
     serialize(): ActionDef<Props> {
-        return { id: this.id, props: this.props, typeName: this.typeName };
+        return { id: this.id, props: this.defProps, typeName: this.typeName };
+    }
+
+    evaluateProps(state: ScenarioState) {
+        return this.schema.evaluateDefinitionProps(this.defProps, state);
     }
 }

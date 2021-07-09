@@ -1,76 +1,90 @@
 import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
+import { ActionSchema, TypeOfSchema } from '../../../model/content/Action/ActionSchema';
+import { ActionType } from '../../../model/content/Action/ActionType';
+import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
+import { AssetProp } from '../../../model/content/Common/Prop/AssetProp';
+import { StringProp } from '../../../model/content/Common/Prop/StringProp';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
-import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { Consent } from '../../assets/data/abc/Consent';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
-export interface Props {
-    verifierId: string;
-    subjectId: string;
-    verifierNym: string;
-    subjectNym: string;
-    attributeName: string;
-}
+export const PresentationConsentSchema = new ActionSchema({
+    typeName: 'PresentationConsent',
+    title: {
+        [Language.NL]: 'Toestemming voor Presentatie',
+        [Language.EN]: 'Consent for Presentation',
+    },
+    props: {
+        verifier: new ActorProp('verifier', { title: translations.verifier }),
+        subject: new ActorProp('subject', { title: translations.subject }),
+        verifierNym: new AssetProp('verifierNym', {
+            title: translations.verifierPseudonym,
+            dependsOn: ['issuer'],
+            filter: (a) => a.type === 'Wallet', // TODO ownerID
+            autoFill: true,
+        }),
+        subjectNym: new AssetProp('subjectNym', {
+            title: translations.subjectPseudonym,
+            dependsOn: ['subject'],
+            filter: (a) => a.type === 'Wallet', // TODO ownerID
+            autoFill: true,
+        }),
+        attributeName: new StringProp('attributeName', { title: translations.attributeName }),
+    },
+});
+
+export type Props = TypeOfSchema<typeof PresentationConsentSchema>;
 
 export class PresentationConsent extends Action<Props> {
     typeName = 'PresentationConsent';
 
-    static config: ActionFormConfig<keyof Props> = {
-        typeName: 'PresentationConsent',
-        title: {
-            [Language.NL]: 'Toestemming voor Presentatie',
-            [Language.EN]: 'Consent for Presentation',
-        },
-        fields: {
-            verifierId: { type: 'actor', title: translations.verifier },
-            subjectId: { type: 'actor', title: translations.subject },
-            verifierNym: { type: 'string', title: translations.verifierPseudonym },
-            subjectNym: { type: 'string', title: translations.subjectPseudonym },
-            attributeName: { type: 'string', title: translations.attributeName },
-        },
-    };
+    schema = PresentationConsentSchema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
         return []; // TODO
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
+        const props = this.evaluateProps(state);
+
         const consent = new Consent(this.id + '1', {
-            attributeName: this.props.attributeName,
-            verifierId: this.props.verifierId,
-            subjectId: this.props.subjectNym,
+            attributeName: this.defProps.attributeName,
+            verifierId: props.verifier.actor.id,
+            subjectId: this.defProps.subjectNym,
         });
-        return [new GainAssetOutcome({ actorId: this.props.verifierId, asset: consent })];
+        return [new GainAssetOutcome({ actorId: props.verifier.actor.id, asset: consent })];
     }
 
     describe(state: ScenarioState): ActionDesc {
-        const subject = state.props.byActor[this.props.subjectId].actor;
-        const verifier = state.props.byActor[this.props.verifierId].actor;
+        const props = this.evaluateProps(state);
+
+        const subject = props.subject.actor;
+        const verifier = props.verifier.actor;
         return {
             id: this.id,
-            type: 'PresentationConsent',
+            type: this.typeName,
             from: subject,
             to: verifier,
             to_mode: 'phone',
             description: {
-                [Language.NL]: `Geef toestemming om ${this.props.attributeName} credential te gebruiken`,
-                [Language.EN]: `Consent to use ${this.props.attributeName} credential`,
+                [Language.NL]: `Geef toestemming om ${this.defProps.attributeName} credential te gebruiken`,
+                [Language.EN]: `Consent to use ${this.defProps.attributeName} credential`,
             },
             sub: {
-                [Language.NL]: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
-                [Language.EN]: `Subject: ${this.props.subjectNym}, Verifier: ${this.props.verifierNym}`,
+                [Language.NL]: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
+                [Language.EN]: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
             },
             long: {
                 [Language.NL]: `${ucFirst(subject.nounPhrase)} geeft ${
                     verifier.nounPhrase
-                } toestemming om het attribuut ${this.props.attributeName} te gebruiken.`,
+                } toestemming om het attribuut ${this.defProps.attributeName} te gebruiken.`,
                 [Language.EN]: `${ucFirst(subject.nounPhrase)} consents to ${verifier.nounPhrase} using the attribute ${
-                    this.props.attributeName
+                    this.defProps.attributeName
                 }.`,
             },
             locality: Locality.REMOTE,
@@ -85,3 +99,7 @@ function assert(t: boolean, msg: string) {
 function ucFirst(str: string) {
     return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
 }
+export const PresentationConsentType = new ActionType(
+    PresentationConsentSchema,
+    (id, props) => new PresentationConsent(id, props),
+);

@@ -2,7 +2,7 @@ import { translations } from '../../../../intl/dictionaries';
 import { Translation } from '../../../../intl/Language';
 import { Asset, AssetBaseProps, CustomAssetDesc } from '../../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../../model/logic/State/ScenarioState';
-import { AssetFormConfig } from '../../../../model/view/AssetFormConfig';
+import { AssetFormConfig } from '../../../../model/view/AssetSchema';
 
 export interface Props extends AssetBaseProps {
     attributeName: string;

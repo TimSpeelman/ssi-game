@@ -22,6 +22,17 @@ export class Scenario {
         });
     }
 
+    /** Providing the postState of a step at provided index, or the initial state when index -1 is provided */
+    getPostStateAtIndex(index: number) {
+        if (index === -1) {
+            return this.steps[0].props.preState;
+        } else if (index < this.steps.length) {
+            return this.steps[index].props.postState;
+        } else {
+            throw new Error('Provided state index ' + index + ' out of bounds');
+        }
+    }
+
     describe(): ScenarioDesc {
         return {
             initial: this.initial.describe(),

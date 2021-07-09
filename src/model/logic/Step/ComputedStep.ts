@@ -29,7 +29,7 @@ export class ComputedStep {
 
 export interface Props {
     preState: ScenarioState;
-    action: Action;
+    action: Action<any>;
     validation: IValidationResult[];
     outcomes: IOutcome[];
     postState: ScenarioState;

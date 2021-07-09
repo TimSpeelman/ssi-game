@@ -1,35 +1,36 @@
 import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
+import { ActionSchema, TypeOfSchema } from '../../../model/content/Action/ActionSchema';
+import { ActionType } from '../../../model/content/Action/ActionType';
+import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
+import { StringProp } from '../../../model/content/Common/Prop/StringProp';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
-import { ActionFormConfig } from '../../../model/view/ActionFormConfig';
 import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
-export interface Props {
-    verifierId: string;
-    humanSubjectId: string;
-    dataSubjectId: string;
-}
+export const WalletQRAuthenticationSchema = new ActionSchema({
+    typeName: 'WalletQRAuthentication',
+    title: {
+        [Language.NL]: 'Authenticatie van Wallet via QR',
+        [Language.EN]: 'Authentication of Wallet via QR',
+    },
+    props: {
+        verifier: new ActorProp('verifier', { title: translations.verifier }),
+        subject: new ActorProp('subject', { title: translations.subject }),
+        dataSubject: new StringProp('dataSubject', { title: translations.subjectPseudonym }),
+    },
+});
+
+export type Props = TypeOfSchema<typeof WalletQRAuthenticationSchema>;
 
 export class WalletQRAuthentication extends Action<Props> {
     typeName = 'WalletQRAuthentication';
 
-    static config: ActionFormConfig<keyof Props> = {
-        typeName: 'WalletQRAuthentication',
-        title: {
-            [Language.NL]: 'Authenticatie van Wallet via QR',
-            [Language.EN]: 'Authentication of Wallet via QR',
-        },
-        fields: {
-            verifierId: { type: 'actor', title: translations.verifier },
-            humanSubjectId: { type: 'actor', title: translations.subject },
-            dataSubjectId: { type: 'string', title: translations.subjectPseudonym },
-        },
-    };
+    schema = WalletQRAuthenticationSchema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
         return []; // TODO
@@ -37,18 +38,18 @@ export class WalletQRAuthentication extends Action<Props> {
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
         const authResult = new AuthenticationResult(this.id + '1', {
-            sourceId: this.props.humanSubjectId,
-            targetId: this.props.dataSubjectId,
+            sourceId: this.defProps.subject,
+            targetId: this.defProps.dataSubject,
         });
-        return [new GainAssetOutcome({ actorId: this.props.verifierId, asset: authResult })];
+        return [new GainAssetOutcome({ actorId: this.defProps.verifier, asset: authResult })];
     }
 
     describe(state: ScenarioState): ActionDesc {
-        const subject = state.props.byActor[this.props.humanSubjectId].actor;
-        const verifier = state.props.byActor[this.props.verifierId].actor;
+        const subject = state.props.byActor[this.defProps.subject].actor;
+        const verifier = state.props.byActor[this.defProps.verifier].actor;
         return {
             id: this.id,
-            type: 'WalletQRAuthentication',
+            type: this.typeName,
             from: verifier,
             to: subject,
             to_mode: 'selfie',
@@ -80,3 +81,7 @@ function assert(t: boolean, msg: string) {
 function ucFirst(str: string) {
     return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
 }
+export const WalletQRAuthenticationType = new ActionType(
+    WalletQRAuthenticationSchema,
+    (id, props) => new WalletQRAuthentication(id, props),
+);

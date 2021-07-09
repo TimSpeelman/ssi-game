@@ -1,16 +1,13 @@
-import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
 import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
-import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
-import { AssetProp } from '../../../model/content/Common/Prop/AssetProp';
-import { StringProp } from '../../../model/content/Common/Prop/StringProp';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { Consent } from '../../assets/data/abc/Consent';
+import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
 export const PresentationConsentSchema = new ActionSchema({
@@ -20,21 +17,11 @@ export const PresentationConsentSchema = new ActionSchema({
         [Language.EN]: 'Consent for Presentation',
     },
     props: {
-        verifier: new ActorProp('verifier', { title: translations.verifier }),
-        subject: new ActorProp('subject', { title: translations.subject }),
-        verifierNym: new AssetProp('verifierNym', {
-            title: translations.verifierPseudonym,
-            dependsOn: ['issuer'],
-            filter: (a, data) => a.asset.type === 'Wallet' && a.ownerId === data.issuer, // TODO ownerID
-            autoFill: true,
-        }),
-        subjectNym: new AssetProp('subjectNym', {
-            title: translations.subjectPseudonym,
-            dependsOn: ['subject'],
-            filter: (a, data) => a.asset.type === 'Wallet' && a.ownerId === data.subject, // TODO ownerID
-            autoFill: true,
-        }),
-        attributeName: new StringProp('attributeName', { title: translations.attributeName }),
+        verifier: CommonProps.verifier,
+        verifierNym: CommonProps.verifierNym,
+        subject: CommonProps.subject,
+        subjectNym: CommonProps.subjectNym,
+        attributeName: CommonProps.attributeName,
     },
 });
 

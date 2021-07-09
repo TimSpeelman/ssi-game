@@ -1,10 +1,6 @@
-import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
 import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
-import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
-import { AssetProp } from '../../../model/content/Common/Prop/AssetProp';
-import { StringProp } from '../../../model/content/Common/Prop/StringProp';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
@@ -12,6 +8,7 @@ import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { AttributeRequest } from '../../assets/data/abc/AttributeRequest';
 import { Wallet } from '../../assets/software/Wallet';
+import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
 export const PresentationRequestSchema = new ActionSchema({
@@ -21,21 +18,11 @@ export const PresentationRequestSchema = new ActionSchema({
         [Language.EN]: 'Request for Presentation',
     },
     props: {
-        verifier: new ActorProp('verifier', { title: translations.verifier }),
-        subject: new ActorProp('subject', { title: translations.subject }),
-        verifierNym: new AssetProp('verifierNym', {
-            title: translations.verifierPseudonym,
-            dependsOn: ['verifier'],
-            filter: (a, data) => a.asset.type === 'Wallet' && a.ownerId === data.verifier, // TODO ownerID
-            autoFill: true,
-        }),
-        subjectNym: new AssetProp('subjectNym', {
-            title: translations.subjectPseudonym,
-            dependsOn: ['subject'],
-            filter: (a, data) => a.asset.type === 'Wallet' && a.ownerId === data.subject, // TODO ownerID
-            autoFill: true,
-        }),
-        attributeName: new StringProp('attributeName', { title: translations.attributeName }),
+        verifier: CommonProps.verifier,
+        verifierNym: CommonProps.verifierNym,
+        subject: CommonProps.subject,
+        subjectNym: CommonProps.subjectNym,
+        attributeName: CommonProps.attributeName,
     },
 });
 
@@ -57,9 +44,9 @@ export class PresentationRequest extends Action<Props> {
         const req = new AttributeRequest(this.id + '1', {
             // @ts-ignore TODO FIXME
             parentId: subjectWallet?.id,
-            name: this.defProps.attributeName,
-            verifierId: this.defProps.verifier,
-            subjectId: this.defProps.subjectNym,
+            attributeName: this.defProps.attributeName,
+            verifier: this.defProps.verifier,
+            subject: this.defProps.subjectNym,
         });
         return [new GainAssetOutcome({ actorId: this.defProps.subject, asset: req })];
     }

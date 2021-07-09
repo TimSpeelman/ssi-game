@@ -1,9 +1,6 @@
-import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
 import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
-import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
-import { StringProp } from '../../../model/content/Common/Prop/StringProp';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
@@ -11,6 +8,7 @@ import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { AttributeRevocation } from '../../assets/data/abc/AttributeRevocation';
 import { Wallet } from '../../assets/software/Wallet';
+import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
 export const RevocationSchema = new ActionSchema({
@@ -20,9 +18,9 @@ export const RevocationSchema = new ActionSchema({
         [Language.EN]: 'Revocation of credential',
     },
     props: {
-        issuer: new ActorProp('issuer', { title: translations.issuer }),
-        subject: new ActorProp('subject', { title: translations.subject }),
-        attributeName: new StringProp('attributeName', { title: translations.attributeName }),
+        issuer: CommonProps.issuer,
+        subject: CommonProps.subject,
+        attributeName: CommonProps.attributeName,
     },
 });
 
@@ -48,9 +46,9 @@ export class Revocation extends Action<Props> {
         const attr = new AttributeRevocation(this.id + '1', {
             // @ts-ignore TODO FIXME
             parentId: subjectWallet?.id,
-            attributeId: this.defProps.attributeName,
-            issuerId: this.defProps.issuer,
-            subjectId: this.defProps.subject,
+            attributeName: this.defProps.attributeName,
+            issuer: this.defProps.issuer,
+            subject: this.defProps.subject,
         });
         return [new GainAssetOutcome({ actorId: this.defProps.subject, asset: attr })];
     }

@@ -1,4 +1,4 @@
-import { deserialize as deserializeAction } from '../../../content/actions/actions';
+import { DefaultActionsCollection } from '../../../content/actions/actions';
 import { ScenarioDef } from '../../definition/ScenarioDef';
 import { ScenarioDesc } from '../../description/Scenario/ScenarioDesc';
 import { ScenarioState } from '../State/ScenarioState';
@@ -10,7 +10,7 @@ export class Scenario {
     readonly initial: ScenarioState;
 
     constructor(readonly definition: ScenarioDef) {
-        const steps = definition.steps.map((s) => deserializeAction(s));
+        const steps = definition.steps.map((s) => DefaultActionsCollection.deserialize(s));
         this.initial = ScenarioState.fromConfig(definition);
         let state = this.initial.withUpdate((s) => ({ ...s, isInitial: false }));
 

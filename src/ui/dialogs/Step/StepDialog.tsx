@@ -28,7 +28,7 @@ interface Props {
 export const actionFrmHandler = new ActionFormHandler(DefaultActionsCollection);
 
 export function StepDialog(props: Props) {
-    const [type, setType] = useState<string | undefined>(props.action?.typeName);
+    const [type, setType] = useState<string | undefined>(props.action?.typeName || '');
     const [actProps, setActProps] = useState<any>(props.action?.props || {});
     const def = useSelector(selectScenarioDef);
     const step = useSelector(selectActiveStepIndex);

@@ -21,7 +21,7 @@ export class StringProp implements IContentTypeProp<string, string> {
             type: 'string',
             title: this.options.title,
             // @ts-ignore
-            value: formData[this.key],
+            value: formData[this.key] || this.getDefaultValue(),
         }; // TODO
     }
 

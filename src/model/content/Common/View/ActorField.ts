@@ -6,4 +6,5 @@ export interface ActorField {
     title: Translation;
     options: Actor[];
     value: string;
+    disabled?: Translation;
 }

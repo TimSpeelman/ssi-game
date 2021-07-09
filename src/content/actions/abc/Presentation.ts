@@ -20,24 +20,24 @@ export const PresentationSchema = new ActionSchema({
         [Language.EN]: 'Presentation of Credential',
     },
     props: {
-        verifier: new ActorProp('verifier', { title: translations.issuer }),
+        verifier: new ActorProp('verifier', { title: translations.verifier }),
         subject: new ActorProp('subject', { title: translations.subject }),
         verifierNym: new AssetProp('verifierNym', {
             title: translations.issuerPseudonym,
-            dependsOn: ['issuer'],
-            filter: (a) => a.type === 'Wallet', // TODO ownerID
+            dependsOn: ['verifier'],
+            filter: (a) => a.asset.type === 'Wallet', // TODO ownerID
             autoFill: true,
         }),
         subjectNym: new AssetProp('subjectNym', {
             title: translations.subjectPseudonym,
             dependsOn: ['subject'],
-            filter: (a) => a.type === 'Wallet', // TODO ownerID
+            filter: (a) => a.asset.type === 'Wallet', // TODO ownerID
             autoFill: true,
         }),
         issuerNym: new AssetProp('issuerNym', {
             title: translations.subjectPseudonym,
             dependsOn: ['subject'],
-            filter: (a) => a.type === 'Wallet', // TODO ownerID
+            filter: (a) => a.asset.type === 'Wallet', // TODO ownerID
             autoFill: true,
         }),
         attributeName: new StringProp('attributeName', { title: translations.attributeName }),

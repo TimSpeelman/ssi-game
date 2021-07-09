@@ -13,9 +13,11 @@ export function AssetFormControl({ props, setField }: Props) {
     const title = props.title[lang];
     const value = props.value;
     const assets = props.options;
+    const disabled = !!props.disabled;
+    const disabledMsg = props.disabled ? props.disabled[lang] : '';
 
     return (
-        <FormControl fullWidth style={{ marginBottom: '1em' }}>
+        <FormControl fullWidth style={{ marginBottom: '1em' }} disabled={disabled} title={disabledMsg}>
             <InputLabel>{title}</InputLabel>
             <Select value={value} onChange={(e) => setField(e.target.value)}>
                 {assets.map((asset) => (

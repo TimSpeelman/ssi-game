@@ -17,24 +17,26 @@ import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 export const IssuanceSchema = new ActionSchema({
     typeName: 'Issuance',
     title: {
-        [Language.NL]: 'Uitgifte van credential',
+        [Language.NL]: 'Uitgifte van credenptial',
         [Language.EN]: 'Issuance of credential',
     },
     props: {
         issuer: new ActorProp('issuer', { title: translations.issuer }),
-        subject: new ActorProp('subject', { title: translations.subject }),
         issuerNym: new AssetProp('issuerNym', {
             title: translations.issuerPseudonym,
             dependsOn: ['issuer'],
-            filter: (a) => a.type === 'Wallet', // TODO ownerID
+            filter: (a, data) => a.asset.type === 'Wallet' && a.ownerId === data.issuer, // TODO ownerID
             autoFill: true,
         }),
+
+        subject: new ActorProp('subject', { title: translations.subject }),
         subjectNym: new AssetProp('subjectNym', {
             title: translations.subjectPseudonym,
             dependsOn: ['subject'],
-            filter: (a) => a.type === 'Wallet', // TODO ownerID
+            filter: (a, data) => a.asset.type === 'Wallet' && a.ownerId === data.subject, // TODO ownerID
             autoFill: true,
         }),
+
         attributeName: new StringProp('attributeName', { title: translations.attributeName }),
         attributeValue: new StringProp('attributeValue', { title: translations.attributeValue }),
     },

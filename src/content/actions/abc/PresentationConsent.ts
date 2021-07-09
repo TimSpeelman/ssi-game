@@ -25,13 +25,13 @@ export const PresentationConsentSchema = new ActionSchema({
         verifierNym: new AssetProp('verifierNym', {
             title: translations.verifierPseudonym,
             dependsOn: ['issuer'],
-            filter: (a) => a.type === 'Wallet', // TODO ownerID
+            filter: (a) => a.asset.type === 'Wallet', // TODO ownerID
             autoFill: true,
         }),
         subjectNym: new AssetProp('subjectNym', {
             title: translations.subjectPseudonym,
             dependsOn: ['subject'],
-            filter: (a) => a.type === 'Wallet', // TODO ownerID
+            filter: (a) => a.asset.type === 'Wallet', // TODO ownerID
             autoFill: true,
         }),
         attributeName: new StringProp('attributeName', { title: translations.attributeName }),

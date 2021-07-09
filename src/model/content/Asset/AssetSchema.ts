@@ -25,9 +25,9 @@ export class AssetSchema<Props extends ContentTypeProps> {
 
     /** Compute display properties */
     computeDisplayProperties(defProps: any) {
-        return mapValues(this.props.props, (p) => ({
+        return mapValues(this.props.props, (p, key) => ({
             title: p.title,
-            value: defProps[p.key],
+            value: defProps[key],
         }));
     }
 

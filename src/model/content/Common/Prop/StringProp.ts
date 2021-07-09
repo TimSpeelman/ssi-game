@@ -12,7 +12,7 @@ export class StringProp implements IContentTypeProp<string, string> {
         return this.options.title;
     }
 
-    constructor(readonly key: string, readonly options: StringPropOptions) {}
+    constructor(readonly options: StringPropOptions) {}
 
     /** Computes the default value. */
     getDefaultValue() {
@@ -20,23 +20,23 @@ export class StringProp implements IContentTypeProp<string, string> {
     }
 
     /** Computes the field properties to display in the creation or edit form. */
-    getFormFieldProps(formData: FormData, state: ScenarioState): Field {
+    getFormFieldProps(key: string, formData: FormData, state: ScenarioState): Field {
         return {
             type: 'string',
             title: this.options.title,
             // @ts-ignore
-            value: formData[this.key] || this.getDefaultValue(),
+            value: formData[key] || this.getDefaultValue(),
         }; // TODO
     }
 
     /** Parses the prop */
-    parseUserInput(formData: any, state: ScenarioState): string {
-        const string = formData[this.key] as string;
+    parseUserInput(key: string, formData: any, state: ScenarioState): string {
+        const string = formData[key] as string;
         return string;
     }
 
     /** Computes the prop to be used in the back-end, based on the user defined value. */
-    evaluateDefinitionProp(defProps: any, state: ScenarioState): string {
-        return defProps[this.key] as string;
+    evaluateDefinitionProp(key: string, defProps: any, state: ScenarioState): string {
+        return defProps[key] as string;
     }
 }

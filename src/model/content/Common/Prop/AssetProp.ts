@@ -17,7 +17,7 @@ export class AssetProp implements IContentTypeProp<string, Asset<any>> {
         return this.options.title;
     }
 
-    constructor(readonly key: string, readonly options: AssetPropOptions) {}
+    constructor(readonly options: AssetPropOptions) {}
 
     /** Computes the default value. */
     getDefaultValue() {
@@ -25,7 +25,7 @@ export class AssetProp implements IContentTypeProp<string, Asset<any>> {
     }
 
     /** Computes the field properties to display in the creation or edit form. */
-    getFormFieldProps(formData: any, state: ScenarioState): Field {
+    getFormFieldProps(key: string, formData: any, state: ScenarioState): Field {
         const allItems = Object.values(state.describe().assets);
         console.log('all assets', allItems);
         const filteredItems = !!this.options.filter
@@ -42,7 +42,7 @@ export class AssetProp implements IContentTypeProp<string, Asset<any>> {
 
         const autoFill = this.options.autoFill ? items[0]?.id : undefined;
         const defaultValue = autoFill || this.getDefaultValue();
-        const value = !formData[this.key] || formData[this.key] === '' ? defaultValue : formData[this.key];
+        const value = !formData[key] || formData[key] === '' ? defaultValue : formData[key];
         return {
             type: 'asset',
             title: this.options.title,
@@ -54,14 +54,14 @@ export class AssetProp implements IContentTypeProp<string, Asset<any>> {
     }
 
     /** Parses the prop */
-    parseUserInput(formData: any, state: ScenarioState): string {
-        const assetId = formData[this.key] as string;
+    parseUserInput(key: string, formData: any, state: ScenarioState): string {
+        const assetId = formData[key] as string;
         return assetId;
     }
 
     /** Computes the prop to be used in the back-end, based on the user defined value. */
-    evaluateDefinitionProp(defProps: any, state: ScenarioState): Asset<any> | undefined {
-        const assetId = defProps[this.key] as string;
+    evaluateDefinitionProp(key: string, defProps: any, state: ScenarioState): Asset<any> | undefined {
+        const assetId = defProps[key] as string;
         const assets = Object.values(state.props.byActor)
             .map((a) => a.assets)
             .reduce((a, b) => [...a, ...b], []);

@@ -16,7 +16,7 @@ export class ActorProp implements IContentTypeProp<string, ActorState> {
         return this.options.title;
     }
 
-    constructor(readonly key: string, readonly options: ActorPropOptions) {}
+    constructor(readonly options: ActorPropOptions) {}
 
     /** Computes the default value. */
     getDefaultValue() {
@@ -24,7 +24,7 @@ export class ActorProp implements IContentTypeProp<string, ActorState> {
     }
 
     /** Computes the field properties to display in the creation or edit form. */
-    getFormFieldProps(formData: any, state: ScenarioState): Field {
+    getFormFieldProps(key: string, formData: any, state: ScenarioState): Field {
         const allItems = Object.values(state.props.byActor);
         const filteredItems = this.options.filter
             ? allItems.filter((a) => this.options.filter!(a, formData))
@@ -40,7 +40,7 @@ export class ActorProp implements IContentTypeProp<string, ActorState> {
 
         const autoFill = this.options.autoFill ? items[0]?.id : undefined;
         const defaultValue = autoFill || this.getDefaultValue();
-        const value = !formData[this.key] || formData[this.key] === '' ? defaultValue : formData[this.key];
+        const value = !formData[key] || formData[key] === '' ? defaultValue : formData[key];
         return {
             type: 'actor',
             title: this.options.title,
@@ -52,15 +52,15 @@ export class ActorProp implements IContentTypeProp<string, ActorState> {
     }
 
     /** Validate and parse the property */
-    parseUserInput(formData: any, state: ScenarioState): string {
+    parseUserInput(key: string, formData: any, state: ScenarioState): string {
         // TODO Validate
-        const actorId = formData[this.key] as string;
+        const actorId = formData[key] as string;
         return actorId;
     }
 
     /** Computes the prop to be used in the back-end, based on the user defined value. */
-    evaluateDefinitionProp(defProps: any, state: ScenarioState): ActorState | undefined {
-        const actorId = defProps[this.key] as string;
+    evaluateDefinitionProp(key: string, defProps: any, state: ScenarioState): ActorState | undefined {
+        const actorId = defProps[key] as string;
         return state.props.byActor[actorId];
     }
 }

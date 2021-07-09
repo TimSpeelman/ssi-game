@@ -120,13 +120,13 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
         new PhysicalPassportAuthentication('1', {
             verifier: Government.id,
             subject: Subject.id,
-            dataSubject: SubjectIdAtGov,
+            identifier: SubjectIdAtGov,
         }),
         new WalletSMSAuthentication('2', {
             // Feitelijk is de contactlegging (en challenge) via SMS, authenticatie via P2P protocol
             verifier: Government.id,
             subject: Subject.id,
-            dataSubject: SubjectNym1, // TODO
+            identifier: SubjectNym1, // TODO
         }),
         new Issuance('3', {
             attributeName: '18+',
@@ -141,7 +141,7 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
             // Feitelijk is de contactlegging via QR, authenticatie via P2P protocol
             verifier: Shop.id,
             subject: Subject.id,
-            dataSubject: SubjectNym1, // TODO
+            identifier: SubjectNym1, // TODO
         }),
         new PresentationRequest('5', {
             verifier: Shop.id,

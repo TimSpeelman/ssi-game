@@ -26,11 +26,11 @@ export function ucFirst(str: string) {
     return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
 }
 
-export function mapValues<T, S>(obj: Record<string, T>, map: (t: T) => S): Record<string, S> {
+export function mapValues<T, S>(obj: Record<string, T>, map: (t: T, key: string) => S): Record<string, S> {
     return Object.entries(obj).reduce(
         (res, [key, val]) => ({
             ...res,
-            [key]: map(val),
+            [key]: map(val, key),
         }),
         {},
     );

@@ -20,9 +20,9 @@ export const GrantGreenFlagSchema = new ActionSchema({
         [Language.EN]: 'Grant Green Flag',
     },
     props: {
-        from: new ActorProp('from', { title: translations.fromActor }),
-        to: new ActorProp('to', { title: translations.toActor }),
-        description: new StringProp('description', { title: translations.description }),
+        from: new ActorProp({ title: translations.fromActor }),
+        to: new ActorProp({ title: translations.toActor }),
+        description: new StringProp({ title: translations.description }),
     },
 });
 

@@ -20,7 +20,7 @@ const Schema = new AssetSchema({
     },
     props: {
         subject: CommonProps.subject,
-        name: new StringProp('name', { title: translations.name }),
+        name: new StringProp({ title: translations.name }),
     },
 });
 

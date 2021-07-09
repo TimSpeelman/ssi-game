@@ -5,9 +5,7 @@ import { ContentTypeProps, DefTypesOfContentTypeProps, EvaluatedTypeOfContentPro
 
 /** Sugar for controlling a collection of content type props */
 export class ContentTypePropsRecord<Props extends ContentTypeProps> {
-    constructor(readonly props: Props) {
-        this.assertCorrectPropKeys(props);
-    }
+    constructor(readonly props: Props) {}
 
     /** Computes the default value of each prop. */
     getDefaultValues(): DefTypesOfContentTypeProps<Props> {
@@ -17,27 +15,18 @@ export class ContentTypePropsRecord<Props extends ContentTypeProps> {
 
     /** Computes the form field properties of each prop. */
     getFormFieldProps(formData: any, state: ScenarioState): Record<string, Field> {
-        return mapValues(this.props, (def) => def.getFormFieldProps(formData, state));
+        return mapValues(this.props, (def, key) => def.getFormFieldProps(key, formData, state));
     }
 
     /** Parses the entire form data. */
     parseUserInput(formData: any, state: ScenarioState): DefTypesOfContentTypeProps<Props> {
         // @ts-ignore
-        return mapValues(this.props, (def) => def.parseUserInput(formData, state));
+        return mapValues(this.props, (def, key) => def.parseUserInput(key, formData, state));
     }
 
     /** Parses the entire form data. */
     evaluateDefinitionProps(defProps: any, state: ScenarioState): EvaluatedTypeOfContentProps<Props> {
         // @ts-ignore
-        return mapValues(this.props, (def) => def.evaluateDefinitionProp(defProps, state));
-    }
-
-    protected assertCorrectPropKeys(props: Props) {
-        const entries = Object.entries(props);
-        for (const [key, prop] of entries) {
-            if (prop.key !== key) {
-                throw new Error(`Illegal props record, at key '${key}' prop was found with key '${prop.key}'`);
-            }
-        }
+        return mapValues(this.props, (def, key) => def.evaluateDefinitionProp(key, defProps, state));
     }
 }

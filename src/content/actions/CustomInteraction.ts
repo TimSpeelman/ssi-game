@@ -17,15 +17,15 @@ export const CustomInteractionSchema = new ActionSchema({
         [Language.EN]: 'Vrije Interactie',
     },
     props: {
-        from: new ActorProp('from', { title: translations.fromActor }),
-        to: new ActorProp('to', { title: translations.toActor }),
-        description: new StringProp('description', {
+        from: new ActorProp({ title: translations.fromActor }),
+        to: new ActorProp({ title: translations.toActor }),
+        description: new StringProp({
             title: {
                 NL: 'Omschrijving 1',
                 EN: 'Description 1',
             },
         }),
-        sub: new StringProp('sub', {
+        sub: new StringProp({
             title: {
                 NL: 'Omschrijving 2',
                 EN: 'Description 2',

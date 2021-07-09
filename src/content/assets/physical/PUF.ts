@@ -17,7 +17,7 @@ const Schema = new AssetSchema({
         EN: 'Physically Uncloneable Function (PUF)',
     },
     props: {
-        secret: new StringProp('secret', {
+        secret: new StringProp({
             title: {
                 NL: 'Geheim',
                 EN: 'Secret',

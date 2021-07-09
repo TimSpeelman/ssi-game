@@ -26,13 +26,13 @@ export const PresentationRequestSchema = new ActionSchema({
         verifierNym: new AssetProp('verifierNym', {
             title: translations.verifierPseudonym,
             dependsOn: ['verifier'],
-            filter: (a) => a.asset.type === 'Wallet', // TODO ownerID
+            filter: (a, data) => a.asset.type === 'Wallet' && a.ownerId === data.verifier, // TODO ownerID
             autoFill: true,
         }),
         subjectNym: new AssetProp('subjectNym', {
             title: translations.subjectPseudonym,
             dependsOn: ['subject'],
-            filter: (a) => a.asset.type === 'Wallet', // TODO ownerID
+            filter: (a, data) => a.asset.type === 'Wallet' && a.ownerId === data.subject, // TODO ownerID
             autoFill: true,
         }),
         attributeName: new StringProp('attributeName', { title: translations.attributeName }),

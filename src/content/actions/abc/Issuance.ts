@@ -25,7 +25,7 @@ export const IssuanceSchema = new ActionSchema({
         issuerNym: new AssetProp('issuerNym', {
             title: translations.issuerPseudonym,
             dependsOn: ['issuer'],
-            filter: (a, data) => a.asset.type === 'Wallet' && a.ownerId === data.issuer, // TODO ownerID
+            filter: (a, data) => a.asset.type === 'Wallet' && a.ownerId === data.issuer,
             autoFill: true,
         }),
 
@@ -33,7 +33,7 @@ export const IssuanceSchema = new ActionSchema({
         subjectNym: new AssetProp('subjectNym', {
             title: translations.subjectPseudonym,
             dependsOn: ['subject'],
-            filter: (a, data) => a.asset.type === 'Wallet' && a.ownerId === data.subject, // TODO ownerID
+            filter: (a, data) => a.asset.type === 'Wallet' && a.ownerId === data.subject,
             autoFill: true,
         }),
 

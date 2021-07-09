@@ -1,6 +1,6 @@
 import { translations } from '../../intl/dictionaries';
 import { Language } from '../../intl/Language';
-import { ActionSchema, TypeOfSchema } from '../../model/content/Action/ActionSchema';
+import { ActionSchema, TypeOfActionSchema } from '../../model/content/Action/ActionSchema';
 import { ActionType } from '../../model/content/Action/ActionType';
 import { ActorProp } from '../../model/content/Common/Prop/ActorProp';
 import { StringProp } from '../../model/content/Common/Prop/StringProp';
@@ -26,7 +26,7 @@ export const GrantGreenFlagSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfSchema<typeof GrantGreenFlagSchema>;
+export type Props = TypeOfActionSchema<typeof GrantGreenFlagSchema>;
 
 export class GrantGreenFlag extends Action<Props> {
     typeName = 'GrantGreenFlag';

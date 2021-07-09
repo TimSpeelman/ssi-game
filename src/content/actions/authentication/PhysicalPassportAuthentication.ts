@@ -1,6 +1,6 @@
 import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
-import { ActionSchema, TypeOfSchema } from '../../../model/content/Action/ActionSchema';
+import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
 import { StringProp } from '../../../model/content/Common/Prop/StringProp';
@@ -25,7 +25,7 @@ export const PhysicalPassportAuthenticationSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfSchema<typeof PhysicalPassportAuthenticationSchema>;
+export type Props = TypeOfActionSchema<typeof PhysicalPassportAuthenticationSchema>;
 
 /**
  * A Verifier authenticates a human Subject by comparing its physical appearance with its passport. We assume integrity
@@ -61,8 +61,8 @@ export class PhysicalPassportAuthentication extends Action<Props> {
         const props = this.evaluateProps(state);
 
         const authResult = new AuthenticationResult(this.id + '1', {
-            sourceId: this.defProps.subject,
-            targetId: this.defProps.dataSubject,
+            subject: this.defProps.subject,
+            identifier: this.defProps.dataSubject,
         });
         return [new GainAssetOutcome({ actorId: this.defProps.verifier, asset: authResult })];
     }

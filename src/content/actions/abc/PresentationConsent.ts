@@ -1,6 +1,6 @@
 import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
-import { ActionSchema, TypeOfSchema } from '../../../model/content/Action/ActionSchema';
+import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
 import { AssetProp } from '../../../model/content/Common/Prop/AssetProp';
@@ -38,7 +38,7 @@ export const PresentationConsentSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfSchema<typeof PresentationConsentSchema>;
+export type Props = TypeOfActionSchema<typeof PresentationConsentSchema>;
 
 export class PresentationConsent extends Action<Props> {
     typeName = 'PresentationConsent';
@@ -54,8 +54,8 @@ export class PresentationConsent extends Action<Props> {
 
         const consent = new Consent(this.id + '1', {
             attributeName: this.defProps.attributeName,
-            verifierId: props.verifier.actor.id,
-            subjectId: this.defProps.subjectNym,
+            verifier: props.verifier.actor.id,
+            subject: this.defProps.subjectNym,
         });
         return [new GainAssetOutcome({ actorId: props.verifier.actor.id, asset: consent })];
     }

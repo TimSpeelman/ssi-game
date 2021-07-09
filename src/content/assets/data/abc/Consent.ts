@@ -1,37 +1,42 @@
-import { translations } from '../../../../intl/dictionaries';
 import { Translation } from '../../../../intl/Language';
-import { Asset, AssetBaseProps, CustomAssetDesc } from '../../../../model/logic/Asset/Asset';
+import { AssetSchema, TypeOfAssetSchema } from '../../../../model/content/Asset/AssetSchema';
+import { AssetType } from '../../../../model/content/Asset/AssetType';
+import { Asset, CustomAssetDesc } from '../../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../../model/logic/State/ScenarioState';
-import { AssetFormConfig } from '../../../../model/view/AssetSchema';
-
-export interface Props extends AssetBaseProps {
-    attributeName: string;
-    verifierId: string;
-    subjectId: string;
-}
+import { CommonProps } from '../../../common/props';
 
 const title: Translation = {
     NL: 'Toestemming',
     EN: 'Consent',
 };
+
+const Schema = new AssetSchema({
+    typeName: 'Consent',
+    title: {
+        NL: 'Toestemming',
+        EN: 'Consent',
+    },
+    props: {
+        subject: CommonProps.subject,
+        verifier: CommonProps.verifier,
+        attributeName: CommonProps.attributeName,
+    },
+});
+
+export type Props = TypeOfAssetSchema<typeof Schema>;
+
 export class Consent extends Asset<Props> {
     protected typeName = 'Consent';
     protected kindName = 'Data';
 
-    static config: AssetFormConfig<keyof Props> = {
-        typeName: 'Consent',
-        title: title,
-        fields: {
-            subjectId: { type: 'actor', title: translations.subject },
-            verifierId: { type: 'actor', title: translations.verifier },
-            attributeName: { type: 'string', title: translations.attributeName },
-        },
-    };
+    schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
-            sub: JSON.stringify(this.props),
+            sub: JSON.stringify(this.defProps),
             title: title,
         };
     }
 }
+
+export const ConsentType = new AssetType(Schema, (id, props, isInitial) => new Consent(id, props, isInitial));

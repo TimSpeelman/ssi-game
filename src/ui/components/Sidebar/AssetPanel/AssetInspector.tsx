@@ -2,7 +2,7 @@ import { Button, Divider, Typography } from '@material-ui/core';
 import { Add, ChevronLeft, Edit } from '@material-ui/icons';
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AssetForms } from '../../../../content/assets/forms';
+import { DefaultAssetsCollection } from '../../../../content/assets/assets';
 import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode';
 import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectSelectedAssetNode, selectUsedActors } from '../../../../state/scenario/selectors';
@@ -24,8 +24,9 @@ export function AssetInspector() {
 
     // Depending on the chosen action type, select the appropriate form
     const type = asset?.asset.type;
-    const assetType = type === undefined ? undefined : AssetForms.find((f) => f.typeName === type)!;
-    const fields = assetType ? Object.entries(assetType.fields) : [];
+    const assetType = type === undefined ? undefined : DefaultAssetsCollection.requireTypeByName(type);
+    const fields = assetType ? Object.entries(assetType.schema.props) : [];
+    const data = assetType ? Object.entries(assetType.schema.computeDisplayProperties(asset.asset)) : [];
 
     function handleAssetClick(id: string) {
         dispatch(ScenarioActions.SELECT_ASSET({ id }));
@@ -69,7 +70,7 @@ export function AssetInspector() {
                 )}
             </div>
 
-            {fields.map(([prop, field]) =>
+            {data.map(([prop, field]) =>
                 !field ? (
                     ''
                 ) : (

@@ -9,7 +9,7 @@ export class GainAssetOutcome implements IOutcome {
     constructor(
         readonly props: {
             actorId: string;
-            asset: Asset;
+            asset: Asset<any>;
         },
     ) {}
 

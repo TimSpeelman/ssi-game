@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field } from '../../../../model/content/Common/View/Field';
+import { Field } from '../../../model/content/Common/View/Field';
 import { ActorFormControl } from './ActorFormControl';
 import { AssetFormControl } from './AssetFormControl';
 import { StringFormControl } from './StringFormControl';

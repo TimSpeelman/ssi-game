@@ -1,6 +1,6 @@
 import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
-import { ActionSchema, TypeOfSchema } from '../../../model/content/Action/ActionSchema';
+import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
 import { StringProp } from '../../../model/content/Common/Prop/StringProp';
@@ -25,7 +25,7 @@ export const WalletQRAuthenticationSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfSchema<typeof WalletQRAuthenticationSchema>;
+export type Props = TypeOfActionSchema<typeof WalletQRAuthenticationSchema>;
 
 export class WalletQRAuthentication extends Action<Props> {
     typeName = 'WalletQRAuthentication';
@@ -38,8 +38,8 @@ export class WalletQRAuthentication extends Action<Props> {
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
         const authResult = new AuthenticationResult(this.id + '1', {
-            sourceId: this.defProps.subject,
-            targetId: this.defProps.dataSubject,
+            subject: this.defProps.subject,
+            identifier: this.defProps.dataSubject,
         });
         return [new GainAssetOutcome({ actorId: this.defProps.verifier, asset: authResult })];
     }

@@ -1,5 +1,5 @@
 import { lens } from 'lens.ts';
-import { deserialize } from '../../../content/assets/assets';
+import { DefaultAssetsCollection } from '../../../content/assets/assets';
 import { mapValues, omit } from '../../../util/util';
 import { Actor } from '../../definition/Actor/Actor';
 import { definitionToActor } from '../../definition/Actor/definitionToActor';
@@ -20,7 +20,7 @@ export class ScenarioState {
         const actors = s.actors.map(
             (a): ActorState => ({
                 actor: definitionToActor(a.definition),
-                assets: a.initialAssets.map(deserialize),
+                assets: a.initialAssets.map((a) => DefaultAssetsCollection.deserialize(a)),
             }),
         );
 

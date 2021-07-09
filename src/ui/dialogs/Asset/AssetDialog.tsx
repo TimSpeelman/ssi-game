@@ -7,18 +7,16 @@ import {
     InputLabel,
     MenuItem,
     Select,
-    TextField,
 } from '@material-ui/core';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { actorImage } from '../../../config/actorImage';
-import { AssetForms } from '../../../content/assets/forms';
-import { ActionDef } from '../../../model/definition/Action/ActionDef';
+import { DefaultAssetsCollection } from '../../../content/assets/assets';
+import { AssetFormHandler } from '../../../model/content/Asset/AssetFormHandler';
 import { AssetDef } from '../../../model/definition/Asset/AssetDef';
-import { selectUsedActors } from '../../../state/scenario/selectors';
-import { mapValues } from '../../../util/util';
+import { selectActiveStepIndex, selectScenarioDef } from '../../../state/scenario/selectors';
 import { useLang } from '../../hooks/useLang';
+import { FormControlSwitch } from '../Field/FormControlSwitch';
 
 interface Props {
     asset?: AssetDef<any>;
@@ -27,45 +25,49 @@ interface Props {
     isCreate: boolean;
 }
 
-export function AssetDialog(props: Props) {
-    const [type, setType] = useState<string>('');
-    const [assetProps, setAssetProps] = useState<any>({});
+export const formHandler = new AssetFormHandler(DefaultAssetsCollection);
 
-    // Depending on the chosen action type, select the appropriate form
-    const assetType = type === '' ? '' : AssetForms.find((f) => f.typeName === type)!;
+export function AssetDialog(props: Props) {
+    const [type, setType] = useState<string>(props.asset?.typeName || '');
+    const [formData, setData] = useState<any>(props.asset?.props || {});
+    const def = useSelector(selectScenarioDef);
+    const step = useSelector(selectActiveStepIndex);
+    const isEditing = !!props.asset;
 
     // Clear data when changing type
-    useEffect(() => setAssetProps(!assetType ? {} : mapValues(assetType.fields, (fld) => '')), [type]);
+    useEffect(() => {
+        if (!isEditing) {
+            setData({});
+        }
+    }, [type]);
 
     // When an action is provided, load its data into local state
     useEffect(() => {
-        if (props.asset) {
-            setType(props.asset.typeName);
-            setTimeout(() => {
-                setAssetProps(props.asset!.props);
-            }, 200);
+        if (isEditing) {
+            setType(props.asset!.typeName);
+            setData(props.asset!.props);
         }
     }, [props.asset]);
 
-    const availableActors = useSelector(selectUsedActors);
-
     function setField(name: string, value: any) {
-        setAssetProps({ ...assetProps, [name]: value });
+        setData({ ...formData, [name]: value });
     }
 
     function handleSubmit() {
         if (!type) return;
-        const serializedAction: ActionDef<any> = {
+        const definition: AssetDef<any> = {
             id: props.asset?.id || uuid(),
-            props: assetProps,
+            props: formData,
             typeName: type!,
         };
-        props.onSubmit(serializedAction);
+        props.onSubmit(definition);
     }
 
-    const fields = assetType ? Object.entries(assetType.fields) : [];
-
     const { dict, lang } = useLang();
+
+    const types = formHandler.listAvailableAssetTypes();
+    const formProps = formHandler.computeFormProperties(def, step, type, formData);
+    const fields = Object.entries(formProps ? formProps.fields : {});
 
     return (
         <Fragment>
@@ -76,7 +78,7 @@ export function AssetDialog(props: Props) {
                 <FormControl fullWidth style={{ marginBottom: '1em' }}>
                     <InputLabel shrink={true}>{dict.labelAssetType}</InputLabel>
                     <Select disabled={!props.isCreate} value={type} onChange={(e) => setType(e.target.value as string)}>
-                        {AssetForms.map((actType) => (
+                        {types.map((actType) => (
                             <MenuItem key={actType.typeName} value={actType.typeName}>
                                 {actType.title[lang]}
                             </MenuItem>
@@ -84,42 +86,9 @@ export function AssetDialog(props: Props) {
                     </Select>
                 </FormControl>
 
-                {fields.map(([prop, field]) =>
-                    !field ? (
-                        ''
-                    ) : (
-                        <div key={prop}>
-                            {field.type === 'actor' && (
-                                <FormControl fullWidth style={{ marginBottom: '1em' }}>
-                                    <InputLabel>{field.title[lang]}</InputLabel>
-                                    <Select
-                                        value={assetProps[prop] || ''}
-                                        onChange={(e) => setField(prop, e.target.value)}
-                                    >
-                                        {availableActors.map((actor) => (
-                                            <MenuItem key={actor.id} value={actor.id}>
-                                                <img src={actorImage(actor.image)} style={{ height: '2rem' }} />
-                                                {actor.name}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            )}
-
-                            {field.type === 'string' && (
-                                <TextField
-                                    style={{ marginBottom: '1em' }}
-                                    margin="dense"
-                                    id={'input-' + prop}
-                                    label={field.title[lang]}
-                                    value={assetProps[prop] || ''}
-                                    onChange={(e) => setField(prop, e.target.value)}
-                                    fullWidth
-                                />
-                            )}
-                        </div>
-                    ),
-                )}
+                {fields.map(([prop, fieldProps]) => (
+                    <FormControlSwitch key={prop} props={fieldProps} setField={(v) => setField(prop, v)} />
+                ))}
             </DialogContent>
             <DialogActions>
                 <Button onClick={props.onCancel} color="primary">

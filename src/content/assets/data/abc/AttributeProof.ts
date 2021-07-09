@@ -1,20 +1,31 @@
-import { translations } from '../../../../intl/dictionaries';
 import { Translation } from '../../../../intl/Language';
-import { Asset, AssetBaseProps, CustomAssetDesc } from '../../../../model/logic/Asset/Asset';
+import { AssetSchema, TypeOfAssetSchema } from '../../../../model/content/Asset/AssetSchema';
+import { AssetType } from '../../../../model/content/Asset/AssetType';
+import { Asset, CustomAssetDesc } from '../../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../../model/logic/State/ScenarioState';
-import { AssetFormConfig } from '../../../../model/view/AssetSchema';
-
-export interface Props extends AssetBaseProps {
-    name: string;
-    value: string;
-    issuerId: string;
-    subjectId: string;
-}
+import { CommonProps } from '../../../common/props';
 
 const title: Translation = {
     NL: 'Attribuutbewijs',
     EN: 'Attribute proof',
 };
+
+const Schema = new AssetSchema({
+    typeName: 'AttributeProof',
+    title: {
+        NL: 'Attribuutbewijs',
+        EN: 'Attribute proof',
+    },
+    props: {
+        subject: CommonProps.subject,
+        issuer: CommonProps.issuer,
+        attributeName: CommonProps.attributeName,
+        attributeValue: CommonProps.attributeValue,
+    },
+});
+
+export type Props = TypeOfAssetSchema<typeof Schema>;
+
 /**
  * Attribute Proof is equivalent to Attribute Knowledge, except it enables the possessing Actor to prove it.
  * - Note: a proof could be decomposed into other data elements, but this simplification is made for ease of play.
@@ -23,21 +34,17 @@ export class AttributeProof extends Asset<Props> {
     protected typeName = 'AttributeProof';
     protected kindName = 'Data';
 
-    static config: AssetFormConfig<keyof Props> = {
-        typeName: 'AttributeProof',
-        title: title,
-        fields: {
-            subjectId: { type: 'actor', title: translations.subject },
-            issuerId: { type: 'actor', title: translations.issuer },
-            name: { type: 'string', title: translations.attributeName },
-            value: { type: 'string', title: translations.attributeValue },
-        },
-    };
+    schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
-            sub: JSON.stringify(this.props),
+            sub: JSON.stringify(this.defProps),
             title: title,
         };
     }
 }
+
+export const AttributeProofType = new AssetType(
+    Schema,
+    (id, props, isInitial) => new AttributeProof(id, props, isInitial),
+);

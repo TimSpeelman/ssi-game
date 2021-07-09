@@ -1,6 +1,6 @@
 import { translations } from '../../intl/dictionaries';
 import { Language } from '../../intl/Language';
-import { ActionSchema, TypeOfSchema } from '../../model/content/Action/ActionSchema';
+import { ActionSchema, TypeOfActionSchema } from '../../model/content/Action/ActionSchema';
 import { ActionType } from '../../model/content/Action/ActionType';
 import { ActorProp } from '../../model/content/Common/Prop/ActorProp';
 import { StringProp } from '../../model/content/Common/Prop/StringProp';
@@ -34,7 +34,7 @@ export const CustomInteractionSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfSchema<typeof CustomInteractionSchema>;
+export type Props = TypeOfActionSchema<typeof CustomInteractionSchema>;
 
 /**
  * A custom interaction between two Actors

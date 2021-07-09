@@ -35,14 +35,14 @@ const actors: ActorConfig[] = [
     {
         definition: Government,
         initialAssets: [
-            new HumanRecord('2', { subjectId: SubjectIdAtGov }, true),
+            new HumanRecord('2', { subject: SubjectIdAtGov }, true),
             new AttributeKnowledge(
                 '3',
                 {
-                    issuerId: GovNym1,
-                    subjectId: SubjectIdAtGov,
-                    name: '18+',
-                    value: 'WAAR',
+                    issuer: GovNym1,
+                    subject: SubjectIdAtGov,
+                    attributeName: '18+',
+                    attributeValue: 'WAAR',
                 },
                 true,
             ),
@@ -55,10 +55,11 @@ const actors: ActorConfig[] = [
             new AttributeProof(
                 'proof1',
                 {
-                    subjectId: Subject.id,
-                    issuerId: Government.id,
-                    name: 'attr',
-                    value: 'val',
+                    subject: Subject.id,
+                    issuer: Government.id,
+                    attributeName: 'attr',
+                    attributeValue: 'val',
+                    // @ts-ignore TODO FIXME
                     parentId: 'wallet1',
                 },
                 true,
@@ -66,12 +67,12 @@ const actors: ActorConfig[] = [
             new GovPassport(
                 '4',
                 {
-                    subjectId: Subject.id,
+                    subject: Subject.id,
                     name: Subject.name,
                 },
                 true,
             ),
-            new FaceFeature('5', { subjectId: Subject.id }, true),
+            new FaceFeature('5', { subject: Subject.id }, true),
         ].map((a) => a.serialize()),
     },
     {

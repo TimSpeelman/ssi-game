@@ -1,34 +1,40 @@
-import { translations } from '../../intl/dictionaries';
 import { Translation } from '../../intl/Language';
-import { Asset, AssetBaseProps, CustomAssetDesc } from '../../model/logic/Asset/Asset';
+import { AssetSchema, TypeOfAssetSchema } from '../../model/content/Asset/AssetSchema';
+import { AssetType } from '../../model/content/Asset/AssetType';
+import { Asset, CustomAssetDesc } from '../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../model/logic/State/ScenarioState';
-import { AssetFormConfig } from '../../model/view/AssetSchema';
-
-export interface Props extends AssetBaseProps {
-    description: string;
-}
+import { CommonProps } from '../common/props';
 
 const title: Translation = {
     NL: 'Groene Vlag',
     EN: 'Green Flag',
 };
 
+const Schema = new AssetSchema({
+    typeName: 'GreenFlag',
+    title: {
+        NL: 'Groene Vlag',
+        EN: 'Green Flag',
+    },
+    props: {
+        description: CommonProps.description,
+    },
+});
+
+export type Props = TypeOfAssetSchema<typeof Schema>;
+
 export class GreenFlag extends Asset<Props> {
     protected typeName = 'GreenFlag';
     protected kindName = 'Flag';
 
-    static config: AssetFormConfig<keyof Props> = {
-        typeName: 'GreenFlag',
-        title: title,
-        fields: {
-            description: { type: 'string', title: translations.description },
-        },
-    };
+    schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
-            sub: this.props.description,
+            sub: this.defProps.description,
             title: title,
         };
     }
 }
+
+export const GreenFlagType = new AssetType(Schema, (id, props, isInitial) => new GreenFlag(id, props, isInitial));

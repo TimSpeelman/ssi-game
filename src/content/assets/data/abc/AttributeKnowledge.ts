@@ -1,40 +1,47 @@
-import { translations } from '../../../../intl/dictionaries';
 import { Translation } from '../../../../intl/Language';
-import { Asset, AssetBaseProps, CustomAssetDesc } from '../../../../model/logic/Asset/Asset';
+import { AssetSchema, TypeOfAssetSchema } from '../../../../model/content/Asset/AssetSchema';
+import { AssetType } from '../../../../model/content/Asset/AssetType';
+import { Asset, CustomAssetDesc } from '../../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../../model/logic/State/ScenarioState';
-import { AssetFormConfig } from '../../../../model/view/AssetSchema';
-
-export interface Props extends AssetBaseProps {
-    subjectId: string;
-    name: string;
-    value: string;
-    issuerId: string;
-}
+import { CommonProps } from '../../../common/props';
 
 const title: Translation = {
     NL: 'Attribuutkennis',
     EN: 'Attribute knowledge',
 };
+
+const Schema = new AssetSchema({
+    typeName: 'AttributeKnowledge',
+    title: {
+        NL: 'Attribuutkennis',
+        EN: 'Attribute knowledge',
+    },
+    props: {
+        subject: CommonProps.subject,
+        issuer: CommonProps.issuer,
+        attributeName: CommonProps.attributeName,
+        attributeValue: CommonProps.attributeValue,
+    },
+});
+
+export type Props = TypeOfAssetSchema<typeof Schema>;
+
 /** Attribute Knowledge means that the possessing Actor knows a particular attribute value of some subject */
 export class AttributeKnowledge extends Asset<Props> {
     protected typeName = 'AttributeKnowledge';
     protected kindName = 'Data';
 
-    static config: AssetFormConfig<keyof Props> = {
-        typeName: 'AttributeKnowledge',
-        title: title,
-        fields: {
-            subjectId: { type: 'actor', title: translations.subject },
-            issuerId: { type: 'actor', title: translations.issuer },
-            name: { type: 'string', title: translations.attributeName },
-            value: { type: 'string', title: translations.attributeValue },
-        },
-    };
+    schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
-            sub: JSON.stringify(this.props),
+            sub: JSON.stringify(this.defProps),
             title: title,
         };
     }
 }
+
+export const AttributeKnowledgeType = new AssetType(
+    Schema,
+    (id, props, isInitial) => new AttributeKnowledge(id, props, isInitial),
+);

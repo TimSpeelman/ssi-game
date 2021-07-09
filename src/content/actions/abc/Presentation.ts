@@ -1,6 +1,6 @@
 import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
-import { ActionSchema, TypeOfSchema } from '../../../model/content/Action/ActionSchema';
+import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
 import { AssetProp } from '../../../model/content/Common/Prop/AssetProp';
@@ -45,7 +45,7 @@ export const PresentationSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfSchema<typeof PresentationSchema>;
+export type Props = TypeOfActionSchema<typeof PresentationSchema>;
 
 export class Presentation extends Action<Props> {
     typeName = 'Presentation';
@@ -60,10 +60,10 @@ export class Presentation extends Action<Props> {
         const { verifier } = this.evaluateProps(state);
 
         const attr = new AttributeKnowledge(this.id + '1', {
-            name: this.defProps.attributeName,
-            issuerId: this.defProps.issuerNym,
-            subjectId: this.defProps.subjectNym,
-            value: this.defProps.attributeValue,
+            attributeName: this.defProps.attributeName,
+            issuer: this.defProps.issuerNym,
+            subject: this.defProps.subjectNym,
+            attributeValue: this.defProps.attributeValue,
         });
         return [new GainAssetOutcome({ actorId: verifier.actor.id, asset: attr })];
     }

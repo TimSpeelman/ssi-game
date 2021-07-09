@@ -8,6 +8,10 @@ export interface StringPropOptions {
 }
 
 export class StringProp implements IContentTypeProp<string, string> {
+    get title() {
+        return this.options.title;
+    }
+
     constructor(readonly key: string, readonly options: StringPropOptions) {}
 
     /** Computes the default value. */

@@ -1,6 +1,6 @@
 import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
-import { ActionSchema, TypeOfSchema } from '../../../model/content/Action/ActionSchema';
+import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
 import { AssetProp } from '../../../model/content/Common/Prop/AssetProp';
@@ -39,7 +39,7 @@ export const PresentationRequestSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfSchema<typeof PresentationRequestSchema>;
+export type Props = TypeOfActionSchema<typeof PresentationRequestSchema>;
 
 export class PresentationRequest extends Action<Props> {
     typeName = 'PresentationRequest';
@@ -55,6 +55,7 @@ export class PresentationRequest extends Action<Props> {
 
         const subjectWallet = props.subject.assets.find((a) => a instanceof Wallet);
         const req = new AttributeRequest(this.id + '1', {
+            // @ts-ignore TODO FIXME
             parentId: subjectWallet?.id,
             name: this.defProps.attributeName,
             verifierId: this.defProps.verifier,

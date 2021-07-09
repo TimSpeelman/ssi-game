@@ -1,8 +1,8 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React from 'react';
-import { actorImage } from '../../../../config/actorImage';
-import { ActorField } from '../../../../model/content/Common/View/ActorField';
-import { useLang } from '../../../hooks/useLang';
+import { actorImage } from '../../../config/actorImage';
+import { ActorField } from '../../../model/content/Common/View/ActorField';
+import { useLang } from '../../hooks/useLang';
 
 export interface Props {
     props: ActorField;

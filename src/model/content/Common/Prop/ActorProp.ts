@@ -12,6 +12,10 @@ export interface ActorPropOptions {
 }
 
 export class ActorProp implements IContentTypeProp<string, ActorState> {
+    get title() {
+        return this.options.title;
+    }
+
     constructor(readonly key: string, readonly options: ActorPropOptions) {}
 
     /** Computes the default value. */

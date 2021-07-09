@@ -1,30 +1,38 @@
 import { Translation } from '../../../intl/Language';
-import { Asset, AssetBaseProps, CustomAssetDesc } from '../../../model/logic/Asset/Asset';
+import { AssetSchema, TypeOfAssetSchema } from '../../../model/content/Asset/AssetSchema';
+import { AssetType } from '../../../model/content/Asset/AssetType';
+import { Asset, CustomAssetDesc } from '../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
-import { AssetFormConfig } from '../../../model/view/AssetSchema';
-
-export type Props = AssetBaseProps;
 
 const title: Translation = {
     NL: 'Wallet',
     EN: 'Wallet',
 };
 
+const Schema = new AssetSchema({
+    typeName: 'Wallet',
+    title: {
+        NL: 'Wallet',
+        EN: 'Wallet',
+    },
+    props: {},
+});
+
+export type Props = TypeOfAssetSchema<typeof Schema>;
+
 export class Wallet extends Asset<Props> {
     protected typeName = 'Wallet';
     protected kindName = 'Software';
 
-    static config: AssetFormConfig<keyof Props> = {
-        typeName: 'Wallet',
-        title: title,
-        fields: {},
-    };
+    schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
-            sub: JSON.stringify(this.props),
+            sub: JSON.stringify(this.defProps),
             title: title,
             canHaveChildren: true,
         };
     }
 }
+
+export const WalletType = new AssetType(Schema, (id, props, isInitial) => new Wallet(id, props, isInitial));

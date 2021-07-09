@@ -1,6 +1,6 @@
 import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
-import { ActionSchema, TypeOfSchema } from '../../../model/content/Action/ActionSchema';
+import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
 import { StringProp } from '../../../model/content/Common/Prop/StringProp';
@@ -26,7 +26,7 @@ export const RevocationSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfSchema<typeof RevocationSchema>;
+export type Props = TypeOfActionSchema<typeof RevocationSchema>;
 
 /**
  * A Verifier authenticates a human Subject by comparing its physical appearance with its passport. We assume integrity
@@ -46,6 +46,7 @@ export class Revocation extends Action<Props> {
 
         const subjectWallet = props.subject.assets.find((a) => a instanceof Wallet);
         const attr = new AttributeRevocation(this.id + '1', {
+            // @ts-ignore TODO FIXME
             parentId: subjectWallet?.id,
             attributeId: this.defProps.attributeName,
             issuerId: this.defProps.issuer,

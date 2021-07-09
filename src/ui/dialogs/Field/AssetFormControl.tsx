@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React from 'react';
-import { AssetField } from '../../../../model/content/Common/View/AssetField';
-import { useLang } from '../../../hooks/useLang';
+import { AssetField } from '../../../model/content/Common/View/AssetField';
+import { useLang } from '../../hooks/useLang';
 
 export interface Props {
     props: AssetField;

@@ -13,6 +13,10 @@ export interface AssetPropOptions {
 }
 
 export class AssetProp implements IContentTypeProp<string, Asset<any>> {
+    get title() {
+        return this.options.title;
+    }
+
     constructor(readonly key: string, readonly options: AssetPropOptions) {}
 
     /** Computes the default value. */

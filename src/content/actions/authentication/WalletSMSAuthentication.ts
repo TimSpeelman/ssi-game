@@ -1,6 +1,6 @@
 import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
-import { ActionSchema, TypeOfSchema } from '../../../model/content/Action/ActionSchema';
+import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
 import { StringProp } from '../../../model/content/Common/Prop/StringProp';
@@ -26,7 +26,7 @@ export const WalletSMSAuthenticationSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfSchema<typeof WalletSMSAuthenticationSchema>;
+export type Props = TypeOfActionSchema<typeof WalletSMSAuthenticationSchema>;
 
 export class WalletSMSAuthentication extends Action<Props> {
     typeName = 'WalletSMSAuthentication';
@@ -39,14 +39,14 @@ export class WalletSMSAuthentication extends Action<Props> {
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
         const authResult = new AuthenticationResult(this.id + '1', {
-            sourceId: this.defProps.subject,
-            targetId: this.defProps.dataSubject,
+            subject: this.defProps.subject,
+            identifier: this.defProps.dataSubject,
         });
         const phoneNumber = new AttributeKnowledge(this.id + '2', {
-            subjectId: this.defProps.dataSubject,
-            name: 'telefoonnummer',
-            value: '06123456789',
-            issuerId: '',
+            subject: this.defProps.dataSubject,
+            attributeName: 'telefoonnummer',
+            attributeValue: '06123456789',
+            issuer: '',
         });
         return [
             new GainAssetOutcome({ actorId: this.defProps.verifier, asset: authResult }),

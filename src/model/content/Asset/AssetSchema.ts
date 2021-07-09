@@ -1,5 +1,6 @@
 import { Translation } from '../../../intl/Language';
-import { ActionDef } from '../../definition/Action/ActionDef';
+import { mapValues } from '../../../util/util';
+import { AssetDef } from '../../definition/Asset/AssetDef';
 import { ScenarioState } from '../../logic/State/ScenarioState';
 import {
     ContentTypeProps,
@@ -9,9 +10,9 @@ import {
 import { ContentTypePropsRecord } from '../Common/PropRecord/ContentTypePropsRecord';
 
 /**
- * Define a custom action type schema
+ * Define a custom asset type schema
  */
-export class ActionSchema<Props extends ContentTypeProps> {
+export class AssetSchema<Props extends ContentTypeProps> {
     readonly typeName: string;
     readonly title: Translation;
     readonly props: ContentTypePropsRecord<Props>;
@@ -22,13 +23,21 @@ export class ActionSchema<Props extends ContentTypeProps> {
         this.props = new ContentTypePropsRecord(options.props);
     }
 
+    /** Compute display properties */
+    computeDisplayProperties(defProps: any) {
+        return mapValues(this.props.props, (p) => ({
+            title: p.title,
+            value: defProps[p.key],
+        }));
+    }
+
     /** Compute the form properties */
     computeFormProperties(formData: any, state: ScenarioState) {
         return this.props.getFormFieldProps(formData, state);
     }
 
     /** Based on the active state and the form input, compute the ActionDef */
-    parseUserInput(id: string, formData: any, state: ScenarioState): ActionDef {
+    parseUserInput(id: string, formData: any, state: ScenarioState): AssetDef {
         return {
             id: id,
             props: this.props.parseUserInput(formData, state),
@@ -42,8 +51,8 @@ export class ActionSchema<Props extends ContentTypeProps> {
     }
 }
 
-export type TypeOfActionSchema<T extends ActionSchema<any>> = T extends ActionSchema<infer U> ? U : never;
+export type TypeOfAssetSchema<T extends AssetSchema<any>> = T extends AssetSchema<infer U> ? U : never;
 
-export type DefTypeOfActionSchema<T extends ActionSchema<any>> = T extends ActionSchema<infer U>
+export type DefTypeOfAssetSchema<T extends AssetSchema<any>> = T extends AssetSchema<infer U>
     ? DefTypesOfContentTypeProps<U>
     : never;

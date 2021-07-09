@@ -16,7 +16,7 @@ import { ActionFormHandler } from '../../../model/content/Action/ActionFormHandl
 import { ActionDef } from '../../../model/definition/Action/ActionDef';
 import { selectActiveStepIndex, selectScenarioDef } from '../../../state/scenario/selectors';
 import { useLang } from '../../hooks/useLang';
-import { FormControlSwitch } from './Field/FormControlSwitch';
+import { FormControlSwitch } from '../Field/FormControlSwitch';
 
 interface Props {
     action?: ActionDef<any>;
@@ -25,11 +25,11 @@ interface Props {
     isCreate: boolean;
 }
 
-export const actionFrmHandler = new ActionFormHandler(DefaultActionsCollection);
+export const formHandler = new ActionFormHandler(DefaultActionsCollection);
 
 export function StepDialog(props: Props) {
     const [type, setType] = useState<string | undefined>(props.action?.typeName || '');
-    const [actProps, setActProps] = useState<any>(props.action?.props || {});
+    const [formData, setData] = useState<any>(props.action?.props || {});
     const def = useSelector(selectScenarioDef);
     const step = useSelector(selectActiveStepIndex);
     const isEditing = !!props.action;
@@ -37,41 +37,37 @@ export function StepDialog(props: Props) {
     // Clear data when changing type
     useEffect(() => {
         if (!isEditing) {
-            setActProps({});
+            setData({});
         }
     }, [type]);
 
     // When an action is provided, load its data into local state
     useEffect(() => {
-        console.log('ACT', props.action);
         if (isEditing) {
             setType(props.action!.typeName);
-            setActProps(props.action!.props);
+            setData(props.action!.props);
         }
     }, [props.action]);
 
     function setField(name: string, value: any) {
-        setActProps({ ...actProps, [name]: value });
+        setData({ ...formData, [name]: value });
     }
 
     function handleSubmit() {
         if (!type) return;
-        const serializedAction: ActionDef<any> = {
+        const definition: ActionDef<any> = {
             id: props.action?.id || uuid(),
-            props: actProps,
+            props: formData,
             typeName: type!,
         };
-        props.onSubmit(serializedAction);
+        props.onSubmit(definition);
     }
 
-    // const fields = actType ? Object.entries(actType.fields) : [];
     const { dict, lang } = useLang();
 
-    const actionTypes = actionFrmHandler.listAvailableActionTypes();
-    const formProps = actionFrmHandler.computeFormProperties(def, step, type, actProps);
+    const actionTypes = formHandler.listAvailableActionTypes();
+    const formProps = formHandler.computeFormProperties(def, step, type, formData);
     const fields = Object.entries(formProps ? formProps.fields : {});
-
-    console.log('FORM PROPS', formProps);
 
     return (
         <Fragment>

@@ -1,3 +1,4 @@
+import { Translation } from '../../../../intl/Language';
 import { ScenarioState } from '../../../logic/State/ScenarioState';
 import { Field } from '../View/Field';
 
@@ -6,6 +7,8 @@ import { Field } from '../View/Field';
  */
 export interface IContentTypeProp<DefType, EvaluatedType> {
     readonly key: string;
+
+    readonly title: Translation;
 
     /** The default value of this property */
     getDefaultValue(): DefType;

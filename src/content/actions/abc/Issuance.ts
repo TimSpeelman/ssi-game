@@ -1,6 +1,6 @@
 import { translations } from '../../../intl/dictionaries';
 import { Language } from '../../../intl/Language';
-import { ActionSchema, TypeOfSchema } from '../../../model/content/Action/ActionSchema';
+import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
 import { AssetProp } from '../../../model/content/Common/Prop/AssetProp';
@@ -42,7 +42,7 @@ export const IssuanceSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfSchema<typeof IssuanceSchema>;
+export type Props = TypeOfActionSchema<typeof IssuanceSchema>;
 
 /**
  * A Verifier authenticates a human Subject by comparing its physical appearance with its passport. We assume integrity
@@ -75,6 +75,7 @@ export class Issuance extends Action<Props> {
 
         const subjectWallet = subject.assets.find((a) => a instanceof Wallet);
         const attr = new AttributeProof(this.id + '1', {
+            // @ts-ignore TODO FIXME
             parentId: subjectWallet?.id,
             name: this.defProps.attributeName,
             value: this.defProps.attributeValue,

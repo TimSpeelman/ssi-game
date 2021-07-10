@@ -36,6 +36,10 @@ export class GovPassport extends Asset<Props> {
 
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
+            title: {
+                EN: `Passport of ${this.defProps.firstName} ${this.defProps.name}`,
+                NL: `Paspoort van ${this.defProps.firstName} ${this.defProps.name}`,
+            },
             sub: JSON.stringify(this.defProps),
         };
     }

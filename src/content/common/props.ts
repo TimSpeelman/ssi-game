@@ -20,7 +20,7 @@ export const CommonProps = {
         autoFill: true,
     }),
     subjectPassport: new AssetProp({
-        title: translations.subjectPseudonym,
+        title: translations.subjectPassport,
         dependsOn: ['subject'],
         filter: (a, data) => a.asset.type === 'GovPassport' && a.ownerId === data.subject,
         autoFill: true,

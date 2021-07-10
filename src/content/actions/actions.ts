@@ -9,6 +9,7 @@ import { WalletQRAuthenticationType } from './authentication/WalletQRAuthenticat
 import { WalletSMSAuthenticationType } from './authentication/WalletSMSAuthentication';
 import { CustomInteractionType } from './CustomInteraction';
 import { GrantGreenFlagType } from './GrantGreenFlag';
+import { HandoverType } from './Handover';
 
 export const DefaultActionsCollection = new ActionTypesCollection([
     IssuanceType,
@@ -21,4 +22,5 @@ export const DefaultActionsCollection = new ActionTypesCollection([
     WalletSMSAuthenticationType,
     CustomInteractionType,
     GrantGreenFlagType,
+    HandoverType,
 ]);

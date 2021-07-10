@@ -1,9 +1,9 @@
 import { Language } from '../../../intl/Language';
 import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
-import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
+import { Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
-import { Action } from '../../../model/logic/Step/Action';
+import { Action, CustomActionDesc } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ucFirst } from '../../../util/util';
@@ -46,14 +46,12 @@ export class PresentationConsent extends Action<Props> {
         return [new GainAssetOutcome({ actorId: props.verifier.actor.id, asset: consent })];
     }
 
-    describe(state: ScenarioState): ActionDesc {
+    _describe(state: ScenarioState): CustomActionDesc {
         const props = this.evaluateProps(state);
 
         const subject = props.subject.actor;
         const verifier = props.verifier.actor;
         return {
-            id: this.id,
-            type: this.schema.typeName,
             from: subject,
             to: verifier,
             to_mode: 'phone',

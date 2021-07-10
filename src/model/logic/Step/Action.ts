@@ -40,7 +40,16 @@ export abstract class Action<Props extends ContentTypeProps> {
     abstract computeOutcomes(state: ScenarioState): IOutcome[];
 
     /** Provide a generic description of this action for viewing purposes */
-    abstract describe(state: ScenarioState): ActionDesc;
+    describe(state: ScenarioState): ActionDesc {
+        return {
+            ...this._describe(state),
+            id: this.id,
+            type: this.schema.typeName,
+        };
+    }
+
+    /** Provide a generic description of this action for viewing purposes */
+    abstract _describe(state: ScenarioState): CustomActionDesc;
 
     serialize(): ActionDef<Props> {
         return { id: this.id, props: this.defProps, typeName: this.schema.typeName };
@@ -50,3 +59,7 @@ export abstract class Action<Props extends ContentTypeProps> {
         return this.schema.evaluateDefinitionProps(this.defProps, state);
     }
 }
+
+export type ActionBaseDesc = Pick<ActionDesc, 'id' | 'type'>;
+
+export type CustomActionDesc = Omit<ActionDesc, keyof ActionBaseDesc>;

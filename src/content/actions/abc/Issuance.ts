@@ -1,9 +1,9 @@
 import { Language } from '../../../intl/Language';
 import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
-import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
+import { Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
-import { Action } from '../../../model/logic/Step/Action';
+import { Action, CustomActionDesc } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ucFirst } from '../../../util/util';
@@ -69,14 +69,12 @@ export class Issuance extends Action<Props> {
         return [new GainAssetOutcome({ actorId: subject.actor.id, asset: attr })];
     }
 
-    describe(state: ScenarioState): ActionDesc {
+    _describe(state: ScenarioState): CustomActionDesc {
         const { subject, issuer, ...props } = this.evaluateProps(state);
 
         // const subject = state.props.byActor[this.props.subjectId].actor;
         // const issuer = state.props.byActor[this.props.issuerId].actor;
         return {
-            id: this.id,
-            type: this.schema.typeName,
             from: issuer.actor,
             from_mode: 'issuing',
             to: subject.actor,

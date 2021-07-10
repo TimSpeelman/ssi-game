@@ -4,9 +4,9 @@ import { ActionSchema, TypeOfActionSchema } from '../../model/content/Action/Act
 import { ActionType } from '../../model/content/Action/ActionType';
 import { ActorProp } from '../../model/content/Common/Prop/ActorProp';
 import { StringProp } from '../../model/content/Common/Prop/StringProp';
-import { ActionDesc, Locality } from '../../model/description/Step/ActionDesc';
+import { Locality } from '../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../model/logic/State/ScenarioState';
-import { Action } from '../../model/logic/Step/Action';
+import { Action, CustomActionDesc } from '../../model/logic/Step/Action';
 import { IOutcome } from '../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../model/logic/Step/IValidationResult';
 
@@ -50,10 +50,8 @@ export class CustomInteraction extends Action<Props> {
         return [];
     }
 
-    describe(state: ScenarioState): ActionDesc {
+    _describe(state: ScenarioState): CustomActionDesc {
         return {
-            id: this.id,
-            type: this.schema.typeName,
             from: state.props.byActor[this.defProps.from].actor,
             to: state.props.byActor[this.defProps.to].actor,
             description: {

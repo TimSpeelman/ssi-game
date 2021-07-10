@@ -12,6 +12,7 @@ const title: Translation = {
 
 const Schema = new AssetSchema({
     typeName: 'Consent',
+    kindName: 'Data',
     title: {
         NL: 'Toestemming',
         EN: 'Consent',
@@ -26,9 +27,6 @@ const Schema = new AssetSchema({
 export type Props = TypeOfAssetSchema<typeof Schema>;
 
 export class Consent extends Asset<Props> {
-    protected typeName = 'Consent';
-    protected kindName = 'Data';
-
     schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {

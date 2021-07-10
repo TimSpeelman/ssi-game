@@ -14,6 +14,7 @@ const title: Translation = {
 
 const Schema = new AssetSchema({
     typeName: 'GovPassport',
+    kindName: 'Physical',
     title: {
         NL: 'Paspoort',
         EN: 'Passport',
@@ -28,9 +29,6 @@ export type Props = TypeOfAssetSchema<typeof Schema>;
 
 /** Possession means that the subject has these fingerprints. Non-transferrable. FingerprintScan can however be transferred. */
 export class GovPassport extends Asset<Props> {
-    protected typeName = 'GovPassport';
-    protected kindName = 'Physical';
-
     schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {

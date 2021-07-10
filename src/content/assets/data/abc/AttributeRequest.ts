@@ -12,6 +12,7 @@ const title: Translation = {
 
 const Schema = new AssetSchema({
     typeName: 'AttributeRequest',
+    kindName: 'Data',
     title: {
         NL: 'Attribuutverzoek',
         EN: 'Attribuut request',
@@ -26,9 +27,6 @@ const Schema = new AssetSchema({
 export type Props = TypeOfAssetSchema<typeof Schema>;
 
 export class AttributeRequest extends Asset<Props> {
-    protected typeName = 'AttributeRequest';
-    protected kindName = 'Data';
-
     schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {

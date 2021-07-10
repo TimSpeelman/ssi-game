@@ -12,6 +12,7 @@ const title: Translation = {
 
 const Schema = new AssetSchema({
     typeName: 'FaceFeature',
+    kindName: 'Feature',
     title: {
         NL: 'Gezicht',
         EN: 'Face',
@@ -24,9 +25,6 @@ const Schema = new AssetSchema({
 export type Props = TypeOfAssetSchema<typeof Schema>;
 
 export class FaceFeature extends Asset<Props> {
-    protected typeName = 'FaceFeature';
-    protected kindName = 'Feature';
-
     schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {

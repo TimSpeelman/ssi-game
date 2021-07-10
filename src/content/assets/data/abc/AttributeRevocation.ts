@@ -12,6 +12,7 @@ const title: Translation = {
 
 const Schema = new AssetSchema({
     typeName: 'AttributeRevocation',
+    kindName: 'Data',
     title: {
         NL: 'Attribuutrevocatie',
         EN: 'Attribute revocation',
@@ -27,9 +28,6 @@ export type Props = TypeOfAssetSchema<typeof Schema>;
 
 /** Attribute Knowledge means that the possessing Actor knows a particular attribute value of some subject */
 export class AttributeRevocation extends Asset<Props> {
-    protected typeName = 'AttributeRevocation';
-    protected kindName = 'Data';
-
     schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {

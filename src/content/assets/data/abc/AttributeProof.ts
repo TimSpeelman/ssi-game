@@ -12,6 +12,7 @@ const title: Translation = {
 
 const Schema = new AssetSchema({
     typeName: 'AttributeProof',
+    kindName: 'Data',
     title: {
         NL: 'Attribuutbewijs',
         EN: 'Attribute proof',
@@ -31,9 +32,6 @@ export type Props = TypeOfAssetSchema<typeof Schema>;
  * - Note: a proof could be decomposed into other data elements, but this simplification is made for ease of play.
  */
 export class AttributeProof extends Asset<Props> {
-    protected typeName = 'AttributeProof';
-    protected kindName = 'Data';
-
     schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {

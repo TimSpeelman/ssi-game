@@ -12,6 +12,7 @@ const title: Translation = {
 
 const Schema = new AssetSchema({
     typeName: 'PUF',
+    kindName: 'Physical',
     title: {
         NL: 'Physically Uncloneable Function (PUF)',
         EN: 'Physically Uncloneable Function (PUF)',
@@ -35,9 +36,6 @@ export type Props = TypeOfAssetSchema<typeof Schema>;
  * - https://en.wikipedia.org/wiki/Physical_unclonable_function
  */
 export class PUF extends Asset<Props> {
-    protected typeName = 'PUF';
-    protected kindName = 'Physical';
-
     schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {

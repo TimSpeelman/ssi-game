@@ -11,6 +11,7 @@ const title: Translation = {
 
 const Schema = new AssetSchema({
     typeName: 'Wallet',
+    kindName: 'Software',
     title: {
         NL: 'Wallet',
         EN: 'Wallet',
@@ -21,9 +22,6 @@ const Schema = new AssetSchema({
 export type Props = TypeOfAssetSchema<typeof Schema>;
 
 export class Wallet extends Asset<Props> {
-    protected typeName = 'Wallet';
-    protected kindName = 'Software';
-
     schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {

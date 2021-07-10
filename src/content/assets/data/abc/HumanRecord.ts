@@ -12,6 +12,7 @@ const title: Translation = {
 
 const Schema = new AssetSchema({
     typeName: 'HumanRecord',
+    kindName: 'Data',
     title: {
         NL: 'Administratief Beeld',
         EN: 'Human Record',
@@ -24,9 +25,6 @@ const Schema = new AssetSchema({
 export type Props = TypeOfAssetSchema<typeof Schema>;
 
 export class HumanRecord extends Asset<Props> {
-    protected typeName = 'HumanRecord';
-    protected kindName = 'Data';
-
     schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {

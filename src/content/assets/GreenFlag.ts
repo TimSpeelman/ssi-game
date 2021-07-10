@@ -12,6 +12,7 @@ const title: Translation = {
 
 const Schema = new AssetSchema({
     typeName: 'GreenFlag',
+    kindName: 'Flag',
     title: {
         NL: 'Groene Vlag',
         EN: 'Green Flag',
@@ -24,9 +25,6 @@ const Schema = new AssetSchema({
 export type Props = TypeOfAssetSchema<typeof Schema>;
 
 export class GreenFlag extends Asset<Props> {
-    protected typeName = 'GreenFlag';
-    protected kindName = 'Flag';
-
     schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {

@@ -12,7 +12,7 @@ import { IValidationResult } from './IValidationResult';
  * computes the results of the action, which results in a new state.
  */
 export abstract class Action<Props extends ContentTypeProps> {
-    protected abstract readonly schema: ActionSchema<Props>;
+    abstract readonly schema: ActionSchema<Props>;
 
     constructor(readonly id: string, readonly defProps: DefTypesOfContentTypeProps<Props>) {}
 

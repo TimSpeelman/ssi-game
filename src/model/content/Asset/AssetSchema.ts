@@ -14,11 +14,13 @@ import { ContentTypePropsRecord } from '../Common/PropRecord/ContentTypePropsRec
  */
 export class AssetSchema<Props extends ContentTypeProps> {
     readonly typeName: string;
+    readonly kindName: string;
     readonly title: Translation;
     readonly props: ContentTypePropsRecord<Props>;
 
-    constructor(options: { typeName: string; title: Translation; props: Props }) {
+    constructor(options: { typeName: string; kindName: string; title: Translation; props: Props }) {
         this.typeName = options.typeName;
+        this.kindName = options.kindName;
         this.title = options.title;
         this.props = new ContentTypePropsRecord(options.props);
     }

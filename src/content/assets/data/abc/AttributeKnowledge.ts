@@ -12,6 +12,7 @@ const title: Translation = {
 
 const Schema = new AssetSchema({
     typeName: 'AttributeKnowledge',
+    kindName: 'Data',
     title: {
         NL: 'Attribuutkennis',
         EN: 'Attribute knowledge',
@@ -28,9 +29,6 @@ export type Props = TypeOfAssetSchema<typeof Schema>;
 
 /** Attribute Knowledge means that the possessing Actor knows a particular attribute value of some subject */
 export class AttributeKnowledge extends Asset<Props> {
-    protected typeName = 'AttributeKnowledge';
-    protected kindName = 'Data';
-
     schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {

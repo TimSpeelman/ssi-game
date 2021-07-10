@@ -26,8 +26,6 @@ export const Schema = new ActionSchema({
 export type Props = TypeOfActionSchema<typeof Schema>;
 
 export class WalletQRAuthentication extends Action<Props> {
-    typeName = 'WalletQRAuthentication';
-
     schema = Schema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
@@ -47,7 +45,7 @@ export class WalletQRAuthentication extends Action<Props> {
         const verifier = state.props.byActor[this.defProps.verifier].actor;
         return {
             id: this.id,
-            type: this.typeName,
+            type: this.schema.typeName,
             from: verifier,
             to: subject,
             to_mode: 'selfie',

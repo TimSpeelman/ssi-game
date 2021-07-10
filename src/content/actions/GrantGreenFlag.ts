@@ -29,8 +29,6 @@ export const Schema = new ActionSchema({
 export type Props = TypeOfActionSchema<typeof Schema>;
 
 export class GrantGreenFlag extends Action<Props> {
-    typeName = 'GrantGreenFlag';
-
     schema = Schema;
 
     validatePreConditions(): IValidationResult[] {
@@ -50,7 +48,7 @@ export class GrantGreenFlag extends Action<Props> {
         const desc = this.defProps.description;
         return {
             id: this.id,
-            type: this.typeName,
+            type: this.schema.typeName,
             description: {
                 [Language.NL]: `${ucFirst(from.nounPhrase)} geeft ${to.nounPhrase} de groene vlag`,
                 [Language.EN]: `${ucFirst(from.nounPhrase)} gives ${to.nounPhrase} the green flag`,

@@ -34,8 +34,6 @@ export type Props = TypeOfActionSchema<typeof Schema>;
  * and authenticity.
  */
 export class Issuance extends Action<Props> {
-    typeName = 'Issuance';
-
     schema = Schema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
@@ -77,7 +75,7 @@ export class Issuance extends Action<Props> {
         // const issuer = state.props.byActor[this.props.issuerId].actor;
         return {
             id: this.id,
-            type: this.typeName,
+            type: this.schema.typeName,
             from: issuer.actor,
             from_mode: 'issuing',
             to: subject.actor,

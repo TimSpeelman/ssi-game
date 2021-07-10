@@ -40,8 +40,6 @@ export type Props = TypeOfActionSchema<typeof Schema>;
  * A custom interaction between two Actors
  */
 export class CustomInteraction extends Action<Props> {
-    typeName = 'CustomInteraction';
-
     schema = Schema;
 
     validatePreConditions(): IValidationResult[] {
@@ -55,7 +53,7 @@ export class CustomInteraction extends Action<Props> {
     describe(state: ScenarioState): ActionDesc {
         return {
             id: this.id,
-            type: this.typeName,
+            type: this.schema.typeName,
             from: state.props.byActor[this.defProps.from].actor,
             to: state.props.byActor[this.defProps.to].actor,
             description: {

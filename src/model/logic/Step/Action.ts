@@ -12,9 +12,6 @@ import { IValidationResult } from './IValidationResult';
  * computes the results of the action, which results in a new state.
  */
 export abstract class Action<Props extends ContentTypeProps> {
-    /** Type Name used for serialization */
-    protected abstract readonly typeName: string;
-
     protected abstract readonly schema: ActionSchema<Props>;
 
     constructor(readonly id: string, readonly defProps: DefTypesOfContentTypeProps<Props>) {}
@@ -46,7 +43,7 @@ export abstract class Action<Props extends ContentTypeProps> {
     abstract describe(state: ScenarioState): ActionDesc;
 
     serialize(): ActionDef<Props> {
-        return { id: this.id, props: this.defProps, typeName: this.typeName };
+        return { id: this.id, props: this.defProps, typeName: this.schema.typeName };
     }
 
     evaluateProps(state: ScenarioState) {

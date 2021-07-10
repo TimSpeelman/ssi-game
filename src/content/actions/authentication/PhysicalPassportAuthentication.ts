@@ -30,8 +30,6 @@ export type Props = TypeOfActionSchema<typeof Schema>;
  * and authenticity.
  */
 export class PhysicalPassportAuthentication extends Action<Props> {
-    typeName = 'PhysicalPassportAuthentication';
-
     schema = Schema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
@@ -72,7 +70,7 @@ export class PhysicalPassportAuthentication extends Action<Props> {
         const verifier = props.verifier.actor;
         return {
             id: this.id,
-            type: this.typeName,
+            type: this.schema.typeName,
             from: verifier,
             to: subject,
             to_mode: 'facescan',

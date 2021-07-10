@@ -30,8 +30,6 @@ export const Schema = new ActionSchema({
 export type Props = TypeOfActionSchema<typeof Schema>;
 
 export class Presentation extends Action<Props> {
-    typeName = 'Presentation';
-
     schema = Schema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
@@ -56,7 +54,7 @@ export class Presentation extends Action<Props> {
         const verifier = props.verifier.actor;
         return {
             id: this.id,
-            type: this.typeName,
+            type: this.schema.typeName,
             from: subject,
             to: verifier,
             to_mode: 'phone',

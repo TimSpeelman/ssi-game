@@ -31,8 +31,6 @@ export type Props = TypeOfActionSchema<typeof Schema>;
  * and authenticity.
  */
 export class Revocation extends Action<Props> {
-    typeName = 'Revocation';
-
     schema = Schema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
@@ -60,7 +58,7 @@ export class Revocation extends Action<Props> {
         const issuer = props.issuer.actor;
         return {
             id: this.id,
-            type: this.typeName,
+            type: this.schema.typeName,
             from: issuer,
             to: subject,
             description: {

@@ -16,7 +16,6 @@ export abstract class Asset<Props extends ContentTypeProps> {
     /** Provide a generic description of this action for viewing purposes */
     describe(state: ScenarioState): AssetDesc<Props> {
         return {
-            ...this._describe(state),
             isInitial: this.isInitial,
             parentId: this.defProps.parentId,
             id: this.id,
@@ -24,6 +23,7 @@ export abstract class Asset<Props extends ContentTypeProps> {
             kind: this.schema.kindName,
             title: this.schema.title,
             props: this.defProps,
+            ...this._describe(state),
         };
     }
 
@@ -45,4 +45,4 @@ export interface AssetBaseProps {
 
 export type AssetBaseDesc = Pick<AssetDesc, 'parentId' | 'id' | 'type' | 'kind' | 'isInitial' | 'props' | 'title'>;
 
-export type CustomAssetDesc = Omit<AssetDesc, keyof AssetBaseDesc>;
+export type CustomAssetDesc = Omit<AssetDesc, keyof AssetBaseDesc> & Partial<AssetDesc>;

@@ -42,9 +42,9 @@ export abstract class Action<Props extends ContentTypeProps> {
     /** Provide a generic description of this action for viewing purposes */
     describe(state: ScenarioState): ActionDesc {
         return {
-            ...this._describe(state),
             id: this.id,
             type: this.schema.typeName,
+            ...this._describe(state),
         };
     }
 

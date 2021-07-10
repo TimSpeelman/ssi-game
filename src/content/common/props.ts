@@ -19,6 +19,12 @@ export const CommonProps = {
         filter: (a, data) => a.asset.type === 'Pseudonym' && a.ownerId === data.subject,
         autoFill: true,
     }),
+    subjectPassport: new AssetProp({
+        title: translations.subjectPseudonym,
+        dependsOn: ['subject'],
+        filter: (a, data) => a.asset.type === 'GovPassport' && a.ownerId === data.subject,
+        autoFill: true,
+    }),
     verifierNym: new AssetProp({
         title: translations.verifierPseudonym,
         dependsOn: ['verifier'],

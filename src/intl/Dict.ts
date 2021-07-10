@@ -8,11 +8,22 @@ export interface Dictionary {
     pseudonym: string;
     issuerPseudonym: string;
     subjectPseudonym: string;
+    subjectPassport: string;
     verifierPseudonym: string;
     fromActor: string;
     toActor: string;
     description: string;
+
     name: string;
+    firstName: string;
+    dateOfBirth: string;
+    placeOfIssuance: string;
+    placeOfBirth: string;
+    dateOfIssuance: string;
+    dateOfExpiry: string;
+    height: string;
+    documentNumber: string;
+    nationality: string;
     identifier: string;
 
     step: string;

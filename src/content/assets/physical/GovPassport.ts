@@ -15,7 +15,17 @@ const Schema = new AssetSchema({
     },
     props: {
         subject: CommonProps.subject,
+        identifier: new StringProp({ title: translations.identifier }),
         name: new StringProp({ title: translations.name }),
+        firstName: new StringProp({ title: translations.firstName }),
+        dateOfBirth: new StringProp({ title: translations.dateOfBirth }),
+        placeOfIssuance: new StringProp({ title: translations.placeOfIssuance }),
+        placeOfBirth: new StringProp({ title: translations.placeOfBirth }),
+        dateOfIssuance: new StringProp({ title: translations.dateOfIssuance }),
+        dateOfExpiry: new StringProp({ title: translations.dateOfExpiry }),
+        height: new StringProp({ title: translations.height }),
+        documentNumber: new StringProp({ title: translations.documentNumber }),
+        nationality: new StringProp({ title: translations.nationality }),
     },
 });
 

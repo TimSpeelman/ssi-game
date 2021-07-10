@@ -7,6 +7,7 @@ import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ucFirst } from '../../../util/util';
 import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
+import { GovPassport } from '../../assets/physical/GovPassport';
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
@@ -19,7 +20,7 @@ export const Schema = new ActionSchema({
     props: {
         verifier: CommonProps.verifier,
         subject: CommonProps.subject,
-        identifier: CommonProps.identifier,
+        subjectPassport: CommonProps.subjectPassport,
     },
 });
 
@@ -56,9 +57,11 @@ export class PhysicalPassportAuthentication extends Action<Props> {
     computeOutcomes(state: ScenarioState): IOutcome[] {
         const props = this.evaluateProps(state);
 
+        const passport: GovPassport = props.subjectPassport;
+
         const authResult = new AuthenticationResult(this.id + '1', {
             subject: this.defProps.subject,
-            identifier: this.defProps.identifier,
+            identifier: passport.defProps.identifier,
         });
         return [new GainAssetOutcome({ actorId: this.defProps.verifier, asset: authResult })];
     }

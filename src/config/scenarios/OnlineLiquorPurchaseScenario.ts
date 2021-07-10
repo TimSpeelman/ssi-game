@@ -40,6 +40,25 @@ const ShopNym1 = new Pseudonym('shop-nym-1', {
 
 const Attr18Plus = '18+';
 
+const SubjectPassport = new GovPassport(
+    'subject-passport-1',
+    {
+        subject: Subject.id,
+        identifier: 'BSN_102192100',
+        name: 'Janssen',
+        firstName: 'John',
+        dateOfBirth: '12-01-1990',
+        placeOfIssuance: 'Den Haag',
+        placeOfBirth: 'Rotterdam',
+        dateOfIssuance: '13-07-2015',
+        dateOfExpiry: '13-07-2025',
+        height: '1,83m',
+        documentNumber: 'ab91023kl',
+        nationality: 'Nederlandse',
+    },
+    true,
+);
+
 const actors: ActorConfig[] = [
     {
         definition: Ledger,
@@ -79,14 +98,7 @@ const actors: ActorConfig[] = [
                 },
                 true,
             ),
-            new GovPassport(
-                '4',
-                {
-                    subject: Subject.id,
-                    name: Subject.name,
-                },
-                true,
-            ),
+            SubjectPassport,
             new FaceFeature('5', { subject: Subject.id }, true),
         ].map((a) => a.serialize()),
     },
@@ -135,7 +147,7 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
         new PhysicalPassportAuthentication('1', {
             verifier: Government.id,
             subject: Subject.id,
-            identifier: SubjectIdAtGov,
+            subjectPassport: SubjectPassport.id,
         }),
         new WalletSMSAuthentication('2', {
             // Feitelijk is de contactlegging (en challenge) via SMS, authenticatie via P2P protocol

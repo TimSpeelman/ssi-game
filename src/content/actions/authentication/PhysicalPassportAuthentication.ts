@@ -6,6 +6,7 @@ import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
+import { ucFirst } from '../../../util/util';
 import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
@@ -100,13 +101,6 @@ export class PhysicalPassportAuthentication extends Action<Props> {
     }
 }
 
-function assert(t: boolean, msg: string) {
-    if (!t) throw new Error('Assertion Failed: ' + msg);
-}
-
-function ucFirst(str: string) {
-    return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
-}
 export const PhysicalPassportAuthenticationType = new ActionType(
     Schema,
     (id, props) => new PhysicalPassportAuthentication(id, props),

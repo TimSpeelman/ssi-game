@@ -6,6 +6,7 @@ import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
+import { ucFirst } from '../../../util/util';
 import { AttributeProof } from '../../assets/data/abc/AttributeProof';
 import { Wallet } from '../../assets/software/Wallet';
 import { CommonProps } from '../../common/props';
@@ -99,14 +100,6 @@ export class Issuance extends Action<Props> {
             locality: Locality.REMOTE,
         };
     }
-}
-
-function assert(t: boolean, msg: string) {
-    if (!t) throw new Error('Assertion Failed: ' + msg);
-}
-
-function ucFirst(str: string) {
-    return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
 }
 
 export const IssuanceType = new ActionType(Schema, (id, props) => new Issuance(id, props));

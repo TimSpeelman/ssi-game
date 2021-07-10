@@ -6,6 +6,7 @@ import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
+import { ucFirst } from '../../../util/util';
 import { AttributeRequest } from '../../assets/data/abc/AttributeRequest';
 import { Wallet } from '../../assets/software/Wallet';
 import { CommonProps } from '../../common/props';
@@ -81,11 +82,4 @@ export class PresentationRequest extends Action<Props> {
     }
 }
 
-function assert(t: boolean, msg: string) {
-    if (!t) throw new Error('Assertion Failed: ' + msg);
-}
-
-function ucFirst(str: string) {
-    return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
-}
 export const PresentationRequestType = new ActionType(Schema, (id, props) => new PresentationRequest(id, props));

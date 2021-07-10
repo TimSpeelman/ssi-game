@@ -1,5 +1,4 @@
 import { translations } from '../../intl/dictionaries';
-import { Language } from '../../intl/Language';
 import { ActionSchema, TypeOfActionSchema } from '../../model/content/Action/ActionSchema';
 import { ActionType } from '../../model/content/Action/ActionType';
 import { ActorProp } from '../../model/content/Common/Prop/ActorProp';
@@ -16,8 +15,8 @@ import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
 export const Schema = new ActionSchema({
     typeName: 'GrantGreenFlag',
     title: {
-        [Language.NL]: 'Groene vlag toekennen',
-        [Language.EN]: 'Grant Green Flag',
+        NL: 'Groene vlag toekennen',
+        EN: 'Grant Green Flag',
     },
     props: {
         from: new ActorProp({ title: translations.fromActor }),
@@ -48,18 +47,18 @@ export class GrantGreenFlag extends Action<Props> {
         const desc = this.defProps.description;
         return {
             description: {
-                [Language.NL]: `${ucFirst(from.nounPhrase)} geeft ${to.nounPhrase} de groene vlag`,
-                [Language.EN]: `${ucFirst(from.nounPhrase)} gives ${to.nounPhrase} the green flag`,
+                NL: `${ucFirst(from.nounPhrase)} geeft ${to.nounPhrase} de groene vlag`,
+                EN: `${ucFirst(from.nounPhrase)} gives ${to.nounPhrase} the green flag`,
             },
             sub: {
-                [Language.NL]: desc,
-                [Language.EN]: desc,
+                NL: desc,
+                EN: desc,
             },
             from: from,
             to: to,
             long: {
-                [Language.NL]: `${ucFirst(from.nounPhrase)} geeft ${to.nounPhrase} de groene vlag.`,
-                [Language.EN]: `${ucFirst(from.nounPhrase)} gives ${to.nounPhrase} the green flag.`,
+                NL: `${ucFirst(from.nounPhrase)} geeft ${to.nounPhrase} de groene vlag.`,
+                EN: `${ucFirst(from.nounPhrase)} gives ${to.nounPhrase} the green flag.`,
             },
             locality: Locality.AT_CENTER,
         };

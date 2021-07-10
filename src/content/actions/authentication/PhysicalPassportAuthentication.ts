@@ -1,4 +1,3 @@
-import { Language } from '../../../intl/Language';
 import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { Locality } from '../../../model/description/Step/ActionDesc';
@@ -14,8 +13,8 @@ import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 export const Schema = new ActionSchema({
     typeName: 'PhysicalPassportAuthentication',
     title: {
-        [Language.NL]: 'Authenticatie o.b.v. paspoort',
-        [Language.EN]: 'Authentication based on paspoort',
+        NL: 'Authenticatie o.b.v. paspoort',
+        EN: 'Authentication based on paspoort',
     },
     props: {
         verifier: CommonProps.verifier,
@@ -74,23 +73,21 @@ export class PhysicalPassportAuthentication extends Action<Props> {
             to: subject,
             to_mode: 'facescan',
             description: {
-                [Language.NL]: 'Fysieke authenticatie o.b.v. paspoort',
-                [Language.EN]: 'Physical authentication based on paspoort',
+                NL: 'Fysieke authenticatie o.b.v. paspoort',
+                EN: 'Physical authentication based on paspoort',
             },
             sub: {
-                [Language.NL]: '',
-                [Language.EN]: '',
+                NL: '',
+                EN: '',
             },
             long: {
-                [Language.NL]: `${ucFirst(verifier.nounPhrase)} authenticeert ${
+                NL: `${ucFirst(verifier.nounPhrase)} authenticeert ${
                     subject.nounPhrase
                 }, in levende lijve, op basis van ${
                     subject.isMale ? 'zijn' : 'haar'
                 } paspoort door de pasfoto te vergelijken met ${subject.isMale ? 'zijn' : 'haar'} gezicht.`,
 
-                [Language.EN]: `${ucFirst(verifier.nounPhrase)} authenticates ${
-                    subject.nounPhrase
-                }, in real life, based on ${
+                EN: `${ucFirst(verifier.nounPhrase)} authenticates ${subject.nounPhrase}, in real life, based on ${
                     subject.isMale ? 'his' : 'her'
                 } passport by comparing the photo on it with  ${subject.isMale ? 'his' : 'her'} face.`,
             },

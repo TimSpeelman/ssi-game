@@ -1,4 +1,3 @@
-import { Language } from '../../../intl/Language';
 import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { Locality } from '../../../model/description/Step/ActionDesc';
@@ -14,8 +13,8 @@ import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 export const Schema = new ActionSchema({
     typeName: 'WalletQRAuthentication',
     title: {
-        [Language.NL]: 'Authenticatie van Wallet via QR',
-        [Language.EN]: 'Authentication of Wallet via QR',
+        NL: 'Authenticatie van Wallet via QR',
+        EN: 'Authentication of Wallet via QR',
     },
     props: {
         verifier: CommonProps.verifier,
@@ -49,18 +48,18 @@ export class WalletQRAuthentication extends Action<Props> {
             to: subject,
             to_mode: 'selfie',
             description: {
-                [Language.NL]: 'Authenticatie van wallet (pseudoniem) via QR',
-                [Language.EN]: 'Authentication of wallet (pseudonym) via QR',
+                NL: 'Authenticatie van wallet (pseudoniem) via QR',
+                EN: 'Authentication of wallet (pseudonym) via QR',
             },
             sub: {
-                [Language.NL]: '',
-                [Language.EN]: '',
+                NL: '',
+                EN: '',
             },
             long: {
-                [Language.NL]: `${ucFirst(subject.nounPhrase)} scant QR van ${verifier.nounPhrase} waarna ${
+                NL: `${ucFirst(subject.nounPhrase)} scant QR van ${verifier.nounPhrase} waarna ${
                     verifier.nounPhrase
                 } de wallet van ${subject.nounPhrase} authenticeert.`,
-                [Language.EN]: `${ucFirst(subject.nounPhrase)} scans QR code of ${verifier.nounPhrase} after which ${
+                EN: `${ucFirst(subject.nounPhrase)} scans QR code of ${verifier.nounPhrase} after which ${
                     verifier.nounPhrase
                 } authenticates the wallet of ${subject.nounPhrase}.`,
             },

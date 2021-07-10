@@ -1,4 +1,4 @@
-import { Language, Translation } from '../../../../intl/Language';
+import { Translation } from '../../../../intl/Language';
 import { AssetTreeNode } from '../../../description/Asset/AssetTreeNode';
 import { Asset } from '../../../logic/Asset/Asset';
 import { ScenarioState } from '../../../logic/State/ScenarioState';
@@ -36,8 +36,8 @@ export class AssetProp implements IContentTypeProp<string, Asset<any>> {
         const disabled = (this.options.dependsOn || []).every((k) => !!formData[k])
             ? undefined
             : {
-                  [Language.EN]: 'This field depends on ' + this.options.dependsOn!.join(', '),
-                  [Language.NL]: 'Dit veld is afhankelijk van ' + this.options.dependsOn!.join(', '),
+                  EN: 'This field depends on ' + this.options.dependsOn!.join(', '),
+                  NL: 'Dit veld is afhankelijk van ' + this.options.dependsOn!.join(', '),
               };
 
         const autoFill = this.options.autoFill ? items[0]?.id : undefined;

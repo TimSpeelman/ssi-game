@@ -1,4 +1,4 @@
-import { Language, Translation } from '../../../../intl/Language';
+import { Translation } from '../../../../intl/Language';
 import { ActorState } from '../../../logic/State/ActorState';
 import { ScenarioState } from '../../../logic/State/ScenarioState';
 import { Field } from '../View/Field';
@@ -34,8 +34,8 @@ export class ActorProp implements IContentTypeProp<string, ActorState> {
         const disabled = (this.options.dependsOn || []).every((k) => !!formData[k])
             ? undefined
             : {
-                  [Language.EN]: 'This field depends on ' + this.options.dependsOn!.join(', '),
-                  [Language.NL]: 'Dit veld is afhankelijk van ' + this.options.dependsOn!.join(', '),
+                  EN: 'This field depends on ' + this.options.dependsOn!.join(', '),
+                  NL: 'Dit veld is afhankelijk van ' + this.options.dependsOn!.join(', '),
               };
 
         const autoFill = this.options.autoFill ? items[0]?.id : undefined;

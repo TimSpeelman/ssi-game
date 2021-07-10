@@ -1,4 +1,3 @@
-import { Language } from '../../../intl/Language';
 import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { Locality } from '../../../model/description/Step/ActionDesc';
@@ -15,8 +14,8 @@ import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 export const Schema = new ActionSchema({
     typeName: 'Revocation',
     title: {
-        [Language.NL]: 'Intrekken van credential',
-        [Language.EN]: 'Revocation of credential',
+        NL: 'Intrekken van credential',
+        EN: 'Revocation of credential',
     },
     props: {
         issuer: CommonProps.issuer,
@@ -61,18 +60,18 @@ export class Revocation extends Action<Props> {
             from: issuer,
             to: subject,
             description: {
-                [Language.NL]: `Revocatie van ${this.defProps.attributeName} credential`,
-                [Language.EN]: `Revocation of ${this.defProps.attributeName} credential`,
+                NL: `Revocatie van ${this.defProps.attributeName} credential`,
+                EN: `Revocation of ${this.defProps.attributeName} credential`,
             },
             sub: {
-                [Language.NL]: '',
-                [Language.EN]: '',
+                NL: '',
+                EN: '',
             },
             long: {
-                [Language.NL]: `${ucFirst(issuer.nounPhrase)} trekt het attribuut ${this.defProps.attributeName} van ${
+                NL: `${ucFirst(issuer.nounPhrase)} trekt het attribuut ${this.defProps.attributeName} van ${
                     subject.nounPhrase
                 } in.`,
-                [Language.EN]: `${ucFirst(issuer.nounPhrase)} revokes the attribute ${this.defProps.attributeName} of ${
+                EN: `${ucFirst(issuer.nounPhrase)} revokes the attribute ${this.defProps.attributeName} of ${
                     subject.nounPhrase
                 }.`,
             },

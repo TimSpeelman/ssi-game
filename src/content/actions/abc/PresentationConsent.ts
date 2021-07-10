@@ -1,4 +1,3 @@
-import { Language } from '../../../intl/Language';
 import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { Locality } from '../../../model/description/Step/ActionDesc';
@@ -14,8 +13,8 @@ import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 export const Schema = new ActionSchema({
     typeName: 'PresentationConsent',
     title: {
-        [Language.NL]: 'Toestemming voor Presentatie',
-        [Language.EN]: 'Consent for Presentation',
+        NL: 'Toestemming voor Presentatie',
+        EN: 'Consent for Presentation',
     },
     props: {
         verifier: CommonProps.verifier,
@@ -56,18 +55,18 @@ export class PresentationConsent extends Action<Props> {
             to: verifier,
             to_mode: 'phone',
             description: {
-                [Language.NL]: `Geef toestemming om ${this.defProps.attributeName} credential te gebruiken`,
-                [Language.EN]: `Consent to use ${this.defProps.attributeName} credential`,
+                NL: `Geef toestemming om ${this.defProps.attributeName} credential te gebruiken`,
+                EN: `Consent to use ${this.defProps.attributeName} credential`,
             },
             sub: {
-                [Language.NL]: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
-                [Language.EN]: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
+                NL: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
+                EN: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
             },
             long: {
-                [Language.NL]: `${ucFirst(subject.nounPhrase)} geeft ${
-                    verifier.nounPhrase
-                } toestemming om het attribuut ${this.defProps.attributeName} te gebruiken.`,
-                [Language.EN]: `${ucFirst(subject.nounPhrase)} consents to ${verifier.nounPhrase} using the attribute ${
+                NL: `${ucFirst(subject.nounPhrase)} geeft ${verifier.nounPhrase} toestemming om het attribuut ${
+                    this.defProps.attributeName
+                } te gebruiken.`,
+                EN: `${ucFirst(subject.nounPhrase)} consents to ${verifier.nounPhrase} using the attribute ${
                     this.defProps.attributeName
                 }.`,
             },

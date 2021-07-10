@@ -1,4 +1,3 @@
-import { Language } from '../../../intl/Language';
 import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { Locality } from '../../../model/description/Step/ActionDesc';
@@ -15,8 +14,8 @@ import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 export const Schema = new ActionSchema({
     typeName: 'Issuance',
     title: {
-        [Language.NL]: 'Uitgifte van credenptial',
-        [Language.EN]: 'Issuance of credential',
+        NL: 'Uitgifte van credenptial',
+        EN: 'Issuance of credential',
     },
     props: {
         issuer: CommonProps.issuer,
@@ -80,20 +79,20 @@ export class Issuance extends Action<Props> {
             to: subject.actor,
             to_mode: 'phone',
             description: {
-                [Language.NL]: `Uitgave van ${this.defProps.attributeName} credential`,
-                [Language.EN]: `Issuance of ${this.defProps.attributeName} credential`,
+                NL: `Uitgave van ${this.defProps.attributeName} credential`,
+                EN: `Issuance of ${this.defProps.attributeName} credential`,
             },
             sub: {
-                [Language.NL]: `Subject: ${this.defProps.subjectNym}, Issuer: ${this.defProps.issuerNym}`,
-                [Language.EN]: `Subject: ${this.defProps.subjectNym}, Issuer: ${this.defProps.issuerNym}`,
+                NL: `Subject: ${this.defProps.subjectNym}, Issuer: ${this.defProps.issuerNym}`,
+                EN: `Subject: ${this.defProps.subjectNym}, Issuer: ${this.defProps.issuerNym}`,
             },
             long: {
-                [Language.NL]: `${ucFirst(issuer.actor.nounPhrase)} geeft een ${
-                    this.defProps.attributeName
-                } credential uit aan ${subject.actor.nounPhrase}.`,
-                [Language.EN]: `${ucFirst(issuer.actor.nounPhrase)} issues a ${
-                    this.defProps.attributeName
-                } credential to ${subject.actor.nounPhrase}.`,
+                NL: `${ucFirst(issuer.actor.nounPhrase)} geeft een ${this.defProps.attributeName} credential uit aan ${
+                    subject.actor.nounPhrase
+                }.`,
+                EN: `${ucFirst(issuer.actor.nounPhrase)} issues a ${this.defProps.attributeName} credential to ${
+                    subject.actor.nounPhrase
+                }.`,
             },
             locality: Locality.REMOTE,
         };

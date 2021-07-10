@@ -1,5 +1,5 @@
 import { lens } from 'lens.ts';
-import { Language, Translation } from '../../intl/Language';
+import { Translation } from '../../intl/Language';
 import { Asset } from '../../model/logic/Asset/Asset';
 import { Props, ScenarioState } from '../../model/logic/State/ScenarioState';
 import { IOutcome } from '../../model/logic/Step/IOutcome';
@@ -24,12 +24,8 @@ export class GainAssetOutcome implements IOutcome {
     describe(state: ScenarioState): Translation {
         const actor = state.props.byActor[this.props.actorId].actor;
         return {
-            [Language.NL]: `${ucFirst(actor.nounPhrase)} krijgt ${
-                this.props.asset.describe(state).title[Language.NL]
-            }.`,
-            [Language.EN]: `${ucFirst(actor.nounPhrase)} receives ${
-                this.props.asset.describe(state).title[Language.EN]
-            }.`,
+            NL: `${ucFirst(actor.nounPhrase)} krijgt ${this.props.asset.describe(state).title.NL}.`,
+            EN: `${ucFirst(actor.nounPhrase)} receives ${this.props.asset.describe(state).title.EN}.`,
         };
     }
 }

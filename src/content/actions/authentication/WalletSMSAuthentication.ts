@@ -1,4 +1,3 @@
-import { Language } from '../../../intl/Language';
 import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { Locality } from '../../../model/description/Step/ActionDesc';
@@ -15,8 +14,8 @@ import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 export const Schema = new ActionSchema({
     typeName: 'WalletSMSAuthentication',
     title: {
-        [Language.NL]: 'Authenticatie van Wallet via SMS',
-        [Language.EN]: 'Authenticatie of Wallet via SMS',
+        NL: 'Authenticatie van Wallet via SMS',
+        EN: 'Authenticatie of Wallet via SMS',
     },
     props: {
         verifier: CommonProps.verifier,
@@ -58,21 +57,21 @@ export class WalletSMSAuthentication extends Action<Props> {
             from: verifier,
             to: subject,
             description: {
-                [Language.NL]: 'Authenticatie van wallet (pseudoniem) via SMS',
-                [Language.EN]: 'Authentication of wallet (pseudonym) via SMS',
+                NL: 'Authenticatie van wallet (pseudoniem) via SMS',
+                EN: 'Authentication of wallet (pseudonym) via SMS',
             },
             sub: {
-                [Language.NL]: '',
-                [Language.EN]: '',
+                NL: '',
+                EN: '',
             },
             long: {
-                [Language.NL]: `${ucFirst(verifier.nounPhrase)} authenticeert de wallet van ${
-                    subject.nounPhrase
-                } door ${subject.isMale ? 'hem' : 'haar'} een unieke code per SMS te sturen.`,
+                NL: `${ucFirst(verifier.nounPhrase)} authenticeert de wallet van ${subject.nounPhrase} door ${
+                    subject.isMale ? 'hem' : 'haar'
+                } een unieke code per SMS te sturen.`,
 
-                [Language.EN]: `${ucFirst(verifier.nounPhrase)} authenticates the wallet of ${
-                    subject.nounPhrase
-                } by sending ${subject.isMale ? 'him' : 'her'} a unique code via SMS.`,
+                EN: `${ucFirst(verifier.nounPhrase)} authenticates the wallet of ${subject.nounPhrase} by sending ${
+                    subject.isMale ? 'him' : 'her'
+                } a unique code via SMS.`,
             },
             locality: Locality.AT_FROM, // TODO not neccesarily (but in municipality onboarding, yes)
         };

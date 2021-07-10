@@ -1,5 +1,4 @@
 import { translations } from '../../intl/dictionaries';
-import { Language } from '../../intl/Language';
 import { ActionSchema, TypeOfActionSchema } from '../../model/content/Action/ActionSchema';
 import { ActionType } from '../../model/content/Action/ActionType';
 import { ActorProp } from '../../model/content/Common/Prop/ActorProp';
@@ -13,8 +12,8 @@ import { IValidationResult } from '../../model/logic/Step/IValidationResult';
 export const Schema = new ActionSchema({
     typeName: 'CustomInteraction',
     title: {
-        [Language.NL]: 'Vrije Interactie',
-        [Language.EN]: 'Vrije Interactie',
+        NL: 'Vrije Interactie',
+        EN: 'Vrije Interactie',
     },
     props: {
         from: new ActorProp({ title: translations.fromActor }),
@@ -55,12 +54,12 @@ export class CustomInteraction extends Action<Props> {
             from: state.props.byActor[this.defProps.from].actor,
             to: state.props.byActor[this.defProps.to].actor,
             description: {
-                [Language.NL]: this.defProps.description,
-                [Language.EN]: this.defProps.description,
+                NL: this.defProps.description,
+                EN: this.defProps.description,
             },
             sub: {
-                [Language.NL]: this.defProps.sub,
-                [Language.EN]: this.defProps.sub,
+                NL: this.defProps.sub,
+                EN: this.defProps.sub,
             },
             locality: Locality.REMOTE,
         };

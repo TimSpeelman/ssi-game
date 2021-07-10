@@ -1,4 +1,3 @@
-import { Language } from '../../../intl/Language';
 import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { Locality } from '../../../model/description/Step/ActionDesc';
@@ -14,8 +13,8 @@ import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 export const Schema = new ActionSchema({
     typeName: 'Presentation',
     title: {
-        [Language.NL]: 'Presentatie van Credential',
-        [Language.EN]: 'Presentation of Credential',
+        NL: 'Presentatie van Credential',
+        EN: 'Presentation of Credential',
     },
     props: {
         verifier: CommonProps.verifier,
@@ -58,20 +57,20 @@ export class Presentation extends Action<Props> {
             to: verifier,
             to_mode: 'phone',
             description: {
-                [Language.NL]: `Toon ${this.defProps.attributeName} credential`,
-                [Language.EN]: `Present ${this.defProps.attributeName} credential`,
+                NL: `Toon ${this.defProps.attributeName} credential`,
+                EN: `Present ${this.defProps.attributeName} credential`,
             },
             sub: {
-                [Language.NL]: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
-                [Language.EN]: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
+                NL: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
+                EN: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
             },
             long: {
-                [Language.NL]: `${ucFirst(subject.nounPhrase)} toont het ${
-                    this.defProps.attributeName
-                } credential aan ${verifier.nounPhrase}.`,
-                [Language.EN]: `${ucFirst(subject.nounPhrase)} presents the ${
-                    this.defProps.attributeName
-                } credential to ${verifier.nounPhrase}.`,
+                NL: `${ucFirst(subject.nounPhrase)} toont het ${this.defProps.attributeName} credential aan ${
+                    verifier.nounPhrase
+                }.`,
+                EN: `${ucFirst(subject.nounPhrase)} presents the ${this.defProps.attributeName} credential to ${
+                    verifier.nounPhrase
+                }.`,
             },
             locality: Locality.REMOTE,
         };

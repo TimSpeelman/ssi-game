@@ -1,4 +1,3 @@
-import { Language } from '../../../intl/Language';
 import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { Locality } from '../../../model/description/Step/ActionDesc';
@@ -15,8 +14,8 @@ import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 export const Schema = new ActionSchema({
     typeName: 'PresentationRequest',
     title: {
-        [Language.NL]: 'Verzoek voor Presentatie',
-        [Language.EN]: 'Request for Presentation',
+        NL: 'Verzoek voor Presentatie',
+        EN: 'Request for Presentation',
     },
     props: {
         verifier: CommonProps.verifier,
@@ -60,20 +59,20 @@ export class PresentationRequest extends Action<Props> {
             to: subject,
             to_mode: 'phone',
             description: {
-                [Language.NL]: `Vraag om ${this.defProps.attributeName} credential te tonen`,
-                [Language.EN]: `Request for presentation of ${this.defProps.attributeName} credential`,
+                NL: `Vraag om ${this.defProps.attributeName} credential te tonen`,
+                EN: `Request for presentation of ${this.defProps.attributeName} credential`,
             },
             sub: {
-                [Language.NL]: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
-                [Language.EN]: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
+                NL: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
+                EN: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
             },
             long: {
-                [Language.NL]: `${ucFirst(verifier.nounPhrase)} verzoekt ${subject.nounPhrase} om het attribuut ${
+                NL: `${ucFirst(verifier.nounPhrase)} verzoekt ${subject.nounPhrase} om het attribuut ${
                     this.defProps.attributeName
                 } te presenteren.`,
-                [Language.EN]: `${ucFirst(verifier.nounPhrase)} requests ${
-                    subject.nounPhrase
-                } for a presentation of the ${this.defProps.attributeName} credential.`,
+                EN: `${ucFirst(verifier.nounPhrase)} requests ${subject.nounPhrase} for a presentation of the ${
+                    this.defProps.attributeName
+                } credential.`,
             },
             locality: Locality.REMOTE,
         };

@@ -1,14 +1,8 @@
-import { Translation } from '../../../intl/Language';
 import { AssetSchema, TypeOfAssetSchema } from '../../../model/content/Asset/AssetSchema';
 import { AssetType } from '../../../model/content/Asset/AssetType';
 import { StringProp } from '../../../model/content/Common/Prop/StringProp';
 import { Asset, CustomAssetDesc } from '../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
-
-const title: Translation = {
-    NL: 'Physically Uncloneable Function (PUF)',
-    EN: 'Physically Uncloneable Function (PUF)',
-};
 
 const Schema = new AssetSchema({
     typeName: 'PUF',
@@ -41,7 +35,7 @@ export class PUF extends Asset<Props> {
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
             sub: JSON.stringify(this.defProps),
-            title: title,
+            title: this.schema.title,
         };
     }
 }

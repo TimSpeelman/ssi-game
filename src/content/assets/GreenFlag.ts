@@ -1,14 +1,8 @@
-import { Translation } from '../../intl/Language';
 import { AssetSchema, TypeOfAssetSchema } from '../../model/content/Asset/AssetSchema';
 import { AssetType } from '../../model/content/Asset/AssetType';
 import { Asset, CustomAssetDesc } from '../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../model/logic/State/ScenarioState';
 import { CommonProps } from '../common/props';
-
-const title: Translation = {
-    NL: 'Groene Vlag',
-    EN: 'Green Flag',
-};
 
 const Schema = new AssetSchema({
     typeName: 'GreenFlag',
@@ -30,7 +24,7 @@ export class GreenFlag extends Asset<Props> {
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
             sub: this.defProps.description,
-            title: title,
+            title: this.schema.title,
         };
     }
 }

@@ -1,14 +1,8 @@
-import { Translation } from '../../../../intl/Language';
 import { AssetSchema, TypeOfAssetSchema } from '../../../../model/content/Asset/AssetSchema';
 import { AssetType } from '../../../../model/content/Asset/AssetType';
 import { Asset, CustomAssetDesc } from '../../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../../model/logic/State/ScenarioState';
 import { CommonProps } from '../../../common/props';
-
-const title: Translation = {
-    NL: 'Authenticatieresultaat',
-    EN: 'Authentication result',
-};
 
 const Schema = new AssetSchema({
     typeName: 'AuthenticationResult',
@@ -31,7 +25,7 @@ export class AuthenticationResult extends Asset<Props> {
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
             sub: JSON.stringify(this.defProps),
-            title: title,
+            title: this.schema.title,
         };
     }
 }

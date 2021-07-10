@@ -1,13 +1,7 @@
-import { Translation } from '../../../intl/Language';
 import { AssetSchema, TypeOfAssetSchema } from '../../../model/content/Asset/AssetSchema';
 import { AssetType } from '../../../model/content/Asset/AssetType';
 import { Asset, CustomAssetDesc } from '../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
-
-const title: Translation = {
-    NL: 'Wallet',
-    EN: 'Wallet',
-};
 
 const Schema = new AssetSchema({
     typeName: 'Wallet',
@@ -27,7 +21,7 @@ export class Wallet extends Asset<Props> {
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
             sub: JSON.stringify(this.defProps),
-            title: title,
+            title: this.schema.title,
             canHaveChildren: true,
         };
     }

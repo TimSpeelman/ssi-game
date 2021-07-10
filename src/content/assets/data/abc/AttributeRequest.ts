@@ -26,7 +26,6 @@ export class AttributeRequest extends Asset<Props> {
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
             sub: JSON.stringify(this.defProps),
-            title: this.schema.title,
         };
     }
 }

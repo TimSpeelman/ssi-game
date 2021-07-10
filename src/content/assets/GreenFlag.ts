@@ -24,7 +24,6 @@ export class GreenFlag extends Asset<Props> {
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
             sub: this.defProps.description,
-            title: this.schema.title,
         };
     }
 }

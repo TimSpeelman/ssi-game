@@ -22,6 +22,7 @@ export abstract class Asset<Props extends ContentTypeProps> {
             id: this.id,
             type: this.schema.typeName,
             kind: this.schema.kindName,
+            title: this.schema.title,
             props: this.defProps,
         };
     }
@@ -42,6 +43,6 @@ export interface AssetBaseProps {
     parentId?: string;
 }
 
-export type AssetBaseDesc = Pick<AssetDesc, 'parentId' | 'id' | 'type' | 'kind' | 'isInitial' | 'props'>;
+export type AssetBaseDesc = Pick<AssetDesc, 'parentId' | 'id' | 'type' | 'kind' | 'isInitial' | 'props' | 'title'>;
 
 export type CustomAssetDesc = Omit<AssetDesc, keyof AssetBaseDesc>;

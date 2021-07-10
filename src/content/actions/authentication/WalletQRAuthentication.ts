@@ -10,7 +10,7 @@ import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
-export const WalletQRAuthenticationSchema = new ActionSchema({
+export const Schema = new ActionSchema({
     typeName: 'WalletQRAuthentication',
     title: {
         [Language.NL]: 'Authenticatie van Wallet via QR',
@@ -23,12 +23,12 @@ export const WalletQRAuthenticationSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfActionSchema<typeof WalletQRAuthenticationSchema>;
+export type Props = TypeOfActionSchema<typeof Schema>;
 
 export class WalletQRAuthentication extends Action<Props> {
     typeName = 'WalletQRAuthentication';
 
-    schema = WalletQRAuthenticationSchema;
+    schema = Schema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
         return []; // TODO
@@ -79,7 +79,4 @@ function assert(t: boolean, msg: string) {
 function ucFirst(str: string) {
     return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
 }
-export const WalletQRAuthenticationType = new ActionType(
-    WalletQRAuthenticationSchema,
-    (id, props) => new WalletQRAuthentication(id, props),
-);
+export const WalletQRAuthenticationType = new ActionType(Schema, (id, props) => new WalletQRAuthentication(id, props));

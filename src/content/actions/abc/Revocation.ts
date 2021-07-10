@@ -11,7 +11,7 @@ import { Wallet } from '../../assets/software/Wallet';
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
-export const RevocationSchema = new ActionSchema({
+export const Schema = new ActionSchema({
     typeName: 'Revocation',
     title: {
         [Language.NL]: 'Intrekken van credential',
@@ -24,7 +24,7 @@ export const RevocationSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfActionSchema<typeof RevocationSchema>;
+export type Props = TypeOfActionSchema<typeof Schema>;
 
 /**
  * A Verifier authenticates a human Subject by comparing its physical appearance with its passport. We assume integrity
@@ -33,7 +33,7 @@ export type Props = TypeOfActionSchema<typeof RevocationSchema>;
 export class Revocation extends Action<Props> {
     typeName = 'Revocation';
 
-    schema = RevocationSchema;
+    schema = Schema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
         return []; // TODO
@@ -91,4 +91,4 @@ function assert(t: boolean, msg: string) {
 function ucFirst(str: string) {
     return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
 }
-export const RevocationType = new ActionType(RevocationSchema, (id, props) => new Revocation(id, props));
+export const RevocationType = new ActionType(Schema, (id, props) => new Revocation(id, props));

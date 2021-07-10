@@ -11,7 +11,7 @@ import { Wallet } from '../../assets/software/Wallet';
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
-export const IssuanceSchema = new ActionSchema({
+export const Schema = new ActionSchema({
     typeName: 'Issuance',
     title: {
         [Language.NL]: 'Uitgifte van credenptial',
@@ -27,7 +27,7 @@ export const IssuanceSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfActionSchema<typeof IssuanceSchema>;
+export type Props = TypeOfActionSchema<typeof Schema>;
 
 /**
  * A Verifier authenticates a human Subject by comparing its physical appearance with its passport. We assume integrity
@@ -36,7 +36,7 @@ export type Props = TypeOfActionSchema<typeof IssuanceSchema>;
 export class Issuance extends Action<Props> {
     typeName = 'Issuance';
 
-    schema = IssuanceSchema;
+    schema = Schema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
         // props = {
@@ -111,4 +111,4 @@ function ucFirst(str: string) {
     return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
 }
 
-export const IssuanceType = new ActionType(IssuanceSchema, (id, props) => new Issuance(id, props));
+export const IssuanceType = new ActionType(Schema, (id, props) => new Issuance(id, props));

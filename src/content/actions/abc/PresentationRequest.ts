@@ -11,7 +11,7 @@ import { Wallet } from '../../assets/software/Wallet';
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
-export const PresentationRequestSchema = new ActionSchema({
+export const Schema = new ActionSchema({
     typeName: 'PresentationRequest',
     title: {
         [Language.NL]: 'Verzoek voor Presentatie',
@@ -26,12 +26,12 @@ export const PresentationRequestSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfActionSchema<typeof PresentationRequestSchema>;
+export type Props = TypeOfActionSchema<typeof Schema>;
 
 export class PresentationRequest extends Action<Props> {
     typeName = 'PresentationRequest';
 
-    schema = PresentationRequestSchema;
+    schema = Schema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
         return []; // TODO
@@ -90,7 +90,4 @@ function assert(t: boolean, msg: string) {
 function ucFirst(str: string) {
     return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
 }
-export const PresentationRequestType = new ActionType(
-    PresentationRequestSchema,
-    (id, props) => new PresentationRequest(id, props),
-);
+export const PresentationRequestType = new ActionType(Schema, (id, props) => new PresentationRequest(id, props));

@@ -10,7 +10,7 @@ import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
-export const PhysicalPassportAuthenticationSchema = new ActionSchema({
+export const Schema = new ActionSchema({
     typeName: 'PhysicalPassportAuthentication',
     title: {
         [Language.NL]: 'Authenticatie o.b.v. paspoort',
@@ -23,7 +23,7 @@ export const PhysicalPassportAuthenticationSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfActionSchema<typeof PhysicalPassportAuthenticationSchema>;
+export type Props = TypeOfActionSchema<typeof Schema>;
 
 /**
  * A Verifier authenticates a human Subject by comparing its physical appearance with its passport. We assume integrity
@@ -32,7 +32,7 @@ export type Props = TypeOfActionSchema<typeof PhysicalPassportAuthenticationSche
 export class PhysicalPassportAuthentication extends Action<Props> {
     typeName = 'PhysicalPassportAuthentication';
 
-    schema = PhysicalPassportAuthenticationSchema;
+    schema = Schema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
         const results: IValidationResult[] = [];
@@ -110,6 +110,6 @@ function ucFirst(str: string) {
     return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
 }
 export const PhysicalPassportAuthenticationType = new ActionType(
-    PhysicalPassportAuthenticationSchema,
+    Schema,
     (id, props) => new PhysicalPassportAuthentication(id, props),
 );

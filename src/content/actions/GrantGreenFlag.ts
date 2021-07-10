@@ -13,7 +13,7 @@ import { ucFirst } from '../../util/util';
 import { GreenFlag } from '../assets/GreenFlag';
 import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
 
-export const GrantGreenFlagSchema = new ActionSchema({
+export const Schema = new ActionSchema({
     typeName: 'GrantGreenFlag',
     title: {
         [Language.NL]: 'Groene vlag toekennen',
@@ -26,12 +26,12 @@ export const GrantGreenFlagSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfActionSchema<typeof GrantGreenFlagSchema>;
+export type Props = TypeOfActionSchema<typeof Schema>;
 
 export class GrantGreenFlag extends Action<Props> {
     typeName = 'GrantGreenFlag';
 
-    schema = GrantGreenFlagSchema;
+    schema = Schema;
 
     validatePreConditions(): IValidationResult[] {
         return [];
@@ -70,4 +70,4 @@ export class GrantGreenFlag extends Action<Props> {
     }
 }
 
-export const GrantGreenFlagType = new ActionType(GrantGreenFlagSchema, (id, props) => new GrantGreenFlag(id, props));
+export const GrantGreenFlagType = new ActionType(Schema, (id, props) => new GrantGreenFlag(id, props));

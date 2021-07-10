@@ -10,7 +10,7 @@ import { Action } from '../../model/logic/Step/Action';
 import { IOutcome } from '../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../model/logic/Step/IValidationResult';
 
-export const CustomInteractionSchema = new ActionSchema({
+export const Schema = new ActionSchema({
     typeName: 'CustomInteraction',
     title: {
         [Language.NL]: 'Vrije Interactie',
@@ -34,7 +34,7 @@ export const CustomInteractionSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfActionSchema<typeof CustomInteractionSchema>;
+export type Props = TypeOfActionSchema<typeof Schema>;
 
 /**
  * A custom interaction between two Actors
@@ -42,7 +42,7 @@ export type Props = TypeOfActionSchema<typeof CustomInteractionSchema>;
 export class CustomInteraction extends Action<Props> {
     typeName = 'CustomInteraction';
 
-    schema = CustomInteractionSchema;
+    schema = Schema;
 
     validatePreConditions(): IValidationResult[] {
         return [];
@@ -70,7 +70,4 @@ export class CustomInteraction extends Action<Props> {
         };
     }
 }
-export const CustomInteractionType = new ActionType(
-    CustomInteractionSchema,
-    (id, props) => new CustomInteraction(id, props),
-);
+export const CustomInteractionType = new ActionType(Schema, (id, props) => new CustomInteraction(id, props));

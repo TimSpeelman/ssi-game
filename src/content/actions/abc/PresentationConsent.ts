@@ -10,7 +10,7 @@ import { Consent } from '../../assets/data/abc/Consent';
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
-export const PresentationConsentSchema = new ActionSchema({
+export const Schema = new ActionSchema({
     typeName: 'PresentationConsent',
     title: {
         [Language.NL]: 'Toestemming voor Presentatie',
@@ -25,12 +25,12 @@ export const PresentationConsentSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfActionSchema<typeof PresentationConsentSchema>;
+export type Props = TypeOfActionSchema<typeof Schema>;
 
 export class PresentationConsent extends Action<Props> {
     typeName = 'PresentationConsent';
 
-    schema = PresentationConsentSchema;
+    schema = Schema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
         return []; // TODO
@@ -86,7 +86,4 @@ function assert(t: boolean, msg: string) {
 function ucFirst(str: string) {
     return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
 }
-export const PresentationConsentType = new ActionType(
-    PresentationConsentSchema,
-    (id, props) => new PresentationConsent(id, props),
-);
+export const PresentationConsentType = new ActionType(Schema, (id, props) => new PresentationConsent(id, props));

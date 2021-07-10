@@ -11,7 +11,7 @@ import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
-export const WalletSMSAuthenticationSchema = new ActionSchema({
+export const Schema = new ActionSchema({
     typeName: 'WalletSMSAuthentication',
     title: {
         [Language.NL]: 'Authenticatie van Wallet via SMS',
@@ -24,12 +24,12 @@ export const WalletSMSAuthenticationSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfActionSchema<typeof WalletSMSAuthenticationSchema>;
+export type Props = TypeOfActionSchema<typeof Schema>;
 
 export class WalletSMSAuthentication extends Action<Props> {
     typeName = 'WalletSMSAuthentication';
 
-    schema = WalletSMSAuthenticationSchema;
+    schema = Schema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
         return []; // TODO
@@ -90,6 +90,6 @@ function ucFirst(str: string) {
     return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
 }
 export const WalletSMSAuthenticationType = new ActionType(
-    WalletSMSAuthenticationSchema,
+    Schema,
     (id, props) => new WalletSMSAuthentication(id, props),
 );

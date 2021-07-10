@@ -10,7 +10,7 @@ import { AttributeKnowledge } from '../../assets/data/abc/AttributeKnowledge';
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
-export const PresentationSchema = new ActionSchema({
+export const Schema = new ActionSchema({
     typeName: 'Presentation',
     title: {
         [Language.NL]: 'Presentatie van Credential',
@@ -27,12 +27,12 @@ export const PresentationSchema = new ActionSchema({
     },
 });
 
-export type Props = TypeOfActionSchema<typeof PresentationSchema>;
+export type Props = TypeOfActionSchema<typeof Schema>;
 
 export class Presentation extends Action<Props> {
     typeName = 'Presentation';
 
-    schema = PresentationSchema;
+    schema = Schema;
 
     validatePreConditions(state: ScenarioState): IValidationResult[] {
         return []; // TODO
@@ -88,4 +88,4 @@ function assert(t: boolean, msg: string) {
 function ucFirst(str: string) {
     return str.length > 0 ? str[0].toUpperCase() + str.slice(1) : '';
 }
-export const PresentationType = new ActionType(PresentationSchema, (id, props) => new Presentation(id, props));
+export const PresentationType = new ActionType(Schema, (id, props) => new Presentation(id, props));

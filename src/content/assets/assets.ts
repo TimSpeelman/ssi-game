@@ -6,6 +6,7 @@ import { AttributeRevocationType } from './data/abc/AttributeRevocation';
 import { AuthenticationResultType } from './data/abc/AuthenticationResult';
 import { ConsentType } from './data/abc/Consent';
 import { HumanRecordType } from './data/abc/HumanRecord';
+import { PseudonymType } from './data/abc/Pseudonym';
 import { FaceScanType } from './data/feature/FaceScan';
 import { FaceFeatureType } from './feature/FaceFeature';
 import { FingerprintFeatureType } from './feature/FingerprintFeature';
@@ -16,6 +17,7 @@ import { WalletType } from './software/Wallet';
 
 export const DefaultAssetsCollection = new AssetTypesCollection([
     GreenFlagType,
+    PseudonymType,
     AttributeKnowledgeType,
     AttributeProofType,
     AttributeRequestType,

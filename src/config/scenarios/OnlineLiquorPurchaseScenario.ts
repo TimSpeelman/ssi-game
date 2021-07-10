@@ -10,6 +10,7 @@ import { GrantGreenFlag } from '../../content/actions/GrantGreenFlag';
 import { AttributeKnowledge } from '../../content/assets/data/abc/AttributeKnowledge';
 import { AttributeProof } from '../../content/assets/data/abc/AttributeProof';
 import { HumanRecord } from '../../content/assets/data/abc/HumanRecord';
+import { Pseudonym } from '../../content/assets/data/abc/Pseudonym';
 import { FaceFeature } from '../../content/assets/feature/FaceFeature';
 import { GovPassport } from '../../content/assets/physical/GovPassport';
 import { Wallet } from '../../content/assets/software/Wallet';
@@ -21,10 +22,22 @@ const Government = defaultActors.government_1;
 const Shop = defaultActors.shop_1;
 const Subject = defaultActors.human_1;
 const Ledger = defaultActors.ledger_1;
+
 const SubjectIdAtGov = 'BSN_990223190';
-const SubjectNym1 = '215_JOHN';
-const GovNym1 = '829_GOV';
-const ShopNym1 = '662_SHOP';
+const SubjectNym1 = new Pseudonym('subject-nym-1', {
+    identifier: '215',
+    // @ts-ignore TODO FIXME
+    parentId: 'wallet1',
+});
+
+const GovernmentNym1 = new Pseudonym('government-nym-1', {
+    identifier: '183',
+});
+
+const ShopNym1 = new Pseudonym('shop-nym-1', {
+    identifier: '007',
+});
+
 const Attr18Plus = '18+';
 
 const actors: ActorConfig[] = [
@@ -35,12 +48,13 @@ const actors: ActorConfig[] = [
     {
         definition: Government,
         initialAssets: [
+            GovernmentNym1,
             new HumanRecord('2', { subject: SubjectIdAtGov }, true),
             new AttributeKnowledge(
                 '3',
                 {
-                    issuer: GovNym1,
-                    subject: SubjectIdAtGov,
+                    issuer: Government.id,
+                    subject: Subject.id,
                     attributeName: '18+',
                     attributeValue: 'WAAR',
                 },
@@ -51,6 +65,7 @@ const actors: ActorConfig[] = [
     {
         definition: Subject,
         initialAssets: [
+            SubjectNym1,
             new Wallet('wallet1', {}, true),
             new AttributeProof(
                 'proof1',
@@ -77,7 +92,7 @@ const actors: ActorConfig[] = [
     },
     {
         definition: Shop,
-        initialAssets: [],
+        initialAssets: [ShopNym1].map((a) => a.serialize()),
     },
 ];
 
@@ -126,13 +141,13 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
             // Feitelijk is de contactlegging (en challenge) via SMS, authenticatie via P2P protocol
             verifier: Government.id,
             subject: Subject.id,
-            identifier: SubjectNym1, // TODO
+            subjectNym: SubjectNym1.id, // TODO
         }),
         new Issuance('3', {
             attributeName: '18+',
             attributeValue: 'waar',
-            subjectNym: SubjectNym1, // TODO
-            issuerNym: GovNym1, // TODO
+            subjectNym: SubjectNym1.id, // TODO
+            issuerNym: GovernmentNym1.id, // TODO
             issuer: Government.id,
             subject: Subject.id,
         }),
@@ -141,31 +156,31 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
             // Feitelijk is de contactlegging via QR, authenticatie via P2P protocol
             verifier: Shop.id,
             subject: Subject.id,
-            identifier: SubjectNym1, // TODO
+            subjectNym: SubjectNym1.id, // TODO
         }),
         new PresentationRequest('5', {
             verifier: Shop.id,
             subject: Subject.id,
-            subjectNym: SubjectNym1, // TODO
-            verifierNym: ShopNym1, // TODO
+            subjectNym: SubjectNym1.id, // TODO
+            verifierNym: ShopNym1.id, // TODO
             attributeName: Attr18Plus,
         }),
         new PresentationConsent('6', {
             // Feitelijk geeft het subject toestemming aan de eigen wallet en wordt de toestemming meegestuurd dan wel geimpliceerd in de credentialpresentatie.
             verifier: Shop.id,
             subject: Subject.id,
-            subjectNym: SubjectNym1, // TODO
-            verifierNym: ShopNym1, // TODO
+            subjectNym: SubjectNym1.id, // TODO
+            verifierNym: ShopNym1.id, // TODO
             attributeName: '18+',
         }),
         new Presentation('7', {
             verifier: Shop.id,
             subject: Subject.id,
-            subjectNym: SubjectNym1, // TODO
-            verifierNym: ShopNym1, // TODO
+            subjectNym: SubjectNym1.id, // TODO
+            verifierNym: ShopNym1.id, // TODO
             attributeName: '18+',
             attributeValue: 'waar',
-            issuerNym: GovNym1, // TODO
+            issuerNym: GovernmentNym1.id, // TODO
         }),
         new CustomInteraction('8', {
             // Feitelijk verifieert de Verifier zelfstandig de verzegeling en ondertekening, en via de ledger de actualiteit (hier wellicht niet relevant)

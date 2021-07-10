@@ -19,7 +19,7 @@ export const Schema = new ActionSchema({
     props: {
         verifier: CommonProps.verifier,
         subject: CommonProps.subject,
-        identifier: CommonProps.identifier,
+        subjectNym: CommonProps.subjectNym,
     },
 });
 
@@ -35,7 +35,7 @@ export class WalletQRAuthentication extends Action<Props> {
     computeOutcomes(state: ScenarioState): IOutcome[] {
         const authResult = new AuthenticationResult(this.id + '1', {
             subject: this.defProps.subject,
-            identifier: this.defProps.identifier,
+            identifier: this.defProps.subjectNym,
         });
         return [new GainAssetOutcome({ actorId: this.defProps.verifier, asset: authResult })];
     }

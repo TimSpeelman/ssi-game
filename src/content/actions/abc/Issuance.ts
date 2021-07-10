@@ -7,6 +7,7 @@ import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ucFirst } from '../../../util/util';
 import { AttributeProof } from '../../assets/data/abc/AttributeProof';
+import { Pseudonym } from '../../assets/data/abc/Pseudonym';
 import { Wallet } from '../../assets/software/Wallet';
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
@@ -71,8 +72,13 @@ export class Issuance extends Action<Props> {
     _describe(state: ScenarioState): CustomActionDesc {
         const { subject, issuer, ...props } = this.evaluateProps(state);
 
+        console.log(props, this.defProps);
+
         // const subject = state.props.byActor[this.props.subjectId].actor;
         // const issuer = state.props.byActor[this.props.issuerId].actor;
+        const subjectNym: Pseudonym = props.subjectNym;
+        const issuerNym: Pseudonym = props.issuerNym;
+
         return {
             from: issuer.actor,
             from_mode: 'issuing',
@@ -83,8 +89,8 @@ export class Issuance extends Action<Props> {
                 EN: `Issuance of ${this.defProps.attributeName} credential`,
             },
             sub: {
-                NL: `Subject: ${this.defProps.subjectNym}, Issuer: ${this.defProps.issuerNym}`,
-                EN: `Subject: ${this.defProps.subjectNym}, Issuer: ${this.defProps.issuerNym}`,
+                NL: `Subject: ${subjectNym.defProps.identifier}, Issuer: ${issuerNym.defProps.identifier}`,
+                EN: `Subject: ${subjectNym.defProps.identifier}, Issuer: ${issuerNym.defProps.identifier}`,
             },
             long: {
                 NL: `${ucFirst(issuer.actor.nounPhrase)} geeft een ${this.defProps.attributeName} credential uit aan ${

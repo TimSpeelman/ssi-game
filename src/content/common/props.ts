@@ -10,19 +10,19 @@ export const CommonProps = {
     issuerNym: new AssetProp({
         title: translations.issuerPseudonym,
         dependsOn: ['issuer'],
-        filter: (a, data) => a.asset.type === 'Wallet' && a.ownerId === data.issuer,
+        filter: (a, data) => a.asset.type === 'Pseudonym' && a.ownerId === data.issuer,
         autoFill: true,
     }),
     subjectNym: new AssetProp({
         title: translations.subjectPseudonym,
         dependsOn: ['subject'],
-        filter: (a, data) => a.asset.type === 'Wallet' && a.ownerId === data.subject,
+        filter: (a, data) => a.asset.type === 'Pseudonym' && a.ownerId === data.subject,
         autoFill: true,
     }),
     verifierNym: new AssetProp({
         title: translations.verifierPseudonym,
         dependsOn: ['verifier'],
-        filter: (a, data) => a.asset.type === 'Wallet' && a.ownerId === data.verifier,
+        filter: (a, data) => a.asset.type === 'Pseudonym' && a.ownerId === data.verifier,
         autoFill: true,
     }),
     attributeName: new StringProp({ title: translations.attributeName }),

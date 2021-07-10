@@ -21,7 +21,6 @@ const Schema = new AssetSchema({
 
 export type Props = TypeOfAssetSchema<typeof Schema>;
 
-/** Possession means that the subject has these fingerprints. Non-transferrable. FingerprintScan can however be transferred. */
 export class GovPassport extends Asset<Props> {
     schema = Schema;
 

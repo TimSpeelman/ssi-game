@@ -95,7 +95,7 @@ export const DictionaryNL: Dictionary = {
     titleEditAsset: 'Asset Bewerken',
     labelAssetType: 'Assettype',
 
-    titleCreateStep: 'Step Maken',
+    titleCreateStep: 'Stap Maken',
     titleEditStep: 'Stap Bewerken',
     labelStepType: 'Handeling',
 

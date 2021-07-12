@@ -15,7 +15,7 @@ import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 export const Schema = new ActionSchema({
     typeName: 'Issuance',
     title: {
-        NL: 'Uitgifte van credenptial',
+        NL: 'Uitgifte van credential',
         EN: 'Issuance of credential',
     },
     props: {

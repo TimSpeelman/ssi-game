@@ -31,6 +31,10 @@ export class AttributeProof extends Asset<Props> {
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
             sub: JSON.stringify(this.defProps),
+            title: {
+                NL: 'Credential ' + this.defProps.attributeName,
+                EN: 'Credential ' + this.defProps.attributeName,
+            },
             transferrable: false,
             cloneable: true,
         };

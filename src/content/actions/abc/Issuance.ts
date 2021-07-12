@@ -61,8 +61,8 @@ export class Issuance extends Action<Props> {
         const attr = new AttributeProof(this.id + '1', {
             // @ts-ignore TODO FIXME
             parentId: subjectWallet?.id,
-            name: this.defProps.attributeName,
-            value: this.defProps.attributeValue,
+            attributeName: this.defProps.attributeName,
+            attributeValue: this.defProps.attributeValue,
             issuer: this.defProps.issuer,
             subject: this.defProps.subject,
         });

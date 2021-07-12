@@ -7,6 +7,7 @@ import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ucFirst } from '../../../util/util';
 import { AttributeKnowledge } from '../../assets/data/abc/AttributeKnowledge';
+import { AttributeProof } from '../../assets/data/abc/AttributeProof';
 import { Pseudonym } from '../../assets/data/abc/Pseudonym';
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
@@ -23,8 +24,9 @@ export const Schema = new ActionSchema({
         subject: CommonProps.subject,
         subjectNym: CommonProps.subjectNym,
         issuerNym: CommonProps.issuerNym,
-        attributeName: CommonProps.attributeName,
-        attributeValue: CommonProps.attributeValue,
+        attribute: CommonProps.attributeProof,
+        // attributeName: CommonProps.attributeName,
+        // attributeValue: CommonProps.attributeValue,
     },
 });
 
@@ -38,13 +40,15 @@ export class Presentation extends Action<Props> {
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
-        const { verifier } = this.evaluateProps(state);
+        const { verifier, attribute } = this.evaluateProps(state);
+
+        const attrProof: AttributeProof = attribute;
 
         const attr = new AttributeKnowledge(this.id + '1', {
-            attributeName: this.defProps.attributeName,
+            attributeName: attrProof.defProps.attributeName,
             issuer: this.defProps.issuerNym,
             subject: this.defProps.subjectNym,
-            attributeValue: this.defProps.attributeValue,
+            attributeValue: attrProof.defProps.attributeValue,
         });
         return [new GainAssetOutcome({ actorId: verifier.actor.id, asset: attr })];
     }
@@ -56,6 +60,8 @@ export class Presentation extends Action<Props> {
 
         const subjectNym: Pseudonym = props.subjectNym;
         const verifierNym: Pseudonym = props.verifierNym;
+        const attrProof: AttributeProof = props.attribute;
+
         return {
             from: subject,
             from_nym: subjectNym.defProps.image,
@@ -63,18 +69,18 @@ export class Presentation extends Action<Props> {
             to_nym: verifierNym.defProps.image,
             to_mode: 'phone',
             description: {
-                NL: `Toon ${this.defProps.attributeName} credential`,
-                EN: `Present ${this.defProps.attributeName} credential`,
+                NL: `Toon ${attrProof.defProps.attributeName} credential`,
+                EN: `Present ${attrProof.defProps.attributeName} credential`,
             },
             sub: {
                 NL: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
                 EN: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
             },
             long: {
-                NL: `${ucFirst(subject.nounPhrase)} toont het ${this.defProps.attributeName} credential aan ${
+                NL: `${ucFirst(subject.nounPhrase)} toont het ${attrProof.defProps.attributeName} credential aan ${
                     verifier.nounPhrase
                 }.`,
-                EN: `${ucFirst(subject.nounPhrase)} presents the ${this.defProps.attributeName} credential to ${
+                EN: `${ucFirst(subject.nounPhrase)} presents the ${attrProof.defProps.attributeName} credential to ${
                     verifier.nounPhrase
                 }.`,
             },

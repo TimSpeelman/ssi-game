@@ -193,8 +193,7 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
             subject: Subject.id,
             subjectNym: SubjectNym1.id, // TODO
             verifierNym: ShopNym1.id, // TODO
-            attributeName: '18+',
-            attributeValue: 'waar',
+            attribute: '31', // TODO Fixme, how to refer to an attribute that is produced by a previous step?
             issuerNym: GovernmentNym1.id, // TODO
         }),
         new CustomInteraction('8', {

@@ -33,6 +33,11 @@ export const CommonProps = {
     }),
     attributeName: new StringProp({ title: translations.attributeName }),
     attributeValue: new StringProp({ title: translations.attributeValue }),
+    attributeProof: new AssetProp({
+        title: translations.attribute,
+        dependsOn: ['subject'],
+        filter: (a, data) => a.asset.type === 'AttributeProof' && a.ownerId === data.subject,
+    }),
     identifier: new StringProp({ title: translations.identifier }),
     description: new StringProp({ title: translations.description }),
 };

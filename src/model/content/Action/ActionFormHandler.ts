@@ -1,3 +1,4 @@
+import { mapValues } from '../../../util/util';
 import { ActionDef } from '../../definition/Action/ActionDef';
 import { ScenarioDef } from '../../definition/ScenarioDef';
 import { Scenario } from '../../logic/Scenario/Scenario';
@@ -13,6 +14,15 @@ export class ActionFormHandler {
             typeName: a.schema.typeName,
             title: a.schema.title,
         }));
+    }
+
+    public getFormDefaults(selectedActionType: string | undefined): any {
+        if (!selectedActionType) {
+            return {};
+        } else {
+            const action = this.actionTypes.requireTypeByName(selectedActionType).schema;
+            return action.getFormDefaults();
+        }
     }
 
     public computeFormProperties(
@@ -31,6 +41,7 @@ export class ActionFormHandler {
                 typeName: action.typeName,
                 title: action.title,
                 fields: fields,
+                data: mapValues(fields, (f) => f.value),
             };
         }
     }

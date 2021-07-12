@@ -6,4 +6,5 @@ export interface ActionFormData {
     typeName: string;
     title: Translation;
     fields: Record<string, Field>;
+    data: any;
 }

@@ -37,9 +37,15 @@ export function StepDialog(props: Props) {
     // Clear data when changing type
     useEffect(() => {
         if (!isEditing) {
-            setData({});
+            setData(formHandler.getFormDefaults(type));
         }
     }, [type]);
+
+    /** If we are creating a new state we take the last step's poststate */
+    const stateIndex = isEditing ? step : def.steps.length;
+    const actionTypes = formHandler.listAvailableActionTypes();
+    const formProps = formHandler.computeFormProperties(def, stateIndex, type, formData);
+    const fields = Object.entries(formProps ? formProps.fields : {});
 
     // When an action is provided, load its data into local state
     useEffect(() => {
@@ -57,19 +63,13 @@ export function StepDialog(props: Props) {
         if (!type) return;
         const definition: ActionDef<any> = {
             id: props.action?.id || uuid(),
-            props: formData,
+            props: formProps!.data,
             typeName: type!,
         };
         props.onSubmit(definition);
     }
 
     const { dict, lang } = useLang();
-
-    /** If we are creating a new state we take the last step's poststate */
-    const stateIndex = isEditing ? step : def.steps.length;
-    const actionTypes = formHandler.listAvailableActionTypes();
-    const formProps = formHandler.computeFormProperties(def, stateIndex, type, formData);
-    const fields = Object.entries(formProps ? formProps.fields : {});
 
     return (
         <Fragment>

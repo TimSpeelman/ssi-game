@@ -65,8 +65,9 @@ export function AssetDialog(props: Props) {
 
     const { dict, lang } = useLang();
 
+    const stateIndex = isEditing ? step : def.steps.length;
     const types = formHandler.listAvailableAssetTypes();
-    const formProps = formHandler.computeFormProperties(def, step, type, formData);
+    const formProps = formHandler.computeFormProperties(def, stateIndex, type, formData);
     const fields = Object.entries(formProps ? formProps.fields : {});
 
     return (

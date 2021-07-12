@@ -21,7 +21,7 @@ export class AssetFormHandler {
         selectedAssetType: string | undefined,
         formData: any,
     ): AssetFormData | undefined {
-        const state = new Scenario(scenarioDefinition).getPostStateAtIndex(currentStepIndex);
+        const state = new Scenario(scenarioDefinition).getPreStateAtIndex(currentStepIndex);
         if (!selectedAssetType) {
             return undefined;
         } else {
@@ -42,7 +42,7 @@ export class AssetFormHandler {
         formData: any,
         id: string,
     ): AssetDef {
-        const state = new Scenario(scenarioDefinition).getPostStateAtIndex(currentStepIndex);
+        const state = new Scenario(scenarioDefinition).getPreStateAtIndex(currentStepIndex);
         const action = this.actionTypes.requireTypeByName(selectedAssetType).schema;
         return action.parseUserInput(id, formData, state);
     }

@@ -21,7 +21,7 @@ export class ActionFormHandler {
         selectedActionType: string | undefined,
         formData: any,
     ): ActionFormData | undefined {
-        const state = new Scenario(scenarioDefinition).getPostStateAtIndex(currentStepIndex);
+        const state = new Scenario(scenarioDefinition).getPreStateAtIndex(currentStepIndex);
         if (!selectedActionType) {
             return undefined;
         } else {
@@ -42,7 +42,7 @@ export class ActionFormHandler {
         formData: any,
         id: string,
     ): ActionDef {
-        const state = new Scenario(scenarioDefinition).getPostStateAtIndex(currentStepIndex);
+        const state = new Scenario(scenarioDefinition).getPreStateAtIndex(currentStepIndex);
         const action = this.actionTypes.requireTypeByName(selectedActionType).schema;
         return action.parseUserInput(id, formData, state);
     }

@@ -22,12 +22,14 @@ export class Scenario {
         });
     }
 
-    /** Providing the postState of a step at provided index, or the initial state when index -1 is provided */
-    getPostStateAtIndex(index: number) {
-        if (index === -1) {
-            return this.steps[0].props.preState;
+    /** Providing the preState of a step at provided index, or the last post state */
+    getPreStateAtIndex(index: number) {
+        if (index === 0) {
+            return this.initial;
         } else if (index < this.steps.length) {
-            return this.steps[index].props.postState;
+            return this.steps[index].props.preState;
+        } else if (index === this.steps.length) {
+            return this.steps[this.steps.length - 1].props.postState;
         } else {
             throw new Error('Provided state index ' + index + ' out of bounds');
         }

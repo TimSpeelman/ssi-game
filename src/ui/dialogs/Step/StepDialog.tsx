@@ -65,8 +65,10 @@ export function StepDialog(props: Props) {
 
     const { dict, lang } = useLang();
 
+    /** If we are creating a new state we take the last step's poststate */
+    const stateIndex = isEditing ? step : def.steps.length;
     const actionTypes = formHandler.listAvailableActionTypes();
-    const formProps = formHandler.computeFormProperties(def, step, type, formData);
+    const formProps = formHandler.computeFormProperties(def, stateIndex, type, formData);
     const fields = Object.entries(formProps ? formProps.fields : {});
 
     return (

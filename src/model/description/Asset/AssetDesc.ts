@@ -11,5 +11,5 @@ export interface AssetDesc<Props = any> {
     type: string;
     kind: string;
     title: Translation;
-    sub: string;
+    sub?: Translation;
 }

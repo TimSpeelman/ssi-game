@@ -29,11 +29,15 @@ export class AttributeProof extends Asset<Props> {
     schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {
+        const { issuer } = this.evaluateProps(state);
         return {
-            sub: JSON.stringify(this.defProps),
             title: {
                 NL: 'Credential ' + this.defProps.attributeName,
                 EN: 'Credential ' + this.defProps.attributeName,
+            },
+            sub: {
+                NL: 'Uitgegeven door ' + issuer.actor.name,
+                EN: 'Issued by ' + issuer.actor.name,
             },
             transferrable: false,
             cloneable: true,

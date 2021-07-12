@@ -16,12 +16,13 @@ export function AssetList({ assets, onEdit, onDelete, onClick }: Props) {
     const { dict, lang } = useLang();
     const title = (a: AssetTreeNode) =>
         a.asset.canHaveChildren ? `${a.asset.title[lang]} (${a.children.length})` : a.asset.title[lang];
+    const sub = (a: AssetTreeNode) => (!!a.asset.sub ? a.asset.sub[lang] : '');
     return (
         <List dense>
             {assets.length > 0 ? (
                 assets.map((a, i) => (
                     <ListItem key={i} onClick={() => onClick(a.asset.id)} button>
-                        <ListItemText primary={title(a)} secondary={''} />
+                        <ListItemText primary={title(a)} secondary={sub(a)} />
                         {a.asset.isInitial && (
                             <Button onClick={stopPropagation<any>(() => onEdit(a.asset.id))}>
                                 <Edit />

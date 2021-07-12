@@ -26,7 +26,6 @@ export class AttributeRevocation extends Asset<Props> {
 
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
-            sub: JSON.stringify(this.defProps),
             transferrable: false,
             cloneable: true,
         };

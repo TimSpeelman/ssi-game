@@ -27,7 +27,6 @@ export class Pseudonym extends Asset<Props> {
 
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
-            sub: JSON.stringify(this.defProps),
             title: {
                 NL: `${DictionaryNL.pseudonym} ${this.defProps.identifier}`,
                 EN: `${DictionaryEN.pseudonym} ${this.defProps.identifier}`,

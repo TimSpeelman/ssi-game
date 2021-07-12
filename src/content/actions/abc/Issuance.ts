@@ -87,18 +87,18 @@ export class Issuance extends Action<Props> {
             to_nym: subjectNym.defProps.image,
             to_mode: 'phone',
             description: {
-                NL: `Uitgave van ${this.defProps.attributeName} credential`,
-                EN: `Issuance of ${this.defProps.attributeName} credential`,
+                NL: `Uitgave van "${this.defProps.attributeName}" credential`,
+                EN: `Issuance of "${this.defProps.attributeName}" credential`,
             },
             sub: {
                 NL: `Subject: ${subjectNym.defProps.identifier}, Issuer: ${issuerNym.defProps.identifier}`,
                 EN: `Subject: ${subjectNym.defProps.identifier}, Issuer: ${issuerNym.defProps.identifier}`,
             },
             long: {
-                NL: `${ucFirst(issuer.actor.nounPhrase)} geeft een ${this.defProps.attributeName} credential uit aan ${
-                    subject.actor.nounPhrase
-                }.`,
-                EN: `${ucFirst(issuer.actor.nounPhrase)} issues a ${this.defProps.attributeName} credential to ${
+                NL: `${ucFirst(issuer.actor.nounPhrase)} geeft een "${
+                    this.defProps.attributeName
+                }" credential uit aan ${subject.actor.nounPhrase}.`,
+                EN: `${ucFirst(issuer.actor.nounPhrase)} issues a "${this.defProps.attributeName}" credential to ${
                     subject.actor.nounPhrase
                 }.`,
             },

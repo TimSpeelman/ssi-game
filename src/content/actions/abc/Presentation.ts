@@ -69,18 +69,18 @@ export class Presentation extends Action<Props> {
             to_nym: verifierNym.defProps.image,
             to_mode: 'phone',
             description: {
-                NL: `Toon ${attrProof.defProps.attributeName} credential`,
-                EN: `Present ${attrProof.defProps.attributeName} credential`,
+                NL: `Toon "${attrProof.defProps.attributeName}" credential`,
+                EN: `Present "${attrProof.defProps.attributeName}" credential`,
             },
             sub: {
-                NL: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
-                EN: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
+                NL: `Subject: ${subjectNym.defProps.identifier}, Verifier: ${verifierNym.defProps.identifier}`,
+                EN: `Subject: ${subjectNym.defProps.identifier}, Verifier: ${verifierNym.defProps.identifier}`,
             },
             long: {
-                NL: `${ucFirst(subject.nounPhrase)} toont het ${attrProof.defProps.attributeName} credential aan ${
+                NL: `${ucFirst(subject.nounPhrase)} toont het "${attrProof.defProps.attributeName}" credential aan ${
                     verifier.nounPhrase
                 }.`,
-                EN: `${ucFirst(subject.nounPhrase)} presents the ${attrProof.defProps.attributeName} credential to ${
+                EN: `${ucFirst(subject.nounPhrase)} presents the "${attrProof.defProps.attributeName}" credential to ${
                     verifier.nounPhrase
                 }.`,
             },

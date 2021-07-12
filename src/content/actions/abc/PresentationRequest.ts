@@ -64,20 +64,20 @@ export class PresentationRequest extends Action<Props> {
             from_nym: verifierNym.defProps.image,
             to_mode: 'phone',
             description: {
-                NL: `Vraag om ${this.defProps.attributeName} credential te tonen`,
-                EN: `Request for presentation of ${this.defProps.attributeName} credential`,
+                NL: `Vraag om "${this.defProps.attributeName}" credential te tonen`,
+                EN: `Request for presentation of "${this.defProps.attributeName}" credential`,
             },
             sub: {
-                NL: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
-                EN: `Subject: ${this.defProps.subjectNym}, Verifier: ${this.defProps.verifierNym}`,
+                NL: `Subject: ${subjectNym.defProps.identifier}, Verifier: ${verifierNym.defProps.identifier}`,
+                EN: `Subject: ${subjectNym.defProps.identifier}, Verifier: ${verifierNym.defProps.identifier}`,
             },
             long: {
-                NL: `${ucFirst(verifier.nounPhrase)} verzoekt ${subject.nounPhrase} om het attribuut ${
+                NL: `${ucFirst(verifier.nounPhrase)} verzoekt ${subject.nounPhrase} om het attribuut "${
                     this.defProps.attributeName
-                } te presenteren.`,
-                EN: `${ucFirst(verifier.nounPhrase)} requests ${subject.nounPhrase} for a presentation of the ${
+                }" te presenteren.`,
+                EN: `${ucFirst(verifier.nounPhrase)} requests ${subject.nounPhrase} for a presentation of the "${
                     this.defProps.attributeName
-                } credential.`,
+                }" credential.`,
             },
             locality: Locality.REMOTE,
         };

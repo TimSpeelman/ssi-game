@@ -35,6 +35,8 @@ export class PUF extends Asset<Props> {
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
             sub: JSON.stringify(this.defProps),
+            transferrable: true,
+            cloneable: false,
         };
     }
 }

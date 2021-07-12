@@ -32,6 +32,8 @@ export class Pseudonym extends Asset<Props> {
                 NL: `${DictionaryNL.pseudonym} ${this.defProps.identifier}`,
                 EN: `${DictionaryEN.pseudonym} ${this.defProps.identifier}`,
             },
+            transferrable: false,
+            cloneable: true,
         };
     }
 }

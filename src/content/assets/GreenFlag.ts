@@ -24,6 +24,8 @@ export class GreenFlag extends Asset<Props> {
     _describe(state: ScenarioState): CustomAssetDesc {
         return {
             sub: this.defProps.description,
+            transferrable: false,
+            cloneable: false,
         };
     }
 }

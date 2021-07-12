@@ -22,6 +22,8 @@ export class Wallet extends Asset<Props> {
         return {
             sub: JSON.stringify(this.defProps),
             canHaveChildren: true,
+            transferrable: true,
+            cloneable: false, // TODO is it?
         };
     }
 }

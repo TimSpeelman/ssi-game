@@ -41,6 +41,8 @@ export class GovPassport extends Asset<Props> {
                 NL: `Paspoort van ${this.defProps.firstName} ${this.defProps.name}`,
             },
             sub: JSON.stringify(this.defProps),
+            transferrable: true,
+            cloneable: false,
         };
     }
 }

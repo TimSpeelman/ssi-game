@@ -22,7 +22,7 @@ export const Schema = new ActionSchema({
         asset: new AssetProp({
             title: { EN: 'Asset', NL: 'Asset' },
             dependsOn: ['from'],
-            filter: (a, d) => a.ownerId === d.from,
+            filter: (a, d) => a.ownerId === d.from && a.asset.transferrable,
         }),
     },
 });

@@ -31,6 +31,7 @@ const defaults: ActorDefinition = {
     type: actorTypes.person1,
     name: '',
     nounPhrase: '',
+    properties: [],
 };
 
 const L = lens<ActorDefinition>();

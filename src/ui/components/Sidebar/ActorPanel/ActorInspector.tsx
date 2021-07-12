@@ -65,6 +65,32 @@ export function ActorInspector() {
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                 <Typography variant="h6">
+                    {dict.actorProperties} ({definition.properties.length})
+                </Typography>
+                <Button onClick={() => openDialog('EditActorProperties', { actorId: definition.id })}>
+                    <Edit /> {dict.btnEditProperties}
+                </Button>
+            </div>
+
+            <table style={{ width: '100%' }}>
+                <thead>
+                    <tr>
+                        <th style={{ textAlign: 'left' }}>Eigenschap</th>
+                        <th style={{ textAlign: 'left' }}>Waarde</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {definition.properties.map(([key, val], index) => (
+                        <tr key={index}>
+                            <td>{key}</td>
+                            <td>{val}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
+                <Typography variant="h6">
                     {dict.assets} ({assets.length})
                 </Typography>
                 <Button onClick={() => openDialog('AddAsset', { actorId: definition.id })}>

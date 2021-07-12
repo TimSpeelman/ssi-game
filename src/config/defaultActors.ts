@@ -9,6 +9,7 @@ export const defaultActors = {
         name: 'Ledger',
         nounPhrase: 'Ledger',
         description: 'Blockchain',
+        properties: [],
     } as ActorDefinition,
     human_1: {
         type: actorTypes.person3,
@@ -16,6 +17,10 @@ export const defaultActors = {
         name: 'John',
         nounPhrase: 'John',
         description: 'De consumerende burger',
+        properties: [
+            ['Geslacht', 'Man'],
+            ['Geboortedatum', '13-01-1990'],
+        ],
     } as ActorDefinition,
     government_1: {
         type: actorTypes.gov1,
@@ -23,6 +28,7 @@ export const defaultActors = {
         name: 'Overheid',
         nounPhrase: 'de overheid',
         description: 'De overheid van John',
+        properties: [],
     } as ActorDefinition,
     shop_1: {
         type: actorTypes.shop1,
@@ -30,5 +36,6 @@ export const defaultActors = {
         name: 'Slijterij',
         nounPhrase: 'de slijterij',
         description: 'De verkoper van alcoholhoudende dranken',
+        properties: [],
     } as ActorDefinition,
 };

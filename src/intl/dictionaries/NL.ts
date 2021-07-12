@@ -46,6 +46,8 @@ export const DictionaryNL: Dictionary = {
 
     allActors: 'Alle actoren',
     selectedActor: 'Geselecteerde Actor',
+    actorProperties: 'Eigenschappen',
+    btnEditProperties: 'Eigenschappen Bewerken',
     assets: 'Assets',
     btnAddAsset: 'Asset Toevoegen',
 

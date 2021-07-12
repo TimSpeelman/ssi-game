@@ -1,12 +1,13 @@
 import { actorImage } from '../../config/actorImage';
+import { pseudonymImage } from '../../config/pseudonymImage';
 import { Actor } from '../../model/definition/Actor/Actor';
 import { StateDesc } from '../../model/description/State/StateDesc';
 import { Locality } from '../../model/description/Step/ActionDesc';
 import { StepDesc } from '../../model/description/Step/StepDesc';
 import { pointsOnCircleEquidistant, pointsOnCircleFixedRangeCentered } from '../../util/circle';
 import { scaleQuadraticBezierCurve } from '../../util/curve';
-import { add, avg, eq, fractionOfLine, scale, Vec } from '../../util/vec';
-import { ActorEl, AssetEl, CanvasElem, ConnectionEl, SlotEl } from './SVGNetworkCanvas';
+import { add, avg, eq, fractionOfLine, fractionOfQuadBezier, scale, Vec } from '../../util/vec';
+import { ActorEl, AssetEl, CanvasElem, ConnectionEl, PseudonymEl, SlotEl } from './SVGNetworkCanvas';
 
 interface NetworkProps {
     width: number;
@@ -29,6 +30,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
     const networkRotation = -Math.PI / 2; // 0: starting East, -Pi/2: starting North
 
     const { width, height, actors } = props;
+    const connectionCurveFraction = 0.5; // 0: straight line, 1: curved towards center
 
     const currentStep = props.step?.action;
     const fromIndex = !!currentStep ? actors.findIndex((a) => a.id === currentStep.from.id) : -1;
@@ -55,6 +57,37 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
         );
         actorPos[fromIndex] = fromPos;
         actorPos[toIndex] = toPos;
+    }
+
+    const _nyms: PseudonymEl[] = [];
+
+    // Compute the pseudonyms
+    if (!!currentStep) {
+        // Move actors that interact locally
+        const p0 = actorHomePos[fromIndex];
+        const p2 = actorHomePos[toIndex];
+        const q = scaleQuadraticBezierCurve(p0, center, p2, connectionCurveFraction);
+        const sourceNymPos = fractionOfQuadBezier(p0, q, p2, 0.25);
+        const targetNymPos = fractionOfQuadBezier(p0, q, p2, 0.75);
+
+        if (currentStep.from_nym) {
+            _nyms.push({
+                c: sourceNymPos,
+                id: actors[fromIndex].id + '-nym',
+                r: 20,
+                type: 'pseudonym',
+                url: pseudonymImage(currentStep.from_nym),
+            });
+        }
+        if (currentStep.to_nym) {
+            _nyms.push({
+                c: targetNymPos,
+                id: actors[toIndex].id + '-nym',
+                r: 20,
+                type: 'pseudonym',
+                url: pseudonymImage(currentStep.to_nym),
+            });
+        }
     }
 
     const _actors: ActorViewData[] = actors.map(
@@ -99,7 +132,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
     );
 
     // Create connections between all actors
-    const connectionCurveFraction = 0.5; // 0: straight line, 1: curved towards center
+
     const conns: CanvasElem[] = slots.reduce(
         (acc, slot1, i) => [
             ...acc,
@@ -159,7 +192,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
     }, []);
 
     // Combine all elems
-    const elems: CanvasElem[] = [...conns, ...slots, ...actorEls, ...assets];
+    const elems: CanvasElem[] = [...conns, ...slots, ...actorEls, ...assets, ..._nyms];
 
     return elems.map((e) => (e.id === props.hoveredElemId ? { ...e, hovered: true } : e));
 }

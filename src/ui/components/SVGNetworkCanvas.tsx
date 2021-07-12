@@ -10,6 +10,9 @@ export type CanvasEvent =
     | AssetEnterEvent
     | AssetClickEvent
     | AssetLeaveEvent
+    | PseudonymEnterEvent
+    | PseudonymClickEvent
+    | PseudonymLeaveEvent
     | ConnEnterEvent
     | ConnLeaveEvent
     | SlotDeleteEvent;
@@ -48,6 +51,18 @@ interface AssetClickEvent {
 }
 interface AssetLeaveEvent {
     type: 'asset-leave';
+    id: string;
+}
+interface PseudonymEnterEvent {
+    type: 'pseudonym-enter';
+    id: string;
+}
+interface PseudonymClickEvent {
+    type: 'pseudonym-click';
+    id: string;
+}
+interface PseudonymLeaveEvent {
+    type: 'pseudonym-leave';
     id: string;
 }
 
@@ -140,6 +155,29 @@ const asset = (e: AssetEl, dispatch: (e: CanvasEvent) => void) => (
     </g>
 );
 
+const pseudonym = (e: PseudonymEl, dispatch: (e: CanvasEvent) => void) => (
+    <g key={e.id} className={'pseudonym'}>
+        {/* Selection or hover */}
+        <circle cx={e.c[0]} cy={e.c[1]} r={e.selected || e.hovered ? e.r * 1.3 : 0} opacity={0.9} fill={'#fef4bd'} />
+
+        <circle cx={e.c[0]} cy={e.c[1]} r={e.r} fill={'#aaa'} />
+
+        {/* Pseudonym image */}
+        <image href={e.url} x={e.c[0] - e.r * 0.75} y={e.c[1] - e.r * 0.75} width={e.r * 1.5} />
+
+        <circle
+            cx={e.c[0]}
+            cy={e.c[1]}
+            style={{ cursor: 'pointer' }}
+            r={e.r * 1.2}
+            fill={'transparent'}
+            onClick={() => dispatch({ type: 'pseudonym-click', id: e.id })}
+            onMouseEnter={() => dispatch({ type: 'pseudonym-enter', id: e.id })}
+            onMouseLeave={() => dispatch({ type: 'pseudonym-leave', id: e.id })}
+        />
+    </g>
+);
+
 const spotlight = (e: Spotlight) => (
     <g style={{ pointerEvents: 'none' }}>
         <rect x={0} y={0} width={600} height={600} fill={'white'} />
@@ -177,6 +215,11 @@ export function SVGNetworkCanvas(props: Props) {
                         return connection(e, props.onEvent);
                     case 'asset':
                         return asset(e, props.onEvent);
+                    case 'pseudonym':
+                        return pseudonym(e, props.onEvent);
+                    default:
+                        // @ts-ignore
+                        throw new Error('Unrecognized type ' + e.type);
                 }
             })}
             {spotlightCover(600, 600)}
@@ -190,7 +233,7 @@ export interface Props {
     spotlight?: Spotlight;
 }
 
-export type CanvasElem = SlotEl | ActorEl | ConnectionEl | AssetEl;
+export type CanvasElem = SlotEl | ActorEl | ConnectionEl | AssetEl | PseudonymEl;
 
 export interface Spotlight {
     c: Vec;
@@ -209,6 +252,16 @@ export interface AssetEl {
     lit?: boolean;
     hovered?: boolean;
     numberOfChildren: number;
+}
+
+export interface PseudonymEl {
+    type: 'pseudonym';
+    id: string;
+    c: Vec;
+    r: number;
+    url: string;
+    selected?: boolean;
+    hovered?: boolean;
 }
 
 export interface ActorEl {

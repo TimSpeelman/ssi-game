@@ -7,6 +7,7 @@ import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ucFirst } from '../../../util/util';
 import { AttributeKnowledge } from '../../assets/data/abc/AttributeKnowledge';
+import { Pseudonym } from '../../assets/data/abc/Pseudonym';
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
@@ -52,9 +53,14 @@ export class Presentation extends Action<Props> {
         const props = this.evaluateProps(state);
         const subject = props.subject.actor;
         const verifier = props.verifier.actor;
+
+        const subjectNym: Pseudonym = props.subjectNym;
+        const verifierNym: Pseudonym = props.verifierNym;
         return {
             from: subject,
+            from_nym: subjectNym.defProps.image,
             to: verifier,
+            to_nym: verifierNym.defProps.image,
             to_mode: 'phone',
             description: {
                 NL: `Toon ${this.defProps.attributeName} credential`,

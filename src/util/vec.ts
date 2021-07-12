@@ -2,6 +2,7 @@
  * Tiny utility library for Vector math
  */
 import { round as rnd } from './util';
+const { pow } = Math;
 
 export type Vec = [number, number];
 export type Map = (v: Vec) => Vec;
@@ -48,3 +49,6 @@ export const scale = (scale: number): Map => map((c) => c * scale);
 export const round = (scale: number): Map => map((c) => rnd(c, scale));
 
 export const fractionOfLine = (from: Vec, to: Vec, fraction: number) => add(from, scale(fraction)(sub(to, from)));
+
+export const fractionOfQuadBezier = (p0: Vec, p1: Vec, p2: Vec, t: number) =>
+    add(p1, add(scale(pow(1 - t, 2))(sub(p0, p1)), scale(pow(t, 2))(sub(p2, p1))));

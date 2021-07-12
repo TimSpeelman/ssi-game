@@ -82,7 +82,9 @@ export class Issuance extends Action<Props> {
         return {
             from: issuer.actor,
             from_mode: 'issuing',
+            from_nym: issuerNym.defProps.image,
             to: subject.actor,
+            to_nym: subjectNym.defProps.image,
             to_mode: 'phone',
             description: {
                 NL: `Uitgave van ${this.defProps.attributeName} credential`,

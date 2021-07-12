@@ -2,6 +2,7 @@ import { DictionaryEN } from '../../../../intl/dictionaries/EN';
 import { DictionaryNL } from '../../../../intl/dictionaries/NL';
 import { AssetSchema, TypeOfAssetSchema } from '../../../../model/content/Asset/AssetSchema';
 import { AssetType } from '../../../../model/content/Asset/AssetType';
+import { StringProp } from '../../../../model/content/Common/Prop/StringProp';
 import { Asset, CustomAssetDesc } from '../../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../../model/logic/State/ScenarioState';
 import { CommonProps } from '../../../common/props';
@@ -15,6 +16,7 @@ const Schema = new AssetSchema({
     },
     props: {
         identifier: CommonProps.identifier,
+        image: new StringProp({ title: { NL: 'afbeelding', EN: 'image' } }),
     },
 });
 

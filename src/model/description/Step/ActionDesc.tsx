@@ -7,8 +7,10 @@ export interface ActionDesc {
     id: string;
     from: Actor;
     from_mode?: string;
+    from_nym?: string;
     to: Actor;
     to_mode?: string;
+    to_nym?: string;
     description: Translation;
     long?: Translation;
     sub: Translation;

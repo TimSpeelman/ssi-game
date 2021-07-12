@@ -8,6 +8,7 @@ import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ucFirst } from '../../../util/util';
 import { AttributeKnowledge } from '../../assets/data/abc/AttributeKnowledge';
 import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
+import { Pseudonym } from '../../assets/data/abc/Pseudonym';
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
@@ -51,11 +52,17 @@ export class WalletSMSAuthentication extends Action<Props> {
     }
 
     _describe(state: ScenarioState): CustomActionDesc {
+        const props = this.evaluateProps(state);
+
         const subject = state.props.byActor[this.defProps.subject].actor;
         const verifier = state.props.byActor[this.defProps.verifier].actor;
+
+        const subjectNym: Pseudonym = props.subjectNym;
         return {
-            from: verifier,
             to: subject,
+            to_nym: subjectNym.defProps.image,
+            from: verifier,
+
             description: {
                 NL: 'Authenticatie van wallet (pseudoniem) via SMS',
                 EN: 'Authentication of wallet (pseudonym) via SMS',

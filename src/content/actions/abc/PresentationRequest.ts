@@ -7,6 +7,7 @@ import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ucFirst } from '../../../util/util';
 import { AttributeRequest } from '../../assets/data/abc/AttributeRequest';
+import { Pseudonym } from '../../assets/data/abc/Pseudonym';
 import { Wallet } from '../../assets/software/Wallet';
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
@@ -54,9 +55,13 @@ export class PresentationRequest extends Action<Props> {
 
         const subject = props.subject.actor;
         const verifier = props.verifier.actor;
+        const subjectNym: Pseudonym = props.subjectNym;
+        const verifierNym: Pseudonym = props.verifierNym;
         return {
-            from: verifier,
             to: subject,
+            to_nym: subjectNym.defProps.image,
+            from: verifier,
+            from_nym: verifierNym.defProps.image,
             to_mode: 'phone',
             description: {
                 NL: `Vraag om ${this.defProps.attributeName} credential te tonen`,

@@ -39,4 +39,9 @@ export class StringProp implements IContentTypeProp<string, string> {
     evaluateDefinitionProp(key: string, defProps: any, state: ScenarioState): string {
         return defProps[key] as string;
     }
+
+    /** Validate whether the prop requirements are satisfied */
+    validateDefinitionProp(key: string, defProps: any, state: ScenarioState): Translation | undefined {
+        return undefined;
+    }
 }

@@ -40,34 +40,34 @@ export class PresentationConsent extends Action<Props> {
 
         const consent = new Consent(this.id + '1', {
             attributeName: this.defProps.attributeName,
-            verifier: props.verifier.actor.id,
+            verifier: props.verifier!.actor.id,
             subject: this.defProps.subjectNym,
         });
-        return [new GainAssetOutcome({ actorId: props.verifier.actor.id, asset: consent })];
+        return [new GainAssetOutcome({ actorId: props.verifier!.actor.id, asset: consent })];
     }
 
     _describe(state: ScenarioState): CustomActionDesc {
         const props = this.evaluateProps(state);
 
-        const subject = props.subject.actor;
-        const verifier = props.verifier.actor;
+        const subject = props.subject!.actor;
+        const verifier = props.verifier!.actor;
 
-        const subjectNym: Pseudonym = props.subjectNym;
-        const verifierNym: Pseudonym = props.verifierNym;
+        const subjectNym: Pseudonym | undefined = props.subjectNym;
+        const verifierNym: Pseudonym | undefined = props.verifierNym;
 
         return {
             from: subject,
-            from_nym: subjectNym.defProps.image,
+            from_nym: subjectNym?.defProps.image,
             to: verifier,
-            to_nym: verifierNym.defProps.image,
+            to_nym: verifierNym?.defProps.image,
             to_mode: 'phone',
             description: {
                 NL: `Geef toestemming om ${this.defProps.attributeName} credential te gebruiken`,
                 EN: `Consent to use ${this.defProps.attributeName} credential`,
             },
             sub: {
-                NL: `Subject: ${subjectNym.defProps.identifier}, Verifier: ${verifierNym.defProps.identifier}`,
-                EN: `Subject: ${subjectNym.defProps.identifier}, Verifier: ${verifierNym.defProps.identifier}`,
+                NL: `Subject: ${subjectNym?.defProps.identifier}, Verifier: ${verifierNym?.defProps.identifier}`,
+                EN: `Subject: ${subjectNym?.defProps.identifier}, Verifier: ${verifierNym?.defProps.identifier}`,
             },
             long: {
                 NL: `${ucFirst(subject.nounPhrase)} geeft ${verifier.nounPhrase} toestemming om het attribuut ${

@@ -12,5 +12,5 @@ export type DefTypesOfContentTypeProps<T extends ContentTypeProps> = {
 };
 
 export type EvaluatedTypeOfContentProps<T extends ContentTypeProps> = {
-    [K in keyof T]: EvaluatedTypeOfProp<T[K]>;
+    [K in keyof T]?: EvaluatedTypeOfProp<T[K]>;
 };

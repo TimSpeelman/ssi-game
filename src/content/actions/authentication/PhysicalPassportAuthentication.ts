@@ -57,6 +57,8 @@ export class PhysicalPassportAuthentication extends Action<Props> {
     computeOutcomes(state: ScenarioState): IOutcome[] {
         const props = this.evaluateProps(state);
 
+        if (!props.subjectPassport) return [];
+
         const passport: GovPassport = props.subjectPassport;
 
         const authResult = new AuthenticationResult(this.id + '1', {
@@ -69,8 +71,8 @@ export class PhysicalPassportAuthentication extends Action<Props> {
     _describe(state: ScenarioState): CustomActionDesc {
         const props = this.evaluateProps(state);
 
-        const subject = props.subject.actor;
-        const verifier = props.verifier.actor;
+        const subject = props.subject!.actor;
+        const verifier = props.verifier!.actor;
         return {
             from: verifier,
             to: subject,

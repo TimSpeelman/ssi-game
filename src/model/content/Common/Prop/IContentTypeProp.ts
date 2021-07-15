@@ -19,6 +19,9 @@ export interface IContentTypeProp<DefType, EvaluatedType> {
 
     /** Evaluate the property against the current scenario state */
     evaluateDefinitionProp(key: string, defProps: any, state: ScenarioState): EvaluatedType | undefined;
+
+    /** Validate whether the prop requirements are satisfied */
+    validateDefinitionProp(key: string, defProps: any, state: ScenarioState): Translation | undefined;
 }
 
 export type DefTypeOfProp<T extends IContentTypeProp<any, any>> = T extends IContentTypeProp<infer U, any> ? U : never;

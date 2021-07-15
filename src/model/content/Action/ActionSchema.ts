@@ -45,6 +45,10 @@ export class ActionSchema<Props extends ContentTypeProps> {
     evaluateDefinitionProps(defProps: any, state: ScenarioState): EvaluatedTypeOfContentProps<Props> {
         return this.props.evaluateDefinitionProps(defProps, state);
     }
+
+    validate(defProps: any, state: ScenarioState): Array<{ prop: string; error: Translation }> {
+        return this.props.validationDefinitionProps(defProps, state);
+    }
 }
 
 export type TypeOfActionSchema<T extends ActionSchema<any>> = T extends ActionSchema<infer U> ? U : never;

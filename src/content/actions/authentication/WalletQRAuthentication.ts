@@ -47,11 +47,11 @@ export class WalletQRAuthentication extends Action<Props> {
         const subject = state.props.byActor[this.defProps.subject].actor;
         const verifier = state.props.byActor[this.defProps.verifier].actor;
 
-        const subjectNym: Pseudonym = props.subjectNym;
+        const subjectNym: Pseudonym | undefined = props.subjectNym;
         return {
             from: verifier,
             to: subject,
-            to_nym: subjectNym.defProps.image,
+            to_nym: subjectNym?.defProps.image,
             to_mode: 'selfie',
             description: {
                 NL: 'Authenticatie van wallet (pseudoniem) via QR',

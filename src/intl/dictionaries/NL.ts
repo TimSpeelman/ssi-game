@@ -101,7 +101,7 @@ export const DictionaryNL: Dictionary = {
     titleEditStep: 'Stap Bewerken',
     labelStepType: 'Handeling',
 
-    networkCanvasPage_msgStepXFails: 'string',
+    networkCanvasPage_msgStepXFails: 'Scenario faalt bij stap {0}',
 
     app_msgConfirmClear: 'Weet je zeker dat je alles wilt wissen?',
     app_msgConfirmReset: 'Weet je zeker dat je alles terug wilt zetten?',

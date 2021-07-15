@@ -17,7 +17,7 @@ export class Scenario {
         // Cache the outcome and result computation.
         this.steps = steps.map((step, i) => {
             const computedStep = step.computeStep(state);
-            state = computedStep.props.postState;
+            state = computedStep.postState;
             return computedStep;
         });
     }
@@ -27,9 +27,9 @@ export class Scenario {
         if (index === 0) {
             return this.initial;
         } else if (index < this.steps.length) {
-            return this.steps[index].props.preState;
+            return this.steps[index].preState;
         } else if (index === this.steps.length) {
-            return this.steps[this.steps.length - 1].props.postState;
+            return this.steps[this.steps.length - 1].postState;
         } else {
             throw new Error('Provided state index ' + index + ' out of bounds');
         }
@@ -40,7 +40,7 @@ export class Scenario {
             initial: this.initial.describe(),
             definition: this.definition,
             steps: this.steps.map((s) => s.describe()),
-            failingAtIndex: this.steps.findIndex((s) => !s.hasSucceeded()),
+            failingAtIndex: this.steps.findIndex((s) => !s.succeeds),
         };
     }
 }

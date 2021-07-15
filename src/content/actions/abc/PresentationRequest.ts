@@ -39,7 +39,10 @@ export class PresentationRequest extends Action<Props> {
     computeOutcomes(state: ScenarioState): IOutcome[] {
         const props = this.evaluateProps(state);
 
-        const subjectWallet = props.subject.assets.find((a) => a instanceof Wallet);
+        const subjectWallet = props.subject!.assets.find((a) => a instanceof Wallet);
+
+        if (!subjectWallet) return [];
+
         const req = new AttributeRequest(this.id + '1', {
             // @ts-ignore TODO FIXME
             parentId: subjectWallet?.id,
@@ -53,23 +56,23 @@ export class PresentationRequest extends Action<Props> {
     _describe(state: ScenarioState): CustomActionDesc {
         const props = this.evaluateProps(state);
 
-        const subject = props.subject.actor;
-        const verifier = props.verifier.actor;
-        const subjectNym: Pseudonym = props.subjectNym;
-        const verifierNym: Pseudonym = props.verifierNym;
+        const subject = props.subject!.actor;
+        const verifier = props.verifier!.actor;
+        const subjectNym: Pseudonym | undefined = props.subjectNym;
+        const verifierNym: Pseudonym | undefined = props.verifierNym;
         return {
             to: subject,
-            to_nym: subjectNym.defProps.image,
+            to_nym: subjectNym?.defProps.image,
             from: verifier,
-            from_nym: verifierNym.defProps.image,
+            from_nym: verifierNym?.defProps.image,
             to_mode: 'phone',
             description: {
                 NL: `Vraag om "${this.defProps.attributeName}" credential te tonen`,
                 EN: `Request for presentation of "${this.defProps.attributeName}" credential`,
             },
             sub: {
-                NL: `Subject: ${subjectNym.defProps.identifier}, Verifier: ${verifierNym.defProps.identifier}`,
-                EN: `Subject: ${subjectNym.defProps.identifier}, Verifier: ${verifierNym.defProps.identifier}`,
+                NL: `Subject: ${subjectNym?.defProps.identifier}, Verifier: ${verifierNym?.defProps.identifier}`,
+                EN: `Subject: ${subjectNym?.defProps.identifier}, Verifier: ${verifierNym?.defProps.identifier}`,
             },
             long: {
                 NL: `${ucFirst(verifier.nounPhrase)} verzoekt ${subject.nounPhrase} om het attribuut "${

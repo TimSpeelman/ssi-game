@@ -42,6 +42,8 @@ export class Presentation extends Action<Props> {
     computeOutcomes(state: ScenarioState): IOutcome[] {
         const { verifier, attribute } = this.evaluateProps(state);
 
+        if (!attribute) return [];
+
         const attrProof: AttributeProof = attribute;
 
         const attr = new AttributeKnowledge(this.id + '1', {
@@ -50,37 +52,37 @@ export class Presentation extends Action<Props> {
             subject: this.defProps.subjectNym,
             attributeValue: attrProof.defProps.attributeValue,
         });
-        return [new GainAssetOutcome({ actorId: verifier.actor.id, asset: attr })];
+        return [new GainAssetOutcome({ actorId: verifier!.actor.id, asset: attr })];
     }
 
     _describe(state: ScenarioState): CustomActionDesc {
         const props = this.evaluateProps(state);
-        const subject = props.subject.actor;
-        const verifier = props.verifier.actor;
+        const subject = props.subject!.actor;
+        const verifier = props.verifier!.actor;
 
-        const subjectNym: Pseudonym = props.subjectNym;
-        const verifierNym: Pseudonym = props.verifierNym;
-        const attrProof: AttributeProof = props.attribute;
+        const subjectNym: Pseudonym | undefined = props.subjectNym;
+        const verifierNym: Pseudonym | undefined = props.verifierNym;
+        const attrProof: AttributeProof | undefined = props.attribute;
 
         return {
             from: subject,
-            from_nym: subjectNym.defProps.image,
+            from_nym: subjectNym?.defProps.image,
             to: verifier,
-            to_nym: verifierNym.defProps.image,
+            to_nym: verifierNym?.defProps.image,
             to_mode: 'phone',
             description: {
-                NL: `Toon "${attrProof.defProps.attributeName}" credential`,
-                EN: `Present "${attrProof.defProps.attributeName}" credential`,
+                NL: `Toon "${attrProof?.defProps.attributeName}" credential`,
+                EN: `Present "${attrProof?.defProps.attributeName}" credential`,
             },
             sub: {
-                NL: `Subject: ${subjectNym.defProps.identifier}, Verifier: ${verifierNym.defProps.identifier}`,
-                EN: `Subject: ${subjectNym.defProps.identifier}, Verifier: ${verifierNym.defProps.identifier}`,
+                NL: `Subject: ${subjectNym?.defProps.identifier}, Verifier: ${verifierNym?.defProps.identifier}`,
+                EN: `Subject: ${subjectNym?.defProps.identifier}, Verifier: ${verifierNym?.defProps.identifier}`,
             },
             long: {
-                NL: `${ucFirst(subject.nounPhrase)} toont het "${attrProof.defProps.attributeName}" credential aan ${
+                NL: `${ucFirst(subject.nounPhrase)} toont het "${attrProof?.defProps.attributeName}" credential aan ${
                     verifier.nounPhrase
                 }.`,
-                EN: `${ucFirst(subject.nounPhrase)} presents the "${attrProof.defProps.attributeName}" credential to ${
+                EN: `${ucFirst(subject.nounPhrase)} presents the "${attrProof?.defProps.attributeName}" credential to ${
                     verifier.nounPhrase
                 }.`,
             },

@@ -20,7 +20,7 @@ export class AssetTypesCollection {
 
     deserialize(s: AssetDef<any>): Asset<any> {
         const type = this.requireTypeByName(s.typeName);
-        return type.factory(s.id, s.props);
+        return type.factory(s.id, s.props, true);
     }
 
     listTypeNames(): string[] {

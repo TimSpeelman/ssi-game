@@ -9,6 +9,7 @@ export interface ActorPropOptions {
     dependsOn?: string[];
     filter?: (a: ActorState, formData: any) => boolean;
     autoFill?: boolean;
+    required?: Translation;
 }
 
 export class ActorProp implements IContentTypeProp<string, ActorState> {
@@ -62,5 +63,12 @@ export class ActorProp implements IContentTypeProp<string, ActorState> {
     evaluateDefinitionProp(key: string, defProps: any, state: ScenarioState): ActorState | undefined {
         const actorId = defProps[key] as string;
         return state.props.byActor[actorId];
+    }
+
+    /** Validate whether the prop requirements are satisfied */
+    validateDefinitionProp(key: string, defProps: any, state: ScenarioState): Translation | undefined {
+        if (this.options.required && (!defProps[key] || !this.evaluateDefinitionProp(key, defProps, state))) {
+            return this.options.required;
+        }
     }
 }

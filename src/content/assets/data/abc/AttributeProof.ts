@@ -36,8 +36,8 @@ export class AttributeProof extends Asset<Props> {
                 EN: 'Credential ' + this.defProps.attributeName,
             },
             sub: {
-                NL: 'Uitgegeven door ' + issuer.actor.name,
-                EN: 'Issued by ' + issuer.actor.name,
+                NL: 'Uitgegeven door ' + issuer!.actor.name,
+                EN: 'Issued by ' + issuer!.actor.name,
             },
             transferrable: false,
             cloneable: true,

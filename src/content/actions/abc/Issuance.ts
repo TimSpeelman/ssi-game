@@ -3,6 +3,7 @@ import { ActionType } from '../../../model/content/Action/ActionType';
 import { Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action, CustomActionDesc } from '../../../model/logic/Step/Action';
+import { ComputedStep } from '../../../model/logic/Step/ComputedStep';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ucFirst } from '../../../util/util';
@@ -57,7 +58,7 @@ export class Issuance extends Action<Props> {
     computeOutcomes(state: ScenarioState): IOutcome[] {
         const { subject } = this.evaluateProps(state);
 
-        const subjectWallet = subject.assets.find((a) => a instanceof Wallet);
+        const subjectWallet = subject!.assets.find((a) => a instanceof Wallet);
         const attr = new AttributeProof(this.id + '1', {
             // @ts-ignore TODO FIXME
             parentId: subjectWallet?.id,
@@ -66,40 +67,40 @@ export class Issuance extends Action<Props> {
             issuer: this.defProps.issuer,
             subject: this.defProps.subject,
         });
-        return [new GainAssetOutcome({ actorId: subject.actor.id, asset: attr })];
+        return [new GainAssetOutcome({ actorId: subject!.actor.id, asset: attr })];
     }
 
-    _describe(state: ScenarioState): CustomActionDesc {
+    _describe(state: ScenarioState, step: ComputedStep): CustomActionDesc {
         const { subject, issuer, ...props } = this.evaluateProps(state);
 
-        console.log(props, this.defProps);
+        const { preState } = step;
 
         // const subject = state.props.byActor[this.props.subjectId].actor;
         // const issuer = state.props.byActor[this.props.issuerId].actor;
-        const subjectNym: Pseudonym = props.subjectNym;
-        const issuerNym: Pseudonym = props.issuerNym;
+        const subjectNym: Pseudonym | undefined = props.subjectNym;
+        const issuerNym: Pseudonym | undefined = props.issuerNym;
 
         return {
-            from: issuer.actor,
+            from: issuer!.actor,
             from_mode: 'issuing',
-            from_nym: issuerNym.defProps.image,
-            to: subject.actor,
-            to_nym: subjectNym.defProps.image,
+            from_nym: issuerNym?.defProps.image,
+            to: subject!.actor,
+            to_nym: subjectNym?.defProps.image,
             to_mode: 'phone',
             description: {
                 NL: `Uitgave van "${this.defProps.attributeName}" credential`,
                 EN: `Issuance of "${this.defProps.attributeName}" credential`,
             },
             sub: {
-                NL: `Subject: ${subjectNym.defProps.identifier}, Issuer: ${issuerNym.defProps.identifier}`,
-                EN: `Subject: ${subjectNym.defProps.identifier}, Issuer: ${issuerNym.defProps.identifier}`,
+                NL: `Subject: ${subjectNym?.defProps.identifier}, Issuer: ${issuerNym?.defProps.identifier}`,
+                EN: `Subject: ${subjectNym?.defProps.identifier}, Issuer: ${issuerNym?.defProps.identifier}`,
             },
             long: {
-                NL: `${ucFirst(issuer.actor.nounPhrase)} geeft een "${
+                NL: `${ucFirst(issuer!.actor.nounPhrase)} geeft een "${
                     this.defProps.attributeName
-                }" credential uit aan ${subject.actor.nounPhrase}.`,
-                EN: `${ucFirst(issuer.actor.nounPhrase)} issues a "${this.defProps.attributeName}" credential to ${
-                    subject.actor.nounPhrase
+                }" credential uit aan ${subject!.actor.nounPhrase}.`,
+                EN: `${ucFirst(issuer!.actor.nounPhrase)} issues a "${this.defProps.attributeName}" credential to ${
+                    subject!.actor.nounPhrase
                 }.`,
             },
             locality: Locality.REMOTE,

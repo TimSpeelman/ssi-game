@@ -40,7 +40,7 @@ export class Revocation extends Action<Props> {
     computeOutcomes(state: ScenarioState): IOutcome[] {
         const props = this.evaluateProps(state);
 
-        const subjectWallet = props.subject.assets.find((a) => a instanceof Wallet);
+        const subjectWallet = props.subject!.assets.find((a) => a instanceof Wallet);
         const attr = new AttributeRevocation(this.id + '1', {
             // @ts-ignore TODO FIXME
             parentId: subjectWallet?.id,
@@ -54,8 +54,8 @@ export class Revocation extends Action<Props> {
     _describe(state: ScenarioState): CustomActionDesc {
         const props = this.evaluateProps(state);
 
-        const subject = props.subject.actor;
-        const issuer = props.issuer.actor;
+        const subject = props.subject!.actor;
+        const issuer = props.issuer!.actor;
         return {
             from: issuer,
             to: subject,

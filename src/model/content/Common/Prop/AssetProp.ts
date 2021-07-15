@@ -10,6 +10,7 @@ export interface AssetPropOptions {
     dependsOn?: string[];
     filter?: (a: AssetTreeNode, formData: any) => boolean;
     autoFill?: boolean;
+    required?: Translation;
 }
 
 export class AssetProp implements IContentTypeProp<string, Asset<any>> {
@@ -66,5 +67,12 @@ export class AssetProp implements IContentTypeProp<string, Asset<any>> {
             .map((a) => a.assets)
             .reduce((a, b) => [...a, ...b], []);
         return assets.find((a) => a.id === assetId);
+    }
+
+    /** Validate whether the prop requirements are satisfied */
+    validateDefinitionProp(key: string, defProps: any, state: ScenarioState): Translation | undefined {
+        if (this.options.required && (!defProps[key] || !this.evaluateDefinitionProp(key, defProps, state))) {
+            return this.options.required;
+        }
     }
 }

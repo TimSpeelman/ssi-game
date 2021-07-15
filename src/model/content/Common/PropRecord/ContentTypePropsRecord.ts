@@ -1,3 +1,4 @@
+import { Translation } from '../../../../intl/Language';
 import { mapValues } from '../../../../util/util';
 import { ScenarioState } from '../../../logic/State/ScenarioState';
 import { Field } from '../View/Field';
@@ -28,5 +29,17 @@ export class ContentTypePropsRecord<Props extends ContentTypeProps> {
     evaluateDefinitionProps(defProps: any, state: ScenarioState): EvaluatedTypeOfContentProps<Props> {
         // @ts-ignore
         return mapValues(this.props, (def, key) => def.evaluateDefinitionProp(key, defProps, state));
+    }
+
+    /** Parses the entire form data. */
+    validationDefinitionProps(defProps: any, state: ScenarioState): Array<{ prop: string; error: Translation }> {
+        // @ts-ignore
+        return Object.entries(this.props)
+            .map(([key, def]) => {
+                const error = def.validateDefinitionProp(key, defProps, state);
+
+                return error === undefined ? undefined : { prop: key, error: error };
+            })
+            .filter((r) => r !== undefined);
     }
 }

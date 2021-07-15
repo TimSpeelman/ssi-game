@@ -1,6 +1,6 @@
 import { StepDesc } from '../../description/Step/StepDesc';
 import { ScenarioState } from '../State/ScenarioState';
-import { Action } from './Action';
+import { Action, ActionStatus } from './Action';
 import { IOutcome } from './IOutcome';
 import { IValidationResult } from './IValidationResult';
 
@@ -8,29 +8,44 @@ import { IValidationResult } from './IValidationResult';
  * A computed step collects the results of an Action occurring during a particular (pre) state,
  * resulting in some outcomes that produce a new state.
  */
-export class ComputedStep {
-    constructor(readonly props: Props) {}
+export class ComputedStep implements Props {
+    readonly action: Action<any>;
+    readonly outcomes: IOutcome[];
+    readonly postState: ScenarioState;
+    readonly preState: ScenarioState;
+    readonly status: ActionStatus;
+    readonly validation: IValidationResult[];
 
-    hasSucceeded() {
-        return this.props.validation.every((v) => v.success);
+    constructor(props: Props) {
+        this.action = props.action;
+        this.outcomes = props.outcomes;
+        this.postState = props.postState;
+        this.preState = props.preState;
+        this.status = props.status;
+        this.validation = props.validation;
+    }
+
+    get succeeds() {
+        return !!this.status.dependenciesAreValid && !!this.status.preConditionsAreMet;
     }
 
     describe(): StepDesc {
         return {
-            success: this.hasSucceeded(),
-            active: this.props.preState.props.valid,
-            action: this.props.action.describe(this.props.preState),
-            validation: this.props.validation.map((v) => v.describe(this.props.preState)),
-            outcomes: this.props.outcomes.map((o) => o.describe(this.props.preState)),
-            result: this.props.postState.describe(),
+            action: this.action.describe(this.preState, this),
+            active: this.status.scenarioIsValidBeforeStep,
+            outcomes: this.outcomes.map((o) => o.describe(this.preState)),
+            result: this.postState.describe(),
+            success: !!this.status.dependenciesAreValid && !!this.status.preConditionsAreMet,
+            validation: this.validation.map((v) => v.describe(this.preState)),
         };
     }
 }
 
 export interface Props {
-    preState: ScenarioState;
     action: Action<any>;
-    validation: IValidationResult[];
     outcomes: IOutcome[];
     postState: ScenarioState;
+    preState: ScenarioState;
+    status: ActionStatus;
+    validation: IValidationResult[];
 }

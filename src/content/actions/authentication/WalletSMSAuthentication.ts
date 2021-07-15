@@ -57,10 +57,10 @@ export class WalletSMSAuthentication extends Action<Props> {
         const subject = state.props.byActor[this.defProps.subject].actor;
         const verifier = state.props.byActor[this.defProps.verifier].actor;
 
-        const subjectNym: Pseudonym = props.subjectNym;
+        const subjectNym: Pseudonym | undefined = props.subjectNym;
         return {
             to: subject,
-            to_nym: subjectNym.defProps.image,
+            to_nym: subjectNym?.defProps.image,
             from: verifier,
 
             description: {

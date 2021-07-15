@@ -41,6 +41,9 @@ export class Handover extends Action<Props> {
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
         const props = this.evaluateProps(state);
+
+        if (!props.asset) return [];
+
         return [
             new TransferAssetOutcome({
                 sourceActorId: this.defProps.from,
@@ -52,14 +55,15 @@ export class Handover extends Action<Props> {
 
     _describe(state: ScenarioState): CustomActionDesc {
         const props = this.evaluateProps(state);
+
         return {
             from: state.props.byActor[this.defProps.from].actor,
             to: state.props.byActor[this.defProps.to].actor,
             description: {
-                NL: 'Overdracht van ' + props.asset.describe(state).title.NL,
-                EN: 'Handover of ' + props.asset.describe(state).title.EN,
+                NL: 'Overdracht van ' + props.asset?.describe(state).title.NL,
+                EN: 'Handover of ' + props.asset?.describe(state).title.EN,
             },
-            sub: props.asset.describe(state).title,
+            sub: props.asset?.describe(state).title || { NL: '', EN: '' },
             locality: Locality.REMOTE,
         };
     }

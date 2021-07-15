@@ -43,7 +43,7 @@ export function StepInspector({ step }: Props) {
                         {step.validation
                             .filter((v) => !v.success)
                             .map((v, i) => (
-                                <li key={i}>{v.message}</li>
+                                <li key={i}>{v.message[lang]}</li>
                             ))}
                     </ul>
                 </Fragment>

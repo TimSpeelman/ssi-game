@@ -13,4 +13,5 @@ export interface AssetDesc<Props = any> {
     title: Translation;
     sub?: Translation;
     long?: Translation;
+    iconUrl?: string;
 }

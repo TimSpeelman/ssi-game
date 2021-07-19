@@ -58,6 +58,11 @@ export function AssetInspector() {
                     background: '#eee',
                 }}
             >
+                {asset.asset.iconUrl ? (
+                    <img src={asset.asset.iconUrl} style={{ height: '5rem', marginRight: '1rem' }} />
+                ) : (
+                    ''
+                )}
                 <div style={{ flexGrow: 1 }}>
                     <Typography variant="h6">{asset.asset.title[lang]}</Typography>
                 </div>

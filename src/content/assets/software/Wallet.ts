@@ -2,6 +2,7 @@ import { AssetSchema, TypeOfAssetSchema } from '../../../model/content/Asset/Ass
 import { AssetType } from '../../../model/content/Asset/AssetType';
 import { Asset, CustomAssetDesc } from '../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
+import iconUrl from '../../images/wallet.png';
 
 const Schema = new AssetSchema({
     typeName: 'Wallet',
@@ -23,6 +24,7 @@ export class Wallet extends Asset<Props> {
             canHaveChildren: true,
             transferrable: true,
             cloneable: false, // TODO is it?
+            iconUrl: iconUrl,
         };
     }
 }

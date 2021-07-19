@@ -142,6 +142,10 @@ const asset = (e: AssetEl, dispatch: (e: CanvasEvent) => void) => (
                 {e.numberOfChildren}
             </text>
         )}
+
+        {/* Actor image */}
+        {e.url && <image href={e.url} x={e.c[0] - e.r} y={e.c[1] - e.r} width={e.r * 2} opacity={0.9} />}
+
         <circle
             cx={e.c[0]}
             cy={e.c[1]}

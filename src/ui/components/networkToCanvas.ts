@@ -161,7 +161,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
     );
 
     // The assets
-    const assetRadius = 10;
+    const assetRadius = 20;
     const assets = actors.reduce((all, actor, actorIndex): AssetEl[] => {
         const assets = props.state.actors[actor.id].assetTrees;
         const numAssets = assets.length;
@@ -183,7 +183,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
                 id: a.asset.id,
                 lit: false,
                 r: assetRadius,
-                url: '',
+                url: a.asset.iconUrl || '',
                 numberOfChildren: a.children.length,
             }),
         );

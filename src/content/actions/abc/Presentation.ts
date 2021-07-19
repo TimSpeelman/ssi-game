@@ -23,7 +23,6 @@ export const Schema = new ActionSchema({
         verifierNym: CommonProps.verifierNym,
         subject: CommonProps.subject,
         subjectNym: CommonProps.subjectNym,
-        issuerNym: CommonProps.issuerNym,
         attribute: CommonProps.attributeProof,
         // attributeName: CommonProps.attributeName,
         // attributeValue: CommonProps.attributeValue,
@@ -48,7 +47,7 @@ export class Presentation extends Action<Props> {
 
         const attr = new AttributeKnowledge(this.id + '1', {
             attributeName: attrProof.defProps.attributeName,
-            issuer: this.defProps.issuerNym,
+            issuer: attrProof.defProps.issuer,
             subject: this.defProps.subjectNym,
             attributeValue: attrProof.defProps.attributeValue,
         });

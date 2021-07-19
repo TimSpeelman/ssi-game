@@ -1,3 +1,4 @@
+import { pseudonymImage } from '../../../../config/pseudonymImage';
 import { DictionaryEN } from '../../../../intl/dictionaries/EN';
 import { DictionaryNL } from '../../../../intl/dictionaries/NL';
 import { AssetSchema, TypeOfAssetSchema } from '../../../../model/content/Asset/AssetSchema';
@@ -16,7 +17,7 @@ const Schema = new AssetSchema({
     },
     props: {
         identifier: CommonProps.identifier,
-        image: new StringProp({ title: { NL: 'afbeelding', EN: 'image' } }),
+        image: new StringProp({ title: { NL: 'Afbeelding', EN: 'Image' } }),
     },
 });
 
@@ -33,6 +34,7 @@ export class Pseudonym extends Asset<Props> {
             },
             transferrable: false,
             cloneable: true,
+            iconUrl: pseudonymImage(this.defProps.image),
         };
     }
 }

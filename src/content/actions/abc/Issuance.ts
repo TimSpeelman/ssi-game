@@ -66,6 +66,8 @@ export class Issuance extends Action<Props> {
             attributeValue: this.defProps.attributeValue,
             issuer: this.defProps.issuer,
             subject: this.defProps.subject,
+            issuerNym: this.defProps.issuerNym,
+            subjectNym: this.defProps.subjectNym,
         });
         return [new GainAssetOutcome({ actorId: subject!.actor.id, asset: attr })];
     }

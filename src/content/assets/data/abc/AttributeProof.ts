@@ -13,7 +13,9 @@ const Schema = new AssetSchema({
     },
     props: {
         subject: CommonProps.subject,
+        subjectNym: CommonProps.subjectNym,
         issuer: CommonProps.issuer,
+        issuerNym: CommonProps.issuerNym,
         attributeName: CommonProps.attributeName,
         attributeValue: CommonProps.attributeValue,
     },

@@ -427,6 +427,10 @@ const images = {
 export type ImgName = keyof typeof images;
 
 export function pseudonymImage(name: string): string {
-    if (!(name in images)) throw new Error('Unknown image with name ' + name);
+    // if (!(name in images)) throw new Error('Unknown image with name ' + name);
+    if (!(name in images)) {
+        console.error('Unknown image with name ' + name);
+        return '';
+    }
     return images[name as ImgName];
 }

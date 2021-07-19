@@ -61,6 +61,7 @@ export function AssetInspector() {
                 <div style={{ flexGrow: 1 }}>
                     <Typography variant="h6">{asset.asset.title[lang]}</Typography>
                 </div>
+
                 {asset.asset.isInitial && (
                     <Button
                         onClick={() => openDialog('EditAsset', { actorId: asset.ownerId, assetId: asset.asset.id })}
@@ -69,6 +70,8 @@ export function AssetInspector() {
                     </Button>
                 )}
             </div>
+
+            {asset.asset.long ? <p>{asset.asset.long[lang]}</p> : ''}
 
             {data.map(([prop, field]) =>
                 !field ? (

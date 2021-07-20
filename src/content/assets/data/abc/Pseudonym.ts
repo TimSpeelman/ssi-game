@@ -11,7 +11,11 @@ import { ucFirst } from '../../../../util/util';
 import { CommonProps } from '../../../common/props';
 import { pseudonyms } from '../../pseudonyms';
 
-const images = pseudonyms.map((p) => ({ id: p, imageUrl: pseudonymImage(p), title: uniLang(ucFirst(p)) }));
+const images = pseudonyms.map((p) => ({
+    id: p,
+    imageUrl: pseudonymImage(p),
+    title: uniLang(ucFirst(p).replace('_', ' ')),
+}));
 
 const Schema = new AssetSchema({
     typeName: 'Pseudonym',

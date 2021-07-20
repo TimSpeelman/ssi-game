@@ -51,11 +51,11 @@ export const DictionaryNL: Dictionary = {
     assets: 'Assets',
     btnAddAsset: 'Asset Toevoegen',
 
-    kindFeature: 'Kenmerk',
-    kindData: 'Gegevens',
-    kindPhysical: 'Fysieke Zaken',
-    kindSoftware: 'Software',
-    kindFlag: 'Vlaggen',
+    kindFeature: 'Kenmerken',
+    kindData: 'Gegevens in bezit',
+    kindPhysical: 'Fysieke Zaken in bezit',
+    kindSoftware: 'Software in bezit',
+    kindFlag: 'Vlaggen in bezit',
 
     titleActors: 'Actoren',
     btnAddActor: 'Actor Toevoegen',

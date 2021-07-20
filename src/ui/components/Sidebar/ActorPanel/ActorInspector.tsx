@@ -72,22 +72,24 @@ export function ActorInspector() {
                 </Button>
             </div>
 
-            <table style={{ width: '100%' }}>
-                <thead>
-                    <tr>
-                        <th style={{ textAlign: 'left' }}>Eigenschap</th>
-                        <th style={{ textAlign: 'left' }}>Waarde</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {definition.properties.map(([key, val], index) => (
-                        <tr key={index}>
-                            <td>{key}</td>
-                            <td>{val}</td>
+            {definition.properties.length > 0 && (
+                <table style={{ width: '100%' }}>
+                    <thead>
+                        <tr>
+                            <th style={{ textAlign: 'left' }}>Eigenschap</th>
+                            <th style={{ textAlign: 'left' }}>Waarde</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {definition.properties.map(([key, val], index) => (
+                            <tr key={index}>
+                                <td>{key}</td>
+                                <td>{val}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            )}
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                 <Typography variant="h6">

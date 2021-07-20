@@ -2,12 +2,14 @@ import React from 'react';
 import { Field } from '../../../model/content/Common/View/Field';
 import { ActorFormControl } from './ActorFormControl';
 import { AssetFormControl } from './AssetFormControl';
+import { ImageSelectFormControl } from './ImageSelectFormControl';
 import { StringFormControl } from './StringFormControl';
 
 const formControls = {
     string: StringFormControl,
     asset: AssetFormControl,
     actor: ActorFormControl,
+    'image-select': ImageSelectFormControl,
 };
 
 export interface Props {

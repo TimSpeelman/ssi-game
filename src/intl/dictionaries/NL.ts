@@ -52,7 +52,7 @@ export const DictionaryNL: Dictionary = {
     btnAddAsset: 'Asset Toevoegen',
 
     kindFeature: 'Kenmerken',
-    kindData: 'Gegevens in bezit',
+    kindData: 'Gegevens/kennis in bezit',
     kindPhysical: 'Fysieke Zaken in bezit',
     kindSoftware: 'Software in bezit',
     kindFlag: 'Vlaggen in bezit',

@@ -92,8 +92,8 @@ const actors: ActorConfig[] = [
             new AttributeProof(
                 'proof1',
                 {
-                    subject: Subject.id,
-                    issuer: Government.id,
+                    // subject: Subject.id,
+                    // issuer: Government.id,
                     attributeName: 'attr',
                     attributeValue: 'val',
                     // @ts-ignore TODO FIXME

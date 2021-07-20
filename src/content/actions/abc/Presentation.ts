@@ -47,7 +47,7 @@ export class Presentation extends Action<Props> {
 
         const attr = new AttributeKnowledge(this.id + '1', {
             attributeName: attrProof.defProps.attributeName,
-            issuer: attrProof.defProps.issuer,
+            issuer: attrProof.defProps.issuerNym, // TODO FIXME
             subject: this.defProps.subjectNym,
             attributeValue: attrProof.defProps.attributeValue,
         });

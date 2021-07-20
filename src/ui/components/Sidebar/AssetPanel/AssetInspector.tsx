@@ -8,6 +8,7 @@ import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectSelectedAssetNode, selectUsedActors } from '../../../../state/scenario/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
+import { replaceInternalResourceUrlStrings } from '../../replaceInternalResourceUrlStrings';
 import { SidebarTab } from '../SidebarTab';
 import { AssetList } from './AssetList';
 
@@ -76,17 +77,13 @@ export function AssetInspector() {
                 )}
             </div>
 
-            {asset.asset.long ? <p>{asset.asset.long[lang]}</p> : ''}
+            {asset.asset.long ? <p>{replaceInternalResourceUrlStrings(asset.asset.long[lang])}</p> : ''}
 
-            {data.map(([prop, field]) =>
-                !field ? (
-                    ''
-                ) : (
-                    <div key={prop}>
-                        <strong>{field.title[lang]}: </strong> {asset.asset.props[prop] || ''}
-                    </div>
-                ),
-            )}
+            {asset.asset.propertyDesc.map(({ title, value }, i) => (
+                <div key={i}>
+                    <strong>{title[lang]}: </strong> {value[lang]}
+                </div>
+            ))}
 
             {asset.asset.canHaveChildren && (
                 <Fragment>

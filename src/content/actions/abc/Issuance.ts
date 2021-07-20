@@ -68,8 +68,8 @@ export class Issuance extends Action<Props> {
             parentId: subjectWallet?.id,
             attributeName: this.defProps.attributeName,
             attributeValue: this.defProps.attributeValue,
-            issuer: this.defProps.issuer,
-            subject: this.defProps.subject,
+            // issuer: this.defProps.issuer,
+            // subject: this.defProps.subject,
             issuerNym: this.defProps.issuerNym,
             subjectNym: this.defProps.subjectNym,
         });

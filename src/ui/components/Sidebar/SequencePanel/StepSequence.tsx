@@ -34,6 +34,11 @@ export function StepSequence() {
         dispatch(ScenarioActions.GOTO_STEP({ id }));
     }
 
+    function handleDoubleClick(id: string) {
+        dispatch(ScenarioActions.GOTO_STEP({ id }));
+        dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.STEP }));
+    }
+
     function handleReorder(sourceIndex: number, targetIndex: number) {
         dispatch(ScenarioActions.REORDER_STEP({ sourceIndex, targetIndex }));
     }
@@ -104,6 +109,7 @@ export function StepSequence() {
                                                     'step-inactive': !step.active,
                                                 })}
                                                 onClick={() => handleClick(step.action.id)}
+                                                onDoubleClick={() => handleDoubleClick(step.action.id)}
                                             >
                                                 {/* <strong style={{ marginRight: '1rem' }}>Stap </strong> */}
                                                 <div style={{ width: '3rem', flexShrink: 0, flexGrow: 0 }}>

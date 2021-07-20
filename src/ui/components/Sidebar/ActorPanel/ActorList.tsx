@@ -8,7 +8,11 @@ import { actorImage } from '../../../../config/actorImage';
 import { ActorConfig } from '../../../../model/definition/Actor/ActorConfig';
 import { ScenarioDef } from '../../../../model/definition/ScenarioDef';
 import { ScenarioActions } from '../../../../state/scenario/actions';
-import { selectIdsOfInvolvedActors, selectScenarioDef } from '../../../../state/scenario/selectors';
+import {
+    selectHighlightedResource,
+    selectIdsOfInvolvedActors,
+    selectScenarioDef,
+} from '../../../../state/scenario/selectors';
 import { reorder } from '../../../../util/util';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
@@ -20,6 +24,10 @@ export function ActorList() {
     const scenarioDef = useSelector(selectScenarioDef);
     const { openDialog } = useDialog();
     const { meta, actors } = scenarioDef;
+
+    const highlightedResource = useSelector(selectHighlightedResource);
+    const onMouseEnter = (id: string) => dispatch(ScenarioActions.HIGHLIGHT_RESOURCE({ resourceId: id }));
+    const onMouseLeave = (id: string) => dispatch(ScenarioActions.UNHIGHLIGHT_RESOURCE({ resourceId: id }));
 
     // Actor Setters
     const canRemoveActor = (id: string) => !(id in involvedActors);
@@ -58,6 +66,9 @@ export function ActorList() {
                                                 {...provided.dragHandleProps}
                                                 innerRef={provided.innerRef}
                                                 button
+                                                selected={highlightedResource === actor.definition.id}
+                                                onMouseEnter={() => onMouseEnter(actor.definition.id)}
+                                                onMouseLeave={() => onMouseLeave(actor.definition.id)}
                                                 onClick={() =>
                                                     dispatch(ScenarioActions.SELECT_ACTOR({ id: actor.definition.id }))
                                                 }

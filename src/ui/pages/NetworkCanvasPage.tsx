@@ -2,7 +2,7 @@ import { Fab } from '@material-ui/core';
 import NavigateBefore from '@material-ui/icons/NavigateBefore';
 import NavigateNext from '@material-ui/icons/NavigateNext';
 import { useSnackbar } from 'notistack';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ScenarioActions } from '../../state/scenario/actions';
 import {
@@ -43,8 +43,6 @@ export function NetworkCanvas() {
 
     const scenarioDesc = useSelector(selectScenarioDesc);
 
-    const [hoveredElemId, setHoveredElemId] = useState('');
-
     useEffect(() => {
         closeSnackbar();
         if (currentStep && snackbarIsOn) {
@@ -73,21 +71,21 @@ export function NetworkCanvas() {
     const handleEvent = (ev: CanvasEvent) => {
         switch (ev.type) {
             case 'slot-enter':
-                return setHoveredElemId(ev.id);
+                return dispatch(ScenarioActions.HIGHLIGHT_RESOURCE({ resourceId: ev.id }));
             case 'slot-leave':
-                return hoveredElemId === ev.id ? setHoveredElemId('') : null;
+                return dispatch(ScenarioActions.UNHIGHLIGHT_RESOURCE({ resourceId: ev.id }));
             case 'slot-click':
                 return handleClickActor(ev.id);
             case 'asset-enter':
-                return setHoveredElemId(ev.id);
+                return dispatch(ScenarioActions.HIGHLIGHT_RESOURCE({ resourceId: ev.id }));
             case 'asset-click':
                 return handleClickAsset(ev.id);
             case 'asset-leave':
-                return hoveredElemId === ev.id ? setHoveredElemId('') : null;
+                return dispatch(ScenarioActions.UNHIGHLIGHT_RESOURCE({ resourceId: ev.id }));
             case 'conn-enter':
-                return setHoveredElemId(ev.id);
+                return dispatch(ScenarioActions.HIGHLIGHT_RESOURCE({ resourceId: ev.id }));
             case 'conn-leave':
-                return hoveredElemId === ev.id ? setHoveredElemId('') : null;
+                return dispatch(ScenarioActions.UNHIGHLIGHT_RESOURCE({ resourceId: ev.id }));
             case 'slot-delete':
                 return dispatch(ScenarioActions.REMOVE_ACTOR({ id: ev.id }));
         }
@@ -110,7 +108,7 @@ export function NetworkCanvas() {
         step: currentStep,
         selectedActorId,
         selectedAssetId,
-        hoveredElemId: hoveredElemId === '' ? hoveredResource : hoveredElemId,
+        hoveredElemId: hoveredResource,
     });
 
     const { dict } = useLang();

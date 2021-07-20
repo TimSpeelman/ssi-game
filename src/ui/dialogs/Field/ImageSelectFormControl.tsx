@@ -20,7 +20,7 @@ export function ImageSelectFormControl({ props, setField }: Props) {
             <Select value={value} onChange={(e) => setField(e.target.value)}>
                 {options.map((option) => (
                     <MenuItem key={option.id} value={option.id}>
-                        <img src={option.imageUrl} style={{ height: '2rem' }} />
+                        <img src={option.imageUrl} style={{ height: '2rem' }} /> {option.title && option.title[lang]}
                     </MenuItem>
                 ))}
             </Select>

@@ -157,3 +157,9 @@ p {
     font-weight: bold;
     transform: translateY(0.4em);
 }
+
+.internal-resource-url {
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+}

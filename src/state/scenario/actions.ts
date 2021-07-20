@@ -48,6 +48,9 @@ export const ScenarioActions = {
 
     // Sidebar Navigation
     NAVIGATE_SIDEBAR: event<{ to: SidebarTab }>('NAVIGATE_SIDEBAR'),
+    NAVIGATE_TO_RESOURCE: event<{ resourceId: string }>('NAVIGATE_TO_RESOURCE'),
+    HIGHLIGHT_RESOURCE: event<{ resourceId: string }>('HIGHLIGHT_RESOURCE'),
+    UNHIGHLIGHT_RESOURCE: event<{ resourceId: string }>('UNHIGHLIGHT_RESOURCE'),
 
     // Display Meta Dialog
     HIDE_META: event<void>('HIDE_META'),

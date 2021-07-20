@@ -15,4 +15,5 @@ export interface RootState {
     activeSidebarTab: SidebarTab;
 
     language: Language;
+    highlightedResourceId?: string;
 }

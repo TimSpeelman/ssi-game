@@ -10,6 +10,7 @@ import {
     selectActiveStepDesc,
     selectActiveStepIndex,
     selectFailedStepDesc,
+    selectHighlightedResource,
     selectLang,
     selectScenarioDesc,
     selectSelectedActorId,
@@ -38,6 +39,7 @@ export function NetworkCanvas() {
     const failedStep = useSelector(selectFailedStepDesc);
     const showMeta = useSelector(selectShowMeta);
     const lang = useSelector(selectLang);
+    const hoveredResource = useSelector(selectHighlightedResource);
 
     const scenarioDesc = useSelector(selectScenarioDesc);
 
@@ -108,7 +110,7 @@ export function NetworkCanvas() {
         step: currentStep,
         selectedActorId,
         selectedAssetId,
-        hoveredElemId,
+        hoveredElemId: hoveredElemId === '' ? hoveredResource : hoveredElemId,
     });
 
     const { dict } = useLang();

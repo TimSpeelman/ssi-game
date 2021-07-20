@@ -109,6 +109,9 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
 
     // Sidebar Navigation
     NAVIGATE_SIDEBAR: (p) => L.activeSidebarTab.set(p.to),
+    NAVIGATE_TO_RESOURCE: (p) => (s: any) => s, // TODO FIXME
+    HIGHLIGHT_RESOURCE: (p) => L.highlightedResourceId!.set(p.resourceId),
+    UNHIGHLIGHT_RESOURCE: (p) => L.highlightedResourceId!.set((r) => (r === p.resourceId ? '' : r)),
 
     // Display Meta Dialog
     HIDE_META: () => L.showMeta.set(false),

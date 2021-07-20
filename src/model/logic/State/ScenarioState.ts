@@ -5,8 +5,9 @@ import { Actor } from '../../definition/Actor/Actor';
 import { definitionToActor } from '../../definition/Actor/definitionToActor';
 import { ScenarioDef } from '../../definition/ScenarioDef';
 import { assetsToTree } from '../../description/Asset/assetsToTree';
+import { AssetTreeNode } from '../../description/Asset/AssetTreeNode';
 import { ActorStateDesc } from '../../description/State/ActorStateDesc';
-import { StateDesc } from '../../description/State/StateDesc';
+import { ResourceDesc, StateDesc } from '../../description/State/StateDesc';
 import { ActorState } from './ActorState';
 
 /** Represents the entire state of the scenario at any point in the scenario. */
@@ -53,12 +54,17 @@ export class ScenarioState {
         );
         const allAssetsById = Object.values(actorStates).reduce(
             (assets, actor) => ({ ...assets, ...actor.assetsById }),
-            {},
+            {} as Record<string, AssetTreeNode>,
         );
+        const resources = {
+            ...mapValues(this.props.byActor, (actor, id) => ({ type: 'actor' } as ResourceDesc)),
+            ...mapValues(allAssetsById, (asset, id) => ({ type: 'asset', ownerId: asset.ownerId } as ResourceDesc)),
+        };
         return {
             actors: actorStates,
             assets: allAssetsById,
             valid: this.props.valid,
+            resources,
         };
     }
 

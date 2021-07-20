@@ -23,9 +23,10 @@ export class GainAssetOutcome implements IOutcome {
 
     describe(state: ScenarioState): Translation {
         const actor = state.props.byActor[this.props.actorId].actor;
+        const asset = this.props.asset.describe(state);
         return {
-            NL: `${ucFirst(actor.nounPhrase)} krijgt ${this.props.asset.describe(state).title.NL}.`,
-            EN: `${ucFirst(actor.nounPhrase)} receives ${this.props.asset.describe(state).title.EN}.`,
+            NL: `[#${actor.id}](${ucFirst(actor.nounPhrase)}) krijgt [#${asset.id}](${asset.title.NL}).`,
+            EN: `[#${actor.id}](${ucFirst(actor.nounPhrase)}) receives [#${asset.id}](${asset.title.EN}).`,
         };
     }
 }

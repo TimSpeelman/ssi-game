@@ -70,6 +70,8 @@ export const selectSelectedAssetNode = (r: any): AssetTreeNode | undefined =>
 // Sidebar Navigation
 export const selectActiveSidebarTab = (r: any): SidebarTab => root(r).activeSidebarTab;
 
+export const selectHighlightedResource = (r: any): string | undefined => root(r).highlightedResourceId;
+
 // Display Meta Dialog
 export const selectShowMeta = (r: any) => root(r).showMeta;
 

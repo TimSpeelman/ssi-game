@@ -5,6 +5,7 @@ import { StepDesc } from '../../../../model/description/Step/StepDesc';
 import { selectStepDescs } from '../../../../state/scenario/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
+import { replaceInternalResourceUrlStrings } from '../../replaceInternalResourceUrlStrings';
 import { StepLabel } from './StepLabel';
 import { StepNav } from './StepNav';
 
@@ -31,7 +32,9 @@ export function StepInspector({ step }: Props) {
             <StepLabel step={step} onEdit={() => openDialog('EditStep', { stepId: step.action.id })} />
 
             {/* Additional explanation */}
-            <p style={{ marginBottom: '1em' }}>{step.action.long ? step.action.long[lang] : ''}</p>
+            <p style={{ marginBottom: '1em' }}>
+                {step.action.long ? replaceInternalResourceUrlStrings(step.action.long[lang]) : ''}
+            </p>
 
             {/* Optional validation errors */}
             {!step.success && (
@@ -54,7 +57,7 @@ export function StepInspector({ step }: Props) {
             {step.outcomes.length > 0 ? (
                 <ul>
                     {step.outcomes.map((o, i) => (
-                        <li key={i}>{o[lang]}</li>
+                        <li key={i}>{replaceInternalResourceUrlStrings(o[lang])}</li>
                     ))}
                 </ul>
             ) : (

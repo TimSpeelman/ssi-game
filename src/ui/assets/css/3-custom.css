@@ -175,10 +175,17 @@ p {
 }
 
 .asset-number-of-children {
+  color: white;
   text-align: center;
   font-size: 0.8em;
   font-weight: bold;
   -webkit-transform: translateY(0.4em);
           transform: translateY(0.4em);
+}
+
+.internal-resource-url {
+  text-decoration: underline;
+  color: blue;
+  cursor: pointer;
 }
 /*# sourceMappingURL=3-custom.css.map */

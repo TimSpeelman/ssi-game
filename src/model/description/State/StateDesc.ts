@@ -5,6 +5,10 @@ import { ActorStateDesc } from './ActorStateDesc';
 export interface StateDesc {
     actors: Record<string, ActorStateDesc>;
     assets: Record<string, AssetTreeNode>;
+    /** Provide one mapping from id to resource */
+    resources: Record<string, ResourceDesc>;
     /** When a step fails, the scenario state is no longer valid */
     valid: boolean;
 }
+
+export type ResourceDesc = { type: 'actor' } | { type: 'asset'; ownerId: string };

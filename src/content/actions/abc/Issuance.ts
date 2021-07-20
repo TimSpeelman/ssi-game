@@ -38,6 +38,10 @@ export type Props = TypeOfActionSchema<typeof Schema>;
 export class Issuance extends Action<Props> {
     schema = Schema;
 
+    protected get credentialId() {
+        return this.id + '-1';
+    }
+
     validatePreConditions(state: ScenarioState): IValidationResult[] {
         // props = {
         //     issuer: typeBuilder.actor({ title: 'Uitgever' }),
@@ -59,7 +63,7 @@ export class Issuance extends Action<Props> {
         const { subject } = this.evaluateProps(state);
 
         const subjectWallet = subject!.assets.find((a) => a instanceof Wallet);
-        const attr = new AttributeProof(this.id + '1', {
+        const attr = new AttributeProof(this.credentialId, {
             // @ts-ignore TODO FIXME
             parentId: subjectWallet?.id,
             attributeName: this.defProps.attributeName,
@@ -82,6 +86,11 @@ export class Issuance extends Action<Props> {
         const subjectNym: Pseudonym | undefined = props.subjectNym;
         const issuerNym: Pseudonym | undefined = props.issuerNym;
 
+        const issuerId = issuer!.actor.id;
+        const issuerName = ucFirst(issuer!.actor.nounPhrase);
+        const attrName = this.defProps.attributeName;
+        const subjectId = subject!.actor.id;
+        const subjectName = subject!.actor.nounPhrase;
         return {
             from: issuer!.actor,
             from_mode: 'issuing',
@@ -98,12 +107,8 @@ export class Issuance extends Action<Props> {
                 EN: `Subject: ${subjectNym?.defProps.identifier}, Issuer: ${issuerNym?.defProps.identifier}`,
             },
             long: {
-                NL: `${ucFirst(issuer!.actor.nounPhrase)} geeft een "${
-                    this.defProps.attributeName
-                }" credential uit aan ${subject!.actor.nounPhrase}.`,
-                EN: `${ucFirst(issuer!.actor.nounPhrase)} issues a "${this.defProps.attributeName}" credential to ${
-                    subject!.actor.nounPhrase
-                }.`,
+                NL: `[#${issuerId}](${issuerName}) geeft een [#${this.credentialId}]("${attrName}" credential) uit aan [#${subjectId}](${subjectName}).`,
+                EN: `[#${issuerId}](${issuerName}) issues a [#${this.credentialId}]("${attrName}" credential) to [#${subjectId}](${subjectName}).`,
             },
             locality: Locality.REMOTE,
         };

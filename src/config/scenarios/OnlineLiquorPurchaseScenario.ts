@@ -24,12 +24,15 @@ const Subject = defaultActors.human_1;
 const Ledger = defaultActors.ledger_1;
 
 const SubjectIdAtGov = 'BSN_990223190';
-const SubjectNym1 = new Pseudonym('subject-nym-1', {
-    identifier: '215',
-    image: 'cat',
-    // @ts-ignore TODO FIXME
-    parentId: 'wallet1',
-});
+const SubjectNym1 = new Pseudonym(
+    'subject-nym-1',
+    {
+        identifier: '215',
+        image: 'cat',
+    },
+    true,
+    'wallet1',
+);
 
 const GovernmentNym1 = new Pseudonym('government-nym-1', {
     identifier: '183',

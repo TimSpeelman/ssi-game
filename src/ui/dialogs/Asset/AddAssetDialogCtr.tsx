@@ -23,11 +23,12 @@ export function AddAssetDialogCtr(props: Props) {
                 dispatch(
                     ScenarioActions.ADD_ASSET({
                         actorId: props.options.actorId,
-                        asset: { ...asset, props: { ...asset.props, parentId: props.options.parentId } },
+                        asset: asset,
                     }),
                 );
                 props.onSubmit();
             }}
+            parentId={props.options.parentId}
             onCancel={props.onCancel}
             isCreate={true}
         />

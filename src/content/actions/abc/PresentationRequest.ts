@@ -43,13 +43,16 @@ export class PresentationRequest extends Action<Props> {
 
         if (!subjectWallet) return [];
 
-        const req = new AttributeRequest(this.id + '1', {
-            // @ts-ignore TODO FIXME
-            parentId: subjectWallet?.id,
-            attributeName: this.defProps.attributeName,
-            verifier: this.defProps.verifier,
-            subject: this.defProps.subjectNym,
-        });
+        const req = new AttributeRequest(
+            this.id + '1',
+            {
+                attributeName: this.defProps.attributeName,
+                verifier: this.defProps.verifier,
+                subject: this.defProps.subjectNym,
+            },
+            false,
+            subjectWallet?.id,
+        );
         return [new GainAssetOutcome({ actorId: this.defProps.subject, asset: req })];
     }
 

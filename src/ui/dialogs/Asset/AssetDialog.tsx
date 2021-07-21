@@ -20,6 +20,7 @@ import { FormControlSwitch } from '../Field/FormControlSwitch';
 
 interface Props {
     asset?: AssetDef<any>;
+    parentId?: string;
     onSubmit: (act: AssetDef<any>) => void;
     onCancel: () => void;
     isCreate: boolean;
@@ -55,11 +56,9 @@ export function AssetDialog(props: Props) {
 
     function handleSubmit() {
         if (!type) return;
-        const definition: AssetDef<any> = {
-            id: props.asset?.id || uuid(),
-            props: formData,
-            typeName: type!,
-        };
+        const id = props.asset?.id || uuid();
+        const parentId = props.asset ? props.asset.parentId : props.parentId;
+        const definition = formHandler.parseFormData(def, stateIndex, type, formData, id, parentId);
         props.onSubmit(definition);
     }
 

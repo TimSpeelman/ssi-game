@@ -13,7 +13,7 @@ const Schema = new AssetSchema({
     },
     props: {
         subject: CommonProps.subject,
-        issuer: CommonProps.issuer,
+        verifier: CommonProps.verifier,
         attributeName: CommonProps.attributeName,
     },
 });

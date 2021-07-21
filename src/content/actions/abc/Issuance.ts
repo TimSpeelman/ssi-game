@@ -63,16 +63,22 @@ export class Issuance extends Action<Props> {
         const { subject } = this.evaluateProps(state);
 
         const subjectWallet = subject!.assets.find((a) => a instanceof Wallet);
-        const attr = new AttributeProof(this.credentialId, {
-            // @ts-ignore TODO FIXME
-            parentId: subjectWallet?.id,
-            attributeName: this.defProps.attributeName,
-            attributeValue: this.defProps.attributeValue,
-            // issuer: this.defProps.issuer,
-            // subject: this.defProps.subject,
-            issuerNym: this.defProps.issuerNym,
-            subjectNym: this.defProps.subjectNym,
-        });
+
+        if (!subjectWallet) return [];
+
+        const attr = new AttributeProof(
+            this.credentialId,
+            {
+                attributeName: this.defProps.attributeName,
+                attributeValue: this.defProps.attributeValue,
+                // issuer: this.defProps.issuer,
+                // subject: this.defProps.subject,
+                issuerNym: this.defProps.issuerNym,
+                subjectNym: this.defProps.subjectNym,
+            },
+            false,
+            subjectWallet.id,
+        );
         return [new GainAssetOutcome({ actorId: subject!.actor.id, asset: attr })];
     }
 

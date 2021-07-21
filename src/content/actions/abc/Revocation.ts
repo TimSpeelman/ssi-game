@@ -41,13 +41,16 @@ export class Revocation extends Action<Props> {
         const props = this.evaluateProps(state);
 
         const subjectWallet = props.subject!.assets.find((a) => a instanceof Wallet);
-        const attr = new AttributeRevocation(this.id + '1', {
-            // @ts-ignore TODO FIXME
-            parentId: subjectWallet?.id,
-            attributeName: this.defProps.attributeName,
-            issuer: this.defProps.issuer,
-            subject: this.defProps.subject,
-        });
+        const attr = new AttributeRevocation(
+            this.id + '1',
+            {
+                attributeName: this.defProps.attributeName,
+                issuer: this.defProps.issuer,
+                subject: this.defProps.subject,
+            },
+            false,
+            subjectWallet?.id,
+        );
         return [new GainAssetOutcome({ actorId: this.defProps.subject, asset: attr })];
     }
 

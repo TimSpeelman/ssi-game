@@ -3,4 +3,5 @@ export interface AssetDef<Props = any> {
     id: string;
     props: Props;
     typeName: string;
+    parentId?: string;
 }

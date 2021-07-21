@@ -39,11 +39,12 @@ export class AssetSchema<Props extends ContentTypeProps> {
     }
 
     /** Based on the active state and the form input, compute the ActionDef */
-    parseUserInput(id: string, formData: any, state: ScenarioState): AssetDef {
+    parseUserInput(id: string, formData: any, state: ScenarioState, parentId?: string): AssetDef {
         return {
             id: id,
             props: this.props.parseUserInput(formData, state),
             typeName: this.typeName,
+            parentId: parentId,
         };
     }
 
@@ -53,7 +54,11 @@ export class AssetSchema<Props extends ContentTypeProps> {
     }
 }
 
-export type TypeOfAssetSchema<T extends AssetSchema<any>> = T extends AssetSchema<infer U> ? U : never;
+export interface BaseProps {
+    parentId?: string;
+}
+
+export type TypeOfAssetSchema<T extends AssetSchema<any>> = T extends AssetSchema<infer U> & BaseProps ? U : never;
 
 export type DefTypeOfAssetSchema<T extends AssetSchema<any>> = T extends AssetSchema<infer U>
     ? DefTypesOfContentTypeProps<U>

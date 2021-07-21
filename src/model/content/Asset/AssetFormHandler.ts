@@ -41,9 +41,10 @@ export class AssetFormHandler {
         selectedAssetType: string,
         formData: any,
         id: string,
+        parentId?: string,
     ): AssetDef {
         const state = new Scenario(scenarioDefinition).getPreStateAtIndex(currentStepIndex);
         const action = this.actionTypes.requireTypeByName(selectedAssetType).schema;
-        return action.parseUserInput(id, formData, state);
+        return action.parseUserInput(id, formData, state, parentId);
     }
 }

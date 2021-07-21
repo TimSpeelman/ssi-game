@@ -11,6 +11,7 @@ export abstract class Asset<Props extends ContentTypeProps> {
         readonly id: string,
         readonly defProps: DefTypesOfContentTypeProps<Props>,
         readonly isInitial: boolean = false,
+        readonly parentId?: string,
     ) {}
 
     /** Provide a generic description of this action for viewing purposes */
@@ -35,7 +36,7 @@ export abstract class Asset<Props extends ContentTypeProps> {
     abstract _describe(state: ScenarioState): CustomAssetDesc;
 
     serialize(): AssetDef<Props> {
-        return { id: this.id, props: this.defProps, typeName: this.schema.typeName };
+        return { id: this.id, props: this.defProps, typeName: this.schema.typeName, parentId: this.parentId };
     }
 
     evaluateProps(state: ScenarioState) {

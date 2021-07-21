@@ -8,7 +8,6 @@ import { PresentationRequest } from '../../content/actions/PresentationRequest';
 import { WalletQRAuthentication } from '../../content/actions/WalletQRAuthentication';
 import { WalletSMSAuthentication } from '../../content/actions/WalletSMSAuthentication';
 import { AttributeKnowledge } from '../../content/assets/AttributeKnowledge';
-import { AttributeProof } from '../../content/assets/AttributeProof';
 import { FaceFeature } from '../../content/assets/FaceFeature';
 import { GovPassport } from '../../content/assets/GovPassport';
 import { HumanRecord } from '../../content/assets/HumanRecord';
@@ -28,7 +27,7 @@ const SubjectNym1 = new Pseudonym(
     'subject-nym-1',
     {
         subject: Subject.id,
-        identifier: '215',
+        identifier: 'JHN',
         image: 'cat',
     },
     true,
@@ -37,13 +36,13 @@ const SubjectNym1 = new Pseudonym(
 
 const GovernmentNym1 = new Pseudonym('government-nym-1', {
     subject: Government.id,
-    identifier: '183',
+    identifier: 'GOV',
     image: 'rabbit',
 });
 
 const ShopNym1 = new Pseudonym('shop-nym-1', {
     subject: Shop.id,
-    identifier: '007',
+    identifier: 'SHP',
     image: 'rattlesnake',
 });
 
@@ -95,18 +94,6 @@ const actors: ActorConfig[] = [
         initialAssets: [
             SubjectNym1,
             new Wallet('wallet1', {}, true),
-            new AttributeProof(
-                'proof1',
-                {
-                    // subject: Subject.id,
-                    // issuer: Government.id,
-                    attributeName: 'attr',
-                    attributeValue: 'val',
-                    // @ts-ignore TODO FIXME
-                    parentId: 'wallet1',
-                },
-                true,
-            ),
             SubjectPassport,
             new FaceFeature('5', { subject: Subject.id }, true),
         ].map((a) => a.serialize()),

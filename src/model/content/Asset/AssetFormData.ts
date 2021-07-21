@@ -5,5 +5,6 @@ import { Field } from '../Common/View/Field';
 export interface AssetFormData {
     typeName: string;
     title: Translation;
+    description?: Translation;
     fields: Record<string, Field>;
 }

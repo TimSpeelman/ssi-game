@@ -24,6 +24,11 @@ const Schema = new AssetSchema({
         NL: 'Pseudoniem',
         EN: 'Pseudonym',
     },
+    description: {
+        NL:
+            'Een pseudoniem is een betekenisloze identifier die een subject kan gebruiken om zijn ware identiteit te verhullen.',
+        EN: 'A pseudonym is a meaningless identifier which can be used by a subject to hide its true identity.',
+    },
     props: {
         subject: CommonProps.subject,
         identifier: CommonProps.identifier,

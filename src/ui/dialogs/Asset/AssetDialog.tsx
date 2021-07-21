@@ -86,6 +86,8 @@ export function AssetDialog(props: Props) {
                     </Select>
                 </FormControl>
 
+                {formProps?.description && <p>{formProps.description[lang]}</p>}
+
                 {fields.map(([prop, fieldProps]) => (
                     <FormControlSwitch key={prop} props={fieldProps} setField={(v) => setField(prop, v)} />
                 ))}

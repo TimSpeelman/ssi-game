@@ -6,10 +6,10 @@ import { AssetTypesCollection } from './AssetTypesCollection';
 
 /** An interface used by the UI to handle the Asset Creation and Update form */
 export class AssetFormHandler {
-    constructor(readonly actionTypes: AssetTypesCollection) {}
+    constructor(readonly assetTypes: AssetTypesCollection) {}
 
     public listAvailableAssetTypes() {
-        return Object.values(this.actionTypes.types).map((a) => ({
+        return Object.values(this.assetTypes.types).map((a) => ({
             typeName: a.schema.typeName,
             title: a.schema.title,
         }));
@@ -25,11 +25,12 @@ export class AssetFormHandler {
         if (!selectedAssetType) {
             return undefined;
         } else {
-            const action = this.actionTypes.requireTypeByName(selectedAssetType).schema;
-            const fields = action.computeFormProperties(formData, state);
+            const asset = this.assetTypes.requireTypeByName(selectedAssetType).schema;
+            const fields = asset.computeFormProperties(formData, state);
             return {
-                typeName: action.typeName,
-                title: action.title,
+                typeName: asset.typeName,
+                title: asset.title,
+                description: asset.description,
                 fields: fields,
             };
         }
@@ -44,7 +45,7 @@ export class AssetFormHandler {
         parentId?: string,
     ): AssetDef {
         const state = new Scenario(scenarioDefinition).getPreStateAtIndex(currentStepIndex);
-        const action = this.actionTypes.requireTypeByName(selectedAssetType).schema;
+        const action = this.assetTypes.requireTypeByName(selectedAssetType).schema;
         return action.parseUserInput(id, formData, state, parentId);
     }
 }

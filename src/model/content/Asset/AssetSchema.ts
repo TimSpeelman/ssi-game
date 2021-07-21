@@ -9,6 +9,14 @@ import {
 } from '../Common/PropRecord/ContentTypeProps';
 import { ContentTypePropsRecord } from '../Common/PropRecord/ContentTypePropsRecord';
 
+type AssetSchemaOptions<Props extends ContentTypeProps> = {
+    typeName: string;
+    kindName: string;
+    title: Translation;
+    description?: Translation;
+    props: Props;
+};
+
 /**
  * Define a custom asset type schema
  */
@@ -16,12 +24,14 @@ export class AssetSchema<Props extends ContentTypeProps> {
     readonly typeName: string;
     readonly kindName: string;
     readonly title: Translation;
+    readonly description?: Translation;
     readonly props: ContentTypePropsRecord<Props>;
 
-    constructor(options: { typeName: string; kindName: string; title: Translation; props: Props }) {
+    constructor(options: AssetSchemaOptions<Props>) {
         this.typeName = options.typeName;
         this.kindName = options.kindName;
         this.title = options.title;
+        this.description = options.description;
         this.props = new ContentTypePropsRecord(options.props);
     }
 

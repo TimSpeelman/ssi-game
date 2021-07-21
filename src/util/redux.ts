@@ -1,12 +1,14 @@
 export interface Creator<P> {
     (i: P): IAction<P>;
     _type: string;
+    _undoable?: boolean;
     _test: (e: IAction<any>) => e is IAction<P>;
 }
 
-export function event<Payload>(type: string): Creator<Payload> {
-    const fn = (payload: Payload) => ({ type, payload });
+export function event<Payload>(type: string, undoable?: boolean): Creator<Payload> {
+    const fn = (payload: Payload) => ({ type, payload, _undoable: undoable });
     fn._type = type;
+    fn._undoable = undoable;
     fn._test = (e: IAction<any>) => e.type === type;
     return <Creator<Payload>>fn;
 }
@@ -14,6 +16,7 @@ export function event<Payload>(type: string): Creator<Payload> {
 export interface IAction<P> {
     type: string;
     payload: P;
+    _undoable?: boolean;
 }
 
 export function is<P>(creator: Creator<P>, event: any): event is IAction<P> {

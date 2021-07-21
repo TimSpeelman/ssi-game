@@ -6,7 +6,6 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../../../config/actorImage';
 import { ActorConfig } from '../../../../model/definition/Actor/ActorConfig';
-import { ScenarioDef } from '../../../../model/definition/ScenarioDef';
 import { ScenarioActions } from '../../../../state/scenario/actions';
 import {
     selectHighlightedResource,
@@ -19,7 +18,6 @@ import { useLang } from '../../../hooks/useLang';
 
 export function ActorList() {
     const dispatch = useDispatch();
-    const setConf = (scenario: ScenarioDef) => dispatch(ScenarioActions.SET_SCENARIO({ scenario }));
     const involvedActors = useSelector(selectIdsOfInvolvedActors);
     const scenarioDef = useSelector(selectScenarioDef);
     const { openDialog } = useDialog();
@@ -31,7 +29,7 @@ export function ActorList() {
 
     // Actor Setters
     const canRemoveActor = (id: string) => !(id in involvedActors);
-    const setActors = (actors: ActorConfig[]) => setConf({ ...scenarioDef, actors });
+    const setActors = (actors: ActorConfig[]) => dispatch(ScenarioActions.SET_ACTORS({ actors }));
     const handleReorder = (fromIndex: number, toIndex: number) => setActors(reorder(actors, fromIndex, toIndex));
     const removeActor = (id: string) => setActors(actors.filter((a) => a.definition.id !== id));
     const { dict } = useLang();

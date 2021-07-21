@@ -1,14 +1,15 @@
 import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
-import { Clear, Restore, RestorePage, Save } from '@material-ui/icons';
+import { Clear, Redo, Restore, RestorePage, Save, Undo } from '@material-ui/icons';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { ActionCreators } from 'redux-undo';
 import { loadScenarioFromFile } from '../persistence/loadScenarioFromFile';
 import { loadScenarioFromLocalStorage } from '../persistence/loadScenarioFromLocalStorage';
 import { saveScenarioToFile } from '../persistence/saveScenarioToFile';
 import { saveScenarioToLocalStorage } from '../persistence/saveScenarioToLocalStorage';
 import { ScenarioActions } from '../state/scenario/actions';
-import { selectScenarioDef } from '../state/scenario/selectors';
+import { selectRedoable, selectScenarioDef, selectUndoable } from '../state/scenario/selectors';
 import { LanguageMenu } from './components/LanguageMenu';
 import { useDialogService } from './dialogs/DialogContext';
 import { GlobalDialogRouter } from './dialogs/GlobalDialogRouter';
@@ -17,10 +18,16 @@ import { NetworkCanvas } from './pages/NetworkCanvasPage';
 
 export function App() {
     const scenario = useSelector(selectScenarioDef);
+    const undoable = useSelector(selectUndoable);
+    const redoable = useSelector(selectRedoable);
 
     const { dict } = useLang();
 
     const dispatch = useDispatch();
+
+    const undo = () => dispatch(ActionCreators.undo());
+
+    const redo = () => dispatch(ActionCreators.redo());
 
     const clear = () => confirm(dict.app_msgConfirmClear) && dispatch(ScenarioActions.CLEAR());
 
@@ -67,6 +74,12 @@ export function App() {
                     <Typography variant="h6" style={{ flexGrow: 1 }}>
                         Identity Game
                     </Typography>
+                    <Button color={'inherit'} onClick={undo} style={{ marginRight: '.5rem' }} disabled={!undoable}>
+                        <Undo />
+                    </Button>
+                    <Button color={'inherit'} onClick={redo} style={{ marginRight: '.5rem' }} disabled={!redoable}>
+                        <Redo />
+                    </Button>
                     <Button color={'inherit'} onClick={clear} style={{ marginRight: '.5rem' }}>
                         <Clear /> {dict.btnClear}
                     </Button>

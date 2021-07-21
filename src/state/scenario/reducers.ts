@@ -14,6 +14,7 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
     CLEAR: (p) => L.scenario.set(emptyScenario),
     RESET: (p) => L.scenario.set(defaultScenario),
     SET_SCENARIO: (p) => L.scenario.set(p.scenario),
+    SET_ACTORS: (p) => L.scenario.actors.set(p.actors),
 
     // Definition Manipulation : Actors
     ADD_ACTOR: (p) => L.scenario.actors.set((actors) => [...actors, p.actor]),

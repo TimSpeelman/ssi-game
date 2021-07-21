@@ -15,7 +15,10 @@ import { keyBy, mergeRecords } from '../../util/util';
 import { w1th } from '../../util/w1th';
 import { RootState } from './state';
 
-export const root = (r: any): RootState => r.scenario;
+export const root = (r: any): RootState => r.scenario.present;
+
+export const selectUndoable = (r: any): boolean => r.scenario.past.length > 0;
+export const selectRedoable = (r: any): boolean => r.scenario.future.length > 0;
 
 export const selectLang = (r: any): Language => root(r).language;
 

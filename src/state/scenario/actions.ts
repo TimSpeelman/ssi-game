@@ -12,28 +12,29 @@ export const ScenarioActions = {
     SET_LANGUAGE: event<{ language: Language }>('SET_LANGUAGE'),
 
     // Definition
-    CLEAR: event<void>('CLEAR'),
-    RESET: event<void>('RESET'),
+    CLEAR: event<void>('CLEAR', true),
+    RESET: event<void>('RESET', true),
     SET_SCENARIO: event<{ scenario: ScenarioDef }>('SET_SCENARIO'),
+    SET_ACTORS: event<{ actors: ActorConfig[] }>('SET_ACTORS', true),
 
     // Definition Manipulation : Actors
-    ADD_ACTOR: event<{ actor: ActorConfig }>('ADD_ACTOR'),
-    REMOVE_ACTOR: event<{ id: string }>('REMOVE_ACTOR'),
-    UPDATE_ACTOR_DEFINITION: event<{ def: ActorDefinition }>('UPDATE_ACTOR_DEFINITION'),
+    ADD_ACTOR: event<{ actor: ActorConfig }>('ADD_ACTOR', true),
+    REMOVE_ACTOR: event<{ id: string }>('REMOVE_ACTOR', true),
+    UPDATE_ACTOR_DEFINITION: event<{ def: ActorDefinition }>('UPDATE_ACTOR_DEFINITION', true),
 
     // Definition Manipulation : Assets
-    ADD_ASSET: event<{ actorId: string; asset: AssetDef }>('ADD_ASSET'),
-    UPDATE_ASSET: event<{ actorId: string; asset: AssetDef }>('UPDATE_ASSET'),
-    REMOVE_ASSET: event<{ actorId: string; id: string }>('REMOVE_ASSET'),
+    ADD_ASSET: event<{ actorId: string; asset: AssetDef }>('ADD_ASSET', true),
+    UPDATE_ASSET: event<{ actorId: string; asset: AssetDef }>('UPDATE_ASSET', true),
+    REMOVE_ASSET: event<{ actorId: string; id: string }>('REMOVE_ASSET', true),
 
     // Definition Manipulation : Steps
-    ADD_STEP: event<{ step: ActionDef<any> }>('ADD_STEP'),
-    REMOVE_STEP: event<{ id: string }>('REMOVE_STEP'),
-    REORDER_STEP: event<{ sourceIndex: number; targetIndex: number }>('REORDER_STEP'),
-    UPDATE_STEP: event<{ step: ActionDef<any> }>('UPDATE_STEP'),
+    ADD_STEP: event<{ step: ActionDef<any> }>('ADD_STEP', true),
+    REMOVE_STEP: event<{ id: string }>('REMOVE_STEP', true),
+    REORDER_STEP: event<{ sourceIndex: number; targetIndex: number }>('REORDER_STEP', true),
+    UPDATE_STEP: event<{ step: ActionDef<any> }>('UPDATE_STEP', true),
 
     // Definition Manipulation : Meta
-    CHANGE_META: event<{ meta: ScenarioMeta }>('CHANGE_META'),
+    CHANGE_META: event<{ meta: ScenarioMeta }>('CHANGE_META', true),
 
     // Selection
     CLEAR_SELECTION: event<void>('CLEAR_SELECTION'),

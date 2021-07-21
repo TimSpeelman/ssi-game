@@ -79,7 +79,7 @@ export function StepDialog(props: Props) {
             <DialogContent>
                 <FormControl fullWidth style={{ marginBottom: '1em' }}>
                     <InputLabel>{dict.labelStepType}</InputLabel>
-                    <Select value={type} onChange={(e) => setType(e.target.value as string)}>
+                    <Select value={type} onChange={(e) => setType(e.target.value as string)} disabled={isEditing}>
                         {actionTypes.map((actType) => (
                             <MenuItem key={actType.typeName} value={actType.typeName}>
                                 {actType.title[lang]}

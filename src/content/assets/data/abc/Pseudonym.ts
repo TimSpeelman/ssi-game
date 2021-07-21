@@ -30,7 +30,12 @@ const Schema = new AssetSchema({
         EN: 'A pseudonym is a meaningless identifier which can be used by a subject to hide its true identity.',
     },
     props: {
-        subject: CommonProps.subject,
+        subject: CommonProps.subject.extend({
+            helperText: {
+                NL: 'Het subject die zich met dit pseudoniem associeert.',
+                EN: 'The subject that associates itself with this pseudonym.',
+            },
+        }),
         identifier: CommonProps.identifier,
         image: new ImageSelectProp({ title: { NL: 'Afbeelding', EN: 'Image' }, items: images }),
     },

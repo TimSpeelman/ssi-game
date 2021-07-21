@@ -16,6 +16,10 @@ export class ImageSelectProp implements IContentTypeProp<string, string> {
 
     constructor(readonly options: ImageSelectPropOptions) {}
 
+    extend(options: Partial<ImageSelectPropOptions>) {
+        return new ImageSelectProp({ ...this.options, ...options });
+    }
+
     /** Computes the default value. */
     getDefaultValue() {
         return '';

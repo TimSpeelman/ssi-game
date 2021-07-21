@@ -20,6 +20,10 @@ export class ActorProp implements IContentTypeProp<string, ActorState> {
 
     constructor(readonly options: ActorPropOptions) {}
 
+    extend(options: Partial<ActorPropOptions>) {
+        return new ActorProp({ ...this.options, ...options });
+    }
+
     /** Computes the default value. */
     getDefaultValue() {
         return '';

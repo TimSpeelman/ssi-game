@@ -21,6 +21,10 @@ export class AssetProp implements IContentTypeProp<string, Asset<any>> {
 
     constructor(readonly options: AssetPropOptions) {}
 
+    extend(options: Partial<AssetPropOptions>) {
+        return new AssetProp({ ...this.options, ...options });
+    }
+
     /** Computes the default value. */
     getDefaultValue() {
         return '';

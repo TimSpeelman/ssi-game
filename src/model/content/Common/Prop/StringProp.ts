@@ -16,6 +16,10 @@ export class StringProp implements IContentTypeProp<string, string> {
 
     constructor(readonly options: StringPropOptions) {}
 
+    extend(options: Partial<StringPropOptions>) {
+        return new StringProp({ ...this.options, ...options });
+    }
+
     /** Computes the default value. */
     getDefaultValue() {
         return '';

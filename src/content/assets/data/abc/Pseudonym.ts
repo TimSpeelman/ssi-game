@@ -57,6 +57,7 @@ export class Pseudonym extends Asset<Props> {
                 NL: `Hoort bij ${subject?.actor.nounPhrase}.`,
                 EN: `Belongs to ${subject?.actor.nounPhrase}.`,
             },
+            long: this.schema.description,
             transferrable: false,
             cloneable: true,
             iconUrl: pseudonymImage(this.defProps.image),

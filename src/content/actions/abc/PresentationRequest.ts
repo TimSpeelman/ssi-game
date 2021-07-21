@@ -11,6 +11,7 @@ import { Pseudonym } from '../../assets/data/abc/Pseudonym';
 import { Wallet } from '../../assets/software/Wallet';
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
+import { ValidationResult } from '../../validations/ValidationResult';
 
 export const Schema = BaseSchema.extend({
     typeName: 'PresentationRequest',
@@ -32,8 +33,23 @@ export type Props = TypeOfActionSchema<typeof Schema>;
 export class PresentationRequest extends Action<Props> {
     schema = Schema;
 
+    protected getSubjectWallet(state: ScenarioState) {
+        const { subject } = this.evaluateProps(state);
+        return subject!.assets.find((a) => a instanceof Wallet);
+    }
+
     validatePreConditions(state: ScenarioState): IValidationResult[] {
-        return []; // TODO
+        const wallet = this.getSubjectWallet(state);
+        if (!wallet) {
+            return [
+                new ValidationResult(false, {
+                    NL: 'Subject heeft een wallet nodig om een verzoek voor presentatie te kunnen ontvangen.',
+                    EN: 'Subject needs a wallet to receive a presentation request.',
+                }),
+            ];
+        }
+
+        return [];
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {

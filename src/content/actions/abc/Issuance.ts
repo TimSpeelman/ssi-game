@@ -12,6 +12,7 @@ import { Pseudonym } from '../../assets/data/abc/Pseudonym';
 import { Wallet } from '../../assets/software/Wallet';
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
+import { ValidationResult } from '../../validations/ValidationResult';
 
 export const Schema = BaseSchema.extend({
     typeName: 'Issuance',
@@ -48,21 +49,23 @@ export class Issuance extends Action<Props> {
         return this.id + '-1';
     }
 
-    validatePreConditions(state: ScenarioState): IValidationResult[] {
-        // props = {
-        //     issuer: typeBuilder.actor({ title: 'Uitgever' }),
-        //     issuerNym: typeBuilder.assetOfActor('issuer', { type: 'Pseudonym', autoFill: true }),
-        //     subjectNym: typeBuilder.assetOfActor('subject', { type: 'Pseudonym', autoFill: true }),
-        // }
-        // derived = {
-        //     wallet: s => s.getAssetOfActor(p.subjectId, a => a instanceof Wallet),
-        //     issuerNym: s => s.getAssetOfActor(p.subjectId, a => a instanceof Wallet),
-        // }
-        // validator
-        // .requireActorHasAsset(p.subjectId, a => )
-        // .requireActorHasAsset(p.subjectId, a => a instanceof Wallet)
+    protected getSubjectWallet(state: ScenarioState) {
+        const { subject } = this.evaluateProps(state);
+        return subject!.assets.find((a) => a instanceof Wallet);
+    }
 
-        return []; // TODO
+    validatePreConditions(state: ScenarioState): IValidationResult[] {
+        const wallet = this.getSubjectWallet(state);
+        if (!wallet) {
+            return [
+                new ValidationResult(false, {
+                    NL: 'Subject heeft een wallet nodig om een credential te kunnen ontvangen.',
+                    EN: 'Subject needs a wallet to receive a credential.',
+                }),
+            ];
+        }
+
+        return [];
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {

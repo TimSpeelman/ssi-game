@@ -8,8 +8,10 @@ import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ucFirst } from '../../../util/util';
 import { Consent } from '../../assets/data/abc/Consent';
 import { Pseudonym } from '../../assets/data/abc/Pseudonym';
+import { Wallet } from '../../assets/software/Wallet';
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
+import { ValidationResult } from '../../validations/ValidationResult';
 
 export const Schema = BaseSchema.extend({
     typeName: 'PresentationConsent',
@@ -31,8 +33,23 @@ export type Props = TypeOfActionSchema<typeof Schema>;
 export class PresentationConsent extends Action<Props> {
     schema = Schema;
 
+    protected getSubjectWallet(state: ScenarioState) {
+        const { subject } = this.evaluateProps(state);
+        return subject!.assets.find((a) => a instanceof Wallet);
+    }
+
     validatePreConditions(state: ScenarioState): IValidationResult[] {
-        return []; // TODO
+        const wallet = this.getSubjectWallet(state);
+        if (!wallet) {
+            return [
+                new ValidationResult(false, {
+                    NL: 'Subject heeft een wallet nodig om toestemming voor presentatie te kunnen geven.',
+                    EN: 'Subject needs a wallet to constent to a presentation of a credential.',
+                }),
+            ];
+        }
+
+        return [];
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {

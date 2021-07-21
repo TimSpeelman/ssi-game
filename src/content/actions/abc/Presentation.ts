@@ -9,8 +9,10 @@ import { ucFirst } from '../../../util/util';
 import { AttributeKnowledge } from '../../assets/data/abc/AttributeKnowledge';
 import { AttributeProof } from '../../assets/data/abc/AttributeProof';
 import { Pseudonym } from '../../assets/data/abc/Pseudonym';
+import { Wallet } from '../../assets/software/Wallet';
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
+import { ValidationResult } from '../../validations/ValidationResult';
 
 export const Schema = BaseSchema.extend({
     typeName: 'Presentation',
@@ -34,8 +36,23 @@ export type Props = TypeOfActionSchema<typeof Schema>;
 export class Presentation extends Action<Props> {
     schema = Schema;
 
+    protected getSubjectWallet(state: ScenarioState) {
+        const { subject } = this.evaluateProps(state);
+        return subject!.assets.find((a) => a instanceof Wallet);
+    }
+
     validatePreConditions(state: ScenarioState): IValidationResult[] {
-        return []; // TODO
+        const wallet = this.getSubjectWallet(state);
+        if (!wallet) {
+            return [
+                new ValidationResult(false, {
+                    NL: 'Subject heeft een wallet nodig om een credential te kunnen presenteren.',
+                    EN: 'Subject needs a wallet to present a credential.',
+                }),
+            ];
+        }
+
+        return [];
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {

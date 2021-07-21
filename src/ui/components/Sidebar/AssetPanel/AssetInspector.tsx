@@ -66,6 +66,7 @@ export function AssetInspector() {
                 )}
                 <div style={{ flexGrow: 1 }}>
                     <Typography variant="h6">{asset.asset.title[lang]}</Typography>
+                    {asset.asset.sub && <Typography variant="subtitle2">{asset.asset.sub[lang]}</Typography>}
                 </div>
 
                 {asset.asset.isInitial && (

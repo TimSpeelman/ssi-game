@@ -25,6 +25,7 @@ const Schema = new AssetSchema({
         EN: 'Pseudonym',
     },
     props: {
+        subject: CommonProps.subject,
         identifier: CommonProps.identifier,
         image: new ImageSelectProp({ title: { NL: 'Afbeelding', EN: 'Image' }, items: images }),
     },
@@ -36,10 +37,15 @@ export class Pseudonym extends Asset<Props> {
     schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {
+        const { subject } = this.evaluateProps(state);
         return {
             title: {
                 NL: `${DictionaryNL.pseudonym} ${this.defProps.identifier}`,
                 EN: `${DictionaryEN.pseudonym} ${this.defProps.identifier}`,
+            },
+            sub: {
+                NL: `Hoort bij ${subject?.actor.nounPhrase}.`,
+                EN: `Belongs to ${subject?.actor.nounPhrase}.`,
             },
             transferrable: false,
             cloneable: true,

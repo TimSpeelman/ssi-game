@@ -6,4 +6,5 @@ export interface ImageSelectField {
     options: Array<{ id: string; imageUrl: string; title?: Translation }>;
     value: string;
     disabled?: Translation;
+    helperText?: Translation;
 }

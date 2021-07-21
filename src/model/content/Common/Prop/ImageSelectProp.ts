@@ -5,6 +5,7 @@ import { IContentTypeProp } from './IContentTypeProp';
 
 export interface ImageSelectPropOptions {
     title: Translation;
+    helperText?: Translation;
     items: Array<{ id: string; imageUrl: string; title?: Translation }>;
 }
 
@@ -27,6 +28,7 @@ export class ImageSelectProp implements IContentTypeProp<string, string> {
         return {
             type: 'image-select',
             title: this.options.title,
+            helperText: this.options.helperText,
             options: this.options.items,
             value: value,
         };

@@ -7,6 +7,7 @@ import { IContentTypeProp } from './IContentTypeProp';
 
 export interface AssetPropOptions {
     title: Translation;
+    helperText?: Translation;
     dependsOn?: string[];
     filter?: (a: AssetTreeNode, formData: any) => boolean;
     autoFill?: boolean;
@@ -47,6 +48,7 @@ export class AssetProp implements IContentTypeProp<string, Asset<any>> {
         return {
             type: 'asset',
             title: this.options.title,
+            helperText: this.options.helperText,
             options: items,
             // @ts-ignore
             value: value,

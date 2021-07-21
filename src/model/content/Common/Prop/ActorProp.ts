@@ -6,6 +6,7 @@ import { IContentTypeProp } from './IContentTypeProp';
 
 export interface ActorPropOptions {
     title: Translation;
+    helperText?: Translation;
     dependsOn?: string[];
     filter?: (a: ActorState, formData: any) => boolean;
     autoFill?: boolean;
@@ -45,6 +46,7 @@ export class ActorProp implements IContentTypeProp<string, ActorState> {
         return {
             type: 'actor',
             title: this.options.title,
+            helperText: this.options.helperText,
             options: items,
             value,
             disabled,

@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React from 'react';
 import { ImageSelectField } from '../../../model/content/Common/View/ImageSelectField';
 import { useLang } from '../../hooks/useLang';
@@ -24,6 +24,7 @@ export function ImageSelectFormControl({ props, setField }: Props) {
                     </MenuItem>
                 ))}
             </Select>
+            {props.helperText && <FormHelperText>{props.helperText[lang]}</FormHelperText>}
         </FormControl>
     );
 }

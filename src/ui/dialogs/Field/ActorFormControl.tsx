@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React from 'react';
 import { actorImage } from '../../../config/actorImage';
 import { ActorField } from '../../../model/content/Common/View/ActorField';
@@ -26,6 +26,7 @@ export function ActorFormControl({ props, setField }: Props) {
                     </MenuItem>
                 ))}
             </Select>
+            {props.helperText && <FormHelperText>{props.helperText[lang]}</FormHelperText>}
         </FormControl>
     );
 }

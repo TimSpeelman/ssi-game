@@ -9,25 +9,30 @@ import {
 } from '../Common/PropRecord/ContentTypeProps';
 import { ContentTypePropsRecord } from '../Common/PropRecord/ContentTypePropsRecord';
 
+export interface SchemaOptions<Props extends ContentTypeProps> {
+    typeName: string;
+    title: Translation;
+    description?: Translation;
+    props: Props;
+}
+
 /**
  * Define a custom action type schema
  */
 export class ActionSchema<Props extends ContentTypeProps> {
     readonly typeName: string;
     readonly title: Translation;
+    readonly description?: Translation;
     readonly props: ContentTypePropsRecord<Props>;
 
-    constructor(options: { typeName: string; title: Translation; props: Props }) {
+    constructor(options: SchemaOptions<Props>) {
         this.typeName = options.typeName;
         this.title = options.title;
+        this.description = options.description;
         this.props = new ContentTypePropsRecord(options.props);
     }
 
-    extend<NewProps>(options: {
-        typeName: string;
-        title: Translation;
-        props: NewProps;
-    }): ActionSchema<Extend<Props, NewProps>> {
+    extend<NewProps extends ContentTypeProps>(options: SchemaOptions<NewProps>): ActionSchema<Extend<Props, NewProps>> {
         const props: Extend<Props, NewProps> = { ...this.props.props, ...options.props };
         return new ActionSchema({ ...options, props });
     }

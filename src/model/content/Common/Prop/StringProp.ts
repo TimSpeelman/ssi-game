@@ -5,6 +5,7 @@ import { IContentTypeProp } from './IContentTypeProp';
 
 export interface StringPropOptions {
     title: Translation;
+    helperText?: Translation;
     multiline?: boolean;
 }
 
@@ -26,6 +27,7 @@ export class StringProp implements IContentTypeProp<string, string> {
             type: 'string',
             multiline: this.options.multiline,
             title: this.options.title,
+            helperText: this.options.helperText,
             value: formData[key] || this.getDefaultValue(),
         };
     }

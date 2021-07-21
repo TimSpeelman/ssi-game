@@ -5,6 +5,7 @@ import { Field } from '../Common/View/Field';
 export interface ActionFormData {
     typeName: string;
     title: Translation;
+    description?: Translation;
     fields: Record<string, Field>;
     data: any;
 }

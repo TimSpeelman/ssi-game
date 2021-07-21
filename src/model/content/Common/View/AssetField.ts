@@ -7,4 +7,5 @@ export interface AssetField {
     options: AssetDesc[];
     value: string;
     disabled?: Translation;
+    helperText?: Translation;
 }

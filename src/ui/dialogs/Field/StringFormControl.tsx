@@ -22,6 +22,7 @@ export function StringFormControl({ props, setField }: Props) {
             value={value}
             onChange={(e) => setField(e.target.value)}
             fullWidth
+            helperText={props.helperText ? props.helperText[lang] : undefined}
         />
     );
 }

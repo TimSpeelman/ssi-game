@@ -40,6 +40,7 @@ export class ActionFormHandler {
             return {
                 typeName: action.typeName,
                 title: action.title,
+                description: action.description,
                 fields: fields,
                 data: mapValues(fields, (f) => f.value),
             };

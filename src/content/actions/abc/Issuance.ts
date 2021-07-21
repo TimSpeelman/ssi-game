@@ -19,6 +19,12 @@ export const Schema = BaseSchema.extend({
         NL: 'Uitgifte van credential',
         EN: 'Issuance of credential',
     },
+    description: {
+        NL:
+            'Met de uitgifte van een credential krijgt het Subject de mogelijkheid een bepaald gegeven over zichzelf aan anderen te bewijzen.',
+        EN:
+            'Met de uitgifte van een credential krijgt het Subject de mogelijkheid een bepaald gegeven over zichzelf aan anderen te bewijzen.',
+    },
     props: {
         issuer: CommonProps.issuer,
         issuerNym: CommonProps.issuerNym,

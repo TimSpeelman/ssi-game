@@ -19,6 +19,10 @@ export const BaseSchema = new ActionSchema({
                 NL: 'Toelichting',
                 EN: 'Explanation',
             },
+            helperText: {
+                NL: 'Geef indien gewenst een eigen toelichting bij deze actie.',
+                EN: 'Provide a custom explanation to this action if desired.',
+            },
             multiline: true,
         }),
     },

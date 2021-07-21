@@ -159,13 +159,13 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
             // Feitelijk is de contactlegging (en challenge) via SMS, authenticatie via P2P protocol
             verifier: Government.id,
             subject: Subject.id,
-            subjectNym: SubjectNym1.id, // TODO
+            subjectNym: SubjectNym1.id,
         }),
         new Issuance('3', {
             attributeName: '18+',
             attributeValue: 'waar',
-            subjectNym: SubjectNym1.id, // TODO
-            issuerNym: GovernmentNym1.id, // TODO
+            subjectNym: SubjectNym1.id,
+            issuerNym: GovernmentNym1.id,
             issuer: Government.id,
             subject: Subject.id,
         }),
@@ -174,28 +174,28 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
             // Feitelijk is de contactlegging via QR, authenticatie via P2P protocol
             verifier: Shop.id,
             subject: Subject.id,
-            subjectNym: SubjectNym1.id, // TODO
+            subjectNym: SubjectNym1.id,
         }),
         new PresentationRequest('5', {
             verifier: Shop.id,
             subject: Subject.id,
-            subjectNym: SubjectNym1.id, // TODO
-            verifierNym: ShopNym1.id, // TODO
+            subjectNym: SubjectNym1.id,
+            verifierNym: ShopNym1.id,
             attributeName: Attr18Plus,
         }),
         new PresentationConsent('6', {
             // Feitelijk geeft het subject toestemming aan de eigen wallet en wordt de toestemming meegestuurd dan wel geimpliceerd in de credentialpresentatie.
             verifier: Shop.id,
             subject: Subject.id,
-            subjectNym: SubjectNym1.id, // TODO
-            verifierNym: ShopNym1.id, // TODO
+            subjectNym: SubjectNym1.id,
+            verifierNym: ShopNym1.id,
             attributeName: '18+',
         }),
         new Presentation('7', {
             verifier: Shop.id,
             subject: Subject.id,
-            subjectNym: SubjectNym1.id, // TODO
-            verifierNym: ShopNym1.id, // TODO
+            subjectNym: SubjectNym1.id,
+            verifierNym: ShopNym1.id,
             attribute: '31', // TODO Fixme, how to refer to an attribute that is produced by a previous step?
         }),
         new CustomInteraction('8', {

@@ -20,13 +20,12 @@ export class StringProp implements IContentTypeProp<string, string> {
     }
 
     /** Computes the field properties to display in the creation or edit form. */
-    getFormFieldProps(key: string, formData: FormData, state: ScenarioState): Field {
+    getFormFieldProps(key: string, formData: any, state: ScenarioState): Field {
         return {
             type: 'string',
             title: this.options.title,
-            // @ts-ignore
             value: formData[key] || this.getDefaultValue(),
-        }; // TODO
+        };
     }
 
     /** Parses the prop */

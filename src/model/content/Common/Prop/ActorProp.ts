@@ -46,7 +46,6 @@ export class ActorProp implements IContentTypeProp<string, ActorState> {
             type: 'actor',
             title: this.options.title,
             options: items,
-            // @ts-ignore
             value,
             disabled,
         };

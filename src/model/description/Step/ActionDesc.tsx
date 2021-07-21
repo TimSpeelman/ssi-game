@@ -15,6 +15,7 @@ export interface ActionDesc {
     long?: Translation;
     sub: Translation;
     locality: Locality;
+    explanation?: string;
 }
 
 export enum Locality {

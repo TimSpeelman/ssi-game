@@ -1,8 +1,8 @@
-import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
+import { TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
-import { Action, CustomActionDesc } from '../../../model/logic/Step/Action';
+import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';
 import { ComputedStep } from '../../../model/logic/Step/ComputedStep';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
@@ -13,7 +13,7 @@ import { Wallet } from '../../assets/software/Wallet';
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
-export const Schema = new ActionSchema({
+export const Schema = BaseSchema.extend({
     typeName: 'Issuance',
     title: {
         NL: 'Uitgifte van credential',

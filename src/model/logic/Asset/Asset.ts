@@ -18,7 +18,7 @@ export abstract class Asset<Props extends ContentTypeProps> {
     describe(state: ScenarioState): AssetDesc<Props> {
         return {
             isInitial: this.isInitial,
-            parentId: this.defProps.parentId,
+            parentId: this.parentId,
             id: this.id,
             type: this.schema.typeName,
             kind: this.schema.kindName,

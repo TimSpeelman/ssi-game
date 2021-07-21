@@ -154,17 +154,20 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
     steps: [
         // Issuance Phase
         new PhysicalPassportAuthentication('1', {
+            explanation: '',
             verifier: Government.id,
             subject: Subject.id,
             subjectPassport: SubjectPassport.id,
         }),
         new WalletSMSAuthentication('2', {
             // Feitelijk is de contactlegging (en challenge) via SMS, authenticatie via P2P protocol
+            explanation: '',
             verifier: Government.id,
             subject: Subject.id,
             subjectNym: SubjectNym1.id,
         }),
         new Issuance('3', {
+            explanation: '',
             attributeName: '18+',
             attributeValue: 'waar',
             subjectNym: SubjectNym1.id,
@@ -175,11 +178,13 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
         // Verification Phase
         new WalletQRAuthentication('4', {
             // Feitelijk is de contactlegging via QR, authenticatie via P2P protocol
+            explanation: '',
             verifier: Shop.id,
             subject: Subject.id,
             subjectNym: SubjectNym1.id,
         }),
         new PresentationRequest('5', {
+            explanation: '',
             verifier: Shop.id,
             subject: Subject.id,
             subjectNym: SubjectNym1.id,
@@ -188,6 +193,7 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
         }),
         new PresentationConsent('6', {
             // Feitelijk geeft het subject toestemming aan de eigen wallet en wordt de toestemming meegestuurd dan wel geimpliceerd in de credentialpresentatie.
+            explanation: '',
             verifier: Shop.id,
             subject: Subject.id,
             subjectNym: SubjectNym1.id,
@@ -195,6 +201,7 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
             attributeName: '18+',
         }),
         new Presentation('7', {
+            explanation: '',
             verifier: Shop.id,
             subject: Subject.id,
             subjectNym: SubjectNym1.id,
@@ -203,12 +210,14 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
         }),
         new CustomInteraction('8', {
             // Feitelijk verifieert de Verifier zelfstandig de verzegeling en ondertekening, en via de ledger de actualiteit (hier wellicht niet relevant)
+            explanation: '',
             from: Shop.id,
             to: Subject.id,
             description: 'Verifieer 18+ bewijs',
             sub: '',
         }),
         new GrantGreenFlag('9', {
+            explanation: '',
             from: Shop.id,
             to: Subject.id,
             description: 'Toegang tot 18+ verkoop',

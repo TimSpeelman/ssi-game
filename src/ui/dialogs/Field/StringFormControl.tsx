@@ -17,6 +17,7 @@ export function StringFormControl({ props, setField }: Props) {
         <TextField
             style={{ marginBottom: '1em' }}
             margin="dense"
+            multiline={props.multiline}
             label={title}
             value={value}
             onChange={(e) => setField(e.target.value)}

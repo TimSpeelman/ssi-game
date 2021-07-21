@@ -36,6 +36,9 @@ export function StepInspector({ step }: Props) {
                 {step.action.long ? replaceInternalResourceUrlStrings(step.action.long[lang]) : ''}
             </p>
 
+            {/* Custom explanation */}
+            {step.action.explanation && <p style={{ marginBottom: '1em' }}>{step.action.explanation}</p>}
+
             {/* Optional validation errors */}
             {!step.success && (
                 <Fragment>

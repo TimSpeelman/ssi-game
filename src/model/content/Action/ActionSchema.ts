@@ -1,4 +1,5 @@
 import { Translation } from '../../../intl/Language';
+import { Extend } from '../../../util/extend';
 import { ActionDef } from '../../definition/Action/ActionDef';
 import { ScenarioState } from '../../logic/State/ScenarioState';
 import {
@@ -20,6 +21,15 @@ export class ActionSchema<Props extends ContentTypeProps> {
         this.typeName = options.typeName;
         this.title = options.title;
         this.props = new ContentTypePropsRecord(options.props);
+    }
+
+    extend<NewProps>(options: {
+        typeName: string;
+        title: Translation;
+        props: NewProps;
+    }): ActionSchema<Extend<Props, NewProps>> {
+        const props: Extend<Props, NewProps> = { ...this.props.props, ...options.props };
+        return new ActionSchema({ ...options, props });
     }
 
     /** Compute the form properties */

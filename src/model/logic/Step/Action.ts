@@ -1,5 +1,7 @@
-import { ActionSchema } from '../../content/Action/ActionSchema';
-import { ContentTypeProps, DefTypesOfContentTypeProps } from '../../content/Common/PropRecord/ContentTypeProps';
+import { uniLang } from '../../../intl/Language';
+import { ActionSchema, TypeOfActionSchema } from '../../content/Action/ActionSchema';
+import { StringProp } from '../../content/Common/Prop/StringProp';
+import { DefTypesOfContentTypeProps } from '../../content/Common/PropRecord/ContentTypeProps';
 import { ActionDef } from '../../definition/Action/ActionDef';
 import { ActionDesc } from '../../description/Step/ActionDesc';
 import { ScenarioState } from '../State/ScenarioState';
@@ -8,11 +10,27 @@ import { DependencyValidationResult } from './DependencyValidationResult';
 import { IOutcome } from './IOutcome';
 import { IValidationResult } from './IValidationResult';
 
+export const BaseSchema = new ActionSchema({
+    typeName: 'Action',
+    title: uniLang('Action'),
+    props: {
+        explanation: new StringProp({
+            title: {
+                NL: 'Toelichting',
+                EN: 'Explanation',
+            },
+            multiline: true,
+        }),
+    },
+});
+
+export type BaseProps = TypeOfActionSchema<typeof BaseSchema>;
+
 /**
  * The player programs Actions. The action type defines what preconditions must be met before this action can occur and
  * computes the results of the action, which results in a new state.
  */
-export abstract class Action<Props extends ContentTypeProps> {
+export abstract class Action<Props extends BaseProps> {
     abstract readonly schema: ActionSchema<Props>;
 
     constructor(readonly id: string, readonly defProps: DefTypesOfContentTypeProps<Props>) {}
@@ -72,6 +90,7 @@ export abstract class Action<Props extends ContentTypeProps> {
         return {
             id: this.id,
             type: this.schema.typeName,
+            explanation: this.defProps.explanation,
             ...this._describe(state, step),
         };
     }
@@ -79,7 +98,7 @@ export abstract class Action<Props extends ContentTypeProps> {
     /** Provide a generic description of this action for viewing purposes */
     abstract _describe(state: ScenarioState, step: ComputedStep): CustomActionDesc;
 
-    serialize(): ActionDef<Props> {
+    serialize(): ActionDef<any> {
         return { id: this.id, props: this.defProps, typeName: this.schema.typeName };
     }
 

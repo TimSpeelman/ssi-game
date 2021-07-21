@@ -1,8 +1,8 @@
-import { ActionSchema, TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
+import { TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
-import { Action, CustomActionDesc } from '../../../model/logic/Step/Action';
+import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ucFirst } from '../../../util/util';
@@ -11,7 +11,7 @@ import { Pseudonym } from '../../assets/data/abc/Pseudonym';
 import { CommonProps } from '../../common/props';
 import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
 
-export const Schema = new ActionSchema({
+export const Schema = BaseSchema.extend({
     typeName: 'PresentationConsent',
     title: {
         NL: 'Toestemming voor Presentatie',

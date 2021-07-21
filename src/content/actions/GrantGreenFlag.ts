@@ -1,18 +1,18 @@
 import { translations } from '../../intl/dictionaries';
-import { ActionSchema, TypeOfActionSchema } from '../../model/content/Action/ActionSchema';
+import { TypeOfActionSchema } from '../../model/content/Action/ActionSchema';
 import { ActionType } from '../../model/content/Action/ActionType';
 import { ActorProp } from '../../model/content/Common/Prop/ActorProp';
 import { StringProp } from '../../model/content/Common/Prop/StringProp';
 import { Locality } from '../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../model/logic/State/ScenarioState';
-import { Action, CustomActionDesc } from '../../model/logic/Step/Action';
+import { Action, BaseSchema, CustomActionDesc } from '../../model/logic/Step/Action';
 import { IOutcome } from '../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../model/logic/Step/IValidationResult';
 import { ucFirst } from '../../util/util';
 import { GreenFlag } from '../assets/GreenFlag';
 import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
 
-export const Schema = new ActionSchema({
+export const Schema = BaseSchema.extend({
     typeName: 'GrantGreenFlag',
     title: {
         NL: 'Groene vlag toekennen',

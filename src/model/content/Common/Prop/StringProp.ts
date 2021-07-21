@@ -5,6 +5,7 @@ import { IContentTypeProp } from './IContentTypeProp';
 
 export interface StringPropOptions {
     title: Translation;
+    multiline?: boolean;
 }
 
 export class StringProp implements IContentTypeProp<string, string> {
@@ -23,6 +24,7 @@ export class StringProp implements IContentTypeProp<string, string> {
     getFormFieldProps(key: string, formData: any, state: ScenarioState): Field {
         return {
             type: 'string',
+            multiline: this.options.multiline,
             title: this.options.title,
             value: formData[key] || this.getDefaultValue(),
         };

@@ -163,3 +163,11 @@ p {
     color: blue;
     cursor: pointer;
 }
+
+#notistack-snackbar {
+    display: block;
+}
+
+#notistack-snackbar .internal-resource-url {
+    color: inherit;
+}

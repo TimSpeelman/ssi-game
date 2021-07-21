@@ -20,6 +20,7 @@ import {
     selectUsedActors,
 } from '../../state/scenario/selectors';
 import { createNetworkCanvasData } from '../components/networkToCanvas';
+import { replaceInternalResourceUrlStrings } from '../components/replaceInternalResourceUrlStrings';
 import { ScenarioMetaDialog } from '../components/Sidebar/InfoPanel/ScenarioMetaDialog';
 import { Sidebar } from '../components/Sidebar/Sidebar';
 import { SidebarTab } from '../components/Sidebar/SidebarTab';
@@ -46,7 +47,7 @@ export function NetworkCanvas() {
     useEffect(() => {
         closeSnackbar();
         if (currentStep && snackbarIsOn) {
-            currentStep.outcomes.forEach((o) => enqueueSnackbar(o));
+            currentStep.outcomes.forEach((o) => enqueueSnackbar(replaceInternalResourceUrlStrings(o[lang])));
         }
     }, [currentStep]);
 

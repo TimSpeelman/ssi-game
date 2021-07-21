@@ -193,7 +193,7 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
             subject: Subject.id,
             subjectNym: SubjectNym1.id,
             verifierNym: ShopNym1.id,
-            attribute: '31', // TODO Fixme, how to refer to an attribute that is produced by a previous step?
+            attribute: '3-1', // TODO Fixme, how to refer to an attribute that is produced by a previous step?
         }),
         new CustomInteraction('8', {
             // Feitelijk verifieert de Verifier zelfstandig de verzegeling en ondertekening, en via de ledger de actualiteit (hier wellicht niet relevant)

@@ -4,7 +4,6 @@ import { Locality } from '../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../model/logic/State/ScenarioState';
 import { Action, BaseSchema, CustomActionDesc } from '../../model/logic/Step/Action';
 import { IOutcome } from '../../model/logic/Step/IOutcome';
-import { IValidationResult } from '../../model/logic/Step/IValidationResult';
 import { ucFirst } from '../../util/util';
 import { AuthenticationResult } from '../assets/AuthenticationResult';
 import { GovPassport } from '../assets/GovPassport';
@@ -32,27 +31,6 @@ export type Props = TypeOfActionSchema<typeof Schema>;
  */
 export class PhysicalPassportAuthentication extends Action<Props> {
     schema = Schema;
-
-    validatePreConditions(state: ScenarioState): IValidationResult[] {
-        const results: IValidationResult[] = [];
-
-        // const subject = state.props.byActor[this.props.humanSubjectId];
-        // const verifier = state.props.byActor[this.props.verifierId];
-        // const subjectPassport = subject.assets.find((a) => a.type === 'gov-passport');
-        // if (!subjectPassport)
-        //     results.push(new ValidationResult(false, `${ucFirst(subject.actor.nounPhrase)} heeft geen paspoort.`));
-
-        // const humanRecord = verifier.assets.find((a) => a.type === 'human-record' && a.id === this.props.dataSubjectId);
-        // if (!humanRecord)
-        //     results.push(
-        //         new ValidationResult(
-        //             false,
-        //             `${ucFirst(verifier.actor.nounPhrase)} heeft geen record van ${subject.actor.name}.`,
-        //         ),
-        //     );
-
-        return results;
-    }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
         const props = this.evaluateProps(state);

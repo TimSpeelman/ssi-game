@@ -84,7 +84,9 @@ export abstract class Action<Props extends BaseProps> {
     }
 
     /** Given a scenario state, check if the preconditions are met to perform this action */
-    abstract validatePreConditions(state: ScenarioState, status: ActionStatus): IValidationResult[];
+    validatePreConditions(state: ScenarioState, status: ActionStatus): IValidationResult[] {
+        return [];
+    }
 
     /** Given a scenario state, compute the outcomes of this action */
     abstract computeOutcomes(state: ScenarioState, status: ActionStatus): IOutcome[];

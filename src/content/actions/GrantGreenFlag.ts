@@ -7,7 +7,6 @@ import { Locality } from '../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../model/logic/State/ScenarioState';
 import { Action, BaseSchema, CustomActionDesc } from '../../model/logic/Step/Action';
 import { IOutcome } from '../../model/logic/Step/IOutcome';
-import { IValidationResult } from '../../model/logic/Step/IValidationResult';
 import { ucFirst } from '../../util/util';
 import { GreenFlag } from '../assets/GreenFlag';
 import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
@@ -29,10 +28,6 @@ export type Props = TypeOfActionSchema<typeof Schema>;
 
 export class GrantGreenFlag extends Action<Props> {
     schema = Schema;
-
-    validatePreConditions(): IValidationResult[] {
-        return [];
-    }
 
     computeOutcomes(): IOutcome[] {
         const flag = new GreenFlag(this.id + '1', {

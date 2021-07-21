@@ -1,9 +1,9 @@
-import { uniLang } from '../../../../intl/Language';
-import { AssetSchema, TypeOfAssetSchema } from '../../../../model/content/Asset/AssetSchema';
-import { AssetType } from '../../../../model/content/Asset/AssetType';
-import { Asset, CustomAssetDesc } from '../../../../model/logic/Asset/Asset';
-import { ScenarioState } from '../../../../model/logic/State/ScenarioState';
-import { CommonProps } from '../../../common/props';
+import { uniLang } from '../../intl/Language';
+import { AssetSchema, TypeOfAssetSchema } from '../../model/content/Asset/AssetSchema';
+import { AssetType } from '../../model/content/Asset/AssetType';
+import { Asset, CustomAssetDesc } from '../../model/logic/Asset/Asset';
+import { ScenarioState } from '../../model/logic/State/ScenarioState';
+import { CommonProps } from '../common/props';
 import { Pseudonym } from './Pseudonym';
 
 const Schema = new AssetSchema({

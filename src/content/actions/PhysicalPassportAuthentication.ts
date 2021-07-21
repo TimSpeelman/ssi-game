@@ -1,15 +1,15 @@
-import { TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
-import { ActionType } from '../../../model/content/Action/ActionType';
-import { Locality } from '../../../model/description/Step/ActionDesc';
-import { ScenarioState } from '../../../model/logic/State/ScenarioState';
-import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';
-import { IOutcome } from '../../../model/logic/Step/IOutcome';
-import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
-import { ucFirst } from '../../../util/util';
-import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
-import { GovPassport } from '../../assets/physical/GovPassport';
-import { CommonProps } from '../../common/props';
-import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
+import { TypeOfActionSchema } from '../../model/content/Action/ActionSchema';
+import { ActionType } from '../../model/content/Action/ActionType';
+import { Locality } from '../../model/description/Step/ActionDesc';
+import { ScenarioState } from '../../model/logic/State/ScenarioState';
+import { Action, BaseSchema, CustomActionDesc } from '../../model/logic/Step/Action';
+import { IOutcome } from '../../model/logic/Step/IOutcome';
+import { IValidationResult } from '../../model/logic/Step/IValidationResult';
+import { ucFirst } from '../../util/util';
+import { AuthenticationResult } from '../assets/AuthenticationResult';
+import { GovPassport } from '../assets/GovPassport';
+import { CommonProps } from '../common/props';
+import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
 
 export const Schema = BaseSchema.extend({
     typeName: 'PhysicalPassportAuthentication',

@@ -1,15 +1,15 @@
 import { ActionTypesCollection } from '../../model/content/Action/ActionTypesCollection';
-import { IssuanceType } from './abc/Issuance';
-import { PresentationType } from './abc/Presentation';
-import { PresentationConsentType } from './abc/PresentationConsent';
-import { PresentationRequestType } from './abc/PresentationRequest';
-import { RevocationType } from './abc/Revocation';
-import { PhysicalPassportAuthenticationType } from './authentication/PhysicalPassportAuthentication';
-import { WalletQRAuthenticationType } from './authentication/WalletQRAuthentication';
-import { WalletSMSAuthenticationType } from './authentication/WalletSMSAuthentication';
 import { CustomInteractionType } from './CustomInteraction';
 import { GrantGreenFlagType } from './GrantGreenFlag';
 import { HandoverType } from './Handover';
+import { IssuanceType } from './Issuance';
+import { PhysicalPassportAuthenticationType } from './PhysicalPassportAuthentication';
+import { PresentationType } from './Presentation';
+import { PresentationConsentType } from './PresentationConsent';
+import { PresentationRequestType } from './PresentationRequest';
+import { RevocationType } from './Revocation';
+import { WalletQRAuthenticationType } from './WalletQRAuthentication';
+import { WalletSMSAuthenticationType } from './WalletSMSAuthentication';
 
 export const DefaultActionsCollection = new ActionTypesCollection([
     IssuanceType,

@@ -1,15 +1,15 @@
-import { TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
-import { ActionType } from '../../../model/content/Action/ActionType';
-import { Locality } from '../../../model/description/Step/ActionDesc';
-import { ScenarioState } from '../../../model/logic/State/ScenarioState';
-import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';
-import { IOutcome } from '../../../model/logic/Step/IOutcome';
-import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
-import { ucFirst } from '../../../util/util';
-import { AuthenticationResult } from '../../assets/data/abc/AuthenticationResult';
-import { Pseudonym } from '../../assets/data/abc/Pseudonym';
-import { CommonProps } from '../../common/props';
-import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
+import { TypeOfActionSchema } from '../../model/content/Action/ActionSchema';
+import { ActionType } from '../../model/content/Action/ActionType';
+import { Locality } from '../../model/description/Step/ActionDesc';
+import { ScenarioState } from '../../model/logic/State/ScenarioState';
+import { Action, BaseSchema, CustomActionDesc } from '../../model/logic/Step/Action';
+import { IOutcome } from '../../model/logic/Step/IOutcome';
+import { IValidationResult } from '../../model/logic/Step/IValidationResult';
+import { ucFirst } from '../../util/util';
+import { AuthenticationResult } from '../assets/AuthenticationResult';
+import { Pseudonym } from '../assets/Pseudonym';
+import { CommonProps } from '../common/props';
+import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
 
 export const Schema = BaseSchema.extend({
     typeName: 'WalletQRAuthentication',

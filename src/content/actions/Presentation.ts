@@ -1,18 +1,18 @@
-import { TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
-import { ActionType } from '../../../model/content/Action/ActionType';
-import { Locality } from '../../../model/description/Step/ActionDesc';
-import { ScenarioState } from '../../../model/logic/State/ScenarioState';
-import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';
-import { IOutcome } from '../../../model/logic/Step/IOutcome';
-import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
-import { ucFirst } from '../../../util/util';
-import { AttributeKnowledge } from '../../assets/data/abc/AttributeKnowledge';
-import { AttributeProof } from '../../assets/data/abc/AttributeProof';
-import { Pseudonym } from '../../assets/data/abc/Pseudonym';
-import { Wallet } from '../../assets/software/Wallet';
-import { CommonProps } from '../../common/props';
-import { GainAssetOutcome } from '../../outcomes/GainAssetOutcome';
-import { ValidationResult } from '../../validations/ValidationResult';
+import { TypeOfActionSchema } from '../../model/content/Action/ActionSchema';
+import { ActionType } from '../../model/content/Action/ActionType';
+import { Locality } from '../../model/description/Step/ActionDesc';
+import { ScenarioState } from '../../model/logic/State/ScenarioState';
+import { Action, BaseSchema, CustomActionDesc } from '../../model/logic/Step/Action';
+import { IOutcome } from '../../model/logic/Step/IOutcome';
+import { IValidationResult } from '../../model/logic/Step/IValidationResult';
+import { ucFirst } from '../../util/util';
+import { AttributeKnowledge } from '../assets/AttributeKnowledge';
+import { AttributeProof } from '../assets/AttributeProof';
+import { Pseudonym } from '../assets/Pseudonym';
+import { Wallet } from '../assets/Wallet';
+import { CommonProps } from '../common/props';
+import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
+import { ValidationResult } from '../validations/ValidationResult';
 
 export const Schema = BaseSchema.extend({
     typeName: 'Presentation',

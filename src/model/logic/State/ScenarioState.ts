@@ -1,5 +1,5 @@
 import { lens } from 'lens.ts';
-import { DefaultAssetsCollection } from '../../../content/assets/assets';
+import { DefaultAssetsCollection } from '../../../content/assets';
 import { mapValues, omit } from '../../../util/util';
 import { Actor } from '../../definition/Actor/Actor';
 import { definitionToActor } from '../../definition/Actor/definitionToActor';

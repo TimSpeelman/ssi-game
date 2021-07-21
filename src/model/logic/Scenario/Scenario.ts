@@ -1,4 +1,4 @@
-import { DefaultActionsCollection } from '../../../content/actions/actions';
+import { DefaultActionsCollection } from '../../../content/actions';
 import { ScenarioDef } from '../../definition/ScenarioDef';
 import { ScenarioDesc } from '../../description/Scenario/ScenarioDesc';
 import { ScenarioState } from '../State/ScenarioState';

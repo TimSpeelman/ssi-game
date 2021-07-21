@@ -11,7 +11,7 @@ import {
 import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { DefaultAssetsCollection } from '../../../content/assets/assets';
+import { DefaultAssetsCollection } from '../../../content/assets';
 import { AssetFormHandler } from '../../../model/content/Asset/AssetFormHandler';
 import { AssetDef } from '../../../model/definition/Asset/AssetDef';
 import { selectActiveStepIndex, selectScenarioDef } from '../../../state/scenario/selectors';

@@ -6,12 +6,12 @@ import {
     FormControl,
     InputLabel,
     MenuItem,
-    Select
+    Select,
 } from '@material-ui/core';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { DefaultActionsCollection } from '../../../content/actions/actions';
+import { DefaultActionsCollection } from '../../../content/actions';
 import { ActionFormHandler } from '../../../model/content/Action/ActionFormHandler';
 import { ActionDef } from '../../../model/definition/Action/ActionDef';
 import { selectActiveStepIndex, selectScenarioDef } from '../../../state/scenario/selectors';

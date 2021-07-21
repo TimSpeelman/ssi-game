@@ -2,7 +2,7 @@ import { Button, Divider, Typography } from '@material-ui/core';
 import { Add, ChevronLeft, Edit } from '@material-ui/icons';
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { DefaultAssetsCollection } from '../../../../content/assets/assets';
+import { DefaultAssetsCollection } from '../../../../content/assets';
 import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode';
 import { ScenarioActions } from '../../../../state/scenario/actions';
 import { selectSelectedAssetNode, selectUsedActors } from '../../../../state/scenario/selectors';

@@ -1,8 +1,8 @@
-import iconUrl from '../../images/wallet.png';
 import { AssetSchema, TypeOfAssetSchema } from '../../model/content/Asset/AssetSchema';
 import { AssetType } from '../../model/content/Asset/AssetType';
 import { Asset, CustomAssetDesc } from '../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../model/logic/State/ScenarioState';
+import iconUrl from '../images/wallet.png';
 
 const Schema = new AssetSchema({
     typeName: 'Wallet',

@@ -29,9 +29,14 @@ export class WalletQRAuthentication extends Action<Props> {
     schema = Schema;
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
+        const props = this.evaluateProps(state);
+        const subjectNym: Pseudonym | undefined = props.subjectNym;
+
+        if (!subjectNym) return [];
+
         const authResult = new AuthenticationResult(this.id + '1', {
             subject: this.defProps.subject,
-            identifier: this.defProps.subjectNym,
+            identifier: subjectNym.defProps.identifier,
         });
         return [new GainAssetOutcome({ actorId: this.defProps.verifier, asset: authResult })];
     }

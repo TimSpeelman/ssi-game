@@ -7,7 +7,7 @@ import { PresentationConsent } from '../../content/actions/PresentationConsent';
 import { PresentationRequest } from '../../content/actions/PresentationRequest';
 import { WalletQRAuthentication } from '../../content/actions/WalletQRAuthentication';
 import { WalletSMSAuthentication } from '../../content/actions/WalletSMSAuthentication';
-import { AttributeKnowledge } from '../../content/assets/AttributeKnowledge';
+import { AuthenticationResult } from '../../content/assets/AuthenticationResult';
 import { FaceFeature } from '../../content/assets/FaceFeature';
 import { GovPassport } from '../../content/assets/GovPassport';
 import { HumanRecord } from '../../content/assets/HumanRecord';
@@ -74,20 +74,9 @@ const actors: ActorConfig[] = [
     },
     {
         definition: Government,
-        initialAssets: [
-            GovernmentNym1,
-            new HumanRecord('2', { subject: SubjectIdAtGov }, true),
-            new AttributeKnowledge(
-                '3',
-                {
-                    issuer: Government.id,
-                    subject: Subject.id,
-                    attributeName: '18+',
-                    attributeValue: 'WAAR',
-                },
-                true,
-            ),
-        ].map((a) => a.serialize()),
+        initialAssets: [GovernmentNym1, new HumanRecord('2', { subject: SubjectIdAtGov }, true)].map((a) =>
+            a.serialize(),
+        ),
     },
     {
         definition: Subject,
@@ -100,7 +89,14 @@ const actors: ActorConfig[] = [
     },
     {
         definition: Shop,
-        initialAssets: [ShopNym1].map((a) => a.serialize()),
+        initialAssets: [
+            ShopNym1,
+            new AuthenticationResult(
+                '6',
+                { identifier: GovernmentNym1.defProps.identifier, subject: Government.id },
+                true,
+            ),
+        ].map((a) => a.serialize()),
     },
 ];
 

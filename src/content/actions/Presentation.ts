@@ -64,8 +64,8 @@ export class Presentation extends Action<Props> {
 
         const attr = new AttributeKnowledge(this.id + '1', {
             attributeName: attrProof.defProps.attributeName,
-            issuer: attrProof.defProps.issuerNym, // TODO FIXME
-            subject: this.defProps.subjectNym,
+            issuerNym: attrProof.defProps.issuerNym, // TODO FIXME
+            subjectNym: this.defProps.subjectNym,
             attributeValue: attrProof.defProps.attributeValue,
         });
         return [new GainAssetOutcome({ actorId: verifier!.actor.id, asset: attr })];

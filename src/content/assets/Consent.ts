@@ -27,6 +27,10 @@ export class Consent extends Asset<Props> {
         return {
             transferrable: false,
             cloneable: true,
+            sub: {
+                NL: `Voor het gebruik van attribuut "${this.defProps.attributeName}".`,
+                EN: `For the use of attribute "${this.defProps.attributeName}".`,
+            },
         };
     }
 }

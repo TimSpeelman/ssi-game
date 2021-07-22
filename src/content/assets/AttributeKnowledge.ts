@@ -3,6 +3,7 @@ import { AssetType } from '../../model/content/Asset/AssetType';
 import { Asset, CustomAssetDesc } from '../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../model/logic/State/ScenarioState';
 import { CommonProps } from '../common/props';
+import { Pseudonym } from './Pseudonym';
 
 const Schema = new AssetSchema({
     typeName: 'AttributeKnowledge',
@@ -12,8 +13,8 @@ const Schema = new AssetSchema({
         EN: 'Attribute knowledge',
     },
     props: {
-        subject: CommonProps.subject,
-        issuer: CommonProps.issuer,
+        subjectNym: CommonProps.subjectNym,
+        issuerNym: CommonProps.issuerNym,
         attributeName: CommonProps.attributeName,
         attributeValue: CommonProps.attributeValue,
     },
@@ -26,9 +27,18 @@ export class AttributeKnowledge extends Asset<Props> {
     schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {
+        const { subjectNym, issuerNym, attributeName, attributeValue } = this.evaluateProps(state);
+        const sNym: Pseudonym | undefined = subjectNym;
+        const iNym: Pseudonym | undefined = issuerNym;
+
+        const attrDesc = attributeValue ? `${attributeName}: ${attributeValue}` : attributeName;
         return {
             transferrable: false,
             cloneable: true,
+            sub: {
+                NL: `${sNym?.defProps.identifier} heeft attribuut ${attrDesc} (volgens ${iNym?.defProps.identifier}).`,
+                EN: `${sNym?.defProps.identifier} has attribute ${attrDesc} (according to ${iNym?.defProps.identifier}).`,
+            },
         };
     }
 }

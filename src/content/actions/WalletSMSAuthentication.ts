@@ -5,7 +5,6 @@ import { ScenarioState } from '../../model/logic/State/ScenarioState';
 import { Action, BaseSchema, CustomActionDesc } from '../../model/logic/Step/Action';
 import { IOutcome } from '../../model/logic/Step/IOutcome';
 import { ucFirst } from '../../util/util';
-import { AttributeKnowledge } from '../assets/AttributeKnowledge';
 import { AuthenticationResult } from '../assets/AuthenticationResult';
 import { Pseudonym } from '../assets/Pseudonym';
 import { CommonProps } from '../common/props';
@@ -30,19 +29,24 @@ export class WalletSMSAuthentication extends Action<Props> {
     schema = Schema;
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
+        const props = this.evaluateProps(state);
+        const subjectNym: Pseudonym | undefined = props.subjectNym;
+
+        if (!subjectNym) return [];
+
         const authResult = new AuthenticationResult(this.id + '1', {
             subject: this.defProps.subject,
-            identifier: this.defProps.subjectNym,
+            identifier: subjectNym.defProps.identifier,
         });
-        const phoneNumber = new AttributeKnowledge(this.id + '2', {
-            subject: this.defProps.subject,
-            attributeName: 'telefoonnummer',
-            attributeValue: '06123456789',
-            issuer: '',
-        });
+        // const phoneNumber = new AttributeKnowledge(this.id + '2', {
+        //     subject: this.defProps.subject,
+        //     attributeName: 'telefoonnummer',
+        //     attributeValue: '06123456789',
+        //     issuer: '',
+        // });
         return [
             new GainAssetOutcome({ actorId: this.defProps.verifier, asset: authResult }),
-            new GainAssetOutcome({ actorId: this.defProps.verifier, asset: phoneNumber }),
+            // new GainAssetOutcome({ actorId: this.defProps.verifier, asset: phoneNumber }),
         ];
     }
 

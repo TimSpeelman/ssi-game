@@ -1,6 +1,6 @@
 import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
 import { Clear, Redo, Restore, RestorePage, Save, Undo } from '@material-ui/icons';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { HotKeys } from 'react-hotkeys';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
@@ -19,6 +19,9 @@ import { useLang } from './hooks/useLang';
 import { NetworkCanvas } from './pages/NetworkCanvasPage';
 
 const keyMap = {
+    UNDO: 'ctrl+z',
+    REDO: ['ctrl+y', 'ctrl+shift+z'],
+
     PREV_STEP: ['left', 'up'],
     NEXT_STEP: ['right', 'down'],
     FIRST_STEP: ['ctrl+left', 'ctrl+up'],
@@ -39,6 +42,9 @@ export function App() {
     const redoable = useSelector(selectRedoable);
 
     const keyHandlers = {
+        UNDO: () => dispatch(ActionCreators.undo()),
+        REDO: () => dispatch(ActionCreators.redo()),
+
         FIRST_STEP: () => dispatch(ScenarioActions.FIRST_STEP()),
         PREV_STEP: () => dispatch(ScenarioActions.PREV_STEP()),
         NEXT_STEP: () => dispatch(ScenarioActions.NEXT_STEP()),
@@ -65,6 +71,10 @@ export function App() {
     const reset = () => confirm(dict.app_msgConfirmReset) && dispatch(ScenarioActions.RESET());
 
     const saveToFile = () => saveScenarioToFile(scenario);
+
+    const hotKeysRef = useRef<HTMLElement>();
+
+    useEffect(() => hotKeysRef && hotKeysRef.current && hotKeysRef.current.focus(), [hotKeysRef]);
 
     function loadFromFile(e: any) {
         const files = e.target.files;
@@ -96,7 +106,7 @@ export function App() {
 
     return (
         <div className="fill">
-            <HotKeys keyMap={keyMap} root={true} handlers={keyHandlers} className="fill">
+            <HotKeys keyMap={keyMap} root={true} handlers={keyHandlers} className="fill" innerRef={hotKeysRef as any}>
                 <GlobalDialogRouter />
                 <AppBar position="static">
                     <Toolbar>

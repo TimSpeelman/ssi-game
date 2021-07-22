@@ -19,6 +19,8 @@ import { useLang } from './hooks/useLang';
 import { NetworkCanvas } from './pages/NetworkCanvasPage';
 
 const keyMap = {
+    CLEAR_SELECTION: 'escape',
+
     UNDO: 'ctrl+z',
     REDO: ['ctrl+y', 'ctrl+shift+z'],
 
@@ -42,6 +44,8 @@ export function App() {
     const redoable = useSelector(selectRedoable);
 
     const keyHandlers = {
+        CLEAR_SELECTION: () => dispatch(ScenarioActions.CLEAR_SELECTION()),
+
         UNDO: () => dispatch(ActionCreators.undo()),
         REDO: () => dispatch(ActionCreators.redo()),
 

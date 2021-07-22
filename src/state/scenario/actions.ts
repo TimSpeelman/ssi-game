@@ -44,8 +44,11 @@ export const ScenarioActions = {
 
     // Sequence Navigation
     GOTO_STEP: event<{ id: string | undefined }>('GOTO_STEP'),
+    GOTO_STEP_INDEX: event<{ index: number }>('GOTO_STEP_INDEX'),
     NEXT_STEP: event<void>('NEXT_STEP'),
     PREV_STEP: event<void>('PREV_STEP'),
+    FIRST_STEP: event<void>('FIRST_STEP'),
+    LAST_STEP: event<void>('LAST_STEP'),
 
     // Sidebar Navigation
     NAVIGATE_SIDEBAR: event<{ to: SidebarTab }>('NAVIGATE_SIDEBAR'),

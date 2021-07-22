@@ -93,6 +93,11 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
 
     // Sequence Navigation
     GOTO_STEP: (p) => L.activeStepId!.set(p.id),
+    GOTO_STEP_INDEX: (p) => (s): RootState => {
+        const steps = s.scenario.steps;
+        const goto = Math.max(-1, Math.min(p.index - 1, steps.length - 1));
+        return { ...s, activeStepId: goto === -1 ? undefined : steps[goto].id };
+    },
     NEXT_STEP: (p) => (s): RootState => {
         const activeIndex = s.activeStepId ? s.scenario.steps.findIndex((step) => step.id === s.activeStepId) : -1;
         const numberOfSteps = s.scenario.steps.length;
@@ -101,11 +106,18 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
         return { ...s, activeStepId: nextId };
     },
     PREV_STEP: (p) => (s): RootState => {
+        const firstId = s.scenario.steps[0];
         const activeIndex = s.activeStepId ? s.scenario.steps.findIndex((step) => step.id === s.activeStepId) : -1;
         const numberOfSteps = s.scenario.steps.length;
         const nextIndex = activeIndex === -1 ? numberOfSteps - 1 : activeIndex - 1;
         const nextId = nextIndex < 0 ? undefined : s.scenario.steps[nextIndex].id;
         return { ...s, activeStepId: nextId };
+    },
+    FIRST_STEP: (p) => L.activeStepId!.set(undefined),
+    LAST_STEP: (p) => (s): RootState => {
+        const steps = s.scenario.steps;
+        const lastStep = steps.length === 0 ? undefined : steps[steps.length - 1].id;
+        return { ...s, activeStepId: lastStep };
     },
 
     // Sidebar Navigation

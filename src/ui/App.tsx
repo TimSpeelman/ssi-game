@@ -28,12 +28,12 @@ const keyMap = {
     LAST_STEP: ['ctrl+right', 'ctrl+down'],
     GOTO_STEP: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
 
-    TAB_INFO: 'a',
-    TAB_ACTORS: 'b',
+    TAB_INFO: 'z',
+    TAB_ACTORS: 'x',
     TAB_ASSETS: 'c',
-    TAB_TIMELINE: 'd',
-    TAB_STEP: 'e',
-    TAB_SETTINGS: 'f',
+    TAB_TIMELINE: 'v',
+    TAB_STEP: 'b',
+    TAB_SETTINGS: 'n',
 };
 
 export function App() {

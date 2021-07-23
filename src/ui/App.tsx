@@ -1,5 +1,5 @@
-import { AppBar, Button, InputBase, Toolbar, Typography } from '@material-ui/core';
-import { Clear, Redo, Restore, RestorePage, Save, Undo } from '@material-ui/icons';
+import { AppBar, Button, IconButton, InputBase, Toolbar, Typography } from '@material-ui/core';
+import { Clear, Menu, Redo, Restore, RestorePage, Save, Undo } from '@material-ui/icons';
 import React, { useEffect, useRef, useState } from 'react';
 import { HotKeys } from 'react-hotkeys';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +16,7 @@ import {
     selectUndoable,
 } from '../state/scenario/selectors';
 import { LanguageMenu } from './components/LanguageMenu';
+import { ProjectDrawer } from './components/ProjectDrawer';
 import { ProjectMenu } from './components/ProjectMenu';
 import { SidebarTab } from './components/Sidebar/SidebarTab';
 import { GlobalDialogRouter } from './dialogs/GlobalDialogRouter';
@@ -109,16 +110,25 @@ export function App() {
     const [pName, setPName] = useState('');
     const projectName = useSelector(selectActiveProjectName);
     useEffect(() => setPName(projectName), [projectName]);
-    function renameProject() {
+    function renameProject(e: any) {
+        e.preventDefault();
         dispatch(ScenarioActions.RENAME_PROJECT({ name: pName }));
+    }
+
+    function openProjectDrawer() {
+        dispatch(ScenarioActions.OPEN_PROJECT_DRAWER());
     }
 
     return (
         <div className="fill">
             <HotKeys keyMap={keyMap} root={true} handlers={keyHandlers} className="fill" innerRef={hotKeysRef as any}>
                 <GlobalDialogRouter />
+                <ProjectDrawer />
                 <AppBar position="static">
                     <Toolbar>
+                        <IconButton edge="start" onClick={openProjectDrawer} color={'inherit'}>
+                            <Menu />
+                        </IconButton>
                         {/* <IconButton edge="start" color="inherit" aria-label="menu">
                         <MenuIcon />
                     </IconButton> */}

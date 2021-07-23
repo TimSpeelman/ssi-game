@@ -15,6 +15,7 @@ export const ScenarioActions = {
     ACTIVATE_PROJECT: event<{ id: string }>('ACTIVATE_PROJECT'),
     NEW_PROJECT: event<{ id: string }>('NEW_PROJECT'),
     RENAME_PROJECT: event<{ name: string }>('RENAME_PROJECT'),
+    DELETE_PROJECT: event<{ id: string }>('DELETE_PROJECT'),
 
     SET_LANGUAGE: event<{ language: Language }>('SET_LANGUAGE'),
 
@@ -66,6 +67,9 @@ export const ScenarioActions = {
     // Display Meta Dialog
     HIDE_META: event<void>('HIDE_META'),
     SHOW_META: event<void>('SHOW_META'),
+
+    OPEN_PROJECT_DRAWER: event<void>('OPEN_PROJECT_DRAWER'),
+    CLOSE_PROJECT_DRAWER: event<void>('CLOSE_PROJECT_DRAWER'),
 
     // Options
     TOGGLE_SNACKBAR: event<void>('TOGGLE_SNACKBAR'),

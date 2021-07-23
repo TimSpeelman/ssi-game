@@ -28,6 +28,7 @@ export const defaultState: RootState = {
         selectedStepId: undefined,
     },
     snackbarOn: false,
+    projectDrawerOpen: false,
     activeSidebarTab: SidebarTab.TIMELINE,
     language: Language.NL,
 };

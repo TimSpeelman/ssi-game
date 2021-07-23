@@ -8,6 +8,7 @@ export interface RootState {
 
     snackbarOn: boolean;
     activeSidebarTab: SidebarTab;
+    projectDrawerOpen: boolean;
 
     language: Language;
     highlightedResourceId?: string;

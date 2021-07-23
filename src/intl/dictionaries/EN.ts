@@ -106,6 +106,7 @@ export const DictionaryEN: Dictionary = {
 
     app_msgConfirmClear: 'Are you sure you wish to clear this scenario?',
     app_msgConfirmReset: 'Are you sure you wish to reset this scenario to its defaults?',
+    app_msgConfirmDeleteProject: 'Are you sure you wish to delete this project?',
     app_msgFileLoaded: 'File was successfully loaded!',
     btnClear: 'Clear',
     btnReset: 'Reset',

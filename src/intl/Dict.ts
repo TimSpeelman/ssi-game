@@ -114,6 +114,7 @@ export interface Dictionary {
 
     app_msgConfirmClear: string;
     app_msgConfirmReset: string;
+    app_msgConfirmDeleteProject: string;
     app_msgFileLoaded: string;
     btnClear: string;
     btnReset: string;

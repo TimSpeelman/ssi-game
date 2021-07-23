@@ -105,6 +105,7 @@ export const DictionaryNL: Dictionary = {
 
     app_msgConfirmClear: 'Weet je zeker dat je alles wilt wissen?',
     app_msgConfirmReset: 'Weet je zeker dat je alles terug wilt zetten?',
+    app_msgConfirmDeleteProject: 'Weet je zeker dat je dit project wilt verwijderen?',
     app_msgFileLoaded: 'Bestand is geladen!',
     btnClear: 'Legen',
     btnReset: 'Reset',

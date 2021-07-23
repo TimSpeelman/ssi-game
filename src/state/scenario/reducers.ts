@@ -33,6 +33,7 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
     NEW_PROJECT: (p) => L.inactiveProjects.set((prs) => [{ ...emptyProjectState, id: p.id }, ...prs]),
     RENAME_PROJECT: (p) => L.activeProject.name.set(p.name),
     SET_LANGUAGE: (p) => L.language.set(p.language),
+    DELETE_PROJECT: (p) => L.inactiveProjects.set((prs) => prs.filter((pr) => pr.id !== p.id)),
 
     // Definition
     CLEAR: (p) => LPr.scenario.set(emptyScenario),
@@ -161,6 +162,9 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
     // Display Meta Dialog
     HIDE_META: () => LPr.showMeta.set(false),
     SHOW_META: () => LPr.showMeta.set(true),
+
+    OPEN_PROJECT_DRAWER: () => L.projectDrawerOpen.set(true),
+    CLOSE_PROJECT_DRAWER: () => L.projectDrawerOpen.set(false),
 
     // Options
     TOGGLE_SNACKBAR: (p) => L.snackbarOn.set((on) => !on),

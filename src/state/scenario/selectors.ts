@@ -24,6 +24,7 @@ export const selectRedoable = (r: any): boolean => r.scenario.future.length > 0;
 export const selectLang = (r: any): Language => root(r).language;
 
 export const selectAllProjects = (r: any): ProjectState[] => [rootPr(r), ...root(r).inactiveProjects];
+export const selectInactiveProjects = (r: any): ProjectState[] => root(r).inactiveProjects;
 
 export const selectActiveProjectName = (r: any) => rootPr(r).name;
 
@@ -82,6 +83,7 @@ export const selectHighlightedResource = (r: any): string | undefined => root(r)
 
 // Display Meta Dialog
 export const selectShowMeta = (r: any) => rootPr(r).showMeta;
+export const selectProjectDrawerOpen = (r: any) => root(r).projectDrawerOpen;
 
 // Options
 export const selectSnackbarIsOn = (r: any) => root(r).snackbarOn;

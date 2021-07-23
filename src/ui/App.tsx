@@ -17,7 +17,6 @@ import {
 } from '../state/scenario/selectors';
 import { LanguageMenu } from './components/LanguageMenu';
 import { ProjectDrawer } from './components/ProjectDrawer';
-import { ProjectMenu } from './components/ProjectMenu';
 import { SidebarTab } from './components/Sidebar/SidebarTab';
 import { GlobalDialogRouter } from './dialogs/GlobalDialogRouter';
 import { useLang } from './hooks/useLang';
@@ -166,7 +165,6 @@ export function App() {
                             <input type="file" hidden value={undefined} onChange={(e) => loadFromFile(e)} />
                         </Button>
                         <LanguageMenu />
-                        <ProjectMenu />
                     </Toolbar>
                 </AppBar>
                 <BrowserRouter>

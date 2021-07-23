@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { ScenarioActions } from '../../../state/scenario/actions';
+import { ProjectActions } from '../../../state/scenario/actions';
 import { AssetDialog } from './AssetDialog';
 
 interface Props {
@@ -21,7 +21,7 @@ export function AddAssetDialogCtr(props: Props) {
         <AssetDialog
             onSubmit={(asset) => {
                 dispatch(
-                    ScenarioActions.ADD_ASSET({
+                    ProjectActions.ADD_ASSET({
                         actorId: props.options.actorId,
                         asset: asset,
                     }),

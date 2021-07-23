@@ -1,39 +1,18 @@
 import { lens } from 'lens.ts';
-import { IAction, ReducerMap } from '../../util/redux';
+import { newHistory } from 'redux-undo';
+import { ReducerMap } from '../../util/redux';
 import { cascadeRemove, reorder } from '../../util/util';
 import { w1th } from '../../util/w1th';
-import { ScenarioActions } from './actions';
+import { ProjectActions, ScenarioActions } from './actions';
 import { defaultScenario, emptyProjectState, emptyScenario } from './default';
 import { rootStateFromPersisted } from './persistence';
-import { RootState } from './state';
+import { ProjectState, RootState } from './state';
 
 const L = lens<RootState>();
-const LPr = lens<RootState>().activeProject;
+const LPr = lens<ProjectState>();
 
-const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
-    RESTORE_STATE: (p) => L.set(rootStateFromPersisted(p.state)),
-
-    ACTIVATE_PROJECT: (p) =>
-        L.set((s) =>
-            w1th(
-                s.inactiveProjects.find((pr) => p.id === pr.id),
-                (projectToActivate) =>
-                    !projectToActivate
-                        ? s
-                        : {
-                              ...s,
-                              inactiveProjects: [
-                                  s.activeProject,
-                                  ...s.inactiveProjects.filter((pr) => pr !== projectToActivate),
-                              ],
-                              activeProject: projectToActivate,
-                          },
-            ),
-        ),
-    NEW_PROJECT: (p) => L.inactiveProjects.set((prs) => [{ ...emptyProjectState, id: p.id }, ...prs]),
-    RENAME_PROJECT: (p) => L.activeProject.name.set(p.name),
-    SET_LANGUAGE: (p) => L.language.set(p.language),
-    DELETE_PROJECT: (p) => L.inactiveProjects.set((prs) => prs.filter((pr) => pr.id !== p.id)),
+export const ProjectReducers: ReducerMap<ProjectState, typeof ProjectActions> = {
+    RENAME_PROJECT: (p) => LPr.name.set(p.name),
 
     // Definition
     CLEAR: (p) => LPr.scenario.set(emptyScenario),
@@ -153,24 +132,51 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
             return { ...s, activeStepId: lastStep };
         }),
 
-    // Sidebar Navigation
-    NAVIGATE_SIDEBAR: (p) => L.activeSidebarTab.set(p.to),
-    NAVIGATE_TO_RESOURCE: (p) => (s: any) => s, // TODO FIXME
-    HIGHLIGHT_RESOURCE: (p) => L.highlightedResourceId!.set(p.resourceId),
-    UNHIGHLIGHT_RESOURCE: (p) => L.highlightedResourceId!.set((r) => (r === p.resourceId ? '' : r)),
-
     // Display Meta Dialog
     HIDE_META: () => LPr.showMeta.set(false),
     SHOW_META: () => LPr.showMeta.set(true),
+};
+
+export const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
+    RESTORE_STATE: (p) => L.set(rootStateFromPersisted(p.state)),
+
+    ACTIVATE_PROJECT: (p) =>
+        L.set((s) =>
+            w1th(
+                s.inactiveProjects.find((pr) => p.id === pr.present.id),
+                (projectToActivate) =>
+                    !projectToActivate
+                        ? s
+                        : {
+                              ...s,
+                              inactiveProjects: [
+                                  s.activeProject,
+                                  ...s.inactiveProjects.filter((pr) => pr !== projectToActivate),
+                              ],
+                              activeProject: projectToActivate,
+                          },
+            ),
+        ),
+    NEW_PROJECT: (p) =>
+        L.inactiveProjects.set((prs) => [newHistory([], { ...emptyProjectState, id: p.id }, []), ...prs]),
+    SET_LANGUAGE: (p) => L.language.set(p.language),
+    DELETE_PROJECT: (p) => L.inactiveProjects.set((prs) => prs.filter((pr) => pr.present.id !== p.id)),
+
+    // Sidebar Navigation
+    NAVIGATE_SIDEBAR: (p) => L.activeSidebarTab.set(p.to),
+    NAVIGATE_TO_RESOURCE: (p) => (s: any) => s, // TODO FIXME
 
     OPEN_PROJECT_DRAWER: () => L.projectDrawerOpen.set(true),
     CLOSE_PROJECT_DRAWER: () => L.projectDrawerOpen.set(false),
 
     // Options
     TOGGLE_SNACKBAR: (p) => L.snackbarOn.set((on) => !on),
+
+    HIGHLIGHT_RESOURCE: (p) => L.highlightedResourceId!.set(p.resourceId),
+    UNHIGHLIGHT_RESOURCE: (p) => L.highlightedResourceId!.set((r) => (r === p.resourceId ? '' : r)),
 };
 
-export function ScenarioReducer(s: RootState, e: IAction<any>) {
-    const r = e.type in ScenarioReducers ? ScenarioReducers[e.type as keyof typeof ScenarioReducers] : undefined;
-    return r ? r(e.payload)(s) : s;
-}
+// undoable(scenario, {
+//     filter: (action) => !!action._undoable,
+//     syncFilter: true,
+// }),

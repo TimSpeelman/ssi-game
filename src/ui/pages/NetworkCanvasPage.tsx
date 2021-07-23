@@ -4,7 +4,7 @@ import NavigateNext from '@material-ui/icons/NavigateNext';
 import { useSnackbar } from 'notistack';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ScenarioActions } from '../../state/scenario/actions';
+import { ProjectActions, ScenarioActions } from '../../state/scenario/actions';
 import {
     selectActiveStateDesc,
     selectActiveStepDesc,
@@ -53,18 +53,18 @@ export function NetworkCanvas() {
 
     function handleClickActor(id: string) {
         if (selectedActorId === id) {
-            dispatch(ScenarioActions.CLEAR_SELECTION());
+            dispatch(ProjectActions.CLEAR_SELECTION());
         } else {
-            dispatch(ScenarioActions.SELECT_ACTOR({ id }));
+            dispatch(ProjectActions.SELECT_ACTOR({ id }));
             dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
         }
     }
 
     function handleClickAsset(id: string) {
         if (selectedAssetId === id) {
-            dispatch(ScenarioActions.CLEAR_SELECTION());
+            dispatch(ProjectActions.CLEAR_SELECTION());
         } else {
-            dispatch(ScenarioActions.SELECT_ASSET({ id }));
+            dispatch(ProjectActions.SELECT_ASSET({ id }));
             dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ASSETS }));
         }
     }
@@ -88,7 +88,7 @@ export function NetworkCanvas() {
             case 'conn-leave':
                 return dispatch(ScenarioActions.UNHIGHLIGHT_RESOURCE({ resourceId: ev.id }));
             case 'slot-delete':
-                return dispatch(ScenarioActions.REMOVE_ACTOR({ id: ev.id }));
+                return dispatch(ProjectActions.REMOVE_ACTOR({ id: ev.id }));
         }
     };
 
@@ -119,7 +119,7 @@ export function NetworkCanvas() {
             <ScenarioMetaDialog
                 meta={scenarioDesc.definition.meta}
                 open={showMeta}
-                handleClose={() => dispatch(ScenarioActions.HIDE_META())}
+                handleClose={() => dispatch(ProjectActions.HIDE_META())}
             />
 
             <div className="canvasarea">
@@ -144,11 +144,11 @@ export function NetworkCanvas() {
                     )}
                     <Fab
                         style={{ marginRight: '1rem', marginLeft: '1rem' }}
-                        onClick={() => dispatch(ScenarioActions.PREV_STEP())}
+                        onClick={() => dispatch(ProjectActions.PREV_STEP())}
                     >
                         <NavigateBefore />
                     </Fab>
-                    <Fab onClick={() => dispatch(ScenarioActions.NEXT_STEP())}>
+                    <Fab onClick={() => dispatch(ProjectActions.NEXT_STEP())}>
                         <NavigateNext />
                     </Fab>
                 </div>

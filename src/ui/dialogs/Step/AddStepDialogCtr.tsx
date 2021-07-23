@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { ScenarioActions } from '../../../state/scenario/actions';
+import { ProjectActions } from '../../../state/scenario/actions';
 import { StepDialog } from './StepDialog';
 
 interface Props {
@@ -17,7 +17,7 @@ export function AddStepDialogCtr(props: Props) {
     return (
         <StepDialog
             onSubmit={(step) => {
-                dispatch(ScenarioActions.ADD_STEP({ step }));
+                dispatch(ProjectActions.ADD_STEP({ step }));
                 props.onSubmit();
             }}
             onCancel={props.onCancel}

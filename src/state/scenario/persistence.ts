@@ -1,3 +1,4 @@
+import { newHistory } from 'redux-undo';
 import { defaultState } from './default';
 import { ProjectState, RootState } from './state';
 
@@ -10,8 +11,8 @@ export interface PersistedState {
 
 export function selectPersistedState(s: RootState): PersistedState {
     return {
-        activeProject: selectPersistedProject(s.activeProject),
-        inactiveProjects: s.inactiveProjects.map(selectPersistedProject),
+        activeProject: selectPersistedProject(s.activeProject.present),
+        inactiveProjects: s.inactiveProjects.map((p) => selectPersistedProject(p.present)),
     };
 }
 
@@ -35,7 +36,7 @@ export function projectStateFromPersisted(state: PersistedProject): ProjectState
 export function rootStateFromPersisted(state: PersistedState): RootState {
     return {
         ...defaultState,
-        activeProject: projectStateFromPersisted(state.activeProject),
-        inactiveProjects: state.inactiveProjects.map(projectStateFromPersisted),
+        activeProject: newHistory([], projectStateFromPersisted(state.activeProject), []),
+        inactiveProjects: state.inactiveProjects.map((p) => newHistory([], projectStateFromPersisted(p), [])),
     };
 }

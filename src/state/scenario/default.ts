@@ -1,3 +1,4 @@
+import { newHistory } from 'redux-undo';
 import { OnlineLiquorPurchaseScenario } from '../../config/scenarios/OnlineLiquorPurchaseScenario';
 import { Language } from '../../intl/Language';
 import { ScenarioDef } from '../../model/definition/ScenarioDef';
@@ -18,15 +19,19 @@ export const emptyScenario: ScenarioDef = {
 
 export const defaultState: RootState = {
     inactiveProjects: [],
-    activeProject: {
-        id: '',
-        name: 'Untitled 1',
-        scenario: defaultScenario,
-        showMeta: true,
-        activeStepId: undefined,
-        selectedActorId: undefined,
-        selectedStepId: undefined,
-    },
+    activeProject: newHistory(
+        [],
+        {
+            id: '',
+            name: 'Untitled 1',
+            scenario: defaultScenario,
+            showMeta: true,
+            activeStepId: undefined,
+            selectedActorId: undefined,
+            selectedStepId: undefined,
+        },
+        [],
+    ),
     snackbarOn: false,
     projectDrawerOpen: false,
     activeSidebarTab: SidebarTab.TIMELINE,

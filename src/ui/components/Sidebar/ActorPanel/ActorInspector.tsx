@@ -3,7 +3,7 @@ import { Add, ChevronLeft, Edit } from '@material-ui/icons';
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../../../config/actorImage';
-import { ScenarioActions } from '../../../../state/scenario/actions';
+import { ProjectActions, ScenarioActions } from '../../../../state/scenario/actions';
 import { selectScenarioDef, selectSelectedActorDesc } from '../../../../state/scenario/selectors';
 import { groupBy } from '../../../../util/util';
 import { useDialog } from '../../../dialogs/dialogs';
@@ -35,7 +35,7 @@ export function ActorInspector() {
 
     return (
         <div>
-            <Button onClick={() => dispatch(ScenarioActions.CLEAR_SELECTION())}>
+            <Button onClick={() => dispatch(ProjectActions.CLEAR_SELECTION())}>
                 <ChevronLeft /> {dict.allActors}
             </Button>
             <Divider />
@@ -107,9 +107,9 @@ export function ActorInspector() {
                     <AssetList
                         assets={items}
                         onEdit={(id) => openDialog('EditAsset', { actorId: definition.id, assetId: id })}
-                        onDelete={(id) => dispatch(ScenarioActions.REMOVE_ASSET({ actorId: definition.id, id: id }))}
+                        onDelete={(id) => dispatch(ProjectActions.REMOVE_ASSET({ actorId: definition.id, id: id }))}
                         onClick={(id) => {
-                            dispatch(ScenarioActions.SELECT_ASSET({ id: id }));
+                            dispatch(ProjectActions.SELECT_ASSET({ id: id }));
                             dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ASSETS }));
                         }}
                     />

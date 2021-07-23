@@ -10,7 +10,7 @@ import {
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ScenarioMeta } from '../../../../model/definition/ScenarioMeta';
-import { ScenarioActions } from '../../../../state/scenario/actions';
+import { ProjectActions } from '../../../../state/scenario/actions';
 import { useLang } from '../../../hooks/useLang';
 
 export interface Props {
@@ -28,7 +28,7 @@ export function ScenarioMetaDialog(props: Props) {
     const setAuthor = (author: string) => setMeta((m) => ({ ...m, author }));
     const setBody = (body: string) => setMeta((m) => ({ ...m, body }));
     const save = () => {
-        dispatch(ScenarioActions.CHANGE_META({ meta }));
+        dispatch(ProjectActions.CHANGE_META({ meta }));
         setEdit(false);
     };
     const cancel = () => {

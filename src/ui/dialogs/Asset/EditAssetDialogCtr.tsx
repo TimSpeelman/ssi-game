@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ScenarioActions } from '../../../state/scenario/actions';
+import { ProjectActions } from '../../../state/scenario/actions';
 import { selectAssetDefById } from '../../../state/scenario/selectors';
 import { AssetDialog } from './AssetDialog';
 
@@ -25,7 +25,7 @@ export function EditAssetDialogCtr(props: Props) {
         <AssetDialog
             asset={asset}
             onSubmit={(asset) => {
-                dispatch(ScenarioActions.UPDATE_ASSET({ actorId: props.options.actorId, asset }));
+                dispatch(ProjectActions.UPDATE_ASSET({ actorId: props.options.actorId, asset }));
                 props.onSubmit();
             }}
             onCancel={props.onCancel}

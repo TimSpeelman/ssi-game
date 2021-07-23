@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ScenarioActions } from '../../../state/scenario/actions';
+import { ProjectActions } from '../../../state/scenario/actions';
 import { selectActorDefById } from '../../../state/scenario/selectors';
 import { ActorDefinitionDialog } from './ActorDefinitionDialog';
 
@@ -26,7 +26,7 @@ export function EditActorDialogCtr(props: Props) {
             definition={definition}
             handleClose={props.onCancel}
             handleSubmit={(actor) => {
-                dispatch(ScenarioActions.UPDATE_ACTOR_DEFINITION({ def: actor }));
+                dispatch(ProjectActions.UPDATE_ACTOR_DEFINITION({ def: actor }));
                 props.onSubmit();
             }}
         />

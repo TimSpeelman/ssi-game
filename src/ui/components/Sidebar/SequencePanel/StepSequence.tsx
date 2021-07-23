@@ -6,7 +6,7 @@ import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../../../config/actorImage';
-import { ScenarioActions } from '../../../../state/scenario/actions';
+import { ProjectActions, ScenarioActions } from '../../../../state/scenario/actions';
 import {
     selectActiveStepId,
     selectLang,
@@ -27,20 +27,20 @@ export function StepSequence() {
 
     function handleClick(id: string | undefined) {
         if (id === undefined) {
-            dispatch(ScenarioActions.CLEAR_SELECTION());
+            dispatch(ProjectActions.CLEAR_SELECTION());
         } else {
-            dispatch(ScenarioActions.SELECT_STEP({ id }));
+            dispatch(ProjectActions.SELECT_STEP({ id }));
         }
-        dispatch(ScenarioActions.GOTO_STEP({ id }));
+        dispatch(ProjectActions.GOTO_STEP({ id }));
     }
 
     function handleDoubleClick(id: string) {
-        dispatch(ScenarioActions.GOTO_STEP({ id }));
+        dispatch(ProjectActions.GOTO_STEP({ id }));
         dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.STEP }));
     }
 
     function handleReorder(sourceIndex: number, targetIndex: number) {
-        dispatch(ScenarioActions.REORDER_STEP({ sourceIndex, targetIndex }));
+        dispatch(ProjectActions.REORDER_STEP({ sourceIndex, targetIndex }));
     }
 
     const { openDialog } = useDialog();
@@ -147,7 +147,7 @@ export function StepSequence() {
                                                     edge="end"
                                                     aria-label="delete"
                                                     onClick={() =>
-                                                        dispatch(ScenarioActions.REMOVE_STEP({ id: step.action.id }))
+                                                        dispatch(ProjectActions.REMOVE_STEP({ id: step.action.id }))
                                                     }
                                                 >
                                                     <DeleteIcon />

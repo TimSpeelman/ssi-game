@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ScenarioActions } from '../../state/scenario/actions';
+import { ProjectActions, ScenarioActions } from '../../state/scenario/actions';
 import { selectActiveStateDesc } from '../../state/scenario/selectors';
 import { SidebarTab } from './Sidebar/SidebarTab';
 
@@ -19,11 +19,11 @@ export function InternalResourceUrl({ url, children }: PropsWithChildren<Props>)
         if (resource) {
             if (resource.type === 'asset') {
                 dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ASSETS }));
-                dispatch(ScenarioActions.SELECT_ASSET({ id: resourceId }));
+                dispatch(ProjectActions.SELECT_ASSET({ id: resourceId }));
             }
             if (resource.type === 'actor') {
                 dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
-                dispatch(ScenarioActions.SELECT_ACTOR({ id: resourceId }));
+                dispatch(ProjectActions.SELECT_ACTOR({ id: resourceId }));
             }
         }
     }

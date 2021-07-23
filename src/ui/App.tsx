@@ -8,7 +8,7 @@ import { ActionCreators } from 'redux-undo';
 import { loadScenarioFromFile } from '../persistence/loadScenarioFromFile';
 import { loadFromLocalStorage } from '../persistence/localStorage';
 import { saveScenarioToFile } from '../persistence/saveScenarioToFile';
-import { ScenarioActions } from '../state/scenario/actions';
+import { ProjectActions, ScenarioActions } from '../state/scenario/actions';
 import {
     selectActiveProjectName,
     selectRedoable,
@@ -49,16 +49,16 @@ export function App() {
     const redoable = useSelector(selectRedoable);
 
     const keyHandlers = {
-        CLEAR_SELECTION: () => dispatch(ScenarioActions.CLEAR_SELECTION()),
+        CLEAR_SELECTION: () => dispatch(ProjectActions.CLEAR_SELECTION()),
 
         UNDO: () => dispatch(ActionCreators.undo()),
         REDO: () => dispatch(ActionCreators.redo()),
 
-        FIRST_STEP: () => dispatch(ScenarioActions.FIRST_STEP()),
-        PREV_STEP: () => dispatch(ScenarioActions.PREV_STEP()),
-        NEXT_STEP: () => dispatch(ScenarioActions.NEXT_STEP()),
-        LAST_STEP: () => dispatch(ScenarioActions.LAST_STEP()),
-        GOTO_STEP: (e: any) => dispatch(ScenarioActions.GOTO_STEP_INDEX({ index: parseInt(e.key, 10) })),
+        FIRST_STEP: () => dispatch(ProjectActions.FIRST_STEP()),
+        PREV_STEP: () => dispatch(ProjectActions.PREV_STEP()),
+        NEXT_STEP: () => dispatch(ProjectActions.NEXT_STEP()),
+        LAST_STEP: () => dispatch(ProjectActions.LAST_STEP()),
+        GOTO_STEP: (e: any) => dispatch(ProjectActions.GOTO_STEP_INDEX({ index: parseInt(e.key, 10) })),
         TAB_INFO: () => dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.INFO })),
         TAB_ACTORS: () => dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS })),
         TAB_ASSETS: () => dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ASSETS })),
@@ -75,9 +75,9 @@ export function App() {
 
     const redo = () => dispatch(ActionCreators.redo());
 
-    const clear = () => confirm(dict.app_msgConfirmClear) && dispatch(ScenarioActions.CLEAR());
+    const clear = () => confirm(dict.app_msgConfirmClear) && dispatch(ProjectActions.CLEAR());
 
-    const reset = () => confirm(dict.app_msgConfirmReset) && dispatch(ScenarioActions.RESET());
+    const reset = () => confirm(dict.app_msgConfirmReset) && dispatch(ProjectActions.RESET());
 
     const saveToFile = () => saveScenarioToFile(scenario);
 
@@ -92,7 +92,7 @@ export function App() {
 
         loadScenarioFromFile(files[0])
             .then((scenario) => {
-                dispatch(ScenarioActions.SET_SCENARIO({ scenario }));
+                dispatch(ProjectActions.SET_SCENARIO({ scenario }));
                 alert(dict.app_msgFileLoaded);
             })
             .catch((e) => alert(e));
@@ -112,7 +112,7 @@ export function App() {
     useEffect(() => setPName(projectName), [projectName]);
     function renameProject(e: any) {
         e.preventDefault();
-        dispatch(ScenarioActions.RENAME_PROJECT({ name: pName }));
+        dispatch(ProjectActions.RENAME_PROJECT({ name: pName }));
     }
 
     function openProjectDrawer() {

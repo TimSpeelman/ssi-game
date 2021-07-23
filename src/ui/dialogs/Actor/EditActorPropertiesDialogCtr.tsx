@@ -2,7 +2,7 @@ import { Button, DialogActions, DialogContent, DialogContentText, DialogTitle, T
 import { Add, Delete } from '@material-ui/icons';
 import React, { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ScenarioActions } from '../../../state/scenario/actions';
+import { ProjectActions } from '../../../state/scenario/actions';
 import { selectActorDefById } from '../../../state/scenario/selectors';
 import { useLang } from '../../hooks/useLang';
 
@@ -28,7 +28,7 @@ export function EditActorPropertiesDialogCtr(props: Props) {
         const _data = data
             .map(([key, val]) => [key.trim(), val.trim()] as [string, string])
             .filter(([key, val]) => key !== '' || val !== '');
-        dispatch(ScenarioActions.UPDATE_ACTOR_DEFINITION({ def: { ...definition, properties: _data } }));
+        dispatch(ProjectActions.UPDATE_ACTOR_DEFINITION({ def: { ...definition, properties: _data } }));
         props.onSubmit();
     }
 

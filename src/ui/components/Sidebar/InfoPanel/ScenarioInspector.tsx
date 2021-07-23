@@ -2,7 +2,7 @@ import { Button, Typography } from '@material-ui/core';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { ScenarioMeta } from '../../../../model/definition/ScenarioMeta';
-import { ScenarioActions } from '../../../../state/scenario/actions';
+import { ProjectActions } from '../../../../state/scenario/actions';
 import { useLang } from '../../../hooks/useLang';
 import { useNav } from '../../../hooks/useNav';
 
@@ -22,7 +22,7 @@ export function ScenarioInspector({ meta }: Props) {
                 {dict.author}: {meta.author}
             </p>
             <p>{meta.body}</p>
-            <Button onClick={() => dispatch(ScenarioActions.SHOW_META())}>{dict.btnEditScenarioMeta}</Button>
+            <Button onClick={() => dispatch(ProjectActions.SHOW_META())}>{dict.btnEditScenarioMeta}</Button>
             {/* <Button onClick={() => goto('/configuratie')}>Instellingen</Button> */}
         </div>
     );

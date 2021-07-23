@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DefaultAssetsCollection } from '../../../../content/assets';
 import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode';
-import { ScenarioActions } from '../../../../state/scenario/actions';
+import { ProjectActions, ScenarioActions } from '../../../../state/scenario/actions';
 import { selectSelectedAssetNode, selectUsedActors } from '../../../../state/scenario/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
@@ -30,11 +30,11 @@ export function AssetInspector() {
     const data = assetType ? Object.entries(assetType.schema.computeDisplayProperties(asset.asset)) : [];
 
     function handleAssetClick(id: string) {
-        dispatch(ScenarioActions.SELECT_ASSET({ id }));
+        dispatch(ProjectActions.SELECT_ASSET({ id }));
     }
 
     function backToOwner() {
-        dispatch(ScenarioActions.SELECT_ACTOR({ id: actor!.id }));
+        dispatch(ProjectActions.SELECT_ACTOR({ id: actor!.id }));
         dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
     }
 
@@ -101,7 +101,7 @@ export function AssetInspector() {
                     <AssetList
                         assets={asset.children}
                         onEdit={(id) => openDialog('EditAsset', { assetId: id, actorId: asset.ownerId })}
-                        onDelete={(id) => dispatch(ScenarioActions.REMOVE_ASSET({ actorId: asset.ownerId, id: id }))}
+                        onDelete={(id) => dispatch(ProjectActions.REMOVE_ASSET({ actorId: asset.ownerId, id: id }))}
                         onClick={handleAssetClick}
                     />
                 </Fragment>

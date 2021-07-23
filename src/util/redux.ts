@@ -28,3 +28,7 @@ export type Reducer<S, P> = (payload: P) => (state: S) => S;
 export type ReducerMap<State, Evts> = {
     [K in keyof Evts]: Evts[K] extends Creator<infer Payload> ? Reducer<State, Payload> : never;
 };
+
+export function getReducer<S, E>(map: ReducerMap<S, E>) {
+    return (e: IAction<any>) => (e.type in map ? map[e.type as keyof typeof map] : undefined);
+}

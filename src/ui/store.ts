@@ -1,5 +1,4 @@
 import { combineReducers, createStore } from 'redux';
-import undoable from 'redux-undo';
 import { saveToLocalStorage } from '../persistence/localStorage';
 import { scenario } from '../state/scenario';
 import { selectPersistedState } from '../state/scenario/persistence';
@@ -7,10 +6,7 @@ import { root } from '../state/scenario/selectors';
 import { throttle } from '../util/util';
 
 export const rootReducer = combineReducers({
-    scenario: undoable(scenario, {
-        filter: (action) => !!action._undoable,
-        syncFilter: true,
-    }),
+    scenario: scenario,
 });
 
 export const store = createStore(

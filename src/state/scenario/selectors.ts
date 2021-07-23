@@ -15,16 +15,20 @@ import { keyBy, mergeRecords } from '../../util/util';
 import { w1th } from '../../util/w1th';
 import { ProjectState, RootState } from './state';
 
-export const root = (r: any): RootState => r.scenario.present;
-export const rootPr = (r: any): ProjectState => root(r).activeProject;
+export const root = (r: any): RootState => r.scenario;
+// export const root = (r: any): RootState => r.scenario.present;
+export const rootPr = (r: any): ProjectState => root(r).activeProject.present;
 
-export const selectUndoable = (r: any): boolean => r.scenario.past.length > 0;
-export const selectRedoable = (r: any): boolean => r.scenario.future.length > 0;
+export const selectUndoable = (r: any): boolean => root(r).activeProject.past.length > 0;
+export const selectRedoable = (r: any): boolean => root(r).activeProject.future.length > 0;
 
 export const selectLang = (r: any): Language => root(r).language;
 
-export const selectAllProjects = (r: any): ProjectState[] => [rootPr(r), ...root(r).inactiveProjects];
-export const selectInactiveProjects = (r: any): ProjectState[] => root(r).inactiveProjects;
+export const selectAllProjects = (r: any): ProjectState[] => [
+    rootPr(r),
+    ...root(r).inactiveProjects.map((p) => p.present),
+];
+export const selectInactiveProjects = (r: any): ProjectState[] => root(r).inactiveProjects.map((p) => p.present);
 
 export const selectActiveProjectName = (r: any) => rootPr(r).name;
 

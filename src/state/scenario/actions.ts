@@ -9,17 +9,8 @@ import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 import { event } from '../../util/redux';
 import { PersistedState } from './persistence';
 
-export const ScenarioActions = {
-    RESTORE_STATE: event<{ state: PersistedState }>('RESTORE_STATE'),
-
-    ACTIVATE_PROJECT: event<{ id: string }>('ACTIVATE_PROJECT'),
-    NEW_PROJECT: event<{ id: string }>('NEW_PROJECT'),
+export const ProjectActions = {
     RENAME_PROJECT: event<{ name: string }>('RENAME_PROJECT'),
-    DELETE_PROJECT: event<{ id: string }>('DELETE_PROJECT'),
-
-    SET_LANGUAGE: event<{ language: Language }>('SET_LANGUAGE'),
-
-    // Definition
     CLEAR: event<void>('CLEAR', true),
     RESET: event<void>('RESET', true),
     SET_SCENARIO: event<{ scenario: ScenarioDef }>('SET_SCENARIO'),
@@ -58,19 +49,31 @@ export const ScenarioActions = {
     FIRST_STEP: event<void>('FIRST_STEP'),
     LAST_STEP: event<void>('LAST_STEP'),
 
-    // Sidebar Navigation
-    NAVIGATE_SIDEBAR: event<{ to: SidebarTab }>('NAVIGATE_SIDEBAR'),
-    NAVIGATE_TO_RESOURCE: event<{ resourceId: string }>('NAVIGATE_TO_RESOURCE'),
-    HIGHLIGHT_RESOURCE: event<{ resourceId: string }>('HIGHLIGHT_RESOURCE'),
-    UNHIGHLIGHT_RESOURCE: event<{ resourceId: string }>('UNHIGHLIGHT_RESOURCE'),
-
     // Display Meta Dialog
     HIDE_META: event<void>('HIDE_META'),
     SHOW_META: event<void>('SHOW_META'),
+};
+
+export const ScenarioActions = {
+    RESTORE_STATE: event<{ state: PersistedState }>('RESTORE_STATE'),
+
+    ACTIVATE_PROJECT: event<{ id: string }>('ACTIVATE_PROJECT'),
+    NEW_PROJECT: event<{ id: string }>('NEW_PROJECT'),
+
+    DELETE_PROJECT: event<{ id: string }>('DELETE_PROJECT'),
+
+    SET_LANGUAGE: event<{ language: Language }>('SET_LANGUAGE'),
+
+    // Sidebar Navigation
+    NAVIGATE_SIDEBAR: event<{ to: SidebarTab }>('NAVIGATE_SIDEBAR'),
+    NAVIGATE_TO_RESOURCE: event<{ resourceId: string }>('NAVIGATE_TO_RESOURCE'),
 
     OPEN_PROJECT_DRAWER: event<void>('OPEN_PROJECT_DRAWER'),
     CLOSE_PROJECT_DRAWER: event<void>('CLOSE_PROJECT_DRAWER'),
 
     // Options
     TOGGLE_SNACKBAR: event<void>('TOGGLE_SNACKBAR'),
+
+    HIGHLIGHT_RESOURCE: event<{ resourceId: string }>('HIGHLIGHT_RESOURCE'),
+    UNHIGHLIGHT_RESOURCE: event<{ resourceId: string }>('UNHIGHLIGHT_RESOURCE'),
 };

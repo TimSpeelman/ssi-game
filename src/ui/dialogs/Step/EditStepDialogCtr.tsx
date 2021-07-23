@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ScenarioActions } from '../../../state/scenario/actions';
+import { ProjectActions } from '../../../state/scenario/actions';
 import { selectActionDefById } from '../../../state/scenario/selectors';
 import { StepDialog } from './StepDialog';
 
@@ -23,7 +23,7 @@ export function EditStepDialogCtr(props: Props) {
         <StepDialog
             action={actionDef!}
             onSubmit={(step) => {
-                dispatch(ScenarioActions.UPDATE_STEP({ step }));
+                dispatch(ProjectActions.UPDATE_STEP({ step }));
                 props.onSubmit();
             }}
             onCancel={props.onCancel}

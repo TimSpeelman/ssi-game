@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { ActorConfig } from '../../../model/definition/Actor/ActorConfig';
-import { ScenarioActions } from '../../../state/scenario/actions';
+import { ProjectActions } from '../../../state/scenario/actions';
 import { ActorDefinitionDialog } from './ActorDefinitionDialog';
 
 interface Props {
@@ -23,7 +23,7 @@ export function AddActorDialogCtr(props: Props) {
             handleSubmit={(newActor) => {
                 const id = uuid();
                 const newActorConfig: ActorConfig = { initialAssets: [], definition: { ...newActor, id } };
-                dispatch(ScenarioActions.ADD_ACTOR({ actor: newActorConfig }));
+                dispatch(ProjectActions.ADD_ACTOR({ actor: newActorConfig }));
                 props.onSubmit();
             }}
         />

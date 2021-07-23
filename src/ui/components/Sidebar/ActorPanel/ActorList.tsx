@@ -6,7 +6,7 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { actorImage } from '../../../../config/actorImage';
 import { ActorConfig } from '../../../../model/definition/Actor/ActorConfig';
-import { ScenarioActions } from '../../../../state/scenario/actions';
+import { ProjectActions, ScenarioActions } from '../../../../state/scenario/actions';
 import {
     selectHighlightedResource,
     selectIdsOfInvolvedActors,
@@ -29,7 +29,7 @@ export function ActorList() {
 
     // Actor Setters
     const canRemoveActor = (id: string) => !(id in involvedActors);
-    const setActors = (actors: ActorConfig[]) => dispatch(ScenarioActions.SET_ACTORS({ actors }));
+    const setActors = (actors: ActorConfig[]) => dispatch(ProjectActions.SET_ACTORS({ actors }));
     const handleReorder = (fromIndex: number, toIndex: number) => setActors(reorder(actors, fromIndex, toIndex));
     const removeActor = (id: string) => setActors(actors.filter((a) => a.definition.id !== id));
     const { dict } = useLang();
@@ -68,7 +68,7 @@ export function ActorList() {
                                                 onMouseEnter={() => onMouseEnter(actor.definition.id)}
                                                 onMouseLeave={() => onMouseLeave(actor.definition.id)}
                                                 onClick={() =>
-                                                    dispatch(ScenarioActions.SELECT_ACTOR({ id: actor.definition.id }))
+                                                    dispatch(ProjectActions.SELECT_ACTOR({ id: actor.definition.id }))
                                                 }
                                             >
                                                 <div

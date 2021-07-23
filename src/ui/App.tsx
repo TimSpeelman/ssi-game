@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { ActionCreators } from 'redux-undo';
 import { loadScenarioFromFile } from '../persistence/loadScenarioFromFile';
-import { loadScenarioFromLocalStorage } from '../persistence/loadScenarioFromLocalStorage';
+import { loadFromLocalStorage } from '../persistence/localStorage';
 import { saveScenarioToFile } from '../persistence/saveScenarioToFile';
-import { saveScenarioToLocalStorage } from '../persistence/saveScenarioToLocalStorage';
 import { ScenarioActions } from '../state/scenario/actions';
 import { selectRedoable, selectScenarioDef, selectUndoable } from '../state/scenario/selectors';
 import { LanguageMenu } from './components/LanguageMenu';
+import { ProjectMenu } from './components/ProjectMenu';
 import { SidebarTab } from './components/Sidebar/SidebarTab';
 import { useDialogService } from './dialogs/DialogContext';
 import { GlobalDialogRouter } from './dialogs/GlobalDialogRouter';
@@ -93,18 +93,18 @@ export function App() {
             .catch((e) => alert(e));
     }
 
+    // const { restore } = useLocalStorageSync({ key: 'scenario',  }
+
     useEffect(() => {
-        const restored = loadScenarioFromLocalStorage();
-        if (restored) {
-            dispatch(ScenarioActions.SET_SCENARIO({ scenario: restored }));
-        } else {
-            dispatch(ScenarioActions.RESET());
+        const savedState = loadFromLocalStorage('state');
+        if (savedState) {
+            dispatch(ScenarioActions.RESTORE_STATE({ state: savedState }));
         }
     }, []);
 
-    useEffect(() => {
-        saveScenarioToLocalStorage(scenario);
-    }, [scenario]);
+    // useEffect(() => {
+    //     saveScenarioToLocalStorage(scenario);
+    // }, [scenario]);
 
     const dialogCtx = useDialogService();
 
@@ -117,7 +117,7 @@ export function App() {
                         {/* <IconButton edge="start" color="inherit" aria-label="menu">
                         <MenuIcon />
                     </IconButton> */}
-                        <Typography variant="h6" style={{ flexGrow: 1 }}>
+                        <Typography variant="h6" style={{ marginRight: '.5rem', flexGrow: 1 }}>
                             Identity Game
                         </Typography>
                         <Button color={'inherit'} onClick={undo} style={{ marginRight: '.5rem' }} disabled={!undoable}>
@@ -140,6 +140,7 @@ export function App() {
                             <input type="file" hidden value={undefined} onChange={(e) => loadFromFile(e)} />
                         </Button>
                         <LanguageMenu />
+                        <ProjectMenu />
                     </Toolbar>
                 </AppBar>
                 <BrowserRouter>

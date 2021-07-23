@@ -99,3 +99,11 @@ export function cascadeRemove<T>(
     );
     return noDeps;
 }
+
+export function throttle(fn: () => void, ms: number) {
+    let timeout: any = null;
+    return () => {
+        clearTimeout(timeout);
+        timeout = setTimeout(fn, ms);
+    };
+}

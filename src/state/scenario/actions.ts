@@ -7,8 +7,15 @@ import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { ScenarioMeta } from '../../model/definition/ScenarioMeta';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 import { event } from '../../util/redux';
+import { PersistedState } from './persistence';
 
 export const ScenarioActions = {
+    RESTORE_STATE: event<{ state: PersistedState }>('RESTORE_STATE'),
+
+    ACTIVATE_PROJECT: event<{ name: string }>('ACTIVATE_PROJECT'),
+    NEW_PROJECT: event<{ name: string }>('NEW_PROJECT'),
+    RENAME_PROJECT: event<{ name: string }>('RENAME_PROJECT'),
+
     SET_LANGUAGE: event<{ language: Language }>('SET_LANGUAGE'),
 
     // Definition

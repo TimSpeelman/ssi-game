@@ -13,6 +13,7 @@ import { computeScenarioFromDefinition } from '../../model/logic';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 import { keyBy, mergeRecords } from '../../util/util';
 import { w1th } from '../../util/w1th';
+import { PersistedProject, projectStateToPersistable } from './persistence';
 import { ProjectState, RootState } from './state';
 
 export const root = (r: any): RootState => r.scenario;
@@ -21,6 +22,9 @@ export const rootPr = (r: any): ProjectState => root(r).activeProject.present;
 
 export const selectUndoable = (r: any): boolean => root(r).activeProject.past.length > 0;
 export const selectRedoable = (r: any): boolean => root(r).activeProject.future.length > 0;
+
+export const selectPersistableProject = (r: any): PersistedProject =>
+    projectStateToPersistable(root(r).activeProject.present);
 
 export const selectLang = (r: any): Language => root(r).language;
 

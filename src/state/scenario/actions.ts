@@ -7,7 +7,7 @@ import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { ScenarioMeta } from '../../model/definition/ScenarioMeta';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';
 import { event } from '../../util/redux';
-import { PersistedState } from './persistence';
+import { PersistedProject, PersistedState } from './persistence';
 
 export const ProjectActions = {
     RENAME_PROJECT: event<{ name: string }>('RENAME_PROJECT'),
@@ -56,6 +56,7 @@ export const ProjectActions = {
 
 export const ScenarioActions = {
     RESTORE_STATE: event<{ state: PersistedState }>('RESTORE_STATE'),
+    LOAD_PROJECT: event<{ project: PersistedProject }>('LOAD_PROJECT'),
 
     ACTIVATE_PROJECT: event<{ id: string }>('ACTIVATE_PROJECT'),
     NEW_PROJECT: event<{ id: string }>('NEW_PROJECT'),

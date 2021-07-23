@@ -5,7 +5,7 @@ import { cascadeRemove, reorder } from '../../util/util';
 import { w1th } from '../../util/w1th';
 import { ProjectActions, ScenarioActions } from './actions';
 import { defaultScenario, emptyProjectState, emptyScenario } from './default';
-import { rootStateFromPersisted } from './persistence';
+import { persistableToProjectState, persistableToRootState } from './persistence';
 import { ProjectState, RootState } from './state';
 
 const L = lens<RootState>();
@@ -138,7 +138,9 @@ export const ProjectReducers: ReducerMap<ProjectState, typeof ProjectActions> = 
 };
 
 export const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
-    RESTORE_STATE: (p) => L.set(rootStateFromPersisted(p.state)),
+    RESTORE_STATE: (p) => L.set(persistableToRootState(p.state)),
+    LOAD_PROJECT: (p) =>
+        L.inactiveProjects.set((prs) => [newHistory([], persistableToProjectState(p.project), []), ...prs]),
 
     ACTIVATE_PROJECT: (p) =>
         L.set((s) =>

@@ -1,9 +1,9 @@
-import { ScenarioDef } from '../model/definition/ScenarioDef';
+import { PersistedProject } from '../state/scenario/persistence';
 
-export function loadScenarioFromFile(jsonFile: File) {
+export function loadProjectFromFile(jsonFile: File) {
     const reader = new FileReader();
 
-    return new Promise<ScenarioDef>((resolve, reject) => {
+    return new Promise<PersistedProject>((resolve, reject) => {
         reader.onload = (e) => {
             const txt = reader.result;
             if (!txt) {

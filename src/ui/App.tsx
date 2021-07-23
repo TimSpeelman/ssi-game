@@ -1,13 +1,11 @@
-import { AppBar, Button, IconButton, InputBase, Toolbar, Typography } from '@material-ui/core';
-import { Clear, Menu, Redo, Restore, RestorePage, Save, Undo } from '@material-ui/icons';
-import React, { useEffect, useRef, useState } from 'react';
+import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core';
+import { Clear, Menu, Redo, Restore, Undo } from '@material-ui/icons';
+import React, { useEffect, useRef } from 'react';
 import { HotKeys } from 'react-hotkeys';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { ActionCreators } from 'redux-undo';
-import { loadScenarioFromFile } from '../persistence/loadScenarioFromFile';
 import { loadFromLocalStorage } from '../persistence/localStorage';
-import { saveScenarioToFile } from '../persistence/saveScenarioToFile';
 import { ProjectActions, ScenarioActions } from '../state/scenario/actions';
 import {
     selectActiveProjectName,
@@ -78,24 +76,9 @@ export function App() {
 
     const reset = () => confirm(dict.app_msgConfirmReset) && dispatch(ProjectActions.RESET());
 
-    const saveToFile = () => saveScenarioToFile(scenario);
-
     const hotKeysRef = useRef<HTMLElement>();
 
     useEffect(() => hotKeysRef && hotKeysRef.current && hotKeysRef.current.focus(), [hotKeysRef]);
-
-    function loadFromFile(e: any) {
-        const files = e.target.files;
-        console.log('FILES', files);
-        if (!files || files.length !== 1) return;
-
-        loadScenarioFromFile(files[0])
-            .then((scenario) => {
-                dispatch(ProjectActions.SET_SCENARIO({ scenario }));
-                alert(dict.app_msgFileLoaded);
-            })
-            .catch((e) => alert(e));
-    }
 
     // const { restore } = useLocalStorageSync({ key: 'scenario',  }
 
@@ -106,17 +89,11 @@ export function App() {
         }
     }, []);
 
-    const [pName, setPName] = useState('');
-    const projectName = useSelector(selectActiveProjectName);
-    useEffect(() => setPName(projectName), [projectName]);
-    function renameProject(e: any) {
-        e.preventDefault();
-        dispatch(ProjectActions.RENAME_PROJECT({ name: pName }));
-    }
-
     function openProjectDrawer() {
         dispatch(ScenarioActions.OPEN_PROJECT_DRAWER());
     }
+
+    const projectName = useSelector(selectActiveProjectName);
 
     return (
         <div className="fill">
@@ -133,17 +110,8 @@ export function App() {
                     </IconButton> */}
                         <div style={{ display: 'flex', flexGrow: 1 }}>
                             <Typography variant="h6" style={{ marginRight: '.5rem' }}>
-                                Identity Game |
+                                Identity Game | {projectName === '' ? dict.untitledProject : projectName}
                             </Typography>
-                            <form onSubmit={renameProject}>
-                                <InputBase
-                                    style={{ color: 'inherit' }}
-                                    value={pName}
-                                    placeholder={projectName === '' ? dict.untitledProject : projectName}
-                                    onChange={(e) => setPName(e.target.value)}
-                                    onBlur={renameProject}
-                                />
-                            </form>
                         </div>
                         <Button color={'inherit'} onClick={undo} style={{ marginRight: '.5rem' }} disabled={!undoable}>
                             <Undo />
@@ -157,13 +125,7 @@ export function App() {
                         <Button color={'inherit'} onClick={reset} style={{ marginRight: '.5rem' }}>
                             <Restore /> {dict.btnReset}
                         </Button>
-                        <Button color={'inherit'} onClick={saveToFile} style={{ marginRight: '.5rem' }}>
-                            <Save /> {dict.btnSaveToFile}
-                        </Button>
-                        <Button color={'inherit'} component={'label'}>
-                            <RestorePage /> {dict.btnLoadFromFile}
-                            <input type="file" hidden value={undefined} onChange={(e) => loadFromFile(e)} />
-                        </Button>
+
                         <LanguageMenu />
                     </Toolbar>
                 </AppBar>

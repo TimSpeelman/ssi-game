@@ -11,12 +11,12 @@ export interface PersistedState {
 
 export function selectPersistedState(s: RootState): PersistedState {
     return {
-        activeProject: selectPersistedProject(s.activeProject.present),
-        inactiveProjects: s.inactiveProjects.map((p) => selectPersistedProject(p.present)),
+        activeProject: projectStateToPersistable(s.activeProject.present),
+        inactiveProjects: s.inactiveProjects.map((p) => projectStateToPersistable(p.present)),
     };
 }
 
-export function selectPersistedProject(project: ProjectState): PersistedProject {
+export function projectStateToPersistable(project: ProjectState): PersistedProject {
     return {
         id: project.id,
         name: project.name,
@@ -24,7 +24,7 @@ export function selectPersistedProject(project: ProjectState): PersistedProject 
     };
 }
 
-export function projectStateFromPersisted(state: PersistedProject): ProjectState {
+export function persistableToProjectState(state: PersistedProject): ProjectState {
     return {
         id: state.id,
         name: state.name,
@@ -33,10 +33,10 @@ export function projectStateFromPersisted(state: PersistedProject): ProjectState
     };
 }
 
-export function rootStateFromPersisted(state: PersistedState): RootState {
+export function persistableToRootState(state: PersistedState): RootState {
     return {
         ...defaultState,
-        activeProject: newHistory([], projectStateFromPersisted(state.activeProject), []),
-        inactiveProjects: state.inactiveProjects.map((p) => newHistory([], projectStateFromPersisted(p), [])),
+        activeProject: newHistory([], persistableToProjectState(state.activeProject), []),
+        inactiveProjects: state.inactiveProjects.map((p) => newHistory([], persistableToProjectState(p), [])),
     };
 }

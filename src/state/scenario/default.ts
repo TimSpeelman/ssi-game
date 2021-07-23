@@ -19,6 +19,7 @@ export const emptyScenario: ScenarioDef = {
 export const defaultState: RootState = {
     inactiveProjects: [],
     activeProject: {
+        id: '',
         name: 'Untitled 1',
         scenario: defaultScenario,
         showMeta: true,
@@ -32,6 +33,7 @@ export const defaultState: RootState = {
 };
 
 export const emptyProjectState: ProjectState = {
+    id: '',
     name: '',
     scenario: emptyScenario,
     showMeta: false,

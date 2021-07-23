@@ -110,4 +110,7 @@ export const DictionaryNL: Dictionary = {
     btnReset: 'Reset',
     btnSaveToFile: 'Opslaan',
     btnLoadFromFile: 'Laden',
+
+    untitled: 'Naamloos',
+    untitledProject: 'Naamloos Project',
 };

@@ -1,7 +1,7 @@
 import { defaultState } from './default';
 import { ProjectState, RootState } from './state';
 
-export type PersistedProject = Pick<ProjectState, 'name' | 'scenario'>;
+export type PersistedProject = Pick<ProjectState, 'id' | 'name' | 'scenario'>;
 
 export interface PersistedState {
     activeProject: PersistedProject;
@@ -17,6 +17,7 @@ export function selectPersistedState(s: RootState): PersistedState {
 
 export function selectPersistedProject(project: ProjectState): PersistedProject {
     return {
+        id: project.id,
         name: project.name,
         scenario: project.scenario,
     };
@@ -24,6 +25,7 @@ export function selectPersistedProject(project: ProjectState): PersistedProject 
 
 export function projectStateFromPersisted(state: PersistedProject): ProjectState {
     return {
+        id: state.id,
         name: state.name,
         scenario: state.scenario,
         showMeta: false,

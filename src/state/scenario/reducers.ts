@@ -16,7 +16,7 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
     ACTIVATE_PROJECT: (p) =>
         L.set((s) =>
             w1th(
-                s.inactiveProjects.find((pr) => p.name === pr.name),
+                s.inactiveProjects.find((pr) => p.id === pr.id),
                 (projectToActivate) =>
                     !projectToActivate
                         ? s
@@ -30,7 +30,7 @@ const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
                           },
             ),
         ),
-    NEW_PROJECT: (p) => L.inactiveProjects.set((prs) => [{ ...emptyProjectState, name: p.name }, ...prs]),
+    NEW_PROJECT: (p) => L.inactiveProjects.set((prs) => [{ ...emptyProjectState, id: p.id }, ...prs]),
     RENAME_PROJECT: (p) => L.activeProject.name.set(p.name),
     SET_LANGUAGE: (p) => L.language.set(p.language),
 

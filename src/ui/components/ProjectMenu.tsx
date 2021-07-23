@@ -3,12 +3,13 @@ import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { ScenarioActions } from '../../state/scenario/actions';
-import { selectAllProjects } from '../../state/scenario/selectors';
+import { selectActiveProjectName, selectAllProjects } from '../../state/scenario/selectors';
 import { useLang } from '../hooks/useLang';
 
 export function ProjectMenu() {
-    const { lang, languages, setLang } = useLang();
-    const projects = useSelector(selectAllProjects).map((p) => ({ name: p }));
+    const { lang, languages, dict, setLang } = useLang();
+    const activeName = useSelector(selectActiveProjectName);
+    const projects = useSelector(selectAllProjects);
     const dispatch = useDispatch();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -21,26 +22,26 @@ export function ProjectMenu() {
     };
 
     const activateProject = (project: any) => {
-        dispatch(ScenarioActions.ACTIVATE_PROJECT({ name: project.name }));
+        dispatch(ScenarioActions.ACTIVATE_PROJECT({ id: project.id }));
         handleClose();
     };
 
     const newProject = () => {
-        const newName = uuid();
-        dispatch(ScenarioActions.NEW_PROJECT({ name: newName }));
-        dispatch(ScenarioActions.ACTIVATE_PROJECT({ name: newName }));
+        const id = uuid();
+        dispatch(ScenarioActions.NEW_PROJECT({ id }));
+        dispatch(ScenarioActions.ACTIVATE_PROJECT({ id }));
         handleClose();
     };
 
     return (
         <Fragment>
             <Button aria-controls="language-menu" aria-haspopup="true" onClick={handleClick} style={{ color: 'white' }}>
-                Projecten
+                Project {activeName === '' ? dict.untitled : activeName}
             </Button>
             <Menu id="language-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
                 {projects.map((v) => (
-                    <MenuItem key={v.name} onClick={() => activateProject(v)}>
-                        {v.name}
+                    <MenuItem key={v.id} onClick={() => activateProject(v)}>
+                        {v.name === '' ? dict.untitled : v.name}
                     </MenuItem>
                 ))}
                 <MenuItem onClick={() => newProject()}>Nieuw Project</MenuItem>

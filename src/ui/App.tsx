@@ -1,6 +1,6 @@
-import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Button, InputBase, Toolbar, Typography } from '@material-ui/core';
 import { Clear, Redo, Restore, RestorePage, Save, Undo } from '@material-ui/icons';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { HotKeys } from 'react-hotkeys';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
@@ -9,11 +9,15 @@ import { loadScenarioFromFile } from '../persistence/loadScenarioFromFile';
 import { loadFromLocalStorage } from '../persistence/localStorage';
 import { saveScenarioToFile } from '../persistence/saveScenarioToFile';
 import { ScenarioActions } from '../state/scenario/actions';
-import { selectRedoable, selectScenarioDef, selectUndoable } from '../state/scenario/selectors';
+import {
+    selectActiveProjectName,
+    selectRedoable,
+    selectScenarioDef,
+    selectUndoable,
+} from '../state/scenario/selectors';
 import { LanguageMenu } from './components/LanguageMenu';
 import { ProjectMenu } from './components/ProjectMenu';
 import { SidebarTab } from './components/Sidebar/SidebarTab';
-import { useDialogService } from './dialogs/DialogContext';
 import { GlobalDialogRouter } from './dialogs/GlobalDialogRouter';
 import { useLang } from './hooks/useLang';
 import { NetworkCanvas } from './pages/NetworkCanvasPage';
@@ -102,11 +106,12 @@ export function App() {
         }
     }, []);
 
-    // useEffect(() => {
-    //     saveScenarioToLocalStorage(scenario);
-    // }, [scenario]);
-
-    const dialogCtx = useDialogService();
+    const [pName, setPName] = useState('');
+    const projectName = useSelector(selectActiveProjectName);
+    useEffect(() => setPName(projectName), [projectName]);
+    function renameProject() {
+        dispatch(ScenarioActions.RENAME_PROJECT({ name: pName }));
+    }
 
     return (
         <div className="fill">
@@ -117,9 +122,20 @@ export function App() {
                         {/* <IconButton edge="start" color="inherit" aria-label="menu">
                         <MenuIcon />
                     </IconButton> */}
-                        <Typography variant="h6" style={{ marginRight: '.5rem', flexGrow: 1 }}>
-                            Identity Game
-                        </Typography>
+                        <div style={{ display: 'flex', flexGrow: 1 }}>
+                            <Typography variant="h6" style={{ marginRight: '.5rem' }}>
+                                Identity Game |
+                            </Typography>
+                            <form onSubmit={renameProject}>
+                                <InputBase
+                                    style={{ color: 'inherit' }}
+                                    value={pName}
+                                    placeholder={projectName === '' ? dict.untitledProject : projectName}
+                                    onChange={(e) => setPName(e.target.value)}
+                                    onBlur={renameProject}
+                                />
+                            </form>
+                        </div>
                         <Button color={'inherit'} onClick={undo} style={{ marginRight: '.5rem' }} disabled={!undoable}>
                             <Undo />
                         </Button>

@@ -111,4 +111,7 @@ export const DictionaryEN: Dictionary = {
     btnReset: 'Reset',
     btnSaveToFile: 'Save',
     btnLoadFromFile: 'Load',
+
+    untitled: 'Untitled',
+    untitledProject: 'Untitled Project',
 };

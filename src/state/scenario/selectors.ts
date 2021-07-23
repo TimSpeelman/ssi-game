@@ -23,10 +23,9 @@ export const selectRedoable = (r: any): boolean => r.scenario.future.length > 0;
 
 export const selectLang = (r: any): Language => root(r).language;
 
-export const selectAllProjects = (r: any): string[] => [
-    root(r).activeProject.name,
-    ...root(r).inactiveProjects.map((p) => p.name),
-];
+export const selectAllProjects = (r: any): ProjectState[] => [rootPr(r), ...root(r).inactiveProjects];
+
+export const selectActiveProjectName = (r: any) => rootPr(r).name;
 
 // Definition
 export const selectScenarioDef = (r: any): ScenarioDef => rootPr(r).scenario;

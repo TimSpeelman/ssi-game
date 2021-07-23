@@ -119,4 +119,7 @@ export interface Dictionary {
     btnReset: string;
     btnSaveToFile: string;
     btnLoadFromFile: string;
+
+    untitled: string;
+    untitledProject: string;
 }

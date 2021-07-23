@@ -24,7 +24,7 @@ export class Scenario {
 
     /** Providing the preState of a step at provided index, or the last post state */
     getPreStateAtIndex(index: number) {
-        if (index === -1) {
+        if (index === -1 || this.steps.length === 0) {
             return this.initial;
         } else if (index < this.steps.length) {
             return this.steps[index].preState;

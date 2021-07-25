@@ -9,7 +9,7 @@ import {
     ListSubheader,
     TextField,
 } from '@material-ui/core';
-import { Delete, Description, Edit, NoteAdd, RestorePage, Save } from '@material-ui/icons';
+import { Delete, Description, Edit, FileCopy, NoteAdd, RestorePage, Save } from '@material-ui/icons';
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
@@ -43,6 +43,14 @@ export function ProjectDrawer() {
     const newProject = () => {
         const id = uuid();
         dispatch(ScenarioActions.NEW_PROJECT({ id }));
+        dispatch(ScenarioActions.ACTIVATE_PROJECT({ id }));
+        close();
+    };
+
+    const copyActiveProject = () => {
+        const id = uuid();
+        const name = `Kopie van ${activeName}`;
+        dispatch(ScenarioActions.COPY_ACTIVE_PROJECT({ id, name }));
         dispatch(ScenarioActions.ACTIVATE_PROJECT({ id }));
         close();
     };
@@ -123,6 +131,12 @@ export function ProjectDrawer() {
                     <Save />
                 </ListItemIcon>
                 <ListItemText primary={dict.btnSaveToFile} />
+            </ListItem>
+            <ListItem button onClick={copyActiveProject}>
+                <ListItemIcon style={{ minWidth: 0, marginRight: '.5em' }}>
+                    <FileCopy />
+                </ListItemIcon>
+                <ListItemText primary={'Kopie maken'} />
             </ListItem>
 
             <ListSubheader>Opgeslagen Projecten</ListSubheader>

@@ -60,6 +60,7 @@ export const ScenarioActions = {
 
     ACTIVATE_PROJECT: event<{ id: string }>('ACTIVATE_PROJECT'),
     NEW_PROJECT: event<{ id: string }>('NEW_PROJECT'),
+    COPY_ACTIVE_PROJECT: event<{ id: string; name: string }>('COPY_ACTIVE_PROJECT'),
 
     DELETE_PROJECT: event<{ id: string }>('DELETE_PROJECT'),
 

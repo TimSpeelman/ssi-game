@@ -12,7 +12,6 @@ export function loadProjectFromFile(jsonFile: File) {
             try {
                 const parsedScenarioDefinition = JSON.parse(txt as string);
                 resolve(parsedScenarioDefinition);
-                reject('Bestand geladen!');
             } catch (e) {
                 reject('Bestand kon niet gelezen worden');
             }

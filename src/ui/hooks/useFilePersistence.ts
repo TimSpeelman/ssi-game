@@ -20,7 +20,6 @@ export function useFilePersistence() {
                 dispatch(ScenarioActions.LOAD_PROJECT({ project: p }));
                 dispatch(ScenarioActions.ACTIVATE_PROJECT({ id: p.id }));
                 alert(dict.app_msgFileLoaded);
-                close();
             })
             .catch((e) => alert(e));
     }

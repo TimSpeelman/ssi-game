@@ -23,6 +23,7 @@ export const ProjectReducers: ReducerMap<ProjectState, typeof ProjectActions> = 
     // Definition Manipulation : Actors
     ADD_ACTOR: (p) => LPr.scenario.actors.set((actors) => [...actors, p.actor]),
     REMOVE_ACTOR: (p) => LPr.scenario.actors.set((actors) => actors.filter((a) => a.definition.id !== p.id)),
+    REORDER_ACTORS: (p) => LPr.scenario.actors.set((actors) => reorder(actors, p.sourceIndex, p.targetIndex)),
     UPDATE_ACTOR_DEFINITION: (p) =>
         LPr.scenario.actors.set((actors) =>
             actors.map((a) => (a.definition.id === p.def.id ? { ...a, definition: p.def } : a)),
@@ -63,7 +64,7 @@ export const ProjectReducers: ReducerMap<ProjectState, typeof ProjectActions> = 
     // Definition Manipulation : Steps
     ADD_STEP: (p) => LPr.scenario.steps.set((steps) => [...steps, p.step]),
     REMOVE_STEP: (p) => LPr.scenario.steps.set((steps) => steps.filter((a) => a.id !== p.id)),
-    REORDER_STEP: (p) => LPr.scenario.steps.set((steps) => reorder(steps, p.sourceIndex, p.targetIndex)),
+    REORDER_STEPS: (p) => LPr.scenario.steps.set((steps) => reorder(steps, p.sourceIndex, p.targetIndex)),
     UPDATE_STEP: (p) => LPr.scenario.steps.set((steps) => steps.map((s) => (s.id === p.step.id ? p.step : s))),
 
     // Definition Manipulation : Meta

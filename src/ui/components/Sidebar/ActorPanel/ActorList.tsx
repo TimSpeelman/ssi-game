@@ -12,7 +12,6 @@ import {
     selectIdsOfInvolvedActors,
     selectScenarioDef,
 } from '../../../../state/scenario/selectors';
-import { reorder } from '../../../../util/util';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
 
@@ -30,7 +29,8 @@ export function ActorList() {
     // Actor Setters
     const canRemoveActor = (id: string) => !(id in involvedActors);
     const setActors = (actors: ActorConfig[]) => dispatch(ProjectActions.SET_ACTORS({ actors }));
-    const handleReorder = (fromIndex: number, toIndex: number) => setActors(reorder(actors, fromIndex, toIndex));
+    const handleReorder = (sourceIndex: number, targetIndex: number) =>
+        sourceIndex !== targetIndex && dispatch(ProjectActions.REORDER_ACTORS({ sourceIndex, targetIndex }));
     const removeActor = (id: string) => setActors(actors.filter((a) => a.definition.id !== id));
     const { dict } = useLang();
 

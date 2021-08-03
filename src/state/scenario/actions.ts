@@ -19,6 +19,7 @@ export const ProjectActions = {
     // Definition Manipulation : Actors
     ADD_ACTOR: event<{ actor: ActorConfig }>('ADD_ACTOR', true),
     REMOVE_ACTOR: event<{ id: string }>('REMOVE_ACTOR', true),
+    REORDER_ACTORS: event<{ sourceIndex: number; targetIndex: number }>('REORDER_ACTORS', true),
     UPDATE_ACTOR_DEFINITION: event<{ def: ActorDefinition }>('UPDATE_ACTOR_DEFINITION', true),
 
     // Definition Manipulation : Assets
@@ -29,7 +30,7 @@ export const ProjectActions = {
     // Definition Manipulation : Steps
     ADD_STEP: event<{ step: ActionDef<any> }>('ADD_STEP', true),
     REMOVE_STEP: event<{ id: string }>('REMOVE_STEP', true),
-    REORDER_STEP: event<{ sourceIndex: number; targetIndex: number }>('REORDER_STEP', true),
+    REORDER_STEPS: event<{ sourceIndex: number; targetIndex: number }>('REORDER_STEPS', true),
     UPDATE_STEP: event<{ step: ActionDef<any> }>('UPDATE_STEP', true),
 
     // Definition Manipulation : Meta

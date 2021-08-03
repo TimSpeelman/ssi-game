@@ -40,7 +40,9 @@ export function StepSequence() {
     }
 
     function handleReorder(sourceIndex: number, targetIndex: number) {
-        dispatch(ProjectActions.REORDER_STEP({ sourceIndex, targetIndex }));
+        if (sourceIndex !== targetIndex) {
+            dispatch(ProjectActions.REORDER_STEPS({ sourceIndex, targetIndex }));
+        }
     }
 
     const { openDialog } = useDialog();

@@ -1,4 +1,4 @@
-import { Vec } from '../../../util/vec';
+import { Vec } from '../../../../util/vec';
 
 export interface SlotEl {
     type: 'slot';

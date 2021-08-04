@@ -7,12 +7,12 @@ import { StepDesc } from '../../model/description/Step/StepDesc';
 import { pointsOnCircleEquidistant, pointsOnCircleFixedRangeCentered } from '../../util/circle';
 import { scaleQuadraticBezierCurve } from '../../util/curve';
 import { add, avg, eq, fractionOfLine, fractionOfQuadBezier, scale, Vec } from '../../util/vec';
-import { AssetEl } from './Canvas/AssetEl';
-import { CanvasElem } from './Canvas/CanvasElem';
-import { ConnectionEl } from './Canvas/ConnectionEl';
 import { ActorEl } from './Canvas/data/ActorEl';
-import { PseudonymEl } from './Canvas/PseudonymEl';
-import { SlotEl } from './Canvas/SlotEl';
+import { AssetEl } from './Canvas/data/AssetEl';
+import { CanvasElem } from './Canvas/data/CanvasElem';
+import { ConnectionEl } from './Canvas/data/ConnectionEl';
+import { PseudonymEl } from './Canvas/data/PseudonymEl';
+import { SlotEl } from './Canvas/data/SlotEl';
 
 interface NetworkProps {
     width: number;

@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const CopyWebPackPlugin = require('copy-webpack-plugin');
 // const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const path = require('path');
 // const os = require('os');
@@ -45,6 +46,11 @@ module.exports = {
                 include: path.resolve(__dirname, 'src'),
                 loader: 'source-map-loader',
             },
+            {
+                test: /\.md$/,
+                include: path.resolve(__dirname, 'src'),
+                loader: 'raw-loader',
+            },
 
             {
                 test: /\.(png|j?g|svg|gif|woff|woff2|eot|ttf)?$/,
@@ -57,6 +63,9 @@ module.exports = {
         new HtmlWebPackPlugin({
             template: path.resolve(__dirname, 'public', 'index.html'),
             filename: 'index.html',
+        }),
+        new CopyWebPackPlugin({
+            patterns: [{ from: 'static' }],
         }),
     ],
 };

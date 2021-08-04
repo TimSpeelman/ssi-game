@@ -13,6 +13,7 @@ export interface RootState {
 
     language: Language;
     highlightedResourceId?: string;
+    userManualOpen: boolean;
 }
 
 export interface ProjectState {

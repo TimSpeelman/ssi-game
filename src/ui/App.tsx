@@ -1,5 +1,5 @@
 import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core';
-import { Clear, Menu, Redo, Restore, Undo } from '@material-ui/icons';
+import { Clear, Help, Menu, Redo, Restore, Undo } from '@material-ui/icons';
 import React, { useEffect, useRef } from 'react';
 import { HotKeys } from 'react-hotkeys';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,9 +11,10 @@ import {
     selectActiveProjectName,
     selectRedoable,
     selectScenarioDef,
-    selectUndoable,
+    selectUndoable
 } from '../state/scenario/selectors';
 import { LanguageMenu } from './components/LanguageMenu';
+import { UserManualDialogCtr } from './components/Manual/UserManualDialogCtr';
 import { ProjectDrawer } from './components/ProjectDrawer';
 import { SidebarTab } from './components/Sidebar/SidebarTab';
 import { GlobalDialogRouter } from './dialogs/GlobalDialogRouter';
@@ -38,6 +39,8 @@ const keyMap = {
     TAB_TIMELINE: 'v',
     TAB_STEP: 'b',
     TAB_SETTINGS: 'n',
+
+    SHOW_MANUAL: 'h',
 };
 
 export function App() {
@@ -62,6 +65,8 @@ export function App() {
         TAB_TIMELINE: () => dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.TIMELINE })),
         TAB_STEP: () => dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.STEP })),
         TAB_SETTINGS: () => dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.SETTINGS })),
+
+        SHOW_MANUAL: () => dispatch(ScenarioActions.SHOW_MANUAL()),
     };
 
     const { dict } = useLang();
@@ -75,6 +80,8 @@ export function App() {
     const clear = () => confirm(dict.app_msgConfirmClear) && dispatch(ProjectActions.CLEAR());
 
     const reset = () => confirm(dict.app_msgConfirmReset) && dispatch(ProjectActions.RESET());
+
+    const showManual = () => dispatch(ScenarioActions.SHOW_MANUAL());
 
     const hotKeysRef = useRef<HTMLElement>();
 
@@ -98,6 +105,7 @@ export function App() {
     return (
         <div className="fill">
             <HotKeys keyMap={keyMap} root={true} handlers={keyHandlers} className="fill" innerRef={hotKeysRef as any}>
+                <UserManualDialogCtr />
                 <GlobalDialogRouter />
                 <ProjectDrawer />
                 <AppBar position="static">
@@ -124,6 +132,9 @@ export function App() {
                         </Button>
                         <Button color={'inherit'} onClick={reset} style={{ marginRight: '.5rem' }}>
                             <Restore /> {dict.btnReset}
+                        </Button>
+                        <Button color={'inherit'} onClick={showManual} style={{ marginRight: '.5rem' }}>
+                            <Help />
                         </Button>
 
                         <LanguageMenu />

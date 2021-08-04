@@ -79,4 +79,8 @@ export const ScenarioActions = {
 
     HIGHLIGHT_RESOURCE: event<{ resourceId: string }>('HIGHLIGHT_RESOURCE'),
     UNHIGHLIGHT_RESOURCE: event<{ resourceId: string }>('UNHIGHLIGHT_RESOURCE'),
+
+    // Display User Manual Dialog
+    HIDE_MANUAL: event<void>('HIDE_MANUAL'),
+    SHOW_MANUAL: event<void>('SHOW_MANUAL'),
 };

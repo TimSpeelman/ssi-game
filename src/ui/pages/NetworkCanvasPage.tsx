@@ -17,14 +17,15 @@ import {
     selectSelectedAssetId,
     selectShowMeta,
     selectSnackbarIsOn,
-    selectUsedActors,
+    selectUsedActors
 } from '../../state/scenario/selectors';
+import { CanvasEvent } from '../components/Canvas/data/CanvasEvent';
+import { SVGNetworkCanvas } from '../components/Canvas/SVGNetworkCanvas';
 import { createNetworkCanvasData } from '../components/networkToCanvas';
 import { replaceInternalResourceUrlStrings } from '../components/replaceInternalResourceUrlStrings';
 import { ScenarioMetaDialog } from '../components/Sidebar/InfoPanel/ScenarioMetaDialog';
 import { Sidebar } from '../components/Sidebar/Sidebar';
 import { SidebarTab } from '../components/Sidebar/SidebarTab';
-import { CanvasEvent, SVGNetworkCanvas } from '../components/SVGNetworkCanvas';
 import { useLang } from '../hooks/useLang';
 
 export function NetworkCanvas() {

@@ -4,7 +4,7 @@ import { ReducerMap } from '../../util/redux';
 import { cascadeRemove, reorder } from '../../util/util';
 import { w1th } from '../../util/w1th';
 import { ProjectActions, ScenarioActions } from './actions';
-import { defaultScenario, emptyProjectState, emptyScenario } from './default';
+import { emptyProjectState } from './default';
 import { persistableToProjectState, persistableToRootState } from './persistence';
 import { ProjectState, RootState } from './state';
 
@@ -15,8 +15,6 @@ export const ProjectReducers: ReducerMap<ProjectState, typeof ProjectActions> = 
     RENAME_PROJECT: (p) => LPr.name.set(p.name),
 
     // Definition
-    CLEAR: (p) => LPr.scenario.set(emptyScenario),
-    RESET: (p) => LPr.scenario.set(defaultScenario),
     SET_SCENARIO: (p) => LPr.scenario.set(p.scenario),
     SET_ACTORS: (p) => LPr.scenario.actors.set(p.actors),
 

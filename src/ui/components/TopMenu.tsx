@@ -1,9 +1,9 @@
 import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core';
-import { Clear, Help, Menu, Redo, Restore, Undo } from '@material-ui/icons';
+import { Help, Menu, Redo, Undo } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActionCreators } from 'redux-undo';
-import { ProjectActions, ScenarioActions } from '../../state/scenario/actions';
+import { ScenarioActions } from '../../state/scenario/actions';
 import { selectActiveProjectName, selectRedoable, selectUndoable } from '../../state/scenario/selectors';
 import { useLang } from '../hooks/useLang';
 import { LanguageMenu } from './LanguageMenu';
@@ -20,10 +20,6 @@ export function TopMenu() {
     const undo = () => dispatch(ActionCreators.undo());
 
     const redo = () => dispatch(ActionCreators.redo());
-
-    const clear = () => confirm(dict.app_msgConfirmClear) && dispatch(ProjectActions.CLEAR());
-
-    const reset = () => confirm(dict.app_msgConfirmReset) && dispatch(ProjectActions.RESET());
 
     const showManual = () => dispatch(ScenarioActions.SHOW_MANUAL());
 
@@ -45,12 +41,6 @@ export function TopMenu() {
                 </Button>
                 <Button color={'inherit'} onClick={redo} style={{ marginRight: '.5rem' }} disabled={!redoable}>
                     <Redo />
-                </Button>
-                <Button color={'inherit'} onClick={clear} style={{ marginRight: '.5rem' }}>
-                    <Clear /> {dict.btnClear}
-                </Button>
-                <Button color={'inherit'} onClick={reset} style={{ marginRight: '.5rem' }}>
-                    <Restore /> {dict.btnReset}
                 </Button>
                 <Button color={'inherit'} onClick={showManual} style={{ marginRight: '.5rem' }}>
                     <Help />

@@ -116,8 +116,6 @@ export interface Dictionary {
     app_msgConfirmReset: string;
     app_msgConfirmDeleteProject: string;
     app_msgFileLoaded: string;
-    btnClear: string;
-    btnReset: string;
     btnSaveToFile: string;
     btnLoadFromFile: string;
 

@@ -11,8 +11,6 @@ import { PersistedProject, PersistedState } from './persistence';
 
 export const ProjectActions = {
     RENAME_PROJECT: event<{ name: string }>('RENAME_PROJECT'),
-    CLEAR: event<void>('CLEAR', true),
-    RESET: event<void>('RESET', true),
     SET_SCENARIO: event<{ scenario: ScenarioDef }>('SET_SCENARIO'),
     SET_ACTORS: event<{ actors: ActorConfig[] }>('SET_ACTORS', true),
 

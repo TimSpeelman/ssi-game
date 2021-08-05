@@ -185,6 +185,10 @@ export const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
 
     HIGHLIGHT_RESOURCE: (p) => L.highlightedResourceId!.set(p.resourceId),
     UNHIGHLIGHT_RESOURCE: (p) => L.highlightedResourceId!.set((r) => (r === p.resourceId ? '' : r)),
+
+    // Display Meta Dialog
+    HIDE_MANUAL: () => L.userManualOpen.set(false),
+    SHOW_MANUAL: () => L.userManualOpen.set(true),
 };
 
 // undoable(scenario, {

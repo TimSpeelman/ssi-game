@@ -36,6 +36,7 @@ export const defaultState: RootState = {
     projectDrawerOpen: false,
     activeSidebarTab: SidebarTab.TIMELINE,
     language: Language.NL,
+    userManualOpen: false,
 };
 
 export const emptyProjectState: ProjectState = {

@@ -28,6 +28,8 @@ export const selectPersistableProject = (r: any): PersistedProject =>
 
 export const selectLang = (r: any): Language => root(r).language;
 
+export const selectManualOpen = (r: any): boolean => root(r).userManualOpen;
+
 export const selectAllProjects = (r: any): ProjectState[] => [
     rootPr(r),
     ...root(r).inactiveProjects.map((p) => p.present),

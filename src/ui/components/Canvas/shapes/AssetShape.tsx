@@ -24,7 +24,14 @@ export function AssetShape({ elem: e, onEvent: dispatch }: ShapeProps<AssetEl>) 
 
             {e.url && <image href={e.url} x={e.c[0] - e.r} y={e.c[1] - e.r} width={e.r * 2} opacity={0.9} />}
 
-            {FontAwesomeIconShape({ icon: 'fish', cx: e.c[0], cy: e.c[1], height: e.r * 2 })}
+            {e.image?.type === 'fa-icon' &&
+                FontAwesomeIconShape({
+                    icon: e.image.name,
+                    cx: e.c[0],
+                    cy: e.c[1],
+                    height: e.r * 2 * 0.8,
+                    color: e.image.color,
+                })}
 
             <circle
                 cx={e.c[0]}

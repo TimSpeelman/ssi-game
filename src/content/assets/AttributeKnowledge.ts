@@ -39,6 +39,11 @@ export class AttributeKnowledge extends Asset<Props> {
                 NL: `${sNym?.defProps.identifier} heeft attribuut ${attrDesc} (volgens ${iNym?.defProps.identifier}).`,
                 EN: `${sNym?.defProps.identifier} has attribute ${attrDesc} (according to ${iNym?.defProps.identifier}).`,
             },
+            image: {
+                type: 'fa-icon',
+                name: 'lightbulb',
+                color: 'green',
+            },
         };
     }
 }

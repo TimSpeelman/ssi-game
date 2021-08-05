@@ -190,6 +190,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
                 r: assetRadius,
                 url: a.asset.iconUrl || '',
                 numberOfChildren: a.children.length,
+                image: a.asset.image,
             }),
         );
 

@@ -1,3 +1,4 @@
+import { ImageOrIconDefinition } from '../../../../model/description/ImageOrIconDefinition';
 import { Vec } from '../../../../util/vec';
 
 export interface AssetEl {
@@ -11,4 +12,5 @@ export interface AssetEl {
     lit?: boolean;
     hovered?: boolean;
     numberOfChildren: number;
+    image?: ImageOrIconDefinition;
 }

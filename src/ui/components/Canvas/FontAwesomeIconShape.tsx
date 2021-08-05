@@ -8,13 +8,14 @@ interface Props extends SVGProps<SVGSVGElement> {
     cx?: number;
     cy?: number;
     height: number;
+    color?: string;
     pathProps?: Omit<SVGProps<SVGPathElement>, 'width' | 'height'>;
 }
 
 export const kebabToCamelCase = (str: string) => str.split('-').map(ucFirst).join('');
 
 /** Always square */
-export function FontAwesomeIconShape({ icon, pathProps, cx, cy, ...svgProps }: Props) {
+export function FontAwesomeIconShape({ icon, pathProps, cx, cy, color, ...svgProps }: Props) {
     const iconName = 'fa' + kebabToCamelCase(icon);
     const faIcon = fas[iconName];
     if (!faIcon) {
@@ -39,7 +40,7 @@ export function FontAwesomeIconShape({ icon, pathProps, cx, cy, ...svgProps }: P
                 x={x}
                 y={y}
             >
-                <path d={d} {...pathProps}></path>
+                <path d={d} {...pathProps} fill={color}></path>
             </svg>
         );
     }

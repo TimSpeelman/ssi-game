@@ -1,4 +1,5 @@
 import { Translation } from '../../../intl/Language';
+import { ImageOrIconDefinition } from '../ImageOrIconDefinition';
 
 export interface AssetDesc<Props = any> {
     id: string;
@@ -15,6 +16,7 @@ export interface AssetDesc<Props = any> {
     long?: Translation;
     iconUrl?: string;
     propertyDesc: PropDesc[];
+    image?: ImageOrIconDefinition;
 }
 
 export interface PropDesc {

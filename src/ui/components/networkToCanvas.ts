@@ -1,5 +1,4 @@
 import { actorImage } from '../../config/actorImage';
-import { pseudonymImage } from '../../config/pseudonymImage';
 import { Actor } from '../../model/definition/Actor/Actor';
 import { StateDesc } from '../../model/description/State/StateDesc';
 import { Locality } from '../../model/description/Step/ActionDesc';
@@ -76,21 +75,23 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
         const targetNymPos = fractionOfQuadBezier(p0, q, p2, 0.75);
 
         if (currentStep.from_nym) {
+            const asset = props.state.assets[currentStep.from_nym].asset;
             _nyms.push({
                 c: sourceNymPos,
                 id: actors[fromIndex].id + '-nym',
                 r: 20,
                 type: 'pseudonym',
-                url: pseudonymImage(currentStep.from_nym),
+                image: asset.image,
             });
         }
         if (currentStep.to_nym) {
+            const asset = props.state.assets[currentStep.to_nym].asset;
             _nyms.push({
                 c: targetNymPos,
                 id: actors[toIndex].id + '-nym',
                 r: 20,
                 type: 'pseudonym',
-                url: pseudonymImage(currentStep.to_nym),
+                image: asset.image,
             });
         }
     }

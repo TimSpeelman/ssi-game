@@ -1,3 +1,4 @@
+import { ImageOrIconDefinition } from '../../../../model/description/ImageOrIconDefinition';
 import { Vec } from '../../../../util/vec';
 
 export interface PseudonymEl {
@@ -5,7 +6,7 @@ export interface PseudonymEl {
     id: string;
     c: Vec;
     r: number;
-    url: string;
+    image?: ImageOrIconDefinition;
     selected?: boolean;
     hovered?: boolean;
 }

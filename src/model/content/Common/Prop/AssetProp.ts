@@ -33,7 +33,6 @@ export class AssetProp implements IContentTypeProp<string, Asset<any>> {
     /** Computes the field properties to display in the creation or edit form. */
     getFormFieldProps(key: string, formData: any, state: ScenarioState): Field {
         const allItems = Object.values(state.describe().assets);
-        console.log('all assets', allItems);
         const filteredItems = !!this.options.filter
             ? allItems.filter((a) => this.options.filter!(a, formData))
             : allItems;

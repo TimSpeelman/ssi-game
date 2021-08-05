@@ -81,9 +81,9 @@ export class PresentationRequest extends Action<Props> {
         const verifierNym: Pseudonym | undefined = props.verifierNym;
         return {
             to: subject,
-            to_nym: subjectNym?.defProps.image,
+            to_nym: subjectNym?.id,
             from: verifier,
-            from_nym: verifierNym?.defProps.image,
+            from_nym: verifierNym?.id,
             to_mode: 'phone',
             description: {
                 NL: `Vraag om "${this.defProps.attributeName}" credential te tonen`,

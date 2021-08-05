@@ -24,7 +24,7 @@ export class Wallet extends Asset<Props> {
             canHaveChildren: true,
             transferrable: true,
             cloneable: false, // TODO is it?
-            iconUrl: iconUrl,
+            image: { type: 'image', url: iconUrl },
         };
     }
 }

@@ -8,6 +8,7 @@ import { ProjectActions, ScenarioActions } from '../../../../state/scenario/acti
 import { selectSelectedAssetNode, selectUsedActors } from '../../../../state/scenario/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
+import { ImageOrIconSwitch } from '../../ImageOrIconSwitch';
 import { replaceInternalResourceUrlStrings } from '../../replaceInternalResourceUrlStrings';
 import { SidebarTab } from '../SidebarTab';
 import { AssetList } from './AssetList';
@@ -59,11 +60,16 @@ export function AssetInspector() {
                     background: '#eee',
                 }}
             >
-                {asset.asset.iconUrl ? (
-                    <img src={asset.asset.iconUrl} style={{ height: '5rem', marginRight: '1rem' }} />
-                ) : (
-                    ''
+                {asset.asset.image && (
+                    <ImageOrIconSwitch
+                        image={asset.asset.image}
+                        stylesPerType={{
+                            image: { height: '5rem', marginRight: '1rem' },
+                            'fa-icon': { fontSize: '5rem', marginRight: '1rem' },
+                        }}
+                    />
                 )}
+
                 <div style={{ flexGrow: 1 }}>
                     <Typography variant="h6">{asset.asset.title[lang]}</Typography>
                     {asset.asset.sub && <Typography variant="subtitle2">{asset.asset.sub[lang]}</Typography>}

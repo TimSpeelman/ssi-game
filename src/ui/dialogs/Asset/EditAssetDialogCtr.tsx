@@ -19,7 +19,6 @@ export function EditAssetDialogCtr(props: Props) {
     const dispatch = useDispatch();
     const selector = selectAssetDefById(props.options.assetId);
     const asset = useSelector(selector);
-    console.log(props, selector, asset);
 
     return (
         <AssetDialog

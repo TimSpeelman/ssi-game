@@ -21,6 +21,5 @@ store.subscribe(
         const rootState = root(store.getState());
         const persistable = selectPersistedState(rootState);
         saveToLocalStorage('state', persistable);
-        console.log('Persisted', persistable);
     }, 1500),
 );

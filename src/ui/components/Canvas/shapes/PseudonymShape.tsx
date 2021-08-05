@@ -1,5 +1,6 @@
 import React from 'react';
 import { PseudonymEl } from '../data/PseudonymEl';
+import { FontAwesomeIconShape } from '../FontAwesomeIconShape';
 import { ShapeProps } from '../ShapeProps';
 
 export function PseudonymShape({ elem: e, onEvent: dispatch }: ShapeProps<PseudonymEl>) {
@@ -16,8 +17,18 @@ export function PseudonymShape({ elem: e, onEvent: dispatch }: ShapeProps<Pseudo
 
             <circle cx={e.c[0]} cy={e.c[1]} r={e.r} fill={'#aaa'} />
 
-            {/* Pseudonym image */}
-            <image href={e.url} x={e.c[0] - e.r * 0.75} y={e.c[1] - e.r * 0.75} width={e.r * 1.5} />
+            {e.image?.type === 'image' && (
+                <image href={e.image.url} x={e.c[0] - e.r} y={e.c[1] - e.r} width={e.r * 2} opacity={0.9} />
+            )}
+
+            {e.image?.type === 'fa-icon' &&
+                FontAwesomeIconShape({
+                    icon: e.image.name,
+                    cx: e.c[0],
+                    cy: e.c[1],
+                    height: e.r * 2 * 0.8,
+                    color: e.image.color,
+                })}
 
             <circle
                 cx={e.c[0]}

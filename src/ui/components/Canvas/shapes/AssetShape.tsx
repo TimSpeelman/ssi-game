@@ -22,7 +22,9 @@ export function AssetShape({ elem: e, onEvent: dispatch }: ShapeProps<AssetEl>) 
                 </text>
             )}
 
-            {e.url && <image href={e.url} x={e.c[0] - e.r} y={e.c[1] - e.r} width={e.r * 2} opacity={0.9} />}
+            {e.image?.type === 'image' && (
+                <image href={e.image.url} x={e.c[0] - e.r} y={e.c[1] - e.r} width={e.r * 2} opacity={0.9} />
+            )}
 
             {e.image?.type === 'fa-icon' &&
                 FontAwesomeIconShape({

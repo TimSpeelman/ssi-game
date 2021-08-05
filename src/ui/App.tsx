@@ -24,19 +24,21 @@ export function App() {
         <div className="fill">
             <HotKeysContainer>
                 <UserManualDialogCtr />
+
                 <GlobalDialogRouter />
+
                 <ProjectDrawer />
+
                 <TopMenu />
+
                 <BrowserRouter>
                     <Switch>
-                        <Route exact path={'/netwerk'}>
+                        <Route exact path={'/'}>
                             <NetworkCanvas />
                         </Route>
-                        {/* Default to Log Start Page */}
-                        <Redirect exact from="/" to={'netwerk'} />
 
                         {/* Catch 404's */}
-                        <Redirect from="*" to="/404" />
+                        <Redirect from="*" to="/" />
                     </Switch>
                 </BrowserRouter>
             </HotKeysContainer>

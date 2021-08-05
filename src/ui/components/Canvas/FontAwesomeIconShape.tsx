@@ -1,15 +1,20 @@
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import React, { SVGProps } from 'react';
 import { ucFirst } from '../../../util/util';
+import { Vec } from '../../../util/vec';
 
 interface Props extends SVGProps<SVGSVGElement> {
     icon: string;
-    pathProps?: SVGProps<SVGPathElement>;
+    cx?: number;
+    cy?: number;
+    height: number;
+    pathProps?: Omit<SVGProps<SVGPathElement>, 'width' | 'height'>;
 }
 
 export const kebabToCamelCase = (str: string) => str.split('-').map(ucFirst).join('');
 
-export function FontAwesomeIconShape({ icon, pathProps, ...svgProps }: Props) {
+/** Always square */
+export function FontAwesomeIconShape({ icon, pathProps, cx, cy, ...svgProps }: Props) {
     const iconName = 'fa' + kebabToCamelCase(icon);
     const faIcon = fas[iconName];
     if (!faIcon) {
@@ -18,11 +23,41 @@ export function FontAwesomeIconShape({ icon, pathProps, ...svgProps }: Props) {
         return <svg></svg>;
     } else {
         const [w, h, _, __, path] = faIcon.icon;
+        const [[x0, y0], [x1, y1]] = fitRectangleInSquare(w, h);
         const d = typeof path === 'string' ? path : path.join(' ');
+        const edgeLength = svgProps.height;
+        const x = cx ? cx - edgeLength / 2 : svgProps.x || 0;
+        const y = cy ? cy - edgeLength / 2 : svgProps.y || 0;
+
         return (
-            <svg {...svgProps} viewBox={`0 0 ${w} ${h}`}>
+            <svg
+                {...svgProps}
+                viewBox={`${x0} ${y0} ${x1} ${y1}`}
+                preserveAspectRatio="xMinYMin meet"
+                width={edgeLength}
+                height={edgeLength}
+                x={x}
+                y={y}
+            >
                 <path d={d} {...pathProps}></path>
             </svg>
         );
+    }
+}
+
+/** Given a rectangle A, give the coordinates of the smallest possible square that surrounds A */
+function fitRectangleInSquare(w: number, h: number): [Vec, Vec] {
+    if (w > h) {
+        const d = (w - h) / 2;
+        return [
+            [0, -d],
+            [w, h + 2 * d],
+        ];
+    } else {
+        const d = (h - w) / 2;
+        return [
+            [-d, 0],
+            [w + 2 * d, h],
+        ];
     }
 }

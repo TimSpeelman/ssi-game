@@ -1,24 +1,15 @@
-import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core';
-import { Clear, Help, Menu, Redo, Restore, Undo } from '@material-ui/icons';
 import React, { useEffect, useRef } from 'react';
 import { HotKeys } from 'react-hotkeys';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { ActionCreators } from 'redux-undo';
 import { loadFromLocalStorage } from '../persistence/localStorage';
 import { ProjectActions, ScenarioActions } from '../state/scenario/actions';
-import {
-    selectActiveProjectName,
-    selectRedoable,
-    selectScenarioDef,
-    selectUndoable
-} from '../state/scenario/selectors';
-import { LanguageMenu } from './components/LanguageMenu';
 import { UserManualDialogCtr } from './components/Manual/UserManualDialogCtr';
 import { ProjectDrawer } from './components/ProjectDrawer';
 import { SidebarTab } from './components/Sidebar/SidebarTab';
+import { TopMenu } from './components/TopMenu';
 import { GlobalDialogRouter } from './dialogs/GlobalDialogRouter';
-import { useLang } from './hooks/useLang';
 import { NetworkCanvas } from './pages/NetworkCanvasPage';
 
 const keyMap = {
@@ -44,10 +35,6 @@ const keyMap = {
 };
 
 export function App() {
-    const scenario = useSelector(selectScenarioDef);
-    const undoable = useSelector(selectUndoable);
-    const redoable = useSelector(selectRedoable);
-
     const keyHandlers = {
         CLEAR_SELECTION: () => dispatch(ProjectActions.CLEAR_SELECTION()),
 
@@ -69,25 +56,11 @@ export function App() {
         SHOW_MANUAL: () => dispatch(ScenarioActions.SHOW_MANUAL()),
     };
 
-    const { dict } = useLang();
-
     const dispatch = useDispatch();
-
-    const undo = () => dispatch(ActionCreators.undo());
-
-    const redo = () => dispatch(ActionCreators.redo());
-
-    const clear = () => confirm(dict.app_msgConfirmClear) && dispatch(ProjectActions.CLEAR());
-
-    const reset = () => confirm(dict.app_msgConfirmReset) && dispatch(ProjectActions.RESET());
-
-    const showManual = () => dispatch(ScenarioActions.SHOW_MANUAL());
 
     const hotKeysRef = useRef<HTMLElement>();
 
     useEffect(() => hotKeysRef && hotKeysRef.current && hotKeysRef.current.focus(), [hotKeysRef]);
-
-    // const { restore } = useLocalStorageSync({ key: 'scenario',  }
 
     useEffect(() => {
         const savedState = loadFromLocalStorage('state');
@@ -96,50 +69,13 @@ export function App() {
         }
     }, []);
 
-    function openProjectDrawer() {
-        dispatch(ScenarioActions.OPEN_PROJECT_DRAWER());
-    }
-
-    const projectName = useSelector(selectActiveProjectName);
-
     return (
         <div className="fill">
             <HotKeys keyMap={keyMap} root={true} handlers={keyHandlers} className="fill" innerRef={hotKeysRef as any}>
                 <UserManualDialogCtr />
                 <GlobalDialogRouter />
                 <ProjectDrawer />
-                <AppBar position="static">
-                    <Toolbar>
-                        <IconButton edge="start" onClick={openProjectDrawer} color={'inherit'}>
-                            <Menu />
-                        </IconButton>
-                        {/* <IconButton edge="start" color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton> */}
-                        <div style={{ display: 'flex', flexGrow: 1 }}>
-                            <Typography variant="h6" style={{ marginRight: '.5rem' }}>
-                                Identity Game | {projectName === '' ? dict.untitledProject : projectName}
-                            </Typography>
-                        </div>
-                        <Button color={'inherit'} onClick={undo} style={{ marginRight: '.5rem' }} disabled={!undoable}>
-                            <Undo />
-                        </Button>
-                        <Button color={'inherit'} onClick={redo} style={{ marginRight: '.5rem' }} disabled={!redoable}>
-                            <Redo />
-                        </Button>
-                        <Button color={'inherit'} onClick={clear} style={{ marginRight: '.5rem' }}>
-                            <Clear /> {dict.btnClear}
-                        </Button>
-                        <Button color={'inherit'} onClick={reset} style={{ marginRight: '.5rem' }}>
-                            <Restore /> {dict.btnReset}
-                        </Button>
-                        <Button color={'inherit'} onClick={showManual} style={{ marginRight: '.5rem' }}>
-                            <Help />
-                        </Button>
-
-                        <LanguageMenu />
-                    </Toolbar>
-                </AppBar>
+                <TopMenu />
                 <BrowserRouter>
                     <Switch>
                         <Route exact path={'/netwerk'}>

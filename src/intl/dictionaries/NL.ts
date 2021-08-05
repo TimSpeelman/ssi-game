@@ -114,4 +114,6 @@ export const DictionaryNL: Dictionary = {
 
     untitled: 'Naamloos',
     untitledProject: 'Naamloos Project',
+
+    userManual: 'Gebruikershandleiding',
 };

@@ -19,7 +19,7 @@ export function UserManualDialog(props: Props) {
             maxWidth={'lg'}
             scroll="paper"
         >
-            <DialogTitle>Gebruikershandleiding</DialogTitle>
+            <DialogTitle>{dict.userManual}</DialogTitle>
             <DialogContent dividers style={{ maxWidth: '50em' }}>
                 <ReactMarkdown>{manuals[lang]}</ReactMarkdown>
             </DialogContent>

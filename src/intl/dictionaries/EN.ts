@@ -115,4 +115,6 @@ export const DictionaryEN: Dictionary = {
 
     untitled: 'Untitled',
     untitledProject: 'Untitled Project',
+
+    userManual: 'User Manual',
 };

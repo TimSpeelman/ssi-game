@@ -123,4 +123,6 @@ export interface Dictionary {
 
     untitled: string;
     untitledProject: string;
+
+    userManual: string;
 }

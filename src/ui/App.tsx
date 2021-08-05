@@ -22,7 +22,7 @@ export function App() {
 
     return (
         <div className="fill">
-            <HotKeysContainer>
+            <HotKeysContainer autoFocus>
                 <UserManualDialogCtr />
 
                 <GlobalDialogRouter />

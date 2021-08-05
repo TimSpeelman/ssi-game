@@ -42,7 +42,7 @@ export class AttributeKnowledge extends Asset<Props> {
             image: {
                 type: 'fa-icon',
                 name: 'lightbulb',
-                color: 'green',
+                color: 'gold',
             },
         };
     }

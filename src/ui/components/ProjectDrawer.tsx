@@ -13,6 +13,7 @@ import { Delete, Description, Edit, FileCopy, NoteAdd, RestorePage, Save } from 
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
+import { OnlineLiquorPurchaseScenario } from '../../config/scenarios/OnlineLiquorPurchaseScenario';
 import { ProjectActions, ScenarioActions } from '../../state/scenario/actions';
 import {
     selectActiveProjectName,
@@ -23,6 +24,18 @@ import { ProjectState } from '../../state/scenario/state';
 import { useFilePersistence } from '../hooks/useFilePersistence';
 import { useLang } from '../hooks/useLang';
 import { HiddenFileInput } from './HiddenFileInput';
+
+const templates: Record<string, any> = {
+    // TODO FIXME
+    OnlineLiquorPurchaseScenario: {
+        id: 'OnlineLiquorPurchaseScenario',
+        definition: OnlineLiquorPurchaseScenario,
+        title: {
+            NL: 'Alcoholverkoop',
+            EN: 'Liquor purchase',
+        },
+    },
+};
 
 export function ProjectDrawer() {
     const { lang, languages, dict, setLang } = useLang();
@@ -51,6 +64,13 @@ export function ProjectDrawer() {
         const id = uuid();
         const name = `Kopie van ${activeName}`;
         dispatch(ScenarioActions.COPY_ACTIVE_PROJECT({ id, name }));
+        dispatch(ScenarioActions.ACTIVATE_PROJECT({ id }));
+        close();
+    };
+
+    const newFromTemplate = (templateId: string) => {
+        const id = uuid();
+        dispatch(ScenarioActions.NEW_PROJECT({ id, definition: templates[templateId].definition }));
         dispatch(ScenarioActions.ACTIVATE_PROJECT({ id }));
         close();
     };
@@ -156,6 +176,18 @@ export function ProjectDrawer() {
                                 <Delete />
                             </IconButton>
                         </ListItemSecondaryAction>
+                    </ListItem>
+                ))}
+            </List>
+
+            <ListSubheader>Sjablonen</ListSubheader>
+            <List>
+                {Object.entries(templates).map(([id, template]) => (
+                    <ListItem key={id} button onClick={() => newFromTemplate(id)}>
+                        <ListItemIcon style={{ minWidth: 0, marginRight: '.5em' }}>
+                            <NoteAdd />
+                        </ListItemIcon>
+                        <ListItemText primary={template.title[lang]} />
                     </ListItem>
                 ))}
             </List>

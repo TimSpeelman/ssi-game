@@ -159,7 +159,14 @@ export const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
             ),
         ),
     NEW_PROJECT: (p) =>
-        L.inactiveProjects.set((prs) => [newHistory([], { ...emptyProjectState, id: p.id }, []), ...prs]),
+        L.inactiveProjects.set((prs) => [
+            newHistory(
+                [],
+                { ...emptyProjectState, id: p.id, scenario: p.definition ? p.definition : emptyProjectState.scenario },
+                [],
+            ),
+            ...prs,
+        ]),
     COPY_ACTIVE_PROJECT: (p) =>
         L.set((s) => ({
             ...s,

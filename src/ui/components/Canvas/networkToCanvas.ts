@@ -41,7 +41,7 @@ const config = {
     slotRadius: 50,
 
     /** The radius of a pseudonym shape */
-    pseudonymRadius: 50,
+    pseudonymRadius: 20,
 
     /** The radius of an asset shape */
     assetRadius: 20,

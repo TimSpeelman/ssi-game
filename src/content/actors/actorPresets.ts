@@ -1,4 +1,4 @@
-import { Actor } from '../model/definition/Actor/Actor';
+import { Actor } from '../../model/definition/Actor/Actor';
 import { actorTypes } from './actorTypes';
 
 export const allActorPresets = {

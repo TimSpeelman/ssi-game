@@ -13,7 +13,7 @@ import { Delete, Description, Edit, FileCopy, NoteAdd, RestorePage, Save } from 
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { OnlineLiquorPurchaseScenario } from '../../config/scenarios/OnlineLiquorPurchaseScenario';
+import { OnlineLiquorPurchaseScenario } from '../../content/scenarios/OnlineLiquorPurchaseScenario';
 import { ProjectActions, ScenarioActions } from '../../state/scenario/actions';
 import {
     selectActiveProjectName,

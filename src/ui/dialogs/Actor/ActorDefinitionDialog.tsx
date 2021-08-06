@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import { lens } from 'lens.ts';
 import React, { Fragment, useEffect, useState } from 'react';
-import { actorTypes } from '../../../config/actorTypes';
+import { actorTypes } from '../../../content/actors/actorTypes';
 import { ActorDefinition } from '../../../model/definition/Actor/ActorDefinition';
 import { ActorType } from '../../../model/definition/Actor/ActorType';
 import { ImageOrIconSwitch } from '../../components/ImageOrIconSwitch';

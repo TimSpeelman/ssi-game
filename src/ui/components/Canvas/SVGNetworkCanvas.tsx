@@ -1,7 +1,7 @@
 import React from 'react';
 import { CanvasElem } from './data/CanvasElem';
 import { CanvasEvent } from './data/CanvasEvent';
-import { ShapeSwitch } from './ShapeSwitch';
+import { ShapeSwitch } from './shapes/ShapeSwitch';
 
 export const debug = false;
 

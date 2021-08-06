@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActorEl } from '../data/ActorEl';
-import { ShapeProps } from '../ShapeProps';
+import { ShapeProps } from './ShapeProps';
 
 export function ActorShape({ elem: e, onEvent: dispatch, debug }: ShapeProps<ActorEl>) {
     return (

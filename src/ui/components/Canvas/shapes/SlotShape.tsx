@@ -1,6 +1,6 @@
 import React from 'react';
 import { SlotEl } from '../data/SlotEl';
-import { ShapeProps } from '../ShapeProps';
+import { ShapeProps } from './ShapeProps';
 
 export function SlotShape({ elem: e, onEvent: dispatch }: ShapeProps<SlotEl>) {
     return (

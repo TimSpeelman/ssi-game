@@ -1,7 +1,7 @@
 import React from 'react';
 import { AssetEl } from '../data/AssetEl';
-import { FontAwesomeIconShape } from '../FontAwesomeIconShape';
-import { ShapeProps } from '../ShapeProps';
+import { FontAwesomeIconShape } from './FontAwesomeIconShape';
+import { ShapeProps } from './ShapeProps';
 
 export function AssetShape({ elem: e, onEvent: dispatch }: ShapeProps<AssetEl>) {
     return (

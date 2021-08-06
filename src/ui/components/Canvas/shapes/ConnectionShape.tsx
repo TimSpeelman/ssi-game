@@ -1,7 +1,7 @@
 import React from 'react';
 import { Vec } from '../../../../util/vec';
 import { ConnectionEl } from '../data/ConnectionEl';
-import { ShapeProps } from '../ShapeProps';
+import { ShapeProps } from './ShapeProps';
 
 export const cubicBezier = (a: Vec, q: Vec, b: Vec) => `M ${a[0]} ${a[1]} Q ${q[0]} ${q[1]} ${b[0]} ${b[1]}`;
 

@@ -1,9 +1,9 @@
+import { ActorShape } from './ActorShape';
+import { AssetShape } from './AssetShape';
+import { ConnectionShape } from './ConnectionShape';
+import { PseudonymShape } from './PseudonymShape';
 import { ShapeProps } from './ShapeProps';
-import { ActorShape } from './shapes/ActorShape';
-import { AssetShape } from './shapes/AssetShape';
-import { ConnectionShape } from './shapes/ConnectionShape';
-import { PseudonymShape } from './shapes/PseudonymShape';
-import { SlotShape } from './shapes/SlotShape';
+import { SlotShape } from './SlotShape';
 
 export function ShapeSwitch(props: ShapeProps<any>) {
     const e = props.elem;

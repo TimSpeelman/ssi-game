@@ -1,7 +1,7 @@
 import React from 'react';
 import { PseudonymEl } from '../data/PseudonymEl';
-import { FontAwesomeIconShape } from '../FontAwesomeIconShape';
-import { ShapeProps } from '../ShapeProps';
+import { FontAwesomeIconShape } from './FontAwesomeIconShape';
+import { ShapeProps } from './ShapeProps';
 
 export function PseudonymShape({ elem: e, onEvent: dispatch }: ShapeProps<PseudonymEl>) {
     return (

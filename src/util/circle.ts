@@ -20,6 +20,6 @@ export function pointsOnCircleFixedRange(numberOfPoints: number, startAtRad = 0,
 /** Returns positions of the given number of points on a unit circle */
 export function pointsOnCircleFixedRangeCentered(numberOfPoints: number, centerAtRad = 0, distInRad = 0): Vec[] {
     if (numberOfPoints == 0) return [];
-    const range = distInRad * numberOfPoints;
+    const range = distInRad * (numberOfPoints - 1);
     return pointsOnCircleFixedRange(numberOfPoints, centerAtRad - range / 2, distInRad);
 }

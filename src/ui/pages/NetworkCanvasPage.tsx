@@ -1,6 +1,3 @@
-import { Fab } from '@material-ui/core';
-import NavigateBefore from '@material-ui/icons/NavigateBefore';
-import NavigateNext from '@material-ui/icons/NavigateNext';
 import { useSnackbar } from 'notistack';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,10 +14,11 @@ import {
     selectSelectedAssetId,
     selectShowMeta,
     selectSnackbarIsOn,
-    selectUsedActors
+    selectUsedActors,
 } from '../../state/scenario/selectors';
 import { CanvasEvent } from '../components/Canvas/data/CanvasEvent';
 import { SVGNetworkCanvas } from '../components/Canvas/SVGNetworkCanvas';
+import { TimeControlCtr } from '../components/Canvas/TimeControlCtr';
 import { createNetworkCanvasData } from '../components/networkToCanvas';
 import { replaceInternalResourceUrlStrings } from '../components/replaceInternalResourceUrlStrings';
 import { ScenarioMetaDialog } from '../components/Sidebar/InfoPanel/ScenarioMetaDialog';
@@ -132,27 +130,7 @@ export function NetworkCanvas() {
                         </strong>
                     </div>
                 )}
-                <div className="time-navigation">
-                    {currentStep ? (
-                        <span>
-                            <strong>
-                                {dict.step} {currentStepIndex + 1}:{' '}
-                            </strong>
-                            {currentStep.action.description[lang]}
-                        </span>
-                    ) : (
-                        <span></span>
-                    )}
-                    <Fab
-                        style={{ marginRight: '1rem', marginLeft: '1rem' }}
-                        onClick={() => dispatch(ProjectActions.PREV_STEP())}
-                    >
-                        <NavigateBefore />
-                    </Fab>
-                    <Fab onClick={() => dispatch(ProjectActions.NEXT_STEP())}>
-                        <NavigateNext />
-                    </Fab>
-                </div>
+                <TimeControlCtr />
             </div>
             <Sidebar />
         </div>

@@ -14,21 +14,21 @@ import {
 import { lens } from 'lens.ts';
 import React, { Fragment, useEffect, useState } from 'react';
 import { DefaultLibrary } from '../../../content';
-import { ActorDefinition } from '../../../model/definition/Actor/ActorDefinition';
+import { ActorDef } from '../../../model/definition/Actor/ActorDef';
 import { ActorType } from '../../../model/definition/Actor/ActorType';
 import { ImageOrIconSwitch } from '../../components/elements/ImageOrIconSwitch';
 import { useLang } from '../../hooks/useLang';
 
 export interface Props {
-    definition?: ActorDefinition;
+    definition?: ActorDef;
     handleClose: () => void;
-    handleSubmit: (actor: ActorDefinition) => void;
+    handleSubmit: (actor: ActorDef) => void;
     isCreate: boolean;
 }
 
 const actorTypes = DefaultLibrary.actors;
 
-const defaults: ActorDefinition = {
+const defaults: ActorDef = {
     id: '',
     type: Object.values(actorTypes)[0],
     name: '',
@@ -36,7 +36,7 @@ const defaults: ActorDefinition = {
     properties: [],
 };
 
-const L = lens<ActorDefinition>();
+const L = lens<ActorDef>();
 
 export function ActorDefinitionDialog(props: Props) {
     const [def, setDef] = useState(defaults);
@@ -50,7 +50,7 @@ export function ActorDefinitionDialog(props: Props) {
 
     const save = () => {
         // dispatch(ScenarioActions.CHANGE_META({ meta }));
-        const L = lens<ActorDefinition>();
+        const L = lens<ActorDef>();
         const typeName = L.type.typeName.get()(def);
         const withName = L.name.set((n) => (n ? n : typeName))(def);
         const name = L.name.get()(withName);

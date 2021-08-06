@@ -1,4 +1,4 @@
-import { Actor } from '../../../model/definition/Actor/Actor';
+import { ActorDesc } from '../../../model/description/Actor/ActorDesc';
 import { ImageOrIconDefinition } from '../../../model/description/ImageOrIconDefinition';
 import { StateDesc } from '../../../model/description/State/StateDesc';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
@@ -17,7 +17,7 @@ import { SlotEl } from './data/SlotEl';
 interface NetworkProps {
     width: number;
     height: number;
-    actors: Actor[];
+    actors: ActorDesc[];
     modes: Record<string, string | undefined>;
     state: StateDesc;
     step?: StepDesc;
@@ -83,7 +83,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
 
 /** A contextually meaningful description of an actor */
 interface ActorViewData {
-    actor: Actor;
+    actor: ActorDesc;
     selected: boolean;
     involvedInStep: boolean;
     isHome: boolean;
@@ -234,7 +234,7 @@ function makeAssetEls(p: { actorData: ActorViewData[]; numberOfSlots: number; pr
 }
 
 function makeActorViewData(p: {
-    actors: Actor[];
+    actors: ActorDesc[];
     center: Vec;
     numberOfSlots: number;
     interactionData: InteractionViewData;

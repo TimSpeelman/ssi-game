@@ -1,13 +1,13 @@
 import { lens } from 'lens.ts';
 import { mapValues, omit } from '../../../util/util';
 import { ContentLibrary } from '../../content/ContentLibrarty';
-import { Actor } from '../../definition/Actor/Actor';
-import { definitionToActor } from '../../definition/Actor/definitionToActor';
 import { ScenarioDef } from '../../definition/ScenarioDef';
+import { ActorDesc } from '../../description/Actor/ActorDesc';
 import { assetsToTree } from '../../description/Asset/assetsToTree';
 import { AssetTreeNode } from '../../description/Asset/AssetTreeNode';
 import { ActorStateDesc } from '../../description/State/ActorStateDesc';
 import { ResourceDesc, StateDesc } from '../../description/State/StateDesc';
+import { definitionToActor } from '../Actor/definitionToActor';
 import { ActorState } from './ActorState';
 
 /** Represents the entire state of the scenario at any point in the scenario. */
@@ -74,7 +74,7 @@ export class ScenarioState {
     }
 
     /** Add an actor, immutable */
-    withActor(actor: Actor): ScenarioState {
+    withActor(actor: ActorDesc): ScenarioState {
         const update = lens<Props>().byActor.k(actor.id).set({ actor, assets: [] });
         return this.withUpdate(update);
     }

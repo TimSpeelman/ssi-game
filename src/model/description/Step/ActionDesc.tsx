@@ -1,14 +1,14 @@
 import { Translation } from '../../../intl/Language';
-import { Actor } from '../../definition/Actor/Actor';
+import { ActorDesc } from '../Actor/ActorDesc';
 
 /** A generic description of an interaction, for view purposes */
 export interface ActionDesc {
     type: string;
     id: string;
-    from: Actor;
+    from: ActorDesc;
     from_mode?: string;
     from_nym?: string;
-    to: Actor;
+    to: ActorDesc;
     to_mode?: string;
     to_nym?: string;
     description: Translation;

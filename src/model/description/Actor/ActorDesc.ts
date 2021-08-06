@@ -1,6 +1,7 @@
-import { ImageOrIconDefinition } from '../../description/ImageOrIconDefinition';
+import { ActorProperties } from '../../definition/Actor/ActorPropertySet';
+import { ImageOrIconDefinition } from '../ImageOrIconDefinition';
 
-export interface Actor {
+export interface ActorDesc {
     id: string;
     image: ImageOrIconDefinition;
     modeImages?: Record<string, ImageOrIconDefinition>;
@@ -9,4 +10,5 @@ export interface Actor {
     nounPhrase: string;
     isMale: boolean;
     isHuman: boolean;
+    properties?: ActorProperties;
 }

@@ -7,7 +7,7 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { GameActions } from '../../../../state/actions';
 import { ProjectActions } from '../../../../state/project/actions';
-import { selectActiveStepId, selectLang, selectStepDescs, selectUsedActors } from '../../../../state/selectors';
+import { selectActiveActorDescs, selectActiveStepId, selectLang, selectStepDescs } from '../../../../state/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
 import { ImageOrIconSwitch } from '../../elements/ImageOrIconSwitch';
@@ -19,7 +19,7 @@ export function StepSequence() {
     const activeStepId = useSelector(selectActiveStepId);
     const lang = useSelector(selectLang);
     const dispatch = useDispatch();
-    const usedActors = useSelector(selectUsedActors);
+    const usedActors = useSelector(selectActiveActorDescs);
 
     function handleClick(id: string | undefined) {
         if (id === undefined) {

@@ -1,6 +1,6 @@
 import { ActionDef } from '../../model/definition/Action/ActionDef';
 import { ActorConfig } from '../../model/definition/Actor/ActorConfig';
-import { ActorDefinition } from '../../model/definition/Actor/ActorDefinition';
+import { ActorDef } from '../../model/definition/Actor/ActorDef';
 import { AssetDef } from '../../model/definition/Asset/AssetDef';
 import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { ScenarioMeta } from '../../model/definition/ScenarioMeta';
@@ -15,7 +15,7 @@ export const ProjectActions = {
     ADD_ACTOR: event<{ actor: ActorConfig }>('ADD_ACTOR', true),
     REMOVE_ACTOR: event<{ id: string }>('REMOVE_ACTOR', true),
     REORDER_ACTORS: event<{ sourceIndex: number; targetIndex: number }>('REORDER_ACTORS', true),
-    UPDATE_ACTOR_DEFINITION: event<{ def: ActorDefinition }>('UPDATE_ACTOR_DEFINITION', true),
+    UPDATE_ACTOR_DEFINITION: event<{ def: ActorDef }>('UPDATE_ACTOR_DEFINITION', true),
 
     // Definition Manipulation : Assets
     ADD_ASSET: event<{ actorId: string; asset: AssetDef }>('ADD_ASSET', true),

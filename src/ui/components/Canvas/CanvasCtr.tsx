@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GameActions } from '../../../state/actions';
 import { ProjectActions } from '../../../state/project/actions';
 import {
+    selectActiveActorDescs,
     selectActiveStateDesc,
     selectActiveStepDesc,
     selectHighlightedResource,
     selectLang,
     selectSelectedActorId,
     selectSelectedAssetId,
-    selectUsedActors,
 } from '../../../state/selectors';
 import { SidebarTab } from '../Sidebar/SidebarTab';
 import { CanvasEvent } from './data/CanvasEvent';
@@ -20,7 +20,7 @@ export function CanvasCtr() {
     const dispatch = useDispatch();
     const selectedActorId = useSelector(selectSelectedActorId);
     const selectedAssetId = useSelector(selectSelectedAssetId);
-    const usedActors = useSelector(selectUsedActors);
+    const usedActors = useSelector(selectActiveActorDescs);
     const currentStep = useSelector(selectActiveStepDesc);
     const currentState = useSelector(selectActiveStateDesc);
     const lang = useSelector(selectLang);

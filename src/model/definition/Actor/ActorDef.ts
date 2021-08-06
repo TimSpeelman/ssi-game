@@ -2,7 +2,7 @@ import { ActorProperties } from './ActorPropertySet';
 import { ActorType } from './ActorType';
 
 /** A player made actor definition */
-export interface ActorDefinition {
+export interface ActorDef {
     id: string;
     type: ActorType;
     name: string;

@@ -1,8 +1,8 @@
 import { AssetDef } from '../Asset/AssetDef';
-import { ActorDefinition } from './ActorDefinition';
+import { ActorDef } from './ActorDef';
 
 /** A user definition of an actor and the initial assets it has */
 export interface ActorConfig {
-    definition: ActorDefinition;
+    definition: ActorDef;
     initialAssets: AssetDef[];
 }

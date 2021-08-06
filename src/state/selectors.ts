@@ -1,10 +1,9 @@
 import { createSelector } from 'reselect';
 import { Language } from '../intl/Language';
 import { ActionDef } from '../model/definition/Action/ActionDef';
-import { Actor } from '../model/definition/Actor/Actor';
-import { definitionToActor } from '../model/definition/Actor/definitionToActor';
 import { ScenarioDef } from '../model/definition/ScenarioDef';
 import { ScenarioMeta } from '../model/definition/ScenarioMeta';
+import { ActorDesc } from '../model/description/Actor/ActorDesc';
 import { AssetTreeNode } from '../model/description/Asset/AssetTreeNode';
 import { ActorStateDesc } from '../model/description/State/ActorStateDesc';
 import { StateDesc } from '../model/description/State/StateDesc';
@@ -42,8 +41,6 @@ export const selectActiveProjectName = (r: any) => rootPr(r).name;
 // Definition
 export const selectScenarioDef = (r: any): ScenarioDef => rootPr(r).scenario;
 export const selectScenarioMeta = (r: any): ScenarioMeta => selectScenarioDef(r).meta;
-export const selectUsedActors = (r: any): Actor[] =>
-    rootPr(r).scenario.actors.map((a) => definitionToActor(a.definition));
 /** Involved actors are actors that are involved in at least one step */
 export const selectIdsOfInvolvedActors = (r: any): Record<string, true> =>
     selectStepDescs(r).reduce((ids, step) => ({ ...ids, [step.action.from.id]: true, [step.action.to.id]: true }), {});
@@ -71,6 +68,10 @@ export const selectFailedStepDesc = (r: any): StepDesc | undefined =>
 // Description : Active
 export const selectActiveStateDesc = (r: any): StateDesc =>
     w1th(selectActiveStepDesc(r), (currentStep) => (currentStep ? currentStep.result : selectInitialStateDesc(r)));
+export const selectActiveActorDescs = (r: any): ActorDesc[] =>
+    w1th(selectActiveStateDesc(r), (state) =>
+        rootPr(r).scenario.actors.map((a) => state.actors[a.definition.id].actor),
+    );
 export const selectActiveActionDef = (r: any): ActionDef<any> | undefined =>
     rootPr(r).scenario.steps.find((s) => s.id === rootPr(r).activeStepId);
 export const selectActiveStepDesc = (r: any): StepDesc | undefined =>

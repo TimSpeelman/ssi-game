@@ -6,7 +6,7 @@ import { DefaultLibrary } from '../../../../content';
 import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode';
 import { GameActions } from '../../../../state/actions';
 import { ProjectActions } from '../../../../state/project/actions';
-import { selectSelectedAssetNode, selectUsedActors } from '../../../../state/selectors';
+import { selectActiveActorDescs, selectSelectedAssetNode } from '../../../../state/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
 import { ImageOrIconSwitch } from '../../elements/ImageOrIconSwitch';
@@ -19,7 +19,7 @@ export function AssetInspector() {
     const { openDialog } = useDialog();
 
     const asset: AssetTreeNode | undefined = useSelector(selectSelectedAssetNode);
-    const actors = useSelector(selectUsedActors);
+    const actors = useSelector(selectActiveActorDescs);
     const actor = actors.find((a) => a.id === asset?.ownerId);
     const { dict, lang } = useLang();
 

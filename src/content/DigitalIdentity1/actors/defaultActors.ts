@@ -1,5 +1,5 @@
 /** A list of default actors, used for predefined scenarios */
-import { ActorDefinition } from '../../../model/definition/Actor/ActorDefinition';
+import { ActorDef } from '../../../model/definition/Actor/ActorDef';
 import { actorTypes } from './actorTypes';
 
 export const defaultActors = {
@@ -10,7 +10,7 @@ export const defaultActors = {
         nounPhrase: 'Ledger',
         description: 'Blockchain',
         properties: [],
-    } as ActorDefinition,
+    } as ActorDef,
     human_1: {
         type: actorTypes.person3,
         id: 'human_1',
@@ -21,7 +21,7 @@ export const defaultActors = {
             ['Geslacht', 'Man'],
             ['Geboortedatum', '13-01-1990'],
         ],
-    } as ActorDefinition,
+    } as ActorDef,
     government_1: {
         type: actorTypes.gov1,
         id: 'government_1',
@@ -29,7 +29,7 @@ export const defaultActors = {
         nounPhrase: 'de overheid',
         description: 'De overheid van John',
         properties: [],
-    } as ActorDefinition,
+    } as ActorDef,
     shop_1: {
         type: actorTypes.shop1,
         id: 'shop_1',
@@ -37,5 +37,5 @@ export const defaultActors = {
         nounPhrase: 'de slijterij',
         description: 'De verkoper van alcoholhoudende dranken',
         properties: [],
-    } as ActorDefinition,
+    } as ActorDef,
 };

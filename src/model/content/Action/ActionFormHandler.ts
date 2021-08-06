@@ -1,3 +1,4 @@
+import { DefaultLibrary } from '../../../content';
 import { mapValues } from '../../../util/util';
 import { ActionDef } from '../../definition/Action/ActionDef';
 import { ScenarioDef } from '../../definition/ScenarioDef';
@@ -31,7 +32,7 @@ export class ActionFormHandler {
         selectedActionType: string | undefined,
         formData: any,
     ): ActionFormData | undefined {
-        const state = new Scenario(scenarioDefinition).getPreStateAtIndex(currentStepIndex);
+        const state = new Scenario(scenarioDefinition, DefaultLibrary).getPreStateAtIndex(currentStepIndex);
         if (!selectedActionType) {
             return undefined;
         } else {
@@ -54,7 +55,7 @@ export class ActionFormHandler {
         formData: any,
         id: string,
     ): ActionDef {
-        const state = new Scenario(scenarioDefinition).getPreStateAtIndex(currentStepIndex);
+        const state = new Scenario(scenarioDefinition, DefaultLibrary).getPreStateAtIndex(currentStepIndex);
         const action = this.actionTypes.requireTypeByName(selectedActionType).schema;
         return action.parseUserInput(id, formData, state);
     }

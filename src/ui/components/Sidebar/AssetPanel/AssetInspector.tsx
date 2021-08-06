@@ -2,7 +2,7 @@ import { Button, Divider, Typography } from '@material-ui/core';
 import { Add, ChevronLeft, Edit } from '@material-ui/icons';
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { DefaultAssetsCollection } from '../../../../content/assets';
+import { DefaultLibrary } from '../../../../content';
 import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode';
 import { ProjectActions, ScenarioActions } from '../../../../state/scenario/actions';
 import { selectSelectedAssetNode, selectUsedActors } from '../../../../state/scenario/selectors';
@@ -26,7 +26,7 @@ export function AssetInspector() {
 
     // Depending on the chosen action type, select the appropriate form
     const type = asset?.asset.type;
-    const assetType = type === undefined ? undefined : DefaultAssetsCollection.requireTypeByName(type);
+    const assetType = type === undefined ? undefined : DefaultLibrary.assets.requireTypeByName(type);
     const fields = assetType ? Object.entries(assetType.schema.props) : [];
     const data = assetType ? Object.entries(assetType.schema.computeDisplayProperties(asset.asset)) : [];
 

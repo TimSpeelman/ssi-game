@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import { lens } from 'lens.ts';
 import React, { Fragment, useEffect, useState } from 'react';
-import { actorTypes } from '../../../content/actors/actorTypes';
+import { DefaultLibrary } from '../../../content';
 import { ActorDefinition } from '../../../model/definition/Actor/ActorDefinition';
 import { ActorType } from '../../../model/definition/Actor/ActorType';
 import { ImageOrIconSwitch } from '../../components/ImageOrIconSwitch';
@@ -26,9 +26,11 @@ export interface Props {
     isCreate: boolean;
 }
 
+const actorTypes = DefaultLibrary.actors;
+
 const defaults: ActorDefinition = {
     id: '',
-    type: actorTypes.person1,
+    type: Object.values(actorTypes)[0],
     name: '',
     nounPhrase: '',
     properties: [],

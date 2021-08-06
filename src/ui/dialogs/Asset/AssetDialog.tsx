@@ -11,7 +11,7 @@ import {
 import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { DefaultAssetsCollection } from '../../../content/assets';
+import { DefaultLibrary } from '../../../content';
 import { AssetFormHandler } from '../../../model/content/Asset/AssetFormHandler';
 import { AssetDef } from '../../../model/definition/Asset/AssetDef';
 import { selectActiveStepIndex, selectScenarioDef } from '../../../state/scenario/selectors';
@@ -26,7 +26,7 @@ interface Props {
     isCreate: boolean;
 }
 
-export const formHandler = new AssetFormHandler(DefaultAssetsCollection);
+export const formHandler = new AssetFormHandler(DefaultLibrary.assets);
 
 export function AssetDialog(props: Props) {
     const [type, setType] = useState<string>(props.asset?.typeName || '');

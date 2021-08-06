@@ -11,7 +11,7 @@ import {
 import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { DefaultActionsCollection } from '../../../content/actions';
+import { DefaultLibrary } from '../../../content';
 import { ActionFormHandler } from '../../../model/content/Action/ActionFormHandler';
 import { ActionDef } from '../../../model/definition/Action/ActionDef';
 import { selectActiveStepIndex, selectScenarioDef } from '../../../state/scenario/selectors';
@@ -25,7 +25,7 @@ interface Props {
     isCreate: boolean;
 }
 
-export const formHandler = new ActionFormHandler(DefaultActionsCollection);
+export const formHandler = new ActionFormHandler(DefaultLibrary.actions);
 
 export function StepDialog(props: Props) {
     const [type, setType] = useState<string | undefined>(props.action?.typeName || '');

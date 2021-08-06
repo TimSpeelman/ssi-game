@@ -1,5 +1,5 @@
 import { newHistory } from 'redux-undo';
-import { OnlineLiquorPurchaseScenario } from '../../content/scenarios/OnlineLiquorPurchaseScenario';
+import { OnlineLiquorPurchaseScenario } from '../../content/DigitalIdentity1/scenarios/OnlineLiquorPurchaseScenario';
 import { Language } from '../../intl/Language';
 import { ScenarioDef } from '../../model/definition/ScenarioDef';
 import { SidebarTab } from '../../ui/components/Sidebar/SidebarTab';

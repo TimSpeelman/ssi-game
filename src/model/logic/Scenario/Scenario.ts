@@ -1,4 +1,4 @@
-import { DefaultActionsCollection } from '../../../content/actions';
+import { ContentLibrary } from '../../content/ContentLibrarty';
 import { ScenarioDef } from '../../definition/ScenarioDef';
 import { ScenarioDesc } from '../../description/Scenario/ScenarioDesc';
 import { ScenarioState } from '../State/ScenarioState';
@@ -9,9 +9,9 @@ export class Scenario {
     readonly steps: ComputedStep[];
     readonly initial: ScenarioState;
 
-    constructor(readonly definition: ScenarioDef) {
-        const steps = definition.steps.map((s) => DefaultActionsCollection.deserialize(s));
-        this.initial = ScenarioState.fromConfig(definition);
+    constructor(readonly definition: ScenarioDef, readonly contentLibrary: ContentLibrary) {
+        const steps = definition.steps.map((s) => contentLibrary.actions.deserialize(s));
+        this.initial = ScenarioState.fromConfig(definition, contentLibrary);
         let state = this.initial.withUpdate((s) => ({ ...s, isInitial: false }));
 
         // Cache the outcome and result computation.

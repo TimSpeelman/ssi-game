@@ -1,3 +1,4 @@
+import { DefaultLibrary } from '../../../content';
 import { AssetDef } from '../../definition/Asset/AssetDef';
 import { ScenarioDef } from '../../definition/ScenarioDef';
 import { Scenario } from '../../logic/Scenario/Scenario';
@@ -21,7 +22,7 @@ export class AssetFormHandler {
         selectedAssetType: string | undefined,
         formData: any,
     ): AssetFormData | undefined {
-        const state = new Scenario(scenarioDefinition).getPreStateAtIndex(currentStepIndex);
+        const state = new Scenario(scenarioDefinition, DefaultLibrary).getPreStateAtIndex(currentStepIndex);
         if (!selectedAssetType) {
             return undefined;
         } else {
@@ -44,7 +45,7 @@ export class AssetFormHandler {
         id: string,
         parentId?: string,
     ): AssetDef {
-        const state = new Scenario(scenarioDefinition).getPreStateAtIndex(currentStepIndex);
+        const state = new Scenario(scenarioDefinition, DefaultLibrary).getPreStateAtIndex(currentStepIndex);
         const action = this.assetTypes.requireTypeByName(selectedAssetType).schema;
         return action.parseUserInput(id, formData, state, parentId);
     }

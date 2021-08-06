@@ -51,7 +51,7 @@ export class WalletQRAuthentication extends Action<Props> {
         return {
             from: verifier,
             to: subject,
-            to_nym: subjectNym?.defProps.image,
+            to_nym: subjectNym?.id,
             to_mode: 'selfie',
             description: {
                 NL: 'Authenticatie van wallet (pseudoniem) via QR',

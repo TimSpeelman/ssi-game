@@ -54,7 +54,7 @@ export function ActorInspector() {
                 }}
             >
                 <ImageOrIconSwitch
-                    image={definition.type.img}
+                    image={definition.type.image}
                     stylesPerType={{
                         'fa-icon': { fontSize: '6rem' },
                         image: { height: '6rem' },

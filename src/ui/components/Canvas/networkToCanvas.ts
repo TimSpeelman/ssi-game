@@ -269,9 +269,9 @@ function makeActorViewData(p: {
             selected: actor.id === p.props.selectedActorId,
             involvedInStep: i === p.interactionData.fromIndex || i === p.interactionData.toIndex,
             isHome: eq(actorHomePos[i], actorPos[i]),
-            normalImage: actor.img,
+            normalImage: actor.image,
             activeModeImage: w1th(p.props.modes[p.actors[i].id], (mode) =>
-                mode && actor.modeImgs && mode in actor.modeImgs ? actor.modeImgs![mode as string] : actor.img,
+                mode && actor.modeImages && mode in actor.modeImages ? actor.modeImages![mode as string] : actor.image,
             ),
             homePosition: actorHomePos[i],
             position: actorPos[i],

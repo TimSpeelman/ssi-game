@@ -2,8 +2,8 @@ import { ImageOrIconDefinition } from '../../description/ImageOrIconDefinition';
 
 export interface Actor {
     id: string;
-    img: ImageOrIconDefinition;
-    modeImgs?: Record<string, ImageOrIconDefinition>;
+    image: ImageOrIconDefinition;
+    modeImages?: Record<string, ImageOrIconDefinition>;
     name: string;
     description?: string;
     nounPhrase: string;

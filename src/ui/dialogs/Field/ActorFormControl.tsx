@@ -22,7 +22,7 @@ export function ActorFormControl({ props, setField }: Props) {
                 {actors.map((actor) => (
                     <MenuItem key={actor.id} value={actor.id}>
                         <ImageOrIconSwitch
-                            image={actor.img}
+                            image={actor.image}
                             stylesPerType={{
                                 'fa-icon': { fontSize: '2rem' },
                                 image: { height: '2rem' },

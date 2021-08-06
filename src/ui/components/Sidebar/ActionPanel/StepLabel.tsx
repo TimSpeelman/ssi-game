@@ -26,14 +26,14 @@ export function StepLabel({ step, onEdit, ...props }: Props) {
         >
             <div style={{ width: '3rem', textAlign: 'center', flexShrink: 0, marginRight: '1rem' }}>
                 <ImageOrIconSwitch
-                    image={step.action.from.img}
+                    image={step.action.from.image}
                     stylesPerType={{
                         'fa-icon': { fontSize: '3rem' },
                         image: { height: '3rem' },
                     }}
                 />
                 <ImageOrIconSwitch
-                    image={step.action.to.img}
+                    image={step.action.to.image}
                     stylesPerType={{
                         'fa-icon': { fontSize: '3rem' },
                         image: { height: '3rem' },

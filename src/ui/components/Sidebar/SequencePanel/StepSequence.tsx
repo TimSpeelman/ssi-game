@@ -116,7 +116,7 @@ export function StepSequence() {
                                                 {/* <strong style={{ marginRight: '1rem' }}>Stap </strong> */}
                                                 <div style={{ width: '3rem', flexShrink: 0, flexGrow: 0 }}>
                                                     <ImageOrIconSwitch
-                                                        image={step.action.from.img}
+                                                        image={step.action.from.image}
                                                         stylesPerType={{
                                                             'fa-icon': { fontSize: '3rem' },
                                                             image: { height: '3rem', margin: '0 auto' },
@@ -136,7 +136,7 @@ export function StepSequence() {
 
                                                 <div style={{ width: '3rem', flexGrow: 0, flexShrink: 0 }}>
                                                     <ImageOrIconSwitch
-                                                        image={step.action.to.img}
+                                                        image={step.action.to.image}
                                                         stylesPerType={{
                                                             'fa-icon': { fontSize: '3rem' },
                                                             image: { height: '3rem', margin: '0 auto' },

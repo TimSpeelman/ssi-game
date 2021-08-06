@@ -81,7 +81,7 @@ export function ActorList() {
                                                     }}
                                                 >
                                                     <ImageOrIconSwitch
-                                                        image={actor.definition.type.img}
+                                                        image={actor.definition.type.image}
                                                         stylesPerType={{
                                                             'fa-icon': { fontSize: '3rem' },
                                                             image: { height: '3rem' },

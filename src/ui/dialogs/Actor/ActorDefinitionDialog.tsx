@@ -83,7 +83,7 @@ export function ActorDefinitionDialog(props: Props) {
                                     }}
                                 >
                                     <ImageOrIconSwitch
-                                        image={a.img}
+                                        image={a.image}
                                         stylesPerType={{
                                             'fa-icon': { fontSize: '3rem' },
                                             image: { height: '3rem' },
@@ -104,7 +104,7 @@ export function ActorDefinitionDialog(props: Props) {
                                     }}
                                 >
                                     <ImageOrIconSwitch
-                                        image={actor.img}
+                                        image={actor.image}
                                         stylesPerType={{
                                             'fa-icon': { fontSize: '3rem' },
                                             image: { height: '3rem' },

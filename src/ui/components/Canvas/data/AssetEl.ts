@@ -8,7 +8,6 @@ export interface AssetEl {
     r: number;
     active?: boolean;
     selected?: boolean;
-    url: string;
     lit?: boolean;
     hovered?: boolean;
     numberOfChildren: number;

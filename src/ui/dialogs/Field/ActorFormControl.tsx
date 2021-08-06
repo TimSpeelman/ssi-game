@@ -1,7 +1,7 @@
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React from 'react';
-import { actorImage } from '../../../config/actorImage';
 import { ActorField } from '../../../model/content/Common/View/ActorField';
+import { ImageOrIconSwitch } from '../../components/ImageOrIconSwitch';
 import { useLang } from '../../hooks/useLang';
 
 export interface Props {
@@ -21,7 +21,13 @@ export function ActorFormControl({ props, setField }: Props) {
             <Select value={value} onChange={(e) => setField(e.target.value)}>
                 {actors.map((actor) => (
                     <MenuItem key={actor.id} value={actor.id}>
-                        <img src={actorImage(actor.image)} style={{ height: '2rem' }} />
+                        <ImageOrIconSwitch
+                            image={actor.img}
+                            stylesPerType={{
+                                'fa-icon': { fontSize: '2rem' },
+                                image: { height: '2rem' },
+                            }}
+                        />
                         {actor.name}
                     </MenuItem>
                 ))}

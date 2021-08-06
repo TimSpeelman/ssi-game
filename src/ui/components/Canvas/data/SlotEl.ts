@@ -1,3 +1,4 @@
+import { ImageOrIconDefinition } from '../../../../model/description/ImageOrIconDefinition';
 import { Vec } from '../../../../util/vec';
 
 export interface SlotEl {
@@ -7,7 +8,7 @@ export interface SlotEl {
     r: number;
     selected?: boolean;
     hovered?: boolean;
-    url: string;
+    image: ImageOrIconDefinition;
     involvedInStep?: boolean;
     showImage: boolean;
 }

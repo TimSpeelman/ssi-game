@@ -4,7 +4,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { actorImage } from '../../../../config/actorImage';
 import { ActorConfig } from '../../../../model/definition/Actor/ActorConfig';
 import { ProjectActions, ScenarioActions } from '../../../../state/scenario/actions';
 import {
@@ -14,6 +13,7 @@ import {
 } from '../../../../state/scenario/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
+import { ImageOrIconSwitch } from '../../ImageOrIconSwitch';
 
 export function ActorList() {
     const dispatch = useDispatch();
@@ -80,9 +80,12 @@ export function ActorList() {
                                                         flexShrink: 0,
                                                     }}
                                                 >
-                                                    <img
-                                                        src={actorImage(actor.definition.type.image)}
-                                                        style={{ height: '3rem' }}
+                                                    <ImageOrIconSwitch
+                                                        image={actor.definition.type.img}
+                                                        stylesPerType={{
+                                                            'fa-icon': { fontSize: '3rem' },
+                                                            image: { height: '3rem' },
+                                                        }}
                                                     />
                                                 </div>
                                                 <ListItemText

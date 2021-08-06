@@ -1,5 +1,6 @@
 import React from 'react';
 import { ActorEl } from '../data/ActorEl';
+import { FontAwesomeIconShape } from './FontAwesomeIconShape';
 import { ShapeProps } from './ShapeProps';
 
 export function ActorShape({ elem: e, onEvent: dispatch, debug }: ShapeProps<ActorEl>) {
@@ -14,14 +15,25 @@ export function ActorShape({ elem: e, onEvent: dispatch, debug }: ShapeProps<Act
                 fill={'#fef4bd'}
             />
 
-            {/* Actor image */}
-            <image
-                href={e.url}
-                x={e.c[0] - e.r}
-                y={e.c[1] - e.r}
-                width={e.r * 2}
-                opacity={e.involvedInStep ? 1 : 0.4}
-            />
+            {/* Actor image or icon */}
+            {e.image?.type === 'image' && (
+                <image
+                    href={e.image.url}
+                    x={e.c[0] - e.r}
+                    y={e.c[1] - e.r}
+                    width={e.r * 2}
+                    opacity={e.involvedInStep ? 1 : 0.4}
+                />
+            )}
+
+            {e.image?.type === 'fa-icon' &&
+                FontAwesomeIconShape({
+                    icon: e.image.name,
+                    cx: e.c[0],
+                    cy: e.c[1],
+                    height: e.r * 2 * 0.65,
+                    color: e.image.color,
+                })}
 
             {/* Capture events on a transparent circle slighty bigger */}
             <circle

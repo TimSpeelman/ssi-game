@@ -1,9 +1,9 @@
-import { ImgName } from '../../../config/actorImage';
+import { ImageOrIconDefinition } from '../../description/ImageOrIconDefinition';
 
 export interface Actor {
     id: string;
-    image: ImgName;
-    modeImages?: Record<string, ImgName>;
+    img: ImageOrIconDefinition;
+    modeImgs?: Record<string, ImageOrIconDefinition>;
     name: string;
     description?: string;
     nounPhrase: string;

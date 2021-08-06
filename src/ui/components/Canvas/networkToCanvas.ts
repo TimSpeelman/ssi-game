@@ -1,11 +1,12 @@
-import { actorImage } from '../../../config/actorImage';
 import { Actor } from '../../../model/definition/Actor/Actor';
+import { ImageOrIconDefinition } from '../../../model/description/ImageOrIconDefinition';
 import { StateDesc } from '../../../model/description/State/StateDesc';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { StepDesc } from '../../../model/description/Step/StepDesc';
 import { pointsOnCircleEquidistant, pointsOnCircleFixedRangeCentered } from '../../../util/circle';
 import { scaleQuadraticBezierCurve } from '../../../util/curve';
 import { add, avg, eq, fractionOfLine, fractionOfQuadBezier, scale, Vec } from '../../../util/vec';
+import { w1th } from '../../../util/w1th';
 import { ActorEl } from './data/ActorEl';
 import { AssetEl } from './data/AssetEl';
 import { CanvasElem } from './data/CanvasElem';
@@ -23,11 +24,6 @@ interface NetworkProps {
     selectedActorId?: string;
     selectedAssetId?: string;
     hoveredElemId?: string;
-}
-
-function getActorImage(actor: Actor, mode?: string) {
-    if (mode && actor.modeImages && actor.modeImages[mode]) return actor.modeImages[mode];
-    else return actor.image;
 }
 
 const config = {
@@ -91,8 +87,8 @@ interface ActorViewData {
     selected: boolean;
     involvedInStep: boolean;
     isHome: boolean;
-    normalUrl: string;
-    activeModeUrl: string;
+    normalImage: ImageOrIconDefinition;
+    activeModeImage: ImageOrIconDefinition;
     homePosition: Vec;
     position: Vec;
 }
@@ -147,7 +143,7 @@ function makeSlotEls(p: { actorData: ActorViewData[] }) {
             c: actor.homePosition,
             r: config.slotRadius,
             showImage: !actor.isHome,
-            url: actorImage(actor.normalUrl),
+            image: actor.normalImage,
         };
     });
 }
@@ -161,7 +157,7 @@ function makeActorEls(p: { actorData: ActorViewData[] }) {
             involvedInStep: actor.involvedInStep,
             c: actor.position,
             r: config.slotRadius,
-            url: actorImage(actor.activeModeUrl),
+            image: actor.activeModeImage,
         };
     });
 }
@@ -228,7 +224,6 @@ function makeAssetEls(p: { actorData: ActorViewData[]; numberOfSlots: number; pr
                 id: a.asset.id,
                 lit: false,
                 r: config.assetRadius,
-                url: a.asset.iconUrl || '',
                 numberOfChildren: a.children.length,
                 image: a.asset.image,
             }),
@@ -274,8 +269,10 @@ function makeActorViewData(p: {
             selected: actor.id === p.props.selectedActorId,
             involvedInStep: i === p.interactionData.fromIndex || i === p.interactionData.toIndex,
             isHome: eq(actorHomePos[i], actorPos[i]),
-            normalUrl: getActorImage(actor),
-            activeModeUrl: getActorImage(actor, p.props.modes[p.actors[i].id]),
+            normalImage: actor.img,
+            activeModeImage: w1th(p.props.modes[p.actors[i].id], (mode) =>
+                mode && actor.modeImgs && mode in actor.modeImgs ? actor.modeImgs![mode as string] : actor.img,
+            ),
             homePosition: actorHomePos[i],
             position: actorPos[i],
         }),

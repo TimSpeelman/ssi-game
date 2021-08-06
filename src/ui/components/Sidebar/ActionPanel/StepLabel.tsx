@@ -2,9 +2,9 @@ import { Button, ListItemProps, Typography } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { actorImage } from '../../../../config/actorImage';
 import { StepDesc } from '../../../../model/description/Step/StepDesc';
 import { selectLang } from '../../../../state/scenario/selectors';
+import { ImageOrIconSwitch } from '../../ImageOrIconSwitch';
 
 export interface Props extends ListItemProps {
     step: StepDesc;
@@ -25,8 +25,20 @@ export function StepLabel({ step, onEdit, ...props }: Props) {
             }}
         >
             <div style={{ width: '3rem', textAlign: 'center', flexShrink: 0, marginRight: '1rem' }}>
-                <img src={actorImage(step.action.from.image)} style={{ height: '3rem' }} />
-                <img src={actorImage(step.action.to.image)} style={{ height: '3rem' }} />
+                <ImageOrIconSwitch
+                    image={step.action.from.img}
+                    stylesPerType={{
+                        'fa-icon': { fontSize: '3rem' },
+                        image: { height: '3rem' },
+                    }}
+                />
+                <ImageOrIconSwitch
+                    image={step.action.to.img}
+                    stylesPerType={{
+                        'fa-icon': { fontSize: '3rem' },
+                        image: { height: '3rem' },
+                    }}
+                />
             </div>
             <div style={{ flexGrow: 1 }}>
                 <Typography variant="h6">{step.action.description[lang]}</Typography>

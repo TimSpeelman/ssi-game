@@ -1,3 +1,4 @@
+import { ImageOrIconDefinition } from '../../../../model/description/ImageOrIconDefinition';
 import { Vec } from '../../../../util/vec';
 
 export interface ActorEl {
@@ -7,6 +8,6 @@ export interface ActorEl {
     r: number;
     selected?: boolean;
     hovered?: boolean;
-    url: string;
+    image?: ImageOrIconDefinition;
     involvedInStep?: boolean;
 }

@@ -1,10 +1,10 @@
-import { ImgName } from '../../../config/actorImage';
+import { ImageOrIconDefinition } from '../../description/ImageOrIconDefinition';
 
 /** The game predefines some actor types a player can choose from */
 export interface ActorType {
     id: string;
-    image: ImgName;
-    modeImages?: Record<string, ImgName>;
+    img: ImageOrIconDefinition;
+    modeImgs?: Record<string, ImageOrIconDefinition>;
     typeName: string;
     isHuman: boolean;
     isMale: boolean;

@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { actorImage } from '../../../../config/actorImage';
 import { ProjectActions, ScenarioActions } from '../../../../state/scenario/actions';
 import {
     selectActiveStepId,
@@ -15,6 +14,7 @@ import {
 } from '../../../../state/scenario/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
+import { ImageOrIconSwitch } from '../../ImageOrIconSwitch';
 import { SidebarTab } from '../SidebarTab';
 
 export function StepSequence() {
@@ -115,9 +115,12 @@ export function StepSequence() {
                                             >
                                                 {/* <strong style={{ marginRight: '1rem' }}>Stap </strong> */}
                                                 <div style={{ width: '3rem', flexShrink: 0, flexGrow: 0 }}>
-                                                    <img
-                                                        src={actorImage(step.action.from.image)}
-                                                        style={{ height: '3rem', margin: '0 auto' }}
+                                                    <ImageOrIconSwitch
+                                                        image={step.action.from.img}
+                                                        stylesPerType={{
+                                                            'fa-icon': { fontSize: '3rem' },
+                                                            image: { height: '3rem', margin: '0 auto' },
+                                                        }}
                                                     />
                                                 </div>
                                                 {/* <div
@@ -132,9 +135,12 @@ export function StepSequence() {
                                             </div> */}
 
                                                 <div style={{ width: '3rem', flexGrow: 0, flexShrink: 0 }}>
-                                                    <img
-                                                        src={actorImage(step.action.to.image)}
-                                                        style={{ height: '3rem', margin: '0 auto' }}
+                                                    <ImageOrIconSwitch
+                                                        image={step.action.to.img}
+                                                        stylesPerType={{
+                                                            'fa-icon': { fontSize: '3rem' },
+                                                            image: { height: '3rem', margin: '0 auto' },
+                                                        }}
                                                     />
                                                 </div>
 

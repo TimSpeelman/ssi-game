@@ -2,12 +2,12 @@ import { Button, Divider, ListSubheader, Typography } from '@material-ui/core';
 import { Add, ChevronLeft, Edit } from '@material-ui/icons';
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actorImage } from '../../../../config/actorImage';
 import { ProjectActions, ScenarioActions } from '../../../../state/scenario/actions';
 import { selectScenarioDef, selectSelectedActorDesc } from '../../../../state/scenario/selectors';
 import { groupBy } from '../../../../util/util';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
+import { ImageOrIconSwitch } from '../../ImageOrIconSwitch';
 import { AssetList } from '../AssetPanel/AssetList';
 import { SidebarTab } from '../SidebarTab';
 
@@ -53,7 +53,13 @@ export function ActorInspector() {
                     background: '#eee',
                 }}
             >
-                <img src={actorImage(definition.type.image)} style={{ height: '6rem' }} />
+                <ImageOrIconSwitch
+                    image={definition.type.img}
+                    stylesPerType={{
+                        'fa-icon': { fontSize: '6rem' },
+                        image: { height: '6rem' },
+                    }}
+                />
                 <div style={{ flexGrow: 1 }}>
                     <Typography variant="h6">{definition.name}</Typography>
                     <Typography variant="subtitle2">{definition.description}</Typography>

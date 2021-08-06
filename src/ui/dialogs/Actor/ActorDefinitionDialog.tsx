@@ -13,10 +13,10 @@ import {
 } from '@material-ui/core';
 import { lens } from 'lens.ts';
 import React, { Fragment, useEffect, useState } from 'react';
-import { actorImage } from '../../../config/actorImage';
 import { actorTypes } from '../../../config/actorTypes';
 import { ActorDefinition } from '../../../model/definition/Actor/ActorDefinition';
 import { ActorType } from '../../../model/definition/Actor/ActorType';
+import { ImageOrIconSwitch } from '../../components/ImageOrIconSwitch';
 import { useLang } from '../../hooks/useLang';
 
 export interface Props {
@@ -82,7 +82,13 @@ export function ActorDefinitionDialog(props: Props) {
                                         marginRight: '1rem',
                                     }}
                                 >
-                                    <img src={actorImage(a.image)} style={{ height: '3rem' }} />
+                                    <ImageOrIconSwitch
+                                        image={a.img}
+                                        stylesPerType={{
+                                            'fa-icon': { fontSize: '3rem' },
+                                            image: { height: '3rem' },
+                                        }}
+                                    />
                                 </div>
                                 <div>{a.typeName}</div>
                             </div>
@@ -97,7 +103,13 @@ export function ActorDefinitionDialog(props: Props) {
                                         marginRight: '1rem',
                                     }}
                                 >
-                                    <img src={actorImage(actor.image)} style={{ height: '3rem' }} />
+                                    <ImageOrIconSwitch
+                                        image={actor.img}
+                                        stylesPerType={{
+                                            'fa-icon': { fontSize: '3rem' },
+                                            image: { height: '3rem' },
+                                        }}
+                                    />
                                 </div>
                                 <ListItemText primary={actor.typeName} />
                             </MenuItem>

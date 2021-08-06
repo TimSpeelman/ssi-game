@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { InternalResourceUrl } from './InternalResourceUrl';
 
-export function replaceInternalResourceUrlStrings(str: string): ReactNode[] {
+export function replaceInternalResourceUrlStrings(str: string, index = 0): ReactNode[] {
     const regex = /\[([^\]]*)\]\(([^\)]*)\)/;
     const matches = str.match(regex);
     if (matches) {
@@ -10,8 +10,12 @@ export function replaceInternalResourceUrlStrings(str: string): ReactNode[] {
         const len = full.length;
         const pre = str.substr(0, index);
         const post = str.substr(index + len);
-        const link = <InternalResourceUrl url={url}>{text}</InternalResourceUrl>;
-        return [pre, link, ...replaceInternalResourceUrlStrings(post)];
+        const link = (
+            <InternalResourceUrl url={url} key={index}>
+                {text}
+            </InternalResourceUrl>
+        );
+        return [pre, link, ...replaceInternalResourceUrlStrings(post, index + 1)];
     } else {
         return [str];
     }

@@ -50,7 +50,7 @@ const config = {
     assetRingRadius: 80,
 
     /** The angle between asset shapes, around the actor shape */
-    radialAssetSpacing: Math.PI / 6,
+    radialAssetSpacing: (Math.PI / 6) * 1.2,
 
     /** To what extent the edges bend towards the center (0: straight line, 1: curved towards center) */
     connectionCurveFraction: 0.5,

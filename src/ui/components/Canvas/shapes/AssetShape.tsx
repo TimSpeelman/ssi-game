@@ -31,7 +31,7 @@ export function AssetShape({ elem: e, onEvent: dispatch }: ShapeProps<AssetEl>) 
                     icon: e.image.name,
                     cx: e.c[0],
                     cy: e.c[1],
-                    height: e.r * 2 * 0.8,
+                    height: e.r * 2 * 0.65,
                     color: e.image.color,
                 })}
 

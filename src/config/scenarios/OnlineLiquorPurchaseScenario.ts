@@ -37,13 +37,13 @@ const SubjectNym1 = new Pseudonym(
 const GovernmentNym1 = new Pseudonym('government-nym-1', {
     subject: Government.id,
     identifier: 'GOV',
-    image: 'rabbit',
+    image: 'hippo',
 });
 
 const ShopNym1 = new Pseudonym('shop-nym-1', {
     subject: Shop.id,
     identifier: 'SHP',
-    image: 'rattlesnake',
+    image: 'spider',
 });
 
 const Attr18Plus = '18+';

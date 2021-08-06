@@ -1,8 +1,8 @@
 import { Button, Typography } from '@material-ui/core';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { GameActions } from '../../../../state/scenario/actions';
-import { selectSnackbarIsOn } from '../../../../state/scenario/selectors';
+import { GameActions } from '../../../../state/actions';
+import { selectSnackbarIsOn } from '../../../../state/selectors';
 import { useLang } from '../../../hooks/useLang';
 
 export function OptionPanel() {

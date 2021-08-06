@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { loadFromLocalStorage } from '../persistence/localStorage';
-import { GameActions } from '../state/scenario/actions';
+import { GameActions } from '../state/actions';
 import { HotKeysContainer } from './components/HotKeysContainer';
 import { UserManualDialogCtr } from './components/Manual/UserManualDialogCtr';
 import { ProjectDrawer } from './components/menus/ProjectDrawer';

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { GameActions, ProjectActions } from '../../../state/scenario/actions';
+import { GameActions } from '../../../state/actions';
+import { ProjectActions } from '../../../state/project/actions';
 import {
     selectActiveStateDesc,
     selectActiveStepDesc,
@@ -9,7 +10,7 @@ import {
     selectSelectedActorId,
     selectSelectedAssetId,
     selectUsedActors,
-} from '../../../state/scenario/selectors';
+} from '../../../state/selectors';
 import { SidebarTab } from '../Sidebar/SidebarTab';
 import { CanvasEvent } from './data/CanvasEvent';
 import { createNetworkCanvasData } from './networkToCanvas';

@@ -1,4 +1,4 @@
-import { PersistedProject } from '../state/scenario/persistence';
+import { PersistedProject } from '../state/persistence';
 
 export function loadProjectFromFile(jsonFile: File) {
     const reader = new FileReader();

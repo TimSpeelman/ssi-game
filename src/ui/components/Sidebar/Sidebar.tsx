@@ -2,8 +2,8 @@ import { Category, Group, Info, Settings, SwapHoriz, Timeline } from '@material-
 import classNames from 'classnames';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { GameActions } from '../../../state/scenario/actions';
-import { selectActiveSidebarTab } from '../../../state/scenario/selectors';
+import { GameActions } from '../../../state/actions';
+import { selectActiveSidebarTab } from '../../../state/selectors';
 import { TimeControlCtr } from '../Canvas/TimeControlCtr';
 import { ActionPanel } from './ActionPanel/ActionPanel';
 import { ActorPanel } from './ActorPanel/ActorPanel';

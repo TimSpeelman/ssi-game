@@ -14,13 +14,10 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { OnlineLiquorPurchaseScenario } from '../../../content/DigitalIdentity1/scenarios/OnlineLiquorPurchaseScenario';
-import { GameActions, ProjectActions } from '../../../state/scenario/actions';
-import {
-    selectActiveProjectName,
-    selectInactiveProjects,
-    selectProjectDrawerOpen,
-} from '../../../state/scenario/selectors';
-import { ProjectState } from '../../../state/scenario/state';
+import { GameActions } from '../../../state/actions';
+import { ProjectActions } from '../../../state/project/actions';
+import { ProjectState } from '../../../state/project/state';
+import { selectActiveProjectName, selectInactiveProjects, selectProjectDrawerOpen } from '../../../state/selectors';
 import { useFilePersistence } from '../../hooks/useFilePersistence';
 import { useLang } from '../../hooks/useLang';
 import { HiddenFileInput } from '../elements/HiddenFileInput';

@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dictionary } from '../../intl/Dict';
 import { dictionaries, translate } from '../../intl/dictionaries';
 import { Language } from '../../intl/Language';
-import { GameActions } from '../../state/scenario/actions';
-import { selectLang } from '../../state/scenario/selectors';
+import { GameActions } from '../../state/actions';
+import { selectLang } from '../../state/selectors';
 
 export function useLang() {
     const lang = useSelector(selectLang);

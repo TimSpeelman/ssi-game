@@ -2,7 +2,7 @@ import { Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { StepDesc } from '../../../../model/description/Step/StepDesc';
-import { selectStepDescs } from '../../../../state/scenario/selectors';
+import { selectStepDescs } from '../../../../state/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
 import { replaceInternalResourceUrlStrings } from '../../elements/replaceInternalResourceUrlStrings';

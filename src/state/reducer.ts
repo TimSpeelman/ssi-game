@@ -1,7 +1,9 @@
 import undoable from 'redux-undo';
-import { getReducer, IAction } from '../../util/redux';
-import { ProjectReducers, ScenarioReducers } from './reducers';
-import { ProjectState, RootState } from './state';
+import { getReducer, IAction } from '../util/redux';
+import { ProjectReducers } from './project/reducers';
+import { ProjectState } from './project/state';
+import { ScenarioReducers } from './reducers';
+import { RootState } from './state';
 
 const getProjectReducer = getReducer(ProjectReducers);
 const getGameReducer = getReducer(ScenarioReducers);

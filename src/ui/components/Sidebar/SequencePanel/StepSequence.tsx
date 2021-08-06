@@ -5,13 +5,9 @@ import classNames from 'classnames';
 import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { GameActions, ProjectActions } from '../../../../state/scenario/actions';
-import {
-    selectActiveStepId,
-    selectLang,
-    selectStepDescs,
-    selectUsedActors,
-} from '../../../../state/scenario/selectors';
+import { GameActions } from '../../../../state/actions';
+import { ProjectActions } from '../../../../state/project/actions';
+import { selectActiveStepId, selectLang, selectStepDescs, selectUsedActors } from '../../../../state/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
 import { ImageOrIconSwitch } from '../../elements/ImageOrIconSwitch';

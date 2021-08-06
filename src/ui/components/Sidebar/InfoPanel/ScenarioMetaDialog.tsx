@@ -10,7 +10,7 @@ import {
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ScenarioMeta } from '../../../../model/definition/ScenarioMeta';
-import { ProjectActions } from '../../../../state/scenario/actions';
+import { ProjectActions } from '../../../../state/project/actions';
 import { useLang } from '../../../hooks/useLang';
 
 export interface Props {

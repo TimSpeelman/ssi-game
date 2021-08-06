@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { ActorConfig } from '../../../model/definition/Actor/ActorConfig';
-import { ProjectActions } from '../../../state/scenario/actions';
+import { ProjectActions } from '../../../state/project/actions';
 import { ActorDefinitionDialog } from './ActorDefinitionDialog';
 
 interface Props {

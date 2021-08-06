@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProjectActions } from '../../../state/scenario/actions';
-import { selectAssetDefById } from '../../../state/scenario/selectors';
+import { ProjectActions } from '../../../state/project/actions';
+import { selectAssetDefById } from '../../../state/selectors';
 import { AssetDialog } from './AssetDialog';
 
 interface Props {

@@ -2,7 +2,8 @@ import React, { ReactNode, useEffect, useRef } from 'react';
 import { HotKeys } from 'react-hotkeys';
 import { useDispatch } from 'react-redux';
 import { ActionCreators } from 'redux-undo';
-import { GameActions, ProjectActions } from '../../state/scenario/actions';
+import { GameActions } from '../../state/actions';
+import { ProjectActions } from '../../state/project/actions';
 import { HandlerMap, hotkeys } from '../config/hotkeys';
 import { SidebarTab } from './Sidebar/SidebarTab';
 

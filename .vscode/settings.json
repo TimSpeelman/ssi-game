@@ -9,4 +9,5 @@
         "javascript",
         "typescript"
     ],
+    "typescript.tsserver.log": "verbose"
 }

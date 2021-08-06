@@ -3,8 +3,8 @@ import { Delete, Edit } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode';
-import { GameActions } from '../../../../state/scenario/actions';
-import { selectHighlightedResource } from '../../../../state/scenario/selectors';
+import { GameActions } from '../../../../state/actions';
+import { selectHighlightedResource } from '../../../../state/selectors';
 import { stopPropagation } from '../../../../util/util';
 import { useLang } from '../../../hooks/useLang';
 

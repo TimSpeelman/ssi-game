@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectStepDescs } from '../../../../state/scenario/selectors';
+import { selectStepDescs } from '../../../../state/selectors';
 import { useLang } from '../../../hooks/useLang';
 import { StepNav } from './StepNav';
 

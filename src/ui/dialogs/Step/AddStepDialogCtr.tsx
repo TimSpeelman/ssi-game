@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { ProjectActions } from '../../../state/scenario/actions';
+import { ProjectActions } from '../../../state/project/actions';
 import { StepDialog } from './StepDialog';
 
 interface Props {

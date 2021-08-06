@@ -2,7 +2,7 @@ import { Button } from '@material-ui/core';
 import { NavigateBefore, NavigateNext } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { ProjectActions } from '../../../../state/scenario/actions';
+import { ProjectActions } from '../../../../state/project/actions';
 
 /** Shows the details of a scenario step */
 export function StepNav() {

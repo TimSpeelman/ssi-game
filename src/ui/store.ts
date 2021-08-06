@@ -1,8 +1,8 @@
 import { combineReducers, createStore } from 'redux';
 import { saveToLocalStorage } from '../persistence/localStorage';
-import { scenario } from '../state/scenario';
-import { selectPersistedState } from '../state/scenario/persistence';
-import { root } from '../state/scenario/selectors';
+import { scenario } from '../state';
+import { selectPersistedState } from '../state/persistence';
+import { root } from '../state/selectors';
 import { throttle } from '../util/util';
 
 export const rootReducer = combineReducers({

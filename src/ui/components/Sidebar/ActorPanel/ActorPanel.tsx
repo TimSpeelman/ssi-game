@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectSelectedActorDesc } from '../../../../state/scenario/selectors';
+import { selectSelectedActorDesc } from '../../../../state/selectors';
 import { ActorInspector } from './ActorInspector';
 import { ActorList } from './ActorList';
 

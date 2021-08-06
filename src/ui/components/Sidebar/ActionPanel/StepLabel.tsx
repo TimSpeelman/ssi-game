@@ -3,7 +3,7 @@ import { Edit } from '@material-ui/icons';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { StepDesc } from '../../../../model/description/Step/StepDesc';
-import { selectLang } from '../../../../state/scenario/selectors';
+import { selectLang } from '../../../../state/selectors';
 import { ImageOrIconSwitch } from '../../elements/ImageOrIconSwitch';
 
 export interface Props extends ListItemProps {

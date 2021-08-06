@@ -5,12 +5,9 @@ import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActorConfig } from '../../../../model/definition/Actor/ActorConfig';
-import { GameActions, ProjectActions } from '../../../../state/scenario/actions';
-import {
-    selectHighlightedResource,
-    selectIdsOfInvolvedActors,
-    selectScenarioDef,
-} from '../../../../state/scenario/selectors';
+import { GameActions } from '../../../../state/actions';
+import { ProjectActions } from '../../../../state/project/actions';
+import { selectHighlightedResource, selectIdsOfInvolvedActors, selectScenarioDef } from '../../../../state/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
 import { ImageOrIconSwitch } from '../../elements/ImageOrIconSwitch';

@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { loadProjectFromFile } from '../../persistence/loadProjectFromFile';
 import { saveProjectToFile } from '../../persistence/saveProjectToFile';
-import { GameActions } from '../../state/scenario/actions';
-import { selectPersistableProject } from '../../state/scenario/selectors';
+import { GameActions } from '../../state/actions';
+import { selectPersistableProject } from '../../state/selectors';
 import { useLang } from './useLang';
 
 export function useFilePersistence() {

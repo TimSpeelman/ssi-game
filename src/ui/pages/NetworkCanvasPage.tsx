@@ -1,7 +1,7 @@
 import { useSnackbar } from 'notistack';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProjectActions } from '../../state/scenario/actions';
+import { ProjectActions } from '../../state/project/actions';
 import {
     selectActiveStepDesc,
     selectFailedStepDesc,
@@ -9,7 +9,7 @@ import {
     selectScenarioDesc,
     selectShowMeta,
     selectSnackbarIsOn,
-} from '../../state/scenario/selectors';
+} from '../../state/selectors';
 import { CanvasCtr } from '../components/Canvas/CanvasCtr';
 import { replaceInternalResourceUrlStrings } from '../components/elements/replaceInternalResourceUrlStrings';
 import { ScenarioMetaDialog } from '../components/Sidebar/InfoPanel/ScenarioMetaDialog';

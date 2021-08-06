@@ -2,8 +2,8 @@ import { Button, DialogActions, DialogContent, DialogContentText, DialogTitle, T
 import { Add, Delete } from '@material-ui/icons';
 import React, { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProjectActions } from '../../../state/scenario/actions';
-import { selectActorDefById } from '../../../state/scenario/selectors';
+import { ProjectActions } from '../../../state/project/actions';
+import { selectActorDefById } from '../../../state/selectors';
 import { useLang } from '../../hooks/useLang';
 
 interface Props {

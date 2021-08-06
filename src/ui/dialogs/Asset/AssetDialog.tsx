@@ -14,7 +14,7 @@ import { v4 as uuid } from 'uuid';
 import { DefaultLibrary } from '../../../content';
 import { AssetFormHandler } from '../../../model/content/Asset/AssetFormHandler';
 import { AssetDef } from '../../../model/definition/Asset/AssetDef';
-import { selectActiveStepIndex, selectScenarioDef } from '../../../state/scenario/selectors';
+import { selectActiveStepIndex, selectScenarioDef } from '../../../state/selectors';
 import { useLang } from '../../hooks/useLang';
 import { FormControlSwitch } from '../Field/FormControlSwitch';
 

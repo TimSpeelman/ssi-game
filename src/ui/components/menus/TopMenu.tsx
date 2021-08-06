@@ -3,8 +3,8 @@ import { Help, Menu, Redo, Undo } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActionCreators } from 'redux-undo';
-import { GameActions } from '../../../state/scenario/actions';
-import { selectActiveProjectName, selectRedoable, selectUndoable } from '../../../state/scenario/selectors';
+import { GameActions } from '../../../state/actions';
+import { selectActiveProjectName, selectRedoable, selectUndoable } from '../../../state/selectors';
 import { useLang } from '../../hooks/useLang';
 import { LanguageMenu } from './LanguageMenu';
 

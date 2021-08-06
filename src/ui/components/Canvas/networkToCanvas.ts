@@ -67,7 +67,9 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
 
     const numberOfSlots = actors.length;
 
-    const center: Vec = [props.width / 2, props.height / 2];
+    // In cases with 3 slots, we move the center slightly down
+    const center: Vec =
+        numberOfSlots === 3 ? [props.width / 2, props.height * 0.55] : [props.width / 2, props.height / 2];
     const interactionData = makeInteractionViewData(props);
     const actorData = makeActorViewData({ actors, center, numberOfSlots, interactionData, props });
 

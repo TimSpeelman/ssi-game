@@ -63,27 +63,22 @@ const config = {
 };
 
 export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
-    const { width, height, actors } = props;
-
-    const center: Vec = [width / 2, height / 2];
+    const { actors } = props;
 
     const numberOfSlots = actors.length;
 
-    const interaction: InteractionViewData = {
-        action: props.step?.action,
-        fromIndex: !!props.step ? actors.findIndex((a) => a.id === props.step!.action.from.id) : -1,
-        toIndex: !!props.step ? actors.findIndex((a) => a.id === props.step!.action.to.id) : -1,
-    };
+    const center: Vec = [props.width / 2, props.height / 2];
+    const interactionData = makeInteractionViewData(props);
+    const actorData = makeActorViewData({ actors, center, numberOfSlots, interactionData, props });
 
-    const actorData = makeActorViewData({ actors, center, width, numberOfSlots, interaction, props });
-    const nyms = makePseudonyms({ interaction, actors: actorData, center, props });
-    const slots = makeActorSlots(actorData);
-    const actorEls = makeActorEls(actorData);
-    const conns = makeConnectionsBetweenSlots({ interaction, slots, center });
-    const assets = makeAssets({ actors: actorData, numberOfSlots, props });
+    const pseudonymEls = makePseudonymEls({ interactionData, actorData, center, props });
+    const slotEls = makeSlotEls({ actorData });
+    const actorEls = makeActorEls({ actorData });
+    const connectionEls = makeConnectionEls({ interactionData, slotEls, center });
+    const assetEls = makeAssetEls({ actorData, numberOfSlots, props });
 
     // Combine all elems
-    const elems: CanvasElem[] = [...conns, ...slots, ...actorEls, ...assets, ...nyms];
+    const elems: CanvasElem[] = [...connectionEls, ...slotEls, ...actorEls, ...assetEls, ...pseudonymEls];
 
     return elems.map((e) => (e.id === props.hoveredElemId ? { ...e, hovered: true } : e));
 }
@@ -132,8 +127,16 @@ function actorBasePositions(props: { center: Vec; ringRadius: number; numberOfSl
     return actorHomePosUnit.map((p) => add(props.center, scale(props.ringRadius)(p)));
 }
 
-function makeActorSlots(actorData: ActorViewData[]) {
-    return actorData.map(function makeActorSlot(actor: ActorViewData, i: number): SlotEl {
+function makeInteractionViewData(props: NetworkProps): InteractionViewData {
+    return {
+        action: props.step?.action,
+        fromIndex: !!props.step ? props.actors.findIndex((a) => a.id === props.step!.action.from.id) : -1,
+        toIndex: !!props.step ? props.actors.findIndex((a) => a.id === props.step!.action.to.id) : -1,
+    };
+}
+
+function makeSlotEls(p: { actorData: ActorViewData[] }) {
+    return p.actorData.map(function makeActorSlot(actor: ActorViewData, i: number): SlotEl {
         return {
             type: 'slot',
             id: actor.actor.id + '-slot',
@@ -147,8 +150,8 @@ function makeActorSlots(actorData: ActorViewData[]) {
     });
 }
 
-function makeActorEls(actorData: ActorViewData[]) {
-    return actorData.map(function makeActorEl(actor: ActorViewData, i: number): ActorEl {
+function makeActorEls(p: { actorData: ActorViewData[] }) {
+    return p.actorData.map(function makeActorEl(actor: ActorViewData, i: number): ActorEl {
         return {
             type: 'actor',
             id: actor.actor.id,
@@ -161,17 +164,17 @@ function makeActorEls(actorData: ActorViewData[]) {
     });
 }
 
-function makeConnectionsBetweenSlots(p: {
-    interaction: InteractionViewData;
+function makeConnectionEls(p: {
+    interactionData: InteractionViewData;
     center: Vec;
-    slots: SlotEl[];
+    slotEls: SlotEl[];
 }): ConnectionEl[] {
-    const locality = !!p.interaction.action ? p.interaction.action.locality : Locality.REMOTE;
+    const locality = !!p.interactionData.action ? p.interactionData.action.locality : Locality.REMOTE;
 
-    return p.slots.reduce(
+    return p.slotEls.reduce(
         (acc, slot1, i) => [
             ...acc,
-            ...p.slots.reduce(
+            ...p.slotEls.reduce(
                 (acc2, slot2, j): ConnectionEl[] =>
                     i >= j
                         ? []
@@ -201,13 +204,13 @@ function makeConnectionsBetweenSlots(p: {
     );
 }
 
-function makeAssets(p: { actors: ActorViewData[]; numberOfSlots: number; props: NetworkProps }) {
-    return p.actors.reduce((all, actorV, actorIndex): AssetEl[] => {
+function makeAssetEls(p: { actorData: ActorViewData[]; numberOfSlots: number; props: NetworkProps }) {
+    return p.actorData.reduce((all, actorV, actorIndex): AssetEl[] => {
         const actor = actorV.actor;
         const assets = p.props.state.actors[actor.id].assetTrees;
         const numAssets = assets.length;
 
-        const actorCenter = p.actors[actorIndex].homePosition;
+        const actorCenter = p.actorData[actorIndex].homePosition;
         const actorAngle = config.networkRotation + ((2 * Math.PI) / p.numberOfSlots) * actorIndex; // center the range
         const spaceInRad = config.radialAssetSpacing;
         const assetPositionsUnit = pointsOnCircleFixedRangeCentered(numAssets, actorAngle, spaceInRad);
@@ -236,14 +239,13 @@ function makeAssets(p: { actors: ActorViewData[]; numberOfSlots: number; props: 
 function makeActorViewData(p: {
     actors: Actor[];
     center: Vec;
-    width: number;
     numberOfSlots: number;
-    interaction: InteractionViewData;
+    interactionData: InteractionViewData;
     props: NetworkProps;
 }): ActorViewData[] {
     const actorHomePos = actorBasePositions({
         center: p.center,
-        ringRadius: (p.width / 2) * config.relativeSlotRingSize,
+        ringRadius: (p.props.width / 2) * config.relativeSlotRingSize,
         numberOfSlots: p.numberOfSlots,
         startAtRad: config.networkRotation,
     });
@@ -251,24 +253,24 @@ function makeActorViewData(p: {
     // Compute the actor's positions
     const actorPos = actorHomePos.slice();
 
-    if (!!p.interaction.action) {
+    if (!!p.interactionData.action) {
         // Move actors that interact locally
 
         const [fromPos, toPos] = computeInteractingActorsLocation(
-            actorHomePos[p.interaction.fromIndex],
-            actorHomePos[p.interaction.toIndex],
-            p.interaction.action.locality,
+            actorHomePos[p.interactionData.fromIndex],
+            actorHomePos[p.interactionData.toIndex],
+            p.interactionData.action.locality,
             config.fractionActorMovesToOther,
         );
-        actorPos[p.interaction.fromIndex] = fromPos;
-        actorPos[p.interaction.toIndex] = toPos;
+        actorPos[p.interactionData.fromIndex] = fromPos;
+        actorPos[p.interactionData.toIndex] = toPos;
     }
 
     return p.actors.map(
         (actor, i): ActorViewData => ({
             actor,
             selected: actor.id === p.props.selectedActorId,
-            involvedInStep: i === p.interaction.fromIndex || i === p.interaction.toIndex,
+            involvedInStep: i === p.interactionData.fromIndex || i === p.interactionData.toIndex,
             isHome: eq(actorHomePos[i], actorPos[i]),
             normalUrl: getActorImage(actor),
             activeModeUrl: getActorImage(actor, p.props.modes[p.actors[i].id]),
@@ -278,21 +280,21 @@ function makeActorViewData(p: {
     );
 }
 
-function makePseudonyms(p: {
-    interaction: InteractionViewData;
-    actors: ActorViewData[];
+function makePseudonymEls(p: {
+    interactionData: InteractionViewData;
+    actorData: ActorViewData[];
     center: Vec;
     props: NetworkProps;
 }): PseudonymEl[] {
     const _nyms: PseudonymEl[] = [];
 
-    const { action, fromIndex, toIndex } = p.interaction;
+    const { action, fromIndex, toIndex } = p.interactionData;
 
     // Compute the pseudonyms
     if (!!action) {
         // Move actors that interact locally
-        const p0 = p.actors[fromIndex].homePosition;
-        const p2 = p.actors[toIndex].homePosition;
+        const p0 = p.actorData[fromIndex].homePosition;
+        const p2 = p.actorData[toIndex].homePosition;
         const q = scaleQuadraticBezierCurve(p0, p.center, p2, config.connectionCurveFraction);
         const sourceNymPos = fractionOfQuadBezier(p0, q, p2, config.relativePseudonymPosition);
         const targetNymPos = fractionOfQuadBezier(p0, q, p2, 1 - config.relativePseudonymPosition);
@@ -301,7 +303,7 @@ function makePseudonyms(p: {
             const asset = p.props.state.assets[action.from_nym].asset;
             _nyms.push({
                 c: sourceNymPos,
-                id: p.actors[fromIndex].actor.id + '-nym',
+                id: p.actorData[fromIndex].actor.id + '-nym',
                 r: config.pseudonymRadius,
                 type: 'pseudonym',
                 image: asset.image,
@@ -311,7 +313,7 @@ function makePseudonyms(p: {
             const asset = p.props.state.assets[action.to_nym].asset;
             _nyms.push({
                 c: targetNymPos,
-                id: p.actors[toIndex].actor.id + '-nym',
+                id: p.actorData[toIndex].actor.id + '-nym',
                 r: config.pseudonymRadius,
                 type: 'pseudonym',
                 image: asset.image,

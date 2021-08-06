@@ -1,5 +1,5 @@
 import { Translation } from '../../../intl/Language';
-import { ImageOrIconDefinition } from '../ImageOrIconDefinition';
+import { ImageOrIconDefinition } from '../../common/ImageOrIconDefinition';
 
 export interface AssetDesc<Props = any> {
     id: string;

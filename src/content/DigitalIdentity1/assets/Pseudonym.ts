@@ -1,9 +1,9 @@
 import { DictionaryEN } from '../../../intl/dictionaries/EN';
 import { DictionaryNL } from '../../../intl/dictionaries/NL';
+import { ImageOrIconDefinition } from '../../../model/common/ImageOrIconDefinition';
 import { AssetSchema, TypeOfAssetSchema } from '../../../model/content/Asset/AssetSchema';
 import { AssetType } from '../../../model/content/Asset/AssetType';
 import { ImageSelectProp } from '../../../model/content/Common/Prop/ImageSelectProp';
-import { ImageOrIconDefinition } from '../../../model/description/ImageOrIconDefinition';
 import { Asset, CustomAssetDesc } from '../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { CommonProps } from '../common/props';

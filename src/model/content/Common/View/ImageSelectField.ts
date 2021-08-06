@@ -1,5 +1,5 @@
 import { Translation } from '../../../../intl/Language';
-import { ImageOrIconDefinition } from '../../../description/ImageOrIconDefinition';
+import { ImageOrIconDefinition } from '../../../common/ImageOrIconDefinition';
 
 export interface ImageSelectField {
     type: 'image-select';

@@ -1,4 +1,4 @@
-import { ImageOrIconDefinition } from '../../description/ImageOrIconDefinition';
+import { ImageOrIconDefinition } from '../../common/ImageOrIconDefinition';
 
 /** The game predefines some actor types a player can choose from */
 export interface ActorType {

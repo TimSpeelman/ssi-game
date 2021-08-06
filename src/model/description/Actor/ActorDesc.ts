@@ -1,5 +1,5 @@
+import { ImageOrIconDefinition } from '../../common/ImageOrIconDefinition';
 import { ActorProperties } from '../../definition/Actor/ActorPropertySet';
-import { ImageOrIconDefinition } from '../ImageOrIconDefinition';
 
 export interface ActorDesc {
     id: string;

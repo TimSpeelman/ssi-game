@@ -1,5 +1,5 @@
 import { Translation } from '../../../../intl/Language';
-import { ImageOrIconDefinition } from '../../../description/ImageOrIconDefinition';
+import { ImageOrIconDefinition } from '../../../common/ImageOrIconDefinition';
 import { ScenarioState } from '../../../logic/State/ScenarioState';
 import { Field } from '../View/Field';
 import { IContentTypeProp } from './IContentTypeProp';

@@ -1,5 +1,5 @@
+import { ImageOrIconDefinition } from '../../../model/common/ImageOrIconDefinition';
 import { ActorDesc } from '../../../model/description/Actor/ActorDesc';
-import { ImageOrIconDefinition } from '../../../model/description/ImageOrIconDefinition';
 import { StateDesc } from '../../../model/description/State/StateDesc';
 import { ActionDesc, Locality } from '../../../model/description/Step/ActionDesc';
 import { StepDesc } from '../../../model/description/Step/StepDesc';

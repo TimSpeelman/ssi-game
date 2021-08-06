@@ -1,4 +1,4 @@
-import { ImageOrIconDefinition } from '../../../../model/description/ImageOrIconDefinition';
+import { ImageOrIconDefinition } from '../../../../model/common/ImageOrIconDefinition';
 import { Vec } from '../../../../util/vec';
 
 export interface PseudonymEl {

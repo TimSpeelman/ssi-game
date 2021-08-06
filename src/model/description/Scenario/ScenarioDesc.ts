@@ -1,4 +1,4 @@
-import { ScenarioDef } from '../../definition/ScenarioDef';
+import { ScenarioDef } from '../../definition/Scenario/ScenarioDef';
 import { StateDesc } from '../State/StateDesc';
 import { StepDesc } from '../Step/StepDesc';
 

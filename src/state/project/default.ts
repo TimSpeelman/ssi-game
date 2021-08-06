@@ -1,5 +1,5 @@
 import { OnlineLiquorPurchaseScenario } from '../../content/DigitalIdentity1/scenarios/OnlineLiquorPurchaseScenario';
-import { ScenarioDef } from '../../model/definition/ScenarioDef';
+import { ScenarioDef } from '../../model/definition/Scenario/ScenarioDef';
 import { ProjectState } from './state';
 
 export const defaultScenario = OnlineLiquorPurchaseScenario;

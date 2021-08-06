@@ -2,8 +2,8 @@ import { ActionDef } from '../../model/definition/Action/ActionDef';
 import { ActorConfig } from '../../model/definition/Actor/ActorConfig';
 import { ActorDef } from '../../model/definition/Actor/ActorDef';
 import { AssetDef } from '../../model/definition/Asset/AssetDef';
-import { ScenarioDef } from '../../model/definition/ScenarioDef';
-import { ScenarioMeta } from '../../model/definition/ScenarioMeta';
+import { ScenarioDef } from '../../model/definition/Scenario/ScenarioDef';
+import { ScenarioMeta } from '../../model/definition/Scenario/ScenarioMeta';
 import { event } from '../../util/redux';
 
 export const ProjectActions = {

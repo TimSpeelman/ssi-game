@@ -1,5 +1,5 @@
 import { ContentLibrary } from '../../content/ContentLibrarty';
-import { ScenarioDef } from '../../definition/ScenarioDef';
+import { ScenarioDef } from '../../definition/Scenario/ScenarioDef';
 import { ScenarioDesc } from '../../description/Scenario/ScenarioDesc';
 import { ScenarioState } from '../State/ScenarioState';
 import { Action } from '../Step/Action';

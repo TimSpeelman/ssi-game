@@ -1,7 +1,7 @@
 import { lens } from 'lens.ts';
 import { mapValues, omit } from '../../../util/util';
 import { ContentLibrary } from '../../content/ContentLibrarty';
-import { ScenarioDef } from '../../definition/ScenarioDef';
+import { ScenarioDef } from '../../definition/Scenario/ScenarioDef';
 import { ActorDesc } from '../../description/Actor/ActorDesc';
 import { assetsToTree } from '../../description/Asset/assetsToTree';
 import { AssetTreeNode } from '../../description/Asset/AssetTreeNode';

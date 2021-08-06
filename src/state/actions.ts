@@ -1,5 +1,5 @@
 import { Language } from '../intl/Language';
-import { ScenarioDef } from '../model/definition/ScenarioDef';
+import { ScenarioDef } from '../model/definition/Scenario/ScenarioDef';
 import { PersistedProject, PersistedState } from '../persistence/persistence';
 import { SidebarTab } from '../ui/components/Sidebar/SidebarTab';
 import { event } from '../util/redux';

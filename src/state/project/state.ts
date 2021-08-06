@@ -1,4 +1,4 @@
-import { ScenarioDef } from '../../model/definition/ScenarioDef';
+import { ScenarioDef } from '../../model/definition/Scenario/ScenarioDef';
 
 export interface ProjectState {
     id: string;

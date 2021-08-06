@@ -1,6 +1,6 @@
 import { DefaultLibrary } from '../../../content';
 import { AssetDef } from '../../definition/Asset/AssetDef';
-import { ScenarioDef } from '../../definition/ScenarioDef';
+import { ScenarioDef } from '../../definition/Scenario/ScenarioDef';
 import { Scenario } from '../../logic/Scenario/Scenario';
 import { AssetFormData } from './AssetFormData';
 import { AssetTypesCollection } from './AssetTypesCollection';

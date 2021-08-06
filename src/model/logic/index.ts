@@ -1,5 +1,5 @@
 import { DefaultLibrary } from '../../content';
-import { ScenarioDef } from '../definition/ScenarioDef';
+import { ScenarioDef } from '../definition/Scenario/ScenarioDef';
 import { ScenarioDesc } from '../description/Scenario/ScenarioDesc';
 import { Scenario } from './Scenario/Scenario';
 

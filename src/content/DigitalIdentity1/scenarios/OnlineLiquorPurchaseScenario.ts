@@ -1,5 +1,5 @@
 import { ActorConfig } from '../../../model/definition/Actor/ActorConfig';
-import { ScenarioDef } from '../../../model/definition/ScenarioDef';
+import { ScenarioDef } from '../../../model/definition/Scenario/ScenarioDef';
 import { CustomInteraction } from '../actions/CustomInteraction';
 import { GrantGreenFlag } from '../actions/GrantGreenFlag';
 import { Issuance } from '../actions/Issuance';

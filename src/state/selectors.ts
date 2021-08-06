@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 import { Language } from '../intl/Language';
 import { ActionDef } from '../model/definition/Action/ActionDef';
-import { ScenarioDef } from '../model/definition/ScenarioDef';
-import { ScenarioMeta } from '../model/definition/ScenarioMeta';
+import { ScenarioDef } from '../model/definition/Scenario/ScenarioDef';
+import { ScenarioMeta } from '../model/definition/Scenario/ScenarioMeta';
 import { ActorDesc } from '../model/description/Actor/ActorDesc';
 import { AssetTreeNode } from '../model/description/Asset/AssetTreeNode';
 import { ActorStateDesc } from '../model/description/State/ActorStateDesc';

@@ -1,7 +1,7 @@
 import { Button, Typography } from '@material-ui/core';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { ScenarioMeta } from '../../../../model/definition/ScenarioMeta';
+import { ScenarioMeta } from '../../../../model/definition/Scenario/ScenarioMeta';
 import { ProjectActions } from '../../../../state/project/actions';
 import { useLang } from '../../../hooks/useLang';
 import { useNav } from '../../../hooks/useNav';

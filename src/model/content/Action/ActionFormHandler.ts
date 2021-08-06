@@ -1,7 +1,7 @@
 import { DefaultLibrary } from '../../../content';
 import { mapValues } from '../../../util/util';
 import { ActionDef } from '../../definition/Action/ActionDef';
-import { ScenarioDef } from '../../definition/ScenarioDef';
+import { ScenarioDef } from '../../definition/Scenario/ScenarioDef';
 import { Scenario } from '../../logic/Scenario/Scenario';
 import { ActionFormData } from './ActionFormData';
 import { ActionTypesCollection } from './ActionTypesCollection';

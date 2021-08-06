@@ -14,7 +14,7 @@ const Schema = new AssetSchema({
     props: {
         subject: CommonProps.subject,
         issuer: CommonProps.issuer,
-        attributeName: CommonProps.attributeName,
+        credential: CommonProps.attributeProof,
     },
 });
 

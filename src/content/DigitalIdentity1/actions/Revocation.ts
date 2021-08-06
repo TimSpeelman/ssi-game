@@ -1,13 +1,15 @@
+import { uniLang } from '../../../intl/Language';
 import { TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
-import { ucFirst } from '../../../util/util';
+import { AttributeProof } from '../assets/AttributeProof';
 import { AttributeRevocation } from '../assets/AttributeRevocation';
 import { Wallet } from '../assets/Wallet';
 import { CommonProps } from '../common/props';
+import { urlActor, urlCredential } from '../common/util';
 import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
 
 export const Schema = BaseSchema.extend({
@@ -19,7 +21,7 @@ export const Schema = BaseSchema.extend({
     props: {
         issuer: CommonProps.issuer,
         subject: CommonProps.subject,
-        attributeName: CommonProps.attributeName,
+        credential: CommonProps.attributeProof,
     },
 });
 
@@ -39,7 +41,7 @@ export class Revocation extends Action<Props> {
         const attr = new AttributeRevocation(
             this.id + '1',
             {
-                attributeName: this.defProps.attributeName,
+                credential: this.defProps.credential,
                 issuer: this.defProps.issuer,
                 subject: this.defProps.subject,
             },
@@ -54,25 +56,32 @@ export class Revocation extends Action<Props> {
 
         const subject = props.subject!.actor;
         const issuer = props.issuer!.actor;
+        const credential: AttributeProof | undefined = props.credential;
+
         return {
             from: issuer,
             to: subject,
-            description: {
-                NL: `Revocatie van ${this.defProps.attributeName} credential`,
-                EN: `Revocation of ${this.defProps.attributeName} credential`,
-            },
+            description: credential
+                ? {
+                      NL: `Revocatie van ${credential.defProps.attributeName} credential`,
+                      EN: `Revocation of ${credential.defProps.attributeName} credential`,
+                  }
+                : {
+                      NL: 'Revocatie van credential',
+                      EN: 'Revocation of credential',
+                  },
             sub: {
                 NL: '',
                 EN: '',
             },
-            long: {
-                NL: `${ucFirst(issuer.nounPhrase)} trekt het attribuut ${this.defProps.attributeName} van ${
-                    subject.nounPhrase
-                } in.`,
-                EN: `${ucFirst(issuer.nounPhrase)} revokes the attribute ${this.defProps.attributeName} of ${
-                    subject.nounPhrase
-                }.`,
-            },
+            long: !credential
+                ? uniLang('')
+                : {
+                      NL: `${urlActor(issuer, true)} trekt het ${urlCredential(credential)} van ${urlActor(
+                          subject,
+                      )} in.`,
+                      EN: `${urlActor(issuer, true)} revokes the ${urlCredential(credential)} of ${urlActor(subject)}.`,
+                  },
             locality: Locality.REMOTE,
         };
     }

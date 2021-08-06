@@ -8,6 +8,7 @@ import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { ucFirst } from '../../../util/util';
 import { AttributeKnowledge } from '../assets/AttributeKnowledge';
 import { AttributeProof } from '../assets/AttributeProof';
+import { AttributeRevocation } from '../assets/AttributeRevocation';
 import { Pseudonym } from '../assets/Pseudonym';
 import { Wallet } from '../assets/Wallet';
 import { CommonProps } from '../common/props';
@@ -41,6 +42,13 @@ export class Presentation extends Action<Props> {
         return subject!.assets.find((a) => a instanceof Wallet);
     }
 
+    protected getRevocation(credentialId: string, state: ScenarioState) {
+        const { subject } = this.evaluateProps(state);
+        return subject?.assets
+            .filter((a) => a instanceof AttributeRevocation)
+            .some((a) => (a as AttributeRevocation).defProps.credential === credentialId);
+    }
+
     validatePreConditions(state: ScenarioState): IValidationResult[] {
         const wallet = this.getSubjectWallet(state);
         if (!wallet) {
@@ -48,6 +56,16 @@ export class Presentation extends Action<Props> {
                 new ValidationResult(false, {
                     NL: 'Subject heeft een wallet nodig om een credential te kunnen presenteren.',
                     EN: 'Subject needs a wallet to present a credential.',
+                }),
+            ];
+        }
+
+        const revocation = this.getRevocation(this.defProps.attribute, state);
+        if (revocation) {
+            return [
+                new ValidationResult(false, {
+                    NL: 'Attribuut is ingetrokken, dus kan het niet succesvol worden gepresenteerd.',
+                    EN: 'This credential was revoked, so it cannot be presented successfully.',
                 }),
             ];
         }

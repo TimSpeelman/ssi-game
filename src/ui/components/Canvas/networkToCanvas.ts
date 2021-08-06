@@ -1,17 +1,17 @@
-import { actorImage } from '../../config/actorImage';
-import { Actor } from '../../model/definition/Actor/Actor';
-import { StateDesc } from '../../model/description/State/StateDesc';
-import { Locality } from '../../model/description/Step/ActionDesc';
-import { StepDesc } from '../../model/description/Step/StepDesc';
-import { pointsOnCircleEquidistant, pointsOnCircleFixedRangeCentered } from '../../util/circle';
-import { scaleQuadraticBezierCurve } from '../../util/curve';
-import { add, avg, eq, fractionOfLine, fractionOfQuadBezier, scale, Vec } from '../../util/vec';
-import { ActorEl } from './Canvas/data/ActorEl';
-import { AssetEl } from './Canvas/data/AssetEl';
-import { CanvasElem } from './Canvas/data/CanvasElem';
-import { ConnectionEl } from './Canvas/data/ConnectionEl';
-import { PseudonymEl } from './Canvas/data/PseudonymEl';
-import { SlotEl } from './Canvas/data/SlotEl';
+import { actorImage } from '../../../config/actorImage';
+import { Actor } from '../../../model/definition/Actor/Actor';
+import { StateDesc } from '../../../model/description/State/StateDesc';
+import { Locality } from '../../../model/description/Step/ActionDesc';
+import { StepDesc } from '../../../model/description/Step/StepDesc';
+import { pointsOnCircleEquidistant, pointsOnCircleFixedRangeCentered } from '../../../util/circle';
+import { scaleQuadraticBezierCurve } from '../../../util/curve';
+import { add, avg, eq, fractionOfLine, fractionOfQuadBezier, scale, Vec } from '../../../util/vec';
+import { ActorEl } from './data/ActorEl';
+import { AssetEl } from './data/AssetEl';
+import { CanvasElem } from './data/CanvasElem';
+import { ConnectionEl } from './data/ConnectionEl';
+import { PseudonymEl } from './data/PseudonymEl';
+import { SlotEl } from './data/SlotEl';
 
 interface NetworkProps {
     width: number;

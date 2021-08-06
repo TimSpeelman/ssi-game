@@ -1,5 +1,5 @@
-import { CanvasElem } from './data/CanvasElem';
-import { CanvasEvent } from './data/CanvasEvent';
+import { CanvasElem } from '../data/CanvasElem';
+import { CanvasEvent } from '../data/CanvasEvent';
 
 export interface ShapeProps<El extends CanvasElem> {
     elem: El;

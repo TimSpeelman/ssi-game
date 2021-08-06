@@ -10,9 +10,9 @@ import {
     selectSelectedAssetId,
     selectUsedActors,
 } from '../../../state/scenario/selectors';
-import { createNetworkCanvasData } from '../networkToCanvas';
 import { SidebarTab } from '../Sidebar/SidebarTab';
 import { CanvasEvent } from './data/CanvasEvent';
+import { createNetworkCanvasData } from './networkToCanvas';
 import { SVGNetworkCanvas } from './SVGNetworkCanvas';
 
 export function CanvasCtr() {

@@ -1,7 +1,7 @@
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import React, { SVGProps } from 'react';
-import { ucFirst } from '../../../util/util';
-import { Vec } from '../../../util/vec';
+import { ucFirst } from '../../../../util/util';
+import { Vec } from '../../../../util/vec';
 
 interface Props extends SVGProps<SVGSVGElement> {
     icon: string;

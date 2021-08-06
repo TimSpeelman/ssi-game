@@ -26,6 +26,7 @@ export class FingerprintFeature extends Asset<Props> {
         return {
             transferrable: false,
             cloneable: false,
+            image: { type: 'fa-icon', name: 'fingerprint' },
         };
     }
 }

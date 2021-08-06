@@ -31,6 +31,7 @@ export class Consent extends Asset<Props> {
                 NL: `Voor het gebruik van attribuut "${this.defProps.attributeName}".`,
                 EN: `For the use of attribute "${this.defProps.attributeName}".`,
             },
+            image: { type: 'fa-icon', name: 'thumbs-up' },
         };
     }
 }

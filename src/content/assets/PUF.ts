@@ -36,6 +36,7 @@ export class PUF extends Asset<Props> {
         return {
             transferrable: true,
             cloneable: false,
+            image: { type: 'fa-icon', name: 'key' },
         };
     }
 }

@@ -27,6 +27,7 @@ export class AttributeRequest extends Asset<Props> {
         return {
             transferrable: false,
             cloneable: true,
+            image: { type: 'fa-icon', name: 'question' },
         };
     }
 }

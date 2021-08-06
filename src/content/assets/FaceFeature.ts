@@ -25,6 +25,7 @@ export class FaceFeature extends Asset<Props> {
         return {
             transferrable: false,
             cloneable: false,
+            image: { type: 'fa-icon', name: 'grin-beam' },
         };
     }
 }

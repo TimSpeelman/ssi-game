@@ -43,6 +43,7 @@ export class GovPassport extends Asset<Props> {
 
             transferrable: true,
             cloneable: false,
+            image: { type: 'fa-icon', name: 'passport' },
         };
     }
 }

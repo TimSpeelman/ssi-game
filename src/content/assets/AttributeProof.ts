@@ -64,6 +64,7 @@ export class AttributeProof extends Asset<Props> {
                 { title: schemaProps.attributeName.title, value: uniLang(attributeName || '') },
                 { title: schemaProps.attributeValue.title, value: uniLang(attributeValue || '') },
             ],
+            image: { type: 'fa-icon', name: 'id-badge' },
         };
     }
 }

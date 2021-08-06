@@ -25,6 +25,7 @@ export class FaceScan extends Asset<Props> {
         return {
             transferrable: false,
             cloneable: true,
+            image: { type: 'fa-icon', name: 'grin-beam' },
         };
     }
 }

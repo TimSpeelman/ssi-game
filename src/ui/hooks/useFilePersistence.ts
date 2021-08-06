@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { loadProjectFromFile } from '../../persistence/loadProjectFromFile';
 import { saveProjectToFile } from '../../persistence/saveProjectToFile';
-import { ScenarioActions } from '../../state/scenario/actions';
+import { GameActions } from '../../state/scenario/actions';
 import { selectPersistableProject } from '../../state/scenario/selectors';
 import { useLang } from './useLang';
 
@@ -17,8 +17,8 @@ export function useFilePersistence() {
             .then((project) => {
                 // Replace the ID to prevent collisions
                 const p = { ...project, id: uuid() };
-                dispatch(ScenarioActions.LOAD_PROJECT({ project: p }));
-                dispatch(ScenarioActions.ACTIVATE_PROJECT({ id: p.id }));
+                dispatch(GameActions.LOAD_PROJECT({ project: p }));
+                dispatch(GameActions.ACTIVATE_PROJECT({ id: p.id }));
                 alert(dict.app_msgFileLoaded);
             })
             .catch((e) => alert(e));

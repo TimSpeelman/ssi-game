@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProjectActions, ScenarioActions } from '../../../state/scenario/actions';
+import { GameActions, ProjectActions } from '../../../state/scenario/actions';
 import { selectActiveStateDesc } from '../../../state/scenario/selectors';
 import { SidebarTab } from '../Sidebar/SidebarTab';
 
@@ -18,11 +18,11 @@ export function InternalResourceUrl({ url, children }: PropsWithChildren<Props>)
     function nav() {
         if (resource) {
             if (resource.type === 'asset') {
-                dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ASSETS }));
+                dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ASSETS }));
                 dispatch(ProjectActions.SELECT_ASSET({ id: resourceId }));
             }
             if (resource.type === 'actor') {
-                dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
+                dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
                 dispatch(ProjectActions.SELECT_ACTOR({ id: resourceId }));
             }
         }
@@ -32,8 +32,8 @@ export function InternalResourceUrl({ url, children }: PropsWithChildren<Props>)
         <span
             className="internal-resource-url"
             onClick={nav}
-            onMouseEnter={() => dispatch(ScenarioActions.HIGHLIGHT_RESOURCE({ resourceId }))}
-            onMouseLeave={() => dispatch(ScenarioActions.UNHIGHLIGHT_RESOURCE({ resourceId }))}
+            onMouseEnter={() => dispatch(GameActions.HIGHLIGHT_RESOURCE({ resourceId }))}
+            onMouseLeave={() => dispatch(GameActions.UNHIGHLIGHT_RESOURCE({ resourceId }))}
         >
             {children}
         </span>

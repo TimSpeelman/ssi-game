@@ -14,7 +14,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { OnlineLiquorPurchaseScenario } from '../../../content/DigitalIdentity1/scenarios/OnlineLiquorPurchaseScenario';
-import { ProjectActions, ScenarioActions } from '../../../state/scenario/actions';
+import { GameActions, ProjectActions } from '../../../state/scenario/actions';
 import {
     selectActiveProjectName,
     selectInactiveProjects,
@@ -45,40 +45,40 @@ export function ProjectDrawer() {
     const dispatch = useDispatch();
 
     function close() {
-        dispatch(ScenarioActions.CLOSE_PROJECT_DRAWER());
+        dispatch(GameActions.CLOSE_PROJECT_DRAWER());
     }
 
     const activateProject = (project: ProjectState) => {
-        dispatch(ScenarioActions.ACTIVATE_PROJECT({ id: project.id }));
+        dispatch(GameActions.ACTIVATE_PROJECT({ id: project.id }));
         close();
     };
 
     const newProject = () => {
         const id = uuid();
-        dispatch(ScenarioActions.NEW_PROJECT({ id }));
-        dispatch(ScenarioActions.ACTIVATE_PROJECT({ id }));
+        dispatch(GameActions.NEW_PROJECT({ id }));
+        dispatch(GameActions.ACTIVATE_PROJECT({ id }));
         close();
     };
 
     const copyActiveProject = () => {
         const id = uuid();
         const name = `Kopie van ${activeName}`;
-        dispatch(ScenarioActions.COPY_ACTIVE_PROJECT({ id, name }));
-        dispatch(ScenarioActions.ACTIVATE_PROJECT({ id }));
+        dispatch(GameActions.COPY_ACTIVE_PROJECT({ id, name }));
+        dispatch(GameActions.ACTIVATE_PROJECT({ id }));
         close();
     };
 
     const newFromTemplate = (templateId: string) => {
         const id = uuid();
-        dispatch(ScenarioActions.NEW_PROJECT({ id, definition: templates[templateId].definition }));
-        dispatch(ScenarioActions.ACTIVATE_PROJECT({ id }));
+        dispatch(GameActions.NEW_PROJECT({ id, definition: templates[templateId].definition }));
+        dispatch(GameActions.ACTIVATE_PROJECT({ id }));
         close();
     };
 
     function handleDelete(id: string) {
         const conf = confirm(dict.app_msgConfirmDeleteProject);
         if (conf) {
-            dispatch(ScenarioActions.DELETE_PROJECT({ id }));
+            dispatch(GameActions.DELETE_PROJECT({ id }));
         }
     }
 

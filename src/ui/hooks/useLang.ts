@@ -2,13 +2,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dictionary } from '../../intl/Dict';
 import { dictionaries, translate } from '../../intl/dictionaries';
 import { Language } from '../../intl/Language';
-import { ScenarioActions } from '../../state/scenario/actions';
+import { GameActions } from '../../state/scenario/actions';
 import { selectLang } from '../../state/scenario/selectors';
 
 export function useLang() {
     const lang = useSelector(selectLang);
     const dispatch = useDispatch();
-    const setLang = (language: Language) => dispatch(ScenarioActions.SET_LANGUAGE({ language }));
+    const setLang = (language: Language) => dispatch(GameActions.SET_LANGUAGE({ language }));
 
     return {
         lang,

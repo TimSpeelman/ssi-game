@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { loadFromLocalStorage } from '../persistence/localStorage';
-import { ScenarioActions } from '../state/scenario/actions';
+import { GameActions } from '../state/scenario/actions';
 import { HotKeysContainer } from './components/HotKeysContainer';
 import { UserManualDialogCtr } from './components/Manual/UserManualDialogCtr';
 import { ProjectDrawer } from './components/menus/ProjectDrawer';
@@ -16,7 +16,7 @@ export function App() {
     useEffect(() => {
         const savedState = loadFromLocalStorage('state');
         if (savedState) {
-            dispatch(ScenarioActions.RESTORE_STATE({ state: savedState }));
+            dispatch(GameActions.RESTORE_STATE({ state: savedState }));
         }
     }, []);
 

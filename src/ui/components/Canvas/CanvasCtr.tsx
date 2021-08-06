@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProjectActions, ScenarioActions } from '../../../state/scenario/actions';
+import { GameActions, ProjectActions } from '../../../state/scenario/actions';
 import {
     selectActiveStateDesc,
     selectActiveStepDesc,
@@ -30,7 +30,7 @@ export function CanvasCtr() {
             dispatch(ProjectActions.CLEAR_SELECTION());
         } else {
             dispatch(ProjectActions.SELECT_ACTOR({ id }));
-            dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
+            dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
         }
     }
 
@@ -39,28 +39,28 @@ export function CanvasCtr() {
             dispatch(ProjectActions.CLEAR_SELECTION());
         } else {
             dispatch(ProjectActions.SELECT_ASSET({ id }));
-            dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ASSETS }));
+            dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ASSETS }));
         }
     }
 
     const handleEvent = (ev: CanvasEvent) => {
         switch (ev.type) {
             case 'slot-enter':
-                return dispatch(ScenarioActions.HIGHLIGHT_RESOURCE({ resourceId: ev.id }));
+                return dispatch(GameActions.HIGHLIGHT_RESOURCE({ resourceId: ev.id }));
             case 'slot-leave':
-                return dispatch(ScenarioActions.UNHIGHLIGHT_RESOURCE({ resourceId: ev.id }));
+                return dispatch(GameActions.UNHIGHLIGHT_RESOURCE({ resourceId: ev.id }));
             case 'slot-click':
                 return handleClickActor(ev.id);
             case 'asset-enter':
-                return dispatch(ScenarioActions.HIGHLIGHT_RESOURCE({ resourceId: ev.id }));
+                return dispatch(GameActions.HIGHLIGHT_RESOURCE({ resourceId: ev.id }));
             case 'asset-click':
                 return handleClickAsset(ev.id);
             case 'asset-leave':
-                return dispatch(ScenarioActions.UNHIGHLIGHT_RESOURCE({ resourceId: ev.id }));
+                return dispatch(GameActions.UNHIGHLIGHT_RESOURCE({ resourceId: ev.id }));
             case 'conn-enter':
-                return dispatch(ScenarioActions.HIGHLIGHT_RESOURCE({ resourceId: ev.id }));
+                return dispatch(GameActions.HIGHLIGHT_RESOURCE({ resourceId: ev.id }));
             case 'conn-leave':
-                return dispatch(ScenarioActions.UNHIGHLIGHT_RESOURCE({ resourceId: ev.id }));
+                return dispatch(GameActions.UNHIGHLIGHT_RESOURCE({ resourceId: ev.id }));
             case 'slot-delete':
                 return dispatch(ProjectActions.REMOVE_ACTOR({ id: ev.id }));
         }

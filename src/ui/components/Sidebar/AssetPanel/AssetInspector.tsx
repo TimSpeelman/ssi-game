@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DefaultLibrary } from '../../../../content';
 import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode';
-import { ProjectActions, ScenarioActions } from '../../../../state/scenario/actions';
+import { GameActions, ProjectActions } from '../../../../state/scenario/actions';
 import { selectSelectedAssetNode, selectUsedActors } from '../../../../state/scenario/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
@@ -36,7 +36,7 @@ export function AssetInspector() {
 
     function backToOwner() {
         dispatch(ProjectActions.SELECT_ACTOR({ id: actor!.id }));
-        dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
+        dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
     }
 
     return (

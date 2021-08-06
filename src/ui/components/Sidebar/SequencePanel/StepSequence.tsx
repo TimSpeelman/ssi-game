@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProjectActions, ScenarioActions } from '../../../../state/scenario/actions';
+import { GameActions, ProjectActions } from '../../../../state/scenario/actions';
 import {
     selectActiveStepId,
     selectLang,
@@ -36,7 +36,7 @@ export function StepSequence() {
 
     function handleDoubleClick(id: string) {
         dispatch(ProjectActions.GOTO_STEP({ id }));
-        dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.STEP }));
+        dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.STEP }));
     }
 
     function handleReorder(sourceIndex: number, targetIndex: number) {
@@ -66,7 +66,7 @@ export function StepSequence() {
                         </Typography>
                         <Button
                             variant={'outlined'}
-                            onClick={() => dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }))}
+                            onClick={() => dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }))}
                         >
                             {' '}
                             <Group /> {dict.goToActors}

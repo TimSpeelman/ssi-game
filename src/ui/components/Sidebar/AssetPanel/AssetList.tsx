@@ -3,7 +3,7 @@ import { Delete, Edit } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode';
-import { ScenarioActions } from '../../../../state/scenario/actions';
+import { GameActions } from '../../../../state/scenario/actions';
 import { selectHighlightedResource } from '../../../../state/scenario/selectors';
 import { stopPropagation } from '../../../../util/util';
 import { useLang } from '../../../hooks/useLang';
@@ -23,8 +23,8 @@ export function AssetList({ assets, onEdit, onDelete, onClick }: Props) {
 
     const dispatch = useDispatch();
     const highlightedResource = useSelector(selectHighlightedResource);
-    const onMouseEnter = (id: string) => dispatch(ScenarioActions.HIGHLIGHT_RESOURCE({ resourceId: id }));
-    const onMouseLeave = (id: string) => dispatch(ScenarioActions.UNHIGHLIGHT_RESOURCE({ resourceId: id }));
+    const onMouseEnter = (id: string) => dispatch(GameActions.HIGHLIGHT_RESOURCE({ resourceId: id }));
+    const onMouseLeave = (id: string) => dispatch(GameActions.UNHIGHLIGHT_RESOURCE({ resourceId: id }));
 
     return (
         <List dense>

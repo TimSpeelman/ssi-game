@@ -5,7 +5,7 @@ import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActorConfig } from '../../../../model/definition/Actor/ActorConfig';
-import { ProjectActions, ScenarioActions } from '../../../../state/scenario/actions';
+import { GameActions, ProjectActions } from '../../../../state/scenario/actions';
 import {
     selectHighlightedResource,
     selectIdsOfInvolvedActors,
@@ -23,8 +23,8 @@ export function ActorList() {
     const { meta, actors } = scenarioDef;
 
     const highlightedResource = useSelector(selectHighlightedResource);
-    const onMouseEnter = (id: string) => dispatch(ScenarioActions.HIGHLIGHT_RESOURCE({ resourceId: id }));
-    const onMouseLeave = (id: string) => dispatch(ScenarioActions.UNHIGHLIGHT_RESOURCE({ resourceId: id }));
+    const onMouseEnter = (id: string) => dispatch(GameActions.HIGHLIGHT_RESOURCE({ resourceId: id }));
+    const onMouseLeave = (id: string) => dispatch(GameActions.UNHIGHLIGHT_RESOURCE({ resourceId: id }));
 
     // Actor Setters
     const canRemoveActor = (id: string) => !(id in involvedActors);

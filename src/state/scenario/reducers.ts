@@ -3,7 +3,7 @@ import { newHistory } from 'redux-undo';
 import { ReducerMap } from '../../util/redux';
 import { cascadeRemove, reorder } from '../../util/util';
 import { w1th } from '../../util/w1th';
-import { ProjectActions, ScenarioActions } from './actions';
+import { GameActions, ProjectActions } from './actions';
 import { emptyProjectState } from './default';
 import { persistableToProjectState, persistableToRootState } from './persistence';
 import { ProjectState, RootState } from './state';
@@ -136,7 +136,7 @@ export const ProjectReducers: ReducerMap<ProjectState, typeof ProjectActions> = 
     SHOW_META: () => LPr.showMeta.set(true),
 };
 
-export const ScenarioReducers: ReducerMap<RootState, typeof ScenarioActions> = {
+export const ScenarioReducers: ReducerMap<RootState, typeof GameActions> = {
     RESTORE_STATE: (p) => L.set(persistableToRootState(p.state)),
     LOAD_PROJECT: (p) =>
         L.inactiveProjects.set((prs) => [newHistory([], persistableToProjectState(p.project), []), ...prs]),

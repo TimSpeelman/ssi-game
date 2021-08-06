@@ -53,7 +53,7 @@ export const ProjectActions = {
     SHOW_META: event<void>('SHOW_META'),
 };
 
-export const ScenarioActions = {
+export const GameActions = {
     RESTORE_STATE: event<{ state: PersistedState }>('RESTORE_STATE'),
     LOAD_PROJECT: event<{ project: PersistedProject }>('LOAD_PROJECT'),
 

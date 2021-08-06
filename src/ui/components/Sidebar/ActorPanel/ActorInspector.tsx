@@ -2,7 +2,7 @@ import { Button, Divider, ListSubheader, Typography } from '@material-ui/core';
 import { Add, ChevronLeft, Edit } from '@material-ui/icons';
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProjectActions, ScenarioActions } from '../../../../state/scenario/actions';
+import { GameActions, ProjectActions } from '../../../../state/scenario/actions';
 import { selectScenarioDef, selectSelectedActorDesc } from '../../../../state/scenario/selectors';
 import { groupBy } from '../../../../util/util';
 import { useDialog } from '../../../dialogs/dialogs';
@@ -116,7 +116,7 @@ export function ActorInspector() {
                         onDelete={(id) => dispatch(ProjectActions.REMOVE_ASSET({ actorId: definition.id, id: id }))}
                         onClick={(id) => {
                             dispatch(ProjectActions.SELECT_ASSET({ id: id }));
-                            dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ASSETS }));
+                            dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ASSETS }));
                         }}
                     />
                 </Fragment>

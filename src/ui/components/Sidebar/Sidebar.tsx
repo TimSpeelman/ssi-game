@@ -2,7 +2,7 @@ import { Category, Group, Info, Settings, SwapHoriz, Timeline } from '@material-
 import classNames from 'classnames';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ScenarioActions } from '../../../state/scenario/actions';
+import { GameActions } from '../../../state/scenario/actions';
 import { selectActiveSidebarTab } from '../../../state/scenario/selectors';
 import { TimeControlCtr } from '../Canvas/TimeControlCtr';
 import { ActionPanel } from './ActionPanel/ActionPanel';
@@ -45,7 +45,7 @@ export function Sidebar() {
                         <div
                             className={classNames(['item', { active: i === active }])}
                             key={key}
-                            onClick={() => dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: key }))}
+                            onClick={() => dispatch(GameActions.NAVIGATE_SIDEBAR({ to: key }))}
                         >
                             <Icon />
                         </div>

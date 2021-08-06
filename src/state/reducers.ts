@@ -1,9 +1,9 @@
 import { lens } from 'lens.ts';
 import { newHistory } from 'redux-undo';
+import { persistableToProjectState, persistableToRootState } from '../persistence/persistence';
 import { ReducerMap } from '../util/redux';
 import { w1th } from '../util/w1th';
 import { GameActions } from './actions';
-import { persistableToProjectState, persistableToRootState } from './persistence';
 import { emptyProjectState } from './project/default';
 import { RootState } from './state';
 

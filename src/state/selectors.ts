@@ -10,10 +10,10 @@ import { ActorStateDesc } from '../model/description/State/ActorStateDesc';
 import { StateDesc } from '../model/description/State/StateDesc';
 import { StepDesc } from '../model/description/Step/StepDesc';
 import { computeScenarioFromDefinition } from '../model/logic';
+import { PersistedProject, projectStateToPersistable } from '../persistence/persistence';
 import { SidebarTab } from '../ui/components/Sidebar/SidebarTab';
 import { keyBy, mergeRecords } from '../util/util';
 import { w1th } from '../util/w1th';
-import { PersistedProject, projectStateToPersistable } from './persistence';
 import { ProjectState } from './project/state';
 import { RootState } from './state';
 

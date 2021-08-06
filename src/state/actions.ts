@@ -1,8 +1,8 @@
 import { Language } from '../intl/Language';
 import { ScenarioDef } from '../model/definition/ScenarioDef';
+import { PersistedProject, PersistedState } from '../persistence/persistence';
 import { SidebarTab } from '../ui/components/Sidebar/SidebarTab';
 import { event } from '../util/redux';
-import { PersistedProject, PersistedState } from './persistence';
 
 export const GameActions = {
     RESTORE_STATE: event<{ state: PersistedState }>('RESTORE_STATE'),

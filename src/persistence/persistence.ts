@@ -1,7 +1,7 @@
 import { newHistory } from 'redux-undo';
-import { defaultState } from './default';
-import { ProjectState } from './project/state';
-import { RootState } from './state';
+import { defaultState } from '../state/default';
+import { ProjectState } from '../state/project/state';
+import { RootState } from '../state/state';
 
 export type PersistedProject = Pick<ProjectState, 'id' | 'name' | 'scenario'>;
 

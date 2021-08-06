@@ -1,7 +1,7 @@
 import { combineReducers, createStore } from 'redux';
 import { saveToLocalStorage } from '../persistence/localStorage';
+import { selectPersistedState } from '../persistence/persistence';
 import { scenario } from '../state';
-import { selectPersistedState } from '../state/persistence';
 import { root } from '../state/selectors';
 import { throttle } from '../util/util';
 

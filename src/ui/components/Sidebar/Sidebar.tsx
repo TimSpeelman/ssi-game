@@ -4,6 +4,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ScenarioActions } from '../../../state/scenario/actions';
 import { selectActiveSidebarTab } from '../../../state/scenario/selectors';
+import { TimeControlCtr } from '../Canvas/TimeControlCtr';
 import { ActionPanel } from './ActionPanel/ActionPanel';
 import { ActorPanel } from './ActorPanel/ActorPanel';
 import { AssetPanel } from './AssetPanel/AssetPanel';
@@ -33,21 +34,26 @@ export function Sidebar() {
     const panels = tabOrder.map((key: Tab) => ({ ...sidebarItems[key], key }));
     return (
         <div className="sidebar">
-            {panels.map(({ Panel }, i) => (
-                <div className={classNames(['sidebar-panel', { active: i === active }])} key={i}>
-                    <Panel />
-                </div>
-            ))}
-            <div className="sidebar-menu">
-                {panels.map(({ Icon, key }, i) => (
-                    <div
-                        className={classNames(['item', { active: i === active }])}
-                        key={key}
-                        onClick={() => dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: key }))}
-                    >
-                        <Icon />
+            <div className="sidebar-main">
+                {panels.map(({ Panel }, i) => (
+                    <div className={classNames(['sidebar-panel', { active: i === active }])} key={i}>
+                        <Panel />
                     </div>
                 ))}
+                <div className="sidebar-menu">
+                    {panels.map(({ Icon, key }, i) => (
+                        <div
+                            className={classNames(['item', { active: i === active }])}
+                            key={key}
+                            onClick={() => dispatch(ScenarioActions.NAVIGATE_SIDEBAR({ to: key }))}
+                        >
+                            <Icon />
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div className="time-control">
+                <TimeControlCtr />
             </div>
         </div>
     );

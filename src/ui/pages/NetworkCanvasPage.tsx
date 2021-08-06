@@ -11,7 +11,6 @@ import {
     selectSnackbarIsOn,
 } from '../../state/scenario/selectors';
 import { CanvasCtr } from '../components/Canvas/CanvasCtr';
-import { TimeControlCtr } from '../components/Canvas/TimeControlCtr';
 import { replaceInternalResourceUrlStrings } from '../components/replaceInternalResourceUrlStrings';
 import { ScenarioMetaDialog } from '../components/Sidebar/InfoPanel/ScenarioMetaDialog';
 import { Sidebar } from '../components/Sidebar/Sidebar';
@@ -53,7 +52,6 @@ export function NetworkCanvas() {
                         </strong>
                     </div>
                 )}
-                <TimeControlCtr />
             </div>
             <Sidebar />
         </div>

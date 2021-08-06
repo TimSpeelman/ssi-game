@@ -116,6 +116,14 @@ p {
 
 .sidebar {
     display: flex;
+    flex-direction: column;
+}
+
+.sidebar-main {
+    display: flex;
+    height: 10%;
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 
 .sidebar-panel {
@@ -148,6 +156,12 @@ p {
             background: #eee;
         }
     }
+}
+
+.sidebar .time-navigation {
+    background: #333;
+    color: white;
+    padding: 1rem;
 }
 
 .asset-number-of-children {

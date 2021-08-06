@@ -1,21 +1,57 @@
 import { Translation } from '../../../intl/Language';
 import { ImageOrIconDefinition } from '../../common/ImageOrIconDefinition';
 
+/**
+ * An Asset Description is used by the UI to display Assets. It is produced by the AssetTypes in
+ * a ContentLibrary.
+ */
 export interface AssetDesc<Props = any> {
     id: string;
-    parentId: string | undefined;
-    canHaveChildren?: boolean;
-    transferrable: boolean;
-    cloneable: boolean;
-    isInitial: boolean;
-    props: Props;
-    type: string;
+
+    /** The asset kind */
     kind: string;
+
+    /** The asset type, used for (de)serialisation */
+    type: string;
+
+    /** ID of parent asset. If provided, asset will be nested */
+    parentId: string | undefined;
+
+    /** If set to true, UI will show a 'contents' collection for this asset */
+    canHaveChildren?: boolean;
+
+    /**
+     * If set to true, this asset can be selected for transfer
+     * TODO: this is a ContentLibrary concern, not supposed to be on the view model
+     */
+    transferrable: boolean;
+
+    /**
+     * If set to true, this asset can be selected for cloning
+     * TODO: this is a ContentLibrary concern, not supposed to be on the view model
+     */
+    cloneable: boolean;
+
+    /** If true, this asset is part of the initial state */
+    isInitial: boolean;
+
+    /** The asset's custom properties */
+    props: Props;
+
+    /** A title */
     title: Translation;
+
+    /** A subtitle */
     sub?: Translation;
+
+    /** A long description of the asset */
     long?: Translation;
-    propertyDesc: PropDesc[];
+
+    /** An optional image or icon for the asset */
     image?: ImageOrIconDefinition;
+
+    /** A list of property descriptors */
+    propertyDesc: PropDesc[];
 }
 
 export interface PropDesc {

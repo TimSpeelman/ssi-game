@@ -1,7 +1,7 @@
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import { LanguageRounded } from '@material-ui/icons';
 import React, { Fragment } from 'react';
-import { useLang } from '../hooks/useLang';
+import { useLang } from '../../hooks/useLang';
 
 export function LanguageMenu() {
     const { lang, languages, setLang } = useLang();

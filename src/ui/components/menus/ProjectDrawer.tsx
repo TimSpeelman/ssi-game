@@ -13,17 +13,17 @@ import { Delete, Description, Edit, FileCopy, NoteAdd, RestorePage, Save } from 
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { OnlineLiquorPurchaseScenario } from '../../content/DigitalIdentity1/scenarios/OnlineLiquorPurchaseScenario';
-import { ProjectActions, ScenarioActions } from '../../state/scenario/actions';
+import { OnlineLiquorPurchaseScenario } from '../../../content/DigitalIdentity1/scenarios/OnlineLiquorPurchaseScenario';
+import { ProjectActions, ScenarioActions } from '../../../state/scenario/actions';
 import {
     selectActiveProjectName,
     selectInactiveProjects,
     selectProjectDrawerOpen,
-} from '../../state/scenario/selectors';
-import { ProjectState } from '../../state/scenario/state';
-import { useFilePersistence } from '../hooks/useFilePersistence';
-import { useLang } from '../hooks/useLang';
-import { HiddenFileInput } from './HiddenFileInput';
+} from '../../../state/scenario/selectors';
+import { ProjectState } from '../../../state/scenario/state';
+import { useFilePersistence } from '../../hooks/useFilePersistence';
+import { useLang } from '../../hooks/useLang';
+import { HiddenFileInput } from '../elements/HiddenFileInput';
 
 const templates: Record<string, any> = {
     // TODO FIXME

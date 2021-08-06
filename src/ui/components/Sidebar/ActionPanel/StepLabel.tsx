@@ -4,7 +4,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { StepDesc } from '../../../../model/description/Step/StepDesc';
 import { selectLang } from '../../../../state/scenario/selectors';
-import { ImageOrIconSwitch } from '../../ImageOrIconSwitch';
+import { ImageOrIconSwitch } from '../../elements/ImageOrIconSwitch';
 
 export interface Props extends ListItemProps {
     step: StepDesc;

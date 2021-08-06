@@ -5,7 +5,7 @@ import { StepDesc } from '../../../../model/description/Step/StepDesc';
 import { selectStepDescs } from '../../../../state/scenario/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
-import { replaceInternalResourceUrlStrings } from '../../replaceInternalResourceUrlStrings';
+import { replaceInternalResourceUrlStrings } from '../../elements/replaceInternalResourceUrlStrings';
 import { StepLabel } from './StepLabel';
 import { StepNav } from './StepNav';
 

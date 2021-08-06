@@ -7,7 +7,7 @@ import { selectScenarioDef, selectSelectedActorDesc } from '../../../../state/sc
 import { groupBy } from '../../../../util/util';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
-import { ImageOrIconSwitch } from '../../ImageOrIconSwitch';
+import { ImageOrIconSwitch } from '../../elements/ImageOrIconSwitch';
 import { AssetList } from '../AssetPanel/AssetList';
 import { SidebarTab } from '../SidebarTab';
 

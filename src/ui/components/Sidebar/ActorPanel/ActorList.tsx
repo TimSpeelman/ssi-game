@@ -13,7 +13,7 @@ import {
 } from '../../../../state/scenario/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
-import { ImageOrIconSwitch } from '../../ImageOrIconSwitch';
+import { ImageOrIconSwitch } from '../../elements/ImageOrIconSwitch';
 
 export function ActorList() {
     const dispatch = useDispatch();

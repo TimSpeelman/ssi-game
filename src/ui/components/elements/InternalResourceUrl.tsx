@@ -1,8 +1,8 @@
 import React, { PropsWithChildren } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProjectActions, ScenarioActions } from '../../state/scenario/actions';
-import { selectActiveStateDesc } from '../../state/scenario/selectors';
-import { SidebarTab } from './Sidebar/SidebarTab';
+import { ProjectActions, ScenarioActions } from '../../../state/scenario/actions';
+import { selectActiveStateDesc } from '../../../state/scenario/selectors';
+import { SidebarTab } from '../Sidebar/SidebarTab';
 
 export interface Props {
     url: string;

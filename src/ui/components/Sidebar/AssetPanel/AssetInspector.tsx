@@ -8,8 +8,8 @@ import { ProjectActions, ScenarioActions } from '../../../../state/scenario/acti
 import { selectSelectedAssetNode, selectUsedActors } from '../../../../state/scenario/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
-import { ImageOrIconSwitch } from '../../ImageOrIconSwitch';
-import { replaceInternalResourceUrlStrings } from '../../replaceInternalResourceUrlStrings';
+import { ImageOrIconSwitch } from '../../elements/ImageOrIconSwitch';
+import { replaceInternalResourceUrlStrings } from '../../elements/replaceInternalResourceUrlStrings';
 import { SidebarTab } from '../SidebarTab';
 import { AssetList } from './AssetList';
 

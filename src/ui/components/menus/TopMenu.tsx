@@ -3,9 +3,9 @@ import { Help, Menu, Redo, Undo } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActionCreators } from 'redux-undo';
-import { ScenarioActions } from '../../state/scenario/actions';
-import { selectActiveProjectName, selectRedoable, selectUndoable } from '../../state/scenario/selectors';
-import { useLang } from '../hooks/useLang';
+import { ScenarioActions } from '../../../state/scenario/actions';
+import { selectActiveProjectName, selectRedoable, selectUndoable } from '../../../state/scenario/selectors';
+import { useLang } from '../../hooks/useLang';
 import { LanguageMenu } from './LanguageMenu';
 
 export function TopMenu() {

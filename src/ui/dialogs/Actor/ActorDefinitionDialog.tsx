@@ -16,7 +16,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { DefaultLibrary } from '../../../content';
 import { ActorDefinition } from '../../../model/definition/Actor/ActorDefinition';
 import { ActorType } from '../../../model/definition/Actor/ActorType';
-import { ImageOrIconSwitch } from '../../components/ImageOrIconSwitch';
+import { ImageOrIconSwitch } from '../../components/elements/ImageOrIconSwitch';
 import { useLang } from '../../hooks/useLang';
 
 export interface Props {

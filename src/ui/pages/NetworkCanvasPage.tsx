@@ -11,7 +11,7 @@ import {
     selectSnackbarIsOn,
 } from '../../state/scenario/selectors';
 import { CanvasCtr } from '../components/Canvas/CanvasCtr';
-import { replaceInternalResourceUrlStrings } from '../components/replaceInternalResourceUrlStrings';
+import { replaceInternalResourceUrlStrings } from '../components/elements/replaceInternalResourceUrlStrings';
 import { ScenarioMetaDialog } from '../components/Sidebar/InfoPanel/ScenarioMetaDialog';
 import { Sidebar } from '../components/Sidebar/Sidebar';
 import { useLang } from '../hooks/useLang';

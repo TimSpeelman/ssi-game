@@ -5,8 +5,8 @@ import { loadFromLocalStorage } from '../persistence/localStorage';
 import { ScenarioActions } from '../state/scenario/actions';
 import { HotKeysContainer } from './components/HotKeysContainer';
 import { UserManualDialogCtr } from './components/Manual/UserManualDialogCtr';
-import { ProjectDrawer } from './components/ProjectDrawer';
-import { TopMenu } from './components/TopMenu';
+import { ProjectDrawer } from './components/menus/ProjectDrawer';
+import { TopMenu } from './components/menus/TopMenu';
 import { GlobalDialogRouter } from './dialogs/GlobalDialogRouter';
 import { NetworkCanvas } from './pages/NetworkCanvasPage';
 

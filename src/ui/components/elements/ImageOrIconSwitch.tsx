@@ -1,7 +1,7 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import React, { HTMLProps } from 'react';
 import { IntrinsicElements } from 'react-markdown/src/ast-to-react';
-import { ImageOrIconDefinition } from '../../model/description/ImageOrIconDefinition';
+import { ImageOrIconDefinition } from '../../../model/description/ImageOrIconDefinition';
 
 export interface Props extends HTMLProps<HTMLElement> {
     image: ImageOrIconDefinition;

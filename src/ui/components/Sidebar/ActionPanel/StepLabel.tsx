@@ -41,7 +41,7 @@ export function StepLabel({ step, onEdit, ...props }: Props) {
                 />
             </div>
             <div style={{ flexGrow: 1 }}>
-                <Typography variant="h6">{step.action.description[lang]}</Typography>
+                <Typography variant="h6">{step.action.title[lang]}</Typography>
                 <Typography variant="subtitle2">{step.action.sub[lang]}</Typography>
             </div>
             <Button onClick={() => onEdit()}>

@@ -30,7 +30,7 @@ export function TimeControlCtr() {
             >
                 <ChevronRight />
             </IconButton>
-            {currentStep ? <span> {currentStep.action.description[lang]}</span> : <span></span>}
+            {currentStep ? <span> {currentStep.action.title[lang]}</span> : <span></span>}
         </div>
     );
 }

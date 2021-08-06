@@ -61,7 +61,7 @@ export class Revocation extends Action<Props> {
         return {
             from: issuer,
             to: subject,
-            description: credential
+            title: credential
                 ? {
                       NL: `Revocatie van ${credential.defProps.attributeName} credential`,
                       EN: `Revocation of ${credential.defProps.attributeName} credential`,

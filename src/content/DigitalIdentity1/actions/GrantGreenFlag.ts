@@ -41,7 +41,7 @@ export class GrantGreenFlag extends Action<Props> {
         const to = state.props.byActor[this.defProps.to].actor;
         const desc = this.defProps.description;
         return {
-            description: {
+            title: {
                 NL: `${ucFirst(from.nounPhrase)} geeft ${to.nounPhrase} de groene vlag`,
                 EN: `${ucFirst(from.nounPhrase)} gives ${to.nounPhrase} the green flag`,
             },

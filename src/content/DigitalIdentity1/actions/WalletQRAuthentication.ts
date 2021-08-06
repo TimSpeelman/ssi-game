@@ -53,7 +53,7 @@ export class WalletQRAuthentication extends Action<Props> {
             to: subject,
             to_nym: subjectNym?.id,
             to_mode: 'selfie',
-            description: {
+            title: {
                 NL: 'Authenticatie van wallet (pseudoniem) via QR',
                 EN: 'Authentication of wallet (pseudonym) via QR',
             },

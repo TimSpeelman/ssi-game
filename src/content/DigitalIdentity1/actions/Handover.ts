@@ -54,7 +54,7 @@ export class Handover extends Action<Props> {
         return {
             from: state.props.byActor[this.defProps.from].actor,
             to: state.props.byActor[this.defProps.to].actor,
-            description: {
+            title: {
                 NL: 'Overdracht van ' + props.asset?.describe(state).title.NL,
                 EN: 'Handover of ' + props.asset?.describe(state).title.EN,
             },

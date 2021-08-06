@@ -113,7 +113,7 @@ export class Issuance extends Action<Props> {
             to: subject!.actor,
             to_nym: subjectNym?.id,
             to_mode: 'phone',
-            description: {
+            title: {
                 NL: `Uitgave van "${this.defProps.attributeName}" credential`,
                 EN: `Issuance of "${this.defProps.attributeName}" credential`,
             },

@@ -104,7 +104,7 @@ export class Presentation extends Action<Props> {
             to: verifier,
             to_nym: verifierNym?.id,
             to_mode: 'phone',
-            description: {
+            title: {
                 NL: attrProof ? `Toon "${attrProof.defProps.attributeName}" credential` : `Toon  credential`,
                 EN: attrProof ? `Present "${attrProof.defProps.attributeName}" credential` : `Show  credential`,
             },

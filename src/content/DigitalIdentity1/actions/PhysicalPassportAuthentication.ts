@@ -55,7 +55,7 @@ export class PhysicalPassportAuthentication extends Action<Props> {
             from: verifier,
             to: subject,
             to_mode: 'facescan',
-            description: {
+            title: {
                 NL: 'Fysieke authenticatie o.b.v. paspoort',
                 EN: 'Physical authentication based on paspoort',
             },

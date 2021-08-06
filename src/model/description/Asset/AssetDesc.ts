@@ -38,10 +38,10 @@ export interface AssetDesc<Props = any> {
     /** The asset's custom properties */
     props: Props;
 
-    /** A title */
+    /** A title describing the asset */
     title: Translation;
 
-    /** A subtitle */
+    /** A subtitle describing the asset */
     sub?: Translation;
 
     /** A long description of the asset */

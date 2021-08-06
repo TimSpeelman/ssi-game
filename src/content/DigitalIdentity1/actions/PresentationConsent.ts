@@ -78,7 +78,7 @@ export class PresentationConsent extends Action<Props> {
             to: verifier,
             to_nym: verifierNym?.id,
             to_mode: 'phone',
-            description: {
+            title: {
                 NL: `Geef toestemming om ${this.defProps.attributeName} credential te gebruiken`,
                 EN: `Consent to use ${this.defProps.attributeName} credential`,
             },

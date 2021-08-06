@@ -85,7 +85,7 @@ export class PresentationRequest extends Action<Props> {
             from: verifier,
             from_nym: verifierNym?.id,
             to_mode: 'phone',
-            description: {
+            title: {
                 NL: `Vraag om "${this.defProps.attributeName}" credential te tonen`,
                 EN: `Request for presentation of "${this.defProps.attributeName}" credential`,
             },

@@ -48,7 +48,7 @@ export class CustomInteraction extends Action<Props> {
         return {
             from: state.props.byActor[this.defProps.from].actor,
             to: state.props.byActor[this.defProps.to].actor,
-            description: {
+            title: {
                 NL: this.defProps.description,
                 EN: this.defProps.description,
             },

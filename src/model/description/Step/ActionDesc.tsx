@@ -30,7 +30,7 @@ export interface ActionDesc {
     to_nym?: string;
 
     /** A title for the action */
-    description: Translation;
+    title: Translation;
 
     /** A subtitle for the action */
     sub: Translation;

@@ -62,7 +62,7 @@ export class WalletSMSAuthentication extends Action<Props> {
             to_nym: subjectNym?.id,
             from: verifier,
 
-            description: {
+            title: {
                 NL: 'Authenticatie van wallet (pseudoniem) via SMS',
                 EN: 'Authentication of wallet (pseudonym) via SMS',
             },

@@ -145,7 +145,7 @@ export function StepSequence() {
                                                         {dict.step} {i + 1}.{' '}
                                                     </strong>
                                                     <br />
-                                                    {step.action.description[lang]}
+                                                    {step.action.title[lang]}
                                                 </div>
                                                 <IconButton
                                                     edge="end"

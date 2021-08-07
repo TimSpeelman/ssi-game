@@ -1,10 +1,8 @@
 import { Button, Typography } from '@material-ui/core';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { ScenarioMeta } from '../../../../model/definition/Scenario/ScenarioMeta';
-import { ProjectActions } from '../../../../state/project/actions';
+import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
-import { useNav } from '../../../hooks/useNav';
 
 interface Props {
     meta: ScenarioMeta;
@@ -12,9 +10,8 @@ interface Props {
 
 /** Shows the details of a scenario */
 export function ScenarioInspector({ meta }: Props) {
-    const { goto } = useNav();
-    const dispatch = useDispatch();
     const { dict } = useLang();
+    const { openDialog } = useDialog();
     return (
         <div style={{ padding: '1rem' }}>
             <Typography variant="h6">{meta.title}</Typography>
@@ -22,8 +19,7 @@ export function ScenarioInspector({ meta }: Props) {
                 {dict.author}: {meta.author}
             </p>
             <p>{meta.body}</p>
-            <Button onClick={() => dispatch(ProjectActions.SHOW_META())}>{dict.btnEditScenarioMeta}</Button>
-            {/* <Button onClick={() => goto('/configuratie')}>Instellingen</Button> */}
+            <Button onClick={() => openDialog('EditMeta', undefined)}>{dict.btnEditScenarioMeta}</Button>
         </div>
     );
 }

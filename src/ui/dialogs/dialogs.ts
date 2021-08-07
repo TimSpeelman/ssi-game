@@ -4,6 +4,7 @@ import { EditActorPropertiesDialogCtr, EditActorPropertiesDialogOptions } from '
 import { AddAssetDialogCtr, AddAssetDialogOptions } from './Asset/AddAssetDialogCtr';
 import { EditAssetDialogCtr, EditAssetDialogOptions } from './Asset/EditAssetDialogCtr';
 import { useDialogService } from './DialogContext';
+import { EditScenarioMetaDialogCtr } from './Meta/EditScenarioMetaDialogCtr';
 import { AddStepDialogCtr, AddStepDialogOptions } from './Step/AddStepDialogCtr';
 import { EditStepDialogCtr, EditStepDialogOptions } from './Step/EditStepDialogCtr';
 
@@ -16,6 +17,7 @@ interface IGlobalDialogs {
     AddActor: AddActorDialogOptions;
     EditActor: EditActorDialogOptions;
     EditActorProperties: EditActorPropertiesDialogOptions;
+    EditMeta: void;
 }
 
 /** Register all global dialog components */
@@ -27,6 +29,7 @@ export const GlobalDialogs: { [K in keyof IGlobalDialogs]: React.FC<DialogProps<
     AddActor: AddActorDialogCtr,
     EditActor: EditActorDialogCtr,
     EditActorProperties: EditActorPropertiesDialogCtr,
+    EditMeta: EditScenarioMetaDialogCtr,
 };
 
 /** Use this hook to open a dialog */

@@ -4,7 +4,7 @@ import { ActorDef } from '../../model/definition/Actor/ActorDef';
 import { AssetDef } from '../../model/definition/Asset/AssetDef';
 import { ScenarioDef } from '../../model/definition/Scenario/ScenarioDef';
 import { ScenarioMeta } from '../../model/definition/Scenario/ScenarioMeta';
-import { event } from '../../util/redux';
+import { checkActionCreatorsRecord, event } from '../../util/redux';
 
 export const ProjectActions = {
     RENAME_PROJECT: event<{ name: string }>('RENAME_PROJECT'),
@@ -23,7 +23,7 @@ export const ProjectActions = {
     REMOVE_ASSET: event<{ actorId: string; id: string }>('REMOVE_ASSET', true),
 
     // Definition Manipulation : Steps
-    ADD_STEP: event<{ step: ActionDef<any> }>('ADD_STEP', true),
+    INSERT_STEP: event<{ step: ActionDef<any>; index: number }>('INSERT_STEP', true),
     REMOVE_STEP: event<{ id: string }>('REMOVE_STEP', true),
     REORDER_STEPS: event<{ sourceIndex: number; targetIndex: number }>('REORDER_STEPS', true),
     UPDATE_STEP: event<{ step: ActionDef<any> }>('UPDATE_STEP', true),
@@ -49,3 +49,5 @@ export const ProjectActions = {
     HIDE_META: event<void>('HIDE_META'),
     SHOW_META: event<void>('SHOW_META'),
 };
+
+checkActionCreatorsRecord(ProjectActions);

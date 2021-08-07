@@ -2,7 +2,7 @@ import { Language } from '../intl/Language';
 import { ScenarioDef } from '../model/definition/Scenario/ScenarioDef';
 import { PersistedProject, PersistedState } from '../persistence/persistence';
 import { SidebarTab } from '../ui/components/Sidebar/SidebarTab';
-import { event } from '../util/redux';
+import { checkActionCreatorsRecord, event } from '../util/redux';
 
 export const GameActions = {
     RESTORE_STATE: event<{ state: PersistedState }>('RESTORE_STATE'),
@@ -33,3 +33,5 @@ export const GameActions = {
     HIDE_MANUAL: event<void>('HIDE_MANUAL'),
     SHOW_MANUAL: event<void>('SHOW_MANUAL'),
 };
+
+checkActionCreatorsRecord(GameActions);

@@ -107,3 +107,7 @@ export function throttle(fn: () => void, ms: number) {
         timeout = setTimeout(fn, ms);
     };
 }
+
+export function insertAt<T>(arr: T[], index: number, item: T): T[] {
+    return [...arr.slice(0, index), item, ...arr.slice(index)];
+}

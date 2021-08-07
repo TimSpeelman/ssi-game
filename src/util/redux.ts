@@ -32,3 +32,12 @@ export type ReducerMap<State, Evts> = {
 export function getReducer<S, E>(map: ReducerMap<S, E>) {
     return (e: IAction<any>) => (e.type in map ? map[e.type as keyof typeof map] : undefined);
 }
+
+/** Simply assert that the record keys match the creator's type */
+export function checkActionCreatorsRecord(record: Record<string, Creator<any>>) {
+    const errs = Object.entries(record).filter(([key, creator]) => key !== creator._type);
+    if (errs.length > 0) {
+        const keys = errs.map(([key]) => key).join(', ');
+        throw new Error(`Invalid action creators record, keys ${keys} don't match the creator's type string.`);
+    }
+}

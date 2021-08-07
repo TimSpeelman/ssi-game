@@ -1,6 +1,6 @@
 import { lens } from 'lens.ts';
 import { ReducerMap } from '../../util/redux';
-import { cascadeRemove, reorder } from '../../util/util';
+import { cascadeRemove, insertAt, reorder } from '../../util/util';
 import { ProjectActions } from './actions';
 import { ProjectState } from './state';
 
@@ -55,7 +55,7 @@ export const ProjectReducers: ReducerMap<ProjectState, typeof ProjectActions> = 
         ),
 
     // Definition Manipulation : Steps
-    ADD_STEP: (p) => L.scenario.steps.set((steps) => [...steps, p.step]),
+    INSERT_STEP: (p) => L.scenario.steps.set((steps) => insertAt(steps, p.index, p.step)),
     REMOVE_STEP: (p) => L.scenario.steps.set((steps) => steps.filter((a) => a.id !== p.id)),
     REORDER_STEPS: (p) => L.scenario.steps.set((steps) => reorder(steps, p.sourceIndex, p.targetIndex)),
     UPDATE_STEP: (p) => L.scenario.steps.set((steps) => steps.map((s) => (s.id === p.step.id ? p.step : s))),

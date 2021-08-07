@@ -41,8 +41,8 @@ export function StepDialog(props: Props) {
         }
     }, [type]);
 
-    /** If we are creating a new state we take the last step's poststate */
-    const stateIndex = isEditing ? step : def.steps.length;
+    /** If we are creating a new state we take the current step's poststate */
+    const stateIndex = isEditing ? step : step + 1;
     const actionTypes = formHandler.listAvailableActionTypes();
     const formProps = formHandler.computeFormProperties(def, stateIndex, type, formData);
     const fields = Object.entries(formProps ? formProps.fields : {});

@@ -36,7 +36,7 @@ export class AttributeProof extends Asset<Props> {
         const iNym: Pseudonym | undefined = issuerNym;
         const schemaProps = this.schema.props.props;
         const attributeLabel =
-            this.defProps.attributeValue === ''
+            this.defProps.attributeValue === '' || this.defProps.attributeValue === undefined
                 ? this.defProps.attributeName
                 : `${this.defProps.attributeName}: ${this.defProps.attributeValue}`;
         return {

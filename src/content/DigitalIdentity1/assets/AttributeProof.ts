@@ -14,8 +14,8 @@ const Schema = new AssetSchema({
         EN: 'Attribute proof',
     },
     props: {
-        subjectNym: CommonProps.subjectNym,
-        issuerNym: CommonProps.issuerNym,
+        subjectNym: CommonProps.anySubjectNym,
+        issuerNym: CommonProps.anyIssuerNym,
         attributeName: CommonProps.attributeName,
         attributeValue: CommonProps.attributeValue,
     },

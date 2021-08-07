@@ -17,6 +17,14 @@ export const CommonProps = {
         },
         autoFill: true,
     }),
+    anyIssuerNym: new AssetProp({
+        title: translations.issuerPseudonym,
+        filter: (a, data) => a.asset.type === 'Pseudonym',
+        required: {
+            NL: 'Een issuerpseudoniem is vereist.',
+            EN: 'An issuer pseudonym is required.',
+        },
+    }),
     subjectNym: new AssetProp({
         title: translations.subjectPseudonym,
         dependsOn: ['subject'],
@@ -26,6 +34,14 @@ export const CommonProps = {
             EN: 'A subject pseudonym is required.',
         },
         autoFill: true,
+    }),
+    anySubjectNym: new AssetProp({
+        title: translations.subjectPseudonym,
+        filter: (a, data) => a.asset.type === 'Pseudonym',
+        required: {
+            NL: 'Een subjectpseudoniem is vereist.',
+            EN: 'A subject pseudonym is required.',
+        },
     }),
     subjectPassport: new AssetProp({
         title: translations.subjectPassport,
@@ -46,6 +62,14 @@ export const CommonProps = {
             EN: 'A verifier pseudonym is required.',
         },
         autoFill: true,
+    }),
+    anyVerifierNym: new AssetProp({
+        title: translations.verifierPseudonym,
+        filter: (a, data) => a.asset.type === 'Pseudonym',
+        required: {
+            NL: 'Een verifierpseudoniem is vereist.',
+            EN: 'A verifier pseudonym is required.',
+        },
     }),
     attributeName: new StringProp({ title: translations.attributeName }),
     attributeValue: new StringProp({ title: translations.attributeValue }),

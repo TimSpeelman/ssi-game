@@ -13,8 +13,8 @@ const Schema = new AssetSchema({
         EN: 'Attribute knowledge',
     },
     props: {
-        subjectNym: CommonProps.subjectNym,
-        issuerNym: CommonProps.issuerNym,
+        subjectNym: CommonProps.anySubjectNym,
+        issuerNym: CommonProps.anyIssuerNym,
         attributeName: CommonProps.attributeName,
         attributeValue: CommonProps.attributeValue,
     },

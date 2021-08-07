@@ -1,5 +1,6 @@
 import { Button, Typography } from '@material-ui/core';
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
 import { ScenarioMeta } from '../../../../model/definition/Scenario/ScenarioMeta';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
@@ -18,7 +19,7 @@ export function ScenarioInspector({ meta }: Props) {
             <p>
                 {dict.author}: {meta.author}
             </p>
-            <p>{meta.body}</p>
+            <ReactMarkdown>{meta.body}</ReactMarkdown>
             <Button onClick={() => openDialog('EditMeta', undefined)}>{dict.btnEditScenarioMeta}</Button>
         </div>
     );

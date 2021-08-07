@@ -11,6 +11,7 @@ const Schema = new AssetSchema({
         NL: 'Portret',
         EN: 'Face Scan',
     },
+    image: { type: 'fa-icon', name: 'grin-beam' },
     props: {
         subject: CommonProps.subject,
     },
@@ -25,7 +26,6 @@ export class FaceScan extends Asset<Props> {
         return {
             transferrable: false,
             cloneable: true,
-            image: { type: 'fa-icon', name: 'grin-beam' },
         };
     }
 }

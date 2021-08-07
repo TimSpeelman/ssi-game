@@ -13,6 +13,7 @@ const Schema = new AssetSchema({
         NL: 'Paspoort',
         EN: 'Passport',
     },
+    image: { type: 'fa-icon', name: 'passport' },
     props: {
         subject: CommonProps.subject,
         identifier: new StringProp({ title: translations.identifier }),
@@ -43,7 +44,6 @@ export class GovPassport extends Asset<Props> {
 
             transferrable: true,
             cloneable: false,
-            image: { type: 'fa-icon', name: 'passport' },
         };
     }
 }

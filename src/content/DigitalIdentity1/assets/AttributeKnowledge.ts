@@ -12,6 +12,11 @@ const Schema = new AssetSchema({
         NL: 'Attribuutkennis',
         EN: 'Attribute knowledge',
     },
+    image: {
+        type: 'fa-icon',
+        name: 'lightbulb',
+        color: 'gold',
+    },
     props: {
         subjectNym: CommonProps.anySubjectNym,
         issuerNym: CommonProps.anyIssuerNym,
@@ -38,11 +43,6 @@ export class AttributeKnowledge extends Asset<Props> {
             sub: {
                 NL: `${sNym?.defProps.identifier} heeft attribuut ${attrDesc} (volgens ${iNym?.defProps.identifier}).`,
                 EN: `${sNym?.defProps.identifier} has attribute ${attrDesc} (according to ${iNym?.defProps.identifier}).`,
-            },
-            image: {
-                type: 'fa-icon',
-                name: 'lightbulb',
-                color: 'gold',
             },
         };
     }

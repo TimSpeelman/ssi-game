@@ -11,6 +11,7 @@ const Schema = new AssetSchema({
         NL: 'Physically Uncloneable Function (PUF)',
         EN: 'Physically Uncloneable Function (PUF)',
     },
+    image: { type: 'fa-icon', name: 'key' },
     props: {
         secret: new StringProp({
             title: {
@@ -36,7 +37,6 @@ export class PUF extends Asset<Props> {
         return {
             transferrable: true,
             cloneable: false,
-            image: { type: 'fa-icon', name: 'key' },
         };
     }
 }

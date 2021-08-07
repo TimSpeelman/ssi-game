@@ -11,6 +11,7 @@ const Schema = new AssetSchema({
         NL: 'Administratief Beeld',
         EN: 'Human Record',
     },
+    image: { type: 'fa-icon', name: 'user' },
     props: {
         subject: CommonProps.subject,
     },
@@ -25,7 +26,6 @@ export class HumanRecord extends Asset<Props> {
         return {
             transferrable: false,
             cloneable: true,
-            image: { type: 'fa-icon', name: 'user' },
         };
     }
 }

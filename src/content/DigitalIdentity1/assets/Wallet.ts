@@ -11,6 +11,7 @@ const Schema = new AssetSchema({
         NL: 'Wallet',
         EN: 'Wallet',
     },
+    image: { type: 'image', url: iconUrl },
     props: {},
 });
 
@@ -24,7 +25,6 @@ export class Wallet extends Asset<Props> {
             canHaveChildren: true,
             transferrable: true,
             cloneable: false, // TODO is it?
-            image: { type: 'image', url: iconUrl },
         };
     }
 }

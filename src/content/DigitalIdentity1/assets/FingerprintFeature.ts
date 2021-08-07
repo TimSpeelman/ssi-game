@@ -11,6 +11,7 @@ const Schema = new AssetSchema({
         NL: 'Vingerafdruk',
         EN: 'Fingerprint',
     },
+    image: { type: 'fa-icon', name: 'fingerprint' },
     props: {
         subject: CommonProps.subject,
     },
@@ -26,7 +27,6 @@ export class FingerprintFeature extends Asset<Props> {
         return {
             transferrable: false,
             cloneable: false,
-            image: { type: 'fa-icon', name: 'fingerprint' },
         };
     }
 }

@@ -11,6 +11,7 @@ const Schema = new AssetSchema({
         NL: 'Attribuutrevocatie',
         EN: 'Attribute revocation',
     },
+    image: { type: 'fa-icon', name: 'ban' },
     props: {
         subject: CommonProps.subject,
         issuer: CommonProps.issuer,
@@ -28,7 +29,6 @@ export class AttributeRevocation extends Asset<Props> {
         return {
             transferrable: false,
             cloneable: true,
-            image: { type: 'fa-icon', name: 'ban' },
         };
     }
 }

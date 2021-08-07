@@ -11,6 +11,7 @@ const Schema = new AssetSchema({
         NL: 'Attribuutverzoek',
         EN: 'Attribuut request',
     },
+    image: { type: 'fa-icon', name: 'question' },
     props: {
         subject: CommonProps.subject,
         verifier: CommonProps.verifier,
@@ -27,7 +28,6 @@ export class AttributeRequest extends Asset<Props> {
         return {
             transferrable: false,
             cloneable: true,
-            image: { type: 'fa-icon', name: 'question' },
         };
     }
 }

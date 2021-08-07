@@ -11,6 +11,7 @@ const Schema = new AssetSchema({
         NL: 'Toestemming',
         EN: 'Consent',
     },
+    image: { type: 'fa-icon', name: 'thumbs-up' },
     props: {
         subject: CommonProps.subject,
         verifier: CommonProps.verifier,
@@ -31,7 +32,6 @@ export class Consent extends Asset<Props> {
                 NL: `Voor het gebruik van attribuut "${this.defProps.attributeName}".`,
                 EN: `For the use of attribute "${this.defProps.attributeName}".`,
             },
-            image: { type: 'fa-icon', name: 'thumbs-up' },
         };
     }
 }

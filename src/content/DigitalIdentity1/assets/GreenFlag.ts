@@ -11,6 +11,7 @@ const Schema = new AssetSchema({
         NL: 'Groene Vlag',
         EN: 'Green Flag',
     },
+    image: { type: 'fa-icon', name: 'flag', color: 'green' },
     props: {
         description: CommonProps.description,
     },
@@ -25,7 +26,6 @@ export class GreenFlag extends Asset<Props> {
         return {
             transferrable: false,
             cloneable: false,
-            image: { type: 'fa-icon', name: 'flag', color: 'green' },
         };
     }
 }

@@ -1,5 +1,6 @@
 import { Translation } from '../../../intl/Language';
 import { mapValues } from '../../../util/util';
+import { ImageOrIconDefinition } from '../../common/ImageOrIconDefinition';
 import { AssetDef } from '../../definition/Asset/AssetDef';
 import { ScenarioState } from '../../logic/State/ScenarioState';
 import {
@@ -13,6 +14,7 @@ type AssetSchemaOptions<Props extends ContentTypeProps> = {
     typeName: string;
     kindName: string;
     title: Translation;
+    image?: ImageOrIconDefinition;
     description?: Translation;
     props: Props;
 };
@@ -24,6 +26,7 @@ export class AssetSchema<Props extends ContentTypeProps> {
     readonly typeName: string;
     readonly kindName: string;
     readonly title: Translation;
+    readonly image?: ImageOrIconDefinition;
     readonly description?: Translation;
     readonly props: ContentTypePropsRecord<Props>;
 
@@ -31,6 +34,7 @@ export class AssetSchema<Props extends ContentTypeProps> {
         this.typeName = options.typeName;
         this.kindName = options.kindName;
         this.title = options.title;
+        this.image = options.image;
         this.description = options.description;
         this.props = new ContentTypePropsRecord(options.props);
     }

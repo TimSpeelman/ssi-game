@@ -23,7 +23,10 @@ export abstract class Asset<Props extends ContentTypeProps> {
             type: this.schema.typeName,
             kind: this.schema.kindName,
             title: this.schema.title,
+            image: this.schema.image,
             props: this.defProps,
+            cloneable: false,
+            transferrable: false,
             propertyDesc: Object.entries(this.schema.props.props).map(([key, prop]) => ({
                 title: prop.title,
                 value: { EN: this.defProps[key], NL: this.defProps[key] },
@@ -50,7 +53,16 @@ export interface AssetBaseProps {
 
 export type AssetBaseDesc = Pick<
     AssetDesc,
-    'parentId' | 'id' | 'type' | 'kind' | 'isInitial' | 'props' | 'title' | 'propertyDesc'
+    | 'parentId'
+    | 'id'
+    | 'type'
+    | 'kind'
+    | 'isInitial'
+    | 'props'
+    | 'title'
+    | 'propertyDesc'
+    | 'transferrable'
+    | 'cloneable'
 >;
 
 export type CustomAssetDesc = Omit<AssetDesc, keyof AssetBaseDesc> & Partial<AssetDesc>;

@@ -11,6 +11,7 @@ const Schema = new AssetSchema({
         NL: 'Authenticatieresultaat',
         EN: 'Authentication result',
     },
+    image: { type: 'fa-icon', name: 'user-check' },
     props: {
         subject: CommonProps.subject,
         identifier: CommonProps.identifier,
@@ -39,7 +40,6 @@ export class AuthenticationResult extends Asset<Props> {
                 NL: `${props.subject?.actor.nounPhrase} hoort bij identifier "${props.identifier}".`,
                 EN: `${props.subject?.actor.nounPhrase} belongs to identifier "${props.identifier}".`,
             },
-            image: { type: 'fa-icon', name: 'user-check' },
         };
     }
 }

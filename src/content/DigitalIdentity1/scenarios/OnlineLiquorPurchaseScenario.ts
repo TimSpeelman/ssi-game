@@ -11,7 +11,6 @@ import { WalletQRAuthentication } from '../actions/WalletQRAuthentication';
 import { WalletSMSAuthentication } from '../actions/WalletSMSAuthentication';
 import { defaultActors } from '../actors/defaultActors';
 import { AuthenticationResult } from '../assets/AuthenticationResult';
-import { FaceFeature } from '../assets/FaceFeature';
 import { GovPassport } from '../assets/GovPassport';
 import { HumanRecord } from '../assets/HumanRecord';
 import { Pseudonym } from '../assets/Pseudonym';
@@ -80,12 +79,7 @@ const actors: ActorConfig[] = [
     },
     {
         definition: Subject,
-        initialAssets: [
-            SubjectNym1,
-            new Wallet('wallet1', {}, true),
-            SubjectPassport,
-            new FaceFeature('5', { subject: Subject.id }, true),
-        ].map((a) => a.serialize()),
+        initialAssets: [SubjectNym1, new Wallet('wallet1', {}, true), SubjectPassport].map((a) => a.serialize()),
     },
     {
         definition: Shop,

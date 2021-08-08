@@ -1,6 +1,8 @@
+import { Button } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { GameActions } from '../../state/actions';
 import { ProjectActions } from '../../state/project/actions';
 import {
     selectActiveStepDesc,
@@ -14,6 +16,7 @@ import { CanvasCtr } from '../components/Canvas/CanvasCtr';
 import { replaceInternalResourceUrlStrings } from '../components/elements/replaceInternalResourceUrlStrings';
 import { ScenarioMetaDialog } from '../components/Sidebar/InfoPanel/ScenarioMetaDialog';
 import { Sidebar } from '../components/Sidebar/Sidebar';
+import { SidebarTab } from '../components/Sidebar/SidebarTab';
 import { useLang } from '../hooks/useLang';
 
 export function NetworkCanvas() {
@@ -35,6 +38,13 @@ export function NetworkCanvas() {
 
     const { dict } = useLang();
 
+    function showFailingStep() {
+        if (failedStep) {
+            dispatch(ProjectActions.GOTO_STEP({ id: failedStep.action.id }));
+            dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.STEP }));
+        }
+    }
+
     return (
         <div className="network-canvas">
             <ScenarioMetaDialog
@@ -50,6 +60,14 @@ export function NetworkCanvas() {
                         <strong>
                             {dict.networkCanvasPage_msgStepXFails.replace('{0}', `${scenarioDesc.failingAtIndex! + 1}`)}
                         </strong>
+                        <Button
+                            variant={'outlined'}
+                            color={'inherit'}
+                            onClick={showFailingStep}
+                            style={{ marginLeft: '1em' }}
+                        >
+                            Tonen
+                        </Button>
                     </div>
                 )}
             </div>

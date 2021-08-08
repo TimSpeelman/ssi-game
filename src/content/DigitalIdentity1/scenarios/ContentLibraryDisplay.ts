@@ -167,8 +167,8 @@ if (missingAssets.length > 0) {
 // **Steps**
 // We now create an action of each type
 const Issuance1 = new Issuance('Issuance1', {
-    attributeName: 'ATTR_NAME_2',
-    attributeValue: 'ATTR_VALUE_2',
+    attributeName: 'ATTR_NAME_3',
+    attributeValue: 'ATTR_VALUE_3',
     explanation: 'USER_EXPLANATION_1',
     issuer: Actor1.id,
     issuerNym: Nym1.id,

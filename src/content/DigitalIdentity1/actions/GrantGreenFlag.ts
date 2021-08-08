@@ -1,4 +1,5 @@
 import { translations } from '../../../intl/dictionaries';
+import { uniLang } from '../../../intl/Language';
 import { TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
@@ -41,20 +42,13 @@ export class GrantGreenFlag extends Action<Props> {
         const to = state.props.byActor[this.defProps.to].actor;
         const desc = this.defProps.description;
         return {
+            from: from,
+            to: to,
             title: {
                 NL: `${ucFirst(from.nounPhrase)} geeft ${to.nounPhrase} de groene vlag`,
                 EN: `${ucFirst(from.nounPhrase)} gives ${to.nounPhrase} the green flag`,
             },
-            sub: {
-                NL: desc,
-                EN: desc,
-            },
-            from: from,
-            to: to,
-            long: {
-                NL: `${ucFirst(from.nounPhrase)} geeft ${to.nounPhrase} de groene vlag.`,
-                EN: `${ucFirst(from.nounPhrase)} gives ${to.nounPhrase} the green flag.`,
-            },
+            long: uniLang(desc),
             locality: Locality.AT_CENTER,
         };
     }

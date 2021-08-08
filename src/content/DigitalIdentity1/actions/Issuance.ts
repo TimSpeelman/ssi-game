@@ -6,11 +6,12 @@ import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/
 import { ComputedStep } from '../../../model/logic/Step/ComputedStep';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
-import { ucFirst } from '../../../util/util';
+import { format } from '../../../util/util';
 import { AttributeProof } from '../assets/AttributeProof';
 import { Pseudonym } from '../assets/Pseudonym';
 import { Wallet } from '../assets/Wallet';
 import { CommonProps } from '../common/props';
+import { urlActor } from '../common/util';
 import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
 import { ValidationResult } from '../validations/ValidationResult';
 
@@ -23,8 +24,7 @@ export const Schema = BaseSchema.extend({
     description: {
         NL:
             'Met de uitgifte van een credential krijgt het Subject de mogelijkheid een bepaald gegeven over zichzelf aan anderen te bewijzen.',
-        EN:
-            'Met de uitgifte van een credential krijgt het Subject de mogelijkheid een bepaald gegeven over zichzelf aan anderen te bewijzen.',
+        EN: 'The issuance of a credential enables the Subject to prove something about him/herself to others.',
     },
     props: {
         issuer: CommonProps.issuer,
@@ -45,7 +45,7 @@ export type Props = TypeOfActionSchema<typeof Schema>;
 export class Issuance extends Action<Props> {
     schema = Schema;
 
-    protected get credentialId() {
+    public get credentialId() {
         return this.id + '-1';
     }
 
@@ -80,8 +80,6 @@ export class Issuance extends Action<Props> {
             {
                 attributeName: this.defProps.attributeName,
                 attributeValue: this.defProps.attributeValue,
-                // issuer: this.defProps.issuer,
-                // subject: this.defProps.subject,
                 issuerNym: this.defProps.issuerNym,
                 subjectNym: this.defProps.subjectNym,
             },
@@ -93,19 +91,11 @@ export class Issuance extends Action<Props> {
 
     _describe(state: ScenarioState, step: ComputedStep): CustomActionDesc {
         const { subject, issuer, ...props } = this.evaluateProps(state);
+        const { attributeName } = this.defProps;
 
-        const { preState } = step;
-
-        // const subject = state.props.byActor[this.props.subjectId].actor;
-        // const issuer = state.props.byActor[this.props.issuerId].actor;
         const subjectNym: Pseudonym | undefined = props.subjectNym;
         const issuerNym: Pseudonym | undefined = props.issuerNym;
 
-        const issuerId = issuer!.actor.id;
-        const issuerName = ucFirst(issuer!.actor.nounPhrase);
-        const attrName = this.defProps.attributeName;
-        const subjectId = subject!.actor.id;
-        const subjectName = subject!.actor.nounPhrase;
         return {
             from: issuer!.actor,
             from_mode: 'issuing',
@@ -114,16 +104,32 @@ export class Issuance extends Action<Props> {
             to_nym: subjectNym?.id,
             to_mode: 'phone',
             title: {
-                NL: `Uitgave van "${this.defProps.attributeName}" credential`,
-                EN: `Issuance of "${this.defProps.attributeName}" credential`,
+                NL: `Uitgave van "${attributeName}" credential`,
+                EN: `Issuance of "${attributeName}" credential`,
             },
             sub: {
                 NL: `Subject: ${subjectNym?.defProps.identifier}, Issuer: ${issuerNym?.defProps.identifier}`,
                 EN: `Subject: ${subjectNym?.defProps.identifier}, Issuer: ${issuerNym?.defProps.identifier}`,
             },
             long: {
-                NL: `[#${issuerId}](${issuerName}) geeft een [#${this.credentialId}]("${attrName}" credential) uit aan [#${subjectId}](${subjectName}).`,
-                EN: `[#${issuerId}](${issuerName}) issues a [#${this.credentialId}]("${attrName}" credential) to [#${subjectId}](${subjectName}).`,
+                NL: format(
+                    //
+                    (s) => `${s.issuer} geeft een ${s.credential} uit aan ${s.subject}`,
+                    {
+                        issuer: urlActor(issuer!.actor, true),
+                        credential: `[#${this.credentialId}]("${attributeName}" credential)`,
+                        subject: urlActor(subject!.actor),
+                    },
+                ),
+                EN: format(
+                    //
+                    (s) => `${s.issuer} issues a ${s.credential} to ${s.subject}`,
+                    {
+                        issuer: urlActor(issuer!.actor, true),
+                        credential: `[#${this.credentialId}]("${attributeName}" credential)`,
+                        subject: urlActor(subject!.actor),
+                    },
+                ),
             },
             locality: Locality.REMOTE,
         };

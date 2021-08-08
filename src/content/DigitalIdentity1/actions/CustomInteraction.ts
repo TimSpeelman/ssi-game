@@ -1,9 +1,9 @@
 import { translations } from '../../../intl/dictionaries';
+import { uniLang } from '../../../intl/Language';
 import { TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
 import { StringProp } from '../../../model/content/Common/Prop/StringProp';
-import { Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
@@ -48,15 +48,8 @@ export class CustomInteraction extends Action<Props> {
         return {
             from: state.props.byActor[this.defProps.from].actor,
             to: state.props.byActor[this.defProps.to].actor,
-            title: {
-                NL: this.defProps.description,
-                EN: this.defProps.description,
-            },
-            sub: {
-                NL: this.defProps.sub,
-                EN: this.defProps.sub,
-            },
-            locality: Locality.REMOTE,
+            title: uniLang(this.defProps.description),
+            sub: uniLang(this.defProps.sub),
         };
     }
 }

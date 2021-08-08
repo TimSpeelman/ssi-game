@@ -5,13 +5,14 @@ import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
-import { ucFirst } from '../../../util/util';
+import { format } from '../../../util/util';
 import { AttributeKnowledge } from '../assets/AttributeKnowledge';
 import { AttributeProof } from '../assets/AttributeProof';
 import { AttributeRevocation } from '../assets/AttributeRevocation';
 import { Pseudonym } from '../assets/Pseudonym';
 import { Wallet } from '../assets/Wallet';
 import { CommonProps } from '../common/props';
+import { urlActor, urlCredential } from '../common/util';
 import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
 import { ValidationResult } from '../validations/ValidationResult';
 
@@ -26,7 +27,7 @@ export const Schema = BaseSchema.extend({
         verifierNym: CommonProps.verifierNym,
         subject: CommonProps.subject,
         subjectNym: CommonProps.subjectNym,
-        attribute: CommonProps.attributeProof,
+        credential: CommonProps.attributeProof,
         // attributeName: CommonProps.attributeName,
         // attributeValue: CommonProps.attributeValue,
     },
@@ -60,7 +61,7 @@ export class Presentation extends Action<Props> {
             ];
         }
 
-        const revocation = this.getRevocation(this.defProps.attribute, state);
+        const revocation = this.getRevocation(this.defProps.credential, state);
         if (revocation) {
             return [
                 new ValidationResult(false, {
@@ -74,7 +75,7 @@ export class Presentation extends Action<Props> {
     }
 
     computeOutcomes(state: ScenarioState): IOutcome[] {
-        const { verifier, attribute } = this.evaluateProps(state);
+        const { verifier, credential: attribute } = this.evaluateProps(state);
 
         if (!attribute) return [];
 
@@ -96,17 +97,25 @@ export class Presentation extends Action<Props> {
 
         const subjectNym: Pseudonym | undefined = props.subjectNym;
         const verifierNym: Pseudonym | undefined = props.verifierNym;
-        const attrProof: AttributeProof | undefined = props.attribute;
+        const credential: AttributeProof | undefined = props.credential;
+
+        const base = {
+            from: subject,
+            to: verifier,
+        };
+
+        if (!subjectNym || !verifierNym || !credential) {
+            return base;
+        }
 
         return {
-            from: subject,
+            ...base,
             from_nym: subjectNym?.id,
-            to: verifier,
             to_nym: verifierNym?.id,
             to_mode: 'phone',
             title: {
-                NL: attrProof ? `Toon "${attrProof.defProps.attributeName}" credential` : `Toon  credential`,
-                EN: attrProof ? `Present "${attrProof.defProps.attributeName}" credential` : `Show  credential`,
+                NL: credential ? `Toon "${credential.defProps.attributeName}" credential` : `Toon  credential`,
+                EN: credential ? `Present "${credential.defProps.attributeName}" credential` : `Show  credential`,
             },
             sub: {
                 NL: `Subject: ${subjectNym?.defProps.identifier || '?'}, Verifier: ${
@@ -117,12 +126,24 @@ export class Presentation extends Action<Props> {
                 }`,
             },
             long: {
-                NL: `${ucFirst(subject.nounPhrase)} toont het "${
-                    attrProof?.defProps.attributeName || '?'
-                }" credential aan ${verifier.nounPhrase}.`,
-                EN: `${ucFirst(subject.nounPhrase)} presents the "${
-                    attrProof?.defProps.attributeName || '?'
-                }" credential to ${verifier.nounPhrase}.`,
+                NL: format(
+                    //
+                    (s) => `${s.subject} toont het ${s.credential} aan ${s.verifier}.`,
+                    {
+                        subject: urlActor(subject, true),
+                        credential: urlCredential(credential),
+                        verifier: urlActor(verifier),
+                    },
+                ),
+                EN: format(
+                    //
+                    (s) => `${s.subject} shows the ${s.credential} to ${s.verifier}.`,
+                    {
+                        subject: urlActor(subject, true),
+                        credential: urlCredential(credential),
+                        verifier: urlActor(verifier),
+                    },
+                ),
             },
             locality: Locality.REMOTE,
         };

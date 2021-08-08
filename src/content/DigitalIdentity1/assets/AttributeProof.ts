@@ -3,6 +3,7 @@ import { AssetSchema, TypeOfAssetSchema } from '../../../model/content/Asset/Ass
 import { AssetType } from '../../../model/content/Asset/AssetType';
 import { Asset, CustomAssetDesc } from '../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
+import { format } from '../../../util/util';
 import { CommonProps } from '../common/props';
 import { urlNym } from '../common/util';
 import { Pseudonym } from './Pseudonym';
@@ -41,35 +42,54 @@ export class AttributeProof extends Asset<Props> {
             this.defProps.attributeValue === '' || this.defProps.attributeValue === undefined
                 ? this.defProps.attributeName
                 : `${this.defProps.attributeName}: ${this.defProps.attributeValue}`;
-        return !sNym || !iNym
-            ? {}
-            : {
-                  title: {
-                      NL: 'Credential ' + this.defProps.attributeName,
-                      EN: 'Credential ' + this.defProps.attributeName,
-                  },
-                  sub: {
-                      NL: 'Uitgegeven door ' + iNym.defProps.identifier,
-                      EN: 'Issued by ' + iNym.defProps.identifier,
-                  },
-                  long: {
-                      NL: `Dit credential stelt de houder van het ${
-                          urlNym(sNym).NL
-                      } in staat te bewijzen dat hij het attribuut "${attributeLabel}" heeft. Het credential toont aan dat het is uitgegeven door de
-                houder van het ${urlNym(iNym).NL}.`,
-                      EN: `This credential enables the holder of the ${urlNym(sNym).EN} to prove the attribute
-                "${attributeLabel}" applies to him/her. The credential shows it was issued by the 
-                holder of the ${urlNym(iNym).EN}.`,
-                  },
-                  transferrable: false,
-                  cloneable: true,
-                  propertyDesc: [
-                      { title: schemaProps.subjectNym.title, value: uniLang(sNym.defProps.identifier || '') },
-                      { title: schemaProps.issuerNym.title, value: uniLang(iNym.defProps.identifier || '') },
-                      { title: schemaProps.attributeName.title, value: uniLang(attributeName || '') },
-                      { title: schemaProps.attributeValue.title, value: uniLang(attributeValue || '') },
-                  ],
-              };
+        if (!sNym || !iNym) return {};
+
+        return {
+            title: {
+                NL: 'Credential ' + this.defProps.attributeName,
+                EN: 'Credential ' + this.defProps.attributeName,
+            },
+            sub: {
+                NL: 'Uitgegeven door ' + iNym.defProps.identifier,
+                EN: 'Issued by ' + iNym.defProps.identifier,
+            },
+            long: {
+                NL: format(
+                    //
+                    (s) =>
+                        `Dit credential stelt de houder van het ${s.subjectNym}` +
+                        ` in staat te bewijzen dat hij het attribuut "${s.attribute}" heeft.` +
+                        ` Het credential toont aan dat het is uitgegeven door de` +
+                        ` houder van het ${s.issuerNym}.`,
+                    {
+                        subjectNym: urlNym(sNym).NL,
+                        attribute: attributeLabel,
+                        issuerNym: urlNym(iNym).NL,
+                    },
+                ),
+                EN: format(
+                    //
+                    (s) =>
+                        `This credential enables the holder of the ${s.subjectNym}` +
+                        ` to prove that the attribute "${s.attribute}" applies to him/her.` +
+                        ` The credential shows it was issued by the` +
+                        ` holder of the ${s.issuerNym}.`,
+                    {
+                        subjectNym: urlNym(sNym).EN,
+                        attribute: attributeLabel,
+                        issuerNym: urlNym(iNym).EN,
+                    },
+                ),
+            },
+            transferrable: false,
+            cloneable: true,
+            propertyDesc: [
+                { title: schemaProps.subjectNym.title, value: uniLang(sNym.defProps.identifier || '') },
+                { title: schemaProps.issuerNym.title, value: uniLang(iNym.defProps.identifier || '') },
+                { title: schemaProps.attributeName.title, value: uniLang(attributeName || '') },
+                { title: schemaProps.attributeValue.title, value: uniLang(attributeValue || '') },
+            ],
+        };
     }
 }
 

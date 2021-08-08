@@ -4,10 +4,11 @@ import { Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
-import { ucFirst } from '../../../util/util';
+import { format } from '../../../util/util';
 import { AuthenticationResult } from '../assets/AuthenticationResult';
 import { GovPassport } from '../assets/GovPassport';
 import { CommonProps } from '../common/props';
+import { urlActor } from '../common/util';
 import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
 
 export const Schema = BaseSchema.extend({
@@ -64,15 +65,31 @@ export class PhysicalPassportAuthentication extends Action<Props> {
                 EN: '',
             },
             long: {
-                NL: `${ucFirst(verifier.nounPhrase)} authenticeert ${
-                    subject.nounPhrase
-                }, in levende lijve, op basis van ${
-                    subject.isMale ? 'zijn' : 'haar'
-                } paspoort door de pasfoto te vergelijken met ${subject.isMale ? 'zijn' : 'haar'} gezicht.`,
+                NL: format(
+                    //
+                    (s) =>
+                        `${s.verifier} authenticeert ${s.subject}, in levende lijve,` +
+                        ` op basis van ${s.hisHer} paspoort door de pasfoto te vergelijken` +
+                        ` met ${s.hisHer} gezicht.`,
+                    {
+                        verifier: urlActor(verifier, true),
+                        subject: urlActor(subject),
+                        hisHer: subject.isMale ? 'zijn' : 'haar',
+                    },
+                ),
 
-                EN: `${ucFirst(verifier.nounPhrase)} authenticates ${subject.nounPhrase}, in real life, based on ${
-                    subject.isMale ? 'his' : 'her'
-                } passport by comparing the photo on it with  ${subject.isMale ? 'his' : 'her'} face.`,
+                EN: format(
+                    //
+                    (s) =>
+                        `${s.verifier} authenticates ${s.subject}, in real life,` +
+                        ` based on ${s.hisHer} passport by comparing the photo on it` +
+                        ` with ${s.hisHer} face.`,
+                    {
+                        verifier: urlActor(verifier, true),
+                        subject: urlActor(subject),
+                        hisHer: subject.isMale ? 'zijn' : 'haar',
+                    },
+                ),
             },
             locality: Locality.AT_FROM,
         };

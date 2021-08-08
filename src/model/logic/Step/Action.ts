@@ -3,7 +3,7 @@ import { ActionSchema, TypeOfActionSchema } from '../../content/Action/ActionSch
 import { StringProp } from '../../content/Common/Prop/StringProp';
 import { DefTypesOfContentTypeProps } from '../../content/Common/PropRecord/ContentTypeProps';
 import { ActionDef } from '../../definition/Action/ActionDef';
-import { ActionDesc } from '../../description/Step/ActionDesc';
+import { ActionDesc, Locality } from '../../description/Step/ActionDesc';
 import { ScenarioState } from '../State/ScenarioState';
 import { ComputedStep } from './ComputedStep';
 import { DependencyValidationResult } from './DependencyValidationResult';
@@ -96,7 +96,10 @@ export abstract class Action<Props extends BaseProps> {
         return {
             id: this.id,
             type: this.schema.typeName,
+            title: this.schema.title,
             explanation: this.defProps.explanation,
+            sub: uniLang(''),
+            locality: Locality.REMOTE,
             ...this._describe(state, step),
         };
     }
@@ -113,9 +116,9 @@ export abstract class Action<Props extends BaseProps> {
     }
 }
 
-export type ActionBaseDesc = Pick<ActionDesc, 'id' | 'type'>;
+export type ActionBaseDesc = Pick<ActionDesc, 'id' | 'type' | 'title' | 'sub' | 'locality'>;
 
-export type CustomActionDesc = Omit<ActionDesc, keyof ActionBaseDesc>;
+export type CustomActionDesc = Omit<ActionDesc, keyof ActionBaseDesc> & Partial<ActionDesc>;
 
 export interface ActionStatus {
     scenarioIsValidBeforeStep: boolean;

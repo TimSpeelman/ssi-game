@@ -1,15 +1,15 @@
 import { TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
-import { Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
-import { ucFirst } from '../../../util/util';
+import { format } from '../../../util/util';
 import { AttributeRequest } from '../assets/AttributeRequest';
 import { Pseudonym } from '../assets/Pseudonym';
 import { Wallet } from '../assets/Wallet';
 import { CommonProps } from '../common/props';
+import { urlActor } from '../common/util';
 import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
 import { ValidationResult } from '../validations/ValidationResult';
 
@@ -74,15 +74,23 @@ export class PresentationRequest extends Action<Props> {
 
     _describe(state: ScenarioState): CustomActionDesc {
         const props = this.evaluateProps(state);
-
         const subject = props.subject!.actor;
         const verifier = props.verifier!.actor;
         const subjectNym: Pseudonym | undefined = props.subjectNym;
         const verifierNym: Pseudonym | undefined = props.verifierNym;
+
+        const base = {
+            from: subject,
+            to: verifier,
+        };
+
+        if (!subjectNym || !verifierNym) {
+            return base;
+        }
+
         return {
-            to: subject,
+            ...base,
             to_nym: subjectNym?.id,
-            from: verifier,
             from_nym: verifierNym?.id,
             to_mode: 'phone',
             title: {
@@ -94,14 +102,25 @@ export class PresentationRequest extends Action<Props> {
                 EN: `Subject: ${subjectNym?.defProps.identifier}, Verifier: ${verifierNym?.defProps.identifier}`,
             },
             long: {
-                NL: `${ucFirst(verifier.nounPhrase)} verzoekt ${subject.nounPhrase} om het attribuut "${
-                    this.defProps.attributeName
-                }" te presenteren.`,
-                EN: `${ucFirst(verifier.nounPhrase)} requests ${subject.nounPhrase} for a presentation of the "${
-                    this.defProps.attributeName
-                }" credential.`,
+                NL: format(
+                    //
+                    (s) => `${s.verifier} verzoekt ${s.subject} om het attribuut ${s.attr} te presenteren.`,
+                    {
+                        verifier: urlActor(verifier, true),
+                        subject: urlActor(subject),
+                        attr: this.defProps.attributeName,
+                    },
+                ),
+                EN: format(
+                    //
+                    (s) => `${s.verifier} requests ${s.subject} to present the attribute ${s.attr}.`,
+                    {
+                        verifier: urlActor(verifier, true),
+                        subject: urlActor(subject),
+                        attr: this.defProps.attributeName,
+                    },
+                ),
             },
-            locality: Locality.REMOTE,
         };
     }
 }

@@ -1,10 +1,9 @@
-import { uniLang } from '../../../intl/Language';
 import { TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
-import { Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
+import { format } from '../../../util/util';
 import { AttributeProof } from '../assets/AttributeProof';
 import { AttributeRevocation } from '../assets/AttributeRevocation';
 import { Wallet } from '../assets/Wallet';
@@ -53,14 +52,21 @@ export class Revocation extends Action<Props> {
 
     _describe(state: ScenarioState): CustomActionDesc {
         const props = this.evaluateProps(state);
-
         const subject = props.subject!.actor;
         const issuer = props.issuer!.actor;
         const credential: AttributeProof | undefined = props.credential;
 
-        return {
+        const base = {
             from: issuer,
             to: subject,
+        };
+
+        if (!credential) {
+            return base;
+        }
+
+        return {
+            ...base,
             title: credential
                 ? {
                       NL: `Revocatie van ${credential.defProps.attributeName} credential`,
@@ -74,15 +80,26 @@ export class Revocation extends Action<Props> {
                 NL: '',
                 EN: '',
             },
-            long: !credential
-                ? uniLang('')
-                : {
-                      NL: `${urlActor(issuer, true)} trekt het ${urlCredential(credential)} van ${urlActor(
-                          subject,
-                      )} in.`,
-                      EN: `${urlActor(issuer, true)} revokes the ${urlCredential(credential)} of ${urlActor(subject)}.`,
-                  },
-            locality: Locality.REMOTE,
+            long: {
+                NL: format(
+                    //
+                    (s) => `${s.issuer} trekt het ${s.credential} van ${s.subject} in.`,
+                    {
+                        issuer: urlActor(issuer, true),
+                        credential: urlCredential(credential),
+                        subject: urlActor(subject),
+                    },
+                ),
+                EN: format(
+                    //
+                    (s) => `${s.issuer} trekt het ${s.credential} van ${s.subject} in.`,
+                    {
+                        issuer: urlActor(issuer, true),
+                        credential: urlCredential(credential),
+                        subject: urlActor(subject),
+                    },
+                ),
+            },
         };
     }
 }

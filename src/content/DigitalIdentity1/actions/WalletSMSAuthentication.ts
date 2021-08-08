@@ -4,10 +4,11 @@ import { Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
-import { ucFirst } from '../../../util/util';
+import { format } from '../../../util/util';
 import { AuthenticationResult } from '../assets/AuthenticationResult';
 import { Pseudonym } from '../assets/Pseudonym';
 import { CommonProps } from '../common/props';
+import { urlActor } from '../common/util';
 import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
 
 export const Schema = BaseSchema.extend({
@@ -53,31 +54,45 @@ export class WalletSMSAuthentication extends Action<Props> {
     _describe(state: ScenarioState): CustomActionDesc {
         const props = this.evaluateProps(state);
 
-        const subject = state.props.byActor[this.defProps.subject].actor;
-        const verifier = state.props.byActor[this.defProps.verifier].actor;
-
+        const subject = props.subject!.actor;
+        const verifier = props.verifier!.actor;
         const subjectNym: Pseudonym | undefined = props.subjectNym;
+
+        const base = {
+            from: subject,
+            to: verifier,
+        };
+
+        if (!subjectNym) {
+            return base;
+        }
+
         return {
-            to: subject,
+            ...base,
             to_nym: subjectNym?.id,
-            from: verifier,
-
-            title: {
-                NL: 'Authenticatie van wallet (pseudoniem) via SMS',
-                EN: 'Authentication of wallet (pseudonym) via SMS',
-            },
-            sub: {
-                NL: '',
-                EN: '',
-            },
             long: {
-                NL: `${ucFirst(verifier.nounPhrase)} authenticeert de wallet van ${subject.nounPhrase} door ${
-                    subject.isMale ? 'hem' : 'haar'
-                } een unieke code per SMS te sturen.`,
-
-                EN: `${ucFirst(verifier.nounPhrase)} authenticates the wallet of ${subject.nounPhrase} by sending ${
-                    subject.isMale ? 'him' : 'her'
-                } a unique code via SMS.`,
+                NL: format(
+                    //
+                    (s) =>
+                        `${s.verifier} authenticeert de wallet van ${s.subject}` +
+                        ` door ${s.himHer} een unieke code per SMS te sturen.`,
+                    {
+                        verifier: urlActor(verifier, true),
+                        subject: urlActor(subject),
+                        himHer: subject.isMale ? 'hem' : 'haar',
+                    },
+                ),
+                EN: format(
+                    //
+                    (s) =>
+                        `${s.verifier} authenticates the wallet of ${s.subject}` +
+                        ` by sending ${s.himHer} a unique code per SMS.`,
+                    {
+                        verifier: urlActor(verifier, true),
+                        subject: urlActor(subject),
+                        himHer: subject.isMale ? 'hem' : 'haar',
+                    },
+                ),
             },
             locality: Locality.AT_FROM, // TODO not neccesarily (but in municipality onboarding, yes)
         };

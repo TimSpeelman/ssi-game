@@ -37,12 +37,15 @@ export class AttributeKnowledge extends Asset<Props> {
         const iNym: Pseudonym | undefined = issuerNym;
 
         const attrDesc = attributeValue ? `${attributeName}: ${attributeValue}` : attributeName;
+
+        if (!iNym || !sNym) return {};
+
         return {
             transferrable: false,
             cloneable: true,
             sub: {
-                NL: `${sNym?.defProps.identifier} heeft attribuut ${attrDesc} (volgens ${iNym?.defProps.identifier}).`,
-                EN: `${sNym?.defProps.identifier} has attribute ${attrDesc} (according to ${iNym?.defProps.identifier}).`,
+                NL: `${sNym.defProps.identifier} heeft attribuut ${attrDesc} (volgens ${iNym.defProps.identifier}).`,
+                EN: `${sNym.defProps.identifier} has attribute ${attrDesc} (according to ${iNym.defProps.identifier}).`,
             },
         };
     }

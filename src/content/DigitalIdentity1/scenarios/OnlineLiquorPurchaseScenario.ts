@@ -94,6 +94,15 @@ const actors: ActorConfig[] = [
     },
 ];
 
+const stepIssuance = new Issuance('3', {
+    explanation: '',
+    attributeName: '18+',
+    attributeValue: 'waar',
+    subjectNym: SubjectNym1.id,
+    issuerNym: GovernmentNym1.id,
+    issuer: Government.id,
+    subject: Subject.id,
+});
 /**
  * This scenario describes a presentation of an 18+ credential to a liquor store.
  *
@@ -143,15 +152,7 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
             subject: Subject.id,
             subjectNym: SubjectNym1.id,
         }),
-        new Issuance('3', {
-            explanation: '',
-            attributeName: '18+',
-            attributeValue: 'waar',
-            subjectNym: SubjectNym1.id,
-            issuerNym: GovernmentNym1.id,
-            issuer: Government.id,
-            subject: Subject.id,
-        }),
+        stepIssuance,
         // Verification Phase
         new WalletQRAuthentication('4', {
             // Feitelijk is de contactlegging via QR, authenticatie via P2P protocol
@@ -175,7 +176,7 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
             subject: Subject.id,
             subjectNym: SubjectNym1.id,
             verifierNym: ShopNym1.id,
-            attributeName: '18+',
+            credential: stepIssuance.credentialId,
         }),
         new Presentation('7', {
             explanation: '',
@@ -183,7 +184,7 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
             subject: Subject.id,
             subjectNym: SubjectNym1.id,
             verifierNym: ShopNym1.id,
-            attribute: '3-1', // TODO Fixme, how to refer to an attribute that is produced by a previous step?
+            credential: stepIssuance.credentialId,
         }),
         new CustomInteraction('8', {
             // Feitelijk verifieert de Verifier zelfstandig de verzegeling en ondertekening, en via de ledger de actualiteit (hier wellicht niet relevant)

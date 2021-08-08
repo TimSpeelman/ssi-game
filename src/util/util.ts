@@ -111,3 +111,7 @@ export function throttle(fn: () => void, ms: number) {
 export function insertAt<T>(arr: T[], index: number, item: T): T[] {
     return [...arr.slice(0, index), item, ...arr.slice(index)];
 }
+
+export function format<T extends Record<string, string>>(template: (t: T) => string, data: T) {
+    return template(data);
+}

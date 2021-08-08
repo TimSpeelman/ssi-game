@@ -5,11 +5,13 @@ import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
-import { ucFirst } from '../../../util/util';
+import { format } from '../../../util/util';
+import { AttributeProof } from '../assets/AttributeProof';
 import { Consent } from '../assets/Consent';
 import { Pseudonym } from '../assets/Pseudonym';
 import { Wallet } from '../assets/Wallet';
 import { CommonProps } from '../common/props';
+import { urlActor, urlCredential } from '../common/util';
 import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
 import { ValidationResult } from '../validations/ValidationResult';
 
@@ -24,7 +26,7 @@ export const Schema = BaseSchema.extend({
         verifierNym: CommonProps.verifierNym,
         subject: CommonProps.subject,
         subjectNym: CommonProps.subjectNym,
-        attributeName: CommonProps.attributeName,
+        credential: CommonProps.attributeProof,
     },
 });
 
@@ -56,7 +58,7 @@ export class PresentationConsent extends Action<Props> {
         const props = this.evaluateProps(state);
 
         const consent = new Consent(this.id + '1', {
-            attributeName: this.defProps.attributeName,
+            credential: this.defProps.credential,
             verifier: props.verifier!.actor.id,
             subject: this.defProps.subjectNym,
         });
@@ -71,28 +73,49 @@ export class PresentationConsent extends Action<Props> {
 
         const subjectNym: Pseudonym | undefined = props.subjectNym;
         const verifierNym: Pseudonym | undefined = props.verifierNym;
+        const credential: AttributeProof | undefined = props.credential;
+
+        const base = {
+            from: subject,
+            to: verifier,
+        };
+
+        if (!subjectNym || !verifierNym || !credential) {
+            return base;
+        }
 
         return {
-            from: subject,
+            ...base,
             from_nym: subjectNym?.id,
-            to: verifier,
             to_nym: verifierNym?.id,
             to_mode: 'phone',
             title: {
-                NL: `Geef toestemming om ${this.defProps.attributeName} credential te gebruiken`,
-                EN: `Consent to use ${this.defProps.attributeName} credential`,
+                NL: `Geef toestemming om ${credential?.defProps.attributeName} credential te gebruiken`,
+                EN: `Consent to use ${credential?.defProps.attributeName} credential`,
             },
             sub: {
                 NL: `Subject: ${subjectNym?.defProps.identifier}, Verifier: ${verifierNym?.defProps.identifier}`,
                 EN: `Subject: ${subjectNym?.defProps.identifier}, Verifier: ${verifierNym?.defProps.identifier}`,
             },
             long: {
-                NL: `${ucFirst(subject.nounPhrase)} geeft ${verifier.nounPhrase} toestemming om het attribuut ${
-                    this.defProps.attributeName
-                } te gebruiken.`,
-                EN: `${ucFirst(subject.nounPhrase)} consents to ${verifier.nounPhrase} using the attribute ${
-                    this.defProps.attributeName
-                }.`,
+                NL: format(
+                    //
+                    (s) => `${s.subject} geeft ${s.verifier} toestemming om het ${s.credential} te gebruiken.`,
+                    {
+                        subject: urlActor(subject, true),
+                        verifier: urlActor(verifier),
+                        credential: urlCredential(credential),
+                    },
+                ),
+                EN: format(
+                    //
+                    (s) => `${s.subject} consents to ${s.verifier} using the ${s.credential}.`,
+                    {
+                        subject: urlActor(subject, true),
+                        verifier: urlActor(verifier),
+                        credential: urlCredential(credential),
+                    },
+                ),
             },
             locality: Locality.REMOTE,
         };

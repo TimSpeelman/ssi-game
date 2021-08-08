@@ -1,13 +1,13 @@
 import { TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
-import { Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
-import { ucFirst } from '../../../util/util';
+import { format } from '../../../util/util';
 import { AuthenticationResult } from '../assets/AuthenticationResult';
 import { Pseudonym } from '../assets/Pseudonym';
 import { CommonProps } from '../common/props';
+import { urlActor } from '../common/util';
 import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
 
 export const Schema = BaseSchema.extend({
@@ -43,13 +43,21 @@ export class WalletQRAuthentication extends Action<Props> {
 
     _describe(state: ScenarioState): CustomActionDesc {
         const props = this.evaluateProps(state);
-
-        const subject = state.props.byActor[this.defProps.subject].actor;
-        const verifier = state.props.byActor[this.defProps.verifier].actor;
-
+        const subject = props.subject!.actor;
+        const verifier = props.verifier!.actor;
         const subjectNym: Pseudonym | undefined = props.subjectNym;
+
+        const base = {
+            from: subject,
+            to: verifier,
+        };
+
+        if (!subjectNym) {
+            return base;
+        }
+
         return {
-            from: verifier,
+            ...base,
             to: subject,
             to_nym: subjectNym?.id,
             to_mode: 'selfie',
@@ -62,14 +70,29 @@ export class WalletQRAuthentication extends Action<Props> {
                 EN: '',
             },
             long: {
-                NL: `${ucFirst(subject.nounPhrase)} scant QR van ${verifier.nounPhrase} waarna ${
-                    verifier.nounPhrase
-                } de wallet van ${subject.nounPhrase} authenticeert.`,
-                EN: `${ucFirst(subject.nounPhrase)} scans QR code of ${verifier.nounPhrase} after which ${
-                    verifier.nounPhrase
-                } authenticates the wallet of ${subject.nounPhrase}.`,
+                NL: format(
+                    //
+                    (s) =>
+                        `${s.subject} scant QR van ${s.verifier} waarna ${s.verifier}` +
+                        ` de wallet van ${s.subject2} authenticeert.`,
+                    {
+                        subject: urlActor(subject, true),
+                        subject2: urlActor(subject),
+                        verifier: urlActor(verifier),
+                    },
+                ),
+                EN: format(
+                    //
+                    (s) =>
+                        `${s.subject} scans the QR of ${s.verifier} after which ${s.verifier}` +
+                        ` authenticates the wallet of ${s.subject2}.`,
+                    {
+                        subject: urlActor(subject, true),
+                        subject2: urlActor(subject),
+                        verifier: urlActor(verifier),
+                    },
+                ),
             },
-            locality: Locality.REMOTE,
         };
     }
 }

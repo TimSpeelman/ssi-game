@@ -2,7 +2,9 @@ import { AssetSchema, TypeOfAssetSchema } from '../../../model/content/Asset/Ass
 import { AssetType } from '../../../model/content/Asset/AssetType';
 import { Asset, CustomAssetDesc } from '../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
+import { format } from '../../../util/util';
 import { CommonProps } from '../common/props';
+import { urlActor } from '../common/util';
 
 const Schema = new AssetSchema({
     typeName: 'AuthenticationResult',
@@ -24,21 +26,40 @@ export class AuthenticationResult extends Asset<Props> {
     schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {
-        const props = this.evaluateProps(state);
+        const { subject, identifier } = this.evaluateProps(state);
+
+        if (!subject) return {};
+
         return {
             transferrable: false,
             cloneable: true,
             long: {
-                NL:
-                    'Een authenticatieresultaat is de uitkomst van een authenticatieproces. Het is de kennis dat ' +
-                    `${props.subject?.actor.nounPhrase} met een bepaalde zekerheid (?) heeft bewezen te horen bij identifier "${props.identifier}".`,
-                EN:
-                    'An authentication result is the outcome of the authentication process. It is the knowledge that ' +
-                    `${props.subject?.actor.nounPhrase} to a certain level of assurance (?) has proven to beelong to identifier "${props.identifier}".`,
+                NL: format(
+                    //
+                    (s) =>
+                        `Een authenticatieresultaat is de uitkomst van een authenticatieproces.` +
+                        ` Het is de kennis dat ${s.subject} met een bepaalde zekerheid (?)` +
+                        ` heeft bewezen te horen bij identifier "${s.identifier}".`,
+                    {
+                        subject: urlActor(subject.actor),
+                        identifier: identifier!,
+                    },
+                ),
+                EN: format(
+                    //
+                    (s) =>
+                        `An authentication result is the outcome of the authentication process.` +
+                        ` It is the knowledge that ${s.subject}  to a certain level of assurance (?)` +
+                        ` has proven to belong to identifier "${s.identifier}".`,
+                    {
+                        subject: urlActor(subject.actor),
+                        identifier: identifier!,
+                    },
+                ),
             },
             sub: {
-                NL: `${props.subject?.actor.nounPhrase} hoort bij identifier "${props.identifier}".`,
-                EN: `${props.subject?.actor.nounPhrase} belongs to identifier "${props.identifier}".`,
+                NL: `${subject?.actor.nounPhrase} hoort bij identifier "${identifier}".`,
+                EN: `${subject?.actor.nounPhrase} belongs to identifier "${identifier}".`,
             },
         };
     }

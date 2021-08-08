@@ -5,9 +5,6 @@ import { AttributeRequestType } from './AttributeRequest';
 import { AttributeRevocationType } from './AttributeRevocation';
 import { AuthenticationResultType } from './AuthenticationResult';
 import { ConsentType } from './Consent';
-import { FaceFeatureType } from './FaceFeature';
-import { FaceScanType } from './FaceScan';
-import { FingerprintFeatureType } from './FingerprintFeature';
 import { GovPassportType } from './GovPassport';
 import { GreenFlagType } from './GreenFlag';
 import { HumanRecordType } from './HumanRecord';
@@ -26,9 +23,6 @@ export const assetCollection = new AssetTypesCollection([
     AuthenticationResultType,
     ConsentType,
     HumanRecordType,
-    FaceScanType,
-    FaceFeatureType,
-    FingerprintFeatureType,
     GovPassportType,
     WalletType,
     PUFType,

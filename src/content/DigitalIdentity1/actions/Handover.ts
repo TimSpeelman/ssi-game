@@ -3,10 +3,11 @@ import { TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
 import { AssetProp } from '../../../model/content/Common/Prop/AssetProp';
-import { Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
+import { format } from '../../../util/util';
+import { urlActor } from '../common/util';
 import { TransferAssetOutcome } from '../outcomes/TransferAssetOutcome';
 
 export const Schema = BaseSchema.extend({
@@ -49,17 +50,46 @@ export class Handover extends Action<Props> {
     }
 
     _describe(state: ScenarioState): CustomActionDesc {
-        const props = this.evaluateProps(state);
+        const { from, to, asset } = this.evaluateProps(state);
+
+        const base = {
+            from: from!.actor,
+            to: to!.actor,
+        };
+
+        if (!from || !to || !asset) {
+            return base;
+        }
+
+        const assetTitle = asset.describe(state).title;
 
         return {
-            from: state.props.byActor[this.defProps.from].actor,
-            to: state.props.byActor[this.defProps.to].actor,
+            ...base,
             title: {
-                NL: 'Overdracht van ' + props.asset?.describe(state).title.NL,
-                EN: 'Handover of ' + props.asset?.describe(state).title.EN,
+                NL: 'Overdracht van ' + assetTitle.NL,
+                EN: 'Handover of ' + assetTitle.EN,
             },
-            sub: props.asset?.describe(state).title || { NL: '', EN: '' },
-            locality: Locality.REMOTE,
+            long: {
+                NL: format(
+                    //
+                    (s) => `${s.from} geeft ${s.to} ${s.asset}`,
+                    {
+                        from: urlActor(from.actor, true),
+                        to: urlActor(to.actor),
+                        asset: `[#${asset.id}](${assetTitle.NL})`,
+                    },
+                ),
+                EN: format(
+                    //
+                    (s) => `${s.from} gives ${s.to} ${s.asset}`,
+                    {
+                        from: urlActor(from.actor, true),
+                        to: urlActor(to.actor),
+                        asset: `[#${asset.id}](${assetTitle.EN})`,
+                    },
+                ),
+            },
+            sub: asset.describe(state).title || { NL: '', EN: '' },
         };
     }
 }

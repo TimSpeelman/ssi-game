@@ -23,6 +23,7 @@ export abstract class Asset<Props extends ContentTypeProps> {
             type: this.schema.typeName,
             kind: this.schema.kindName,
             title: this.schema.title,
+            abbr: this.schema.abbr,
             image: this.schema.image,
             props: this.defProps,
             cloneable: false,
@@ -60,6 +61,7 @@ export type AssetBaseDesc = Pick<
     | 'isInitial'
     | 'props'
     | 'title'
+    | 'abbr'
     | 'propertyDesc'
     | 'transferrable'
     | 'cloneable'

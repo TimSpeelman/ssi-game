@@ -12,4 +12,5 @@ export interface AssetEl {
     hovered?: boolean;
     numberOfChildren: number;
     image?: ImageOrIconDefinition;
+    abbr?: string;
 }

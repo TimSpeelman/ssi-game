@@ -41,6 +41,9 @@ export interface AssetDesc<Props = any> {
     /** A title describing the asset */
     title: Translation;
 
+    /** An abbreviation (max 3 letters) to describe the asset type */
+    abbr?: Translation;
+
     /** A subtitle describing the asset */
     sub?: Translation;
 

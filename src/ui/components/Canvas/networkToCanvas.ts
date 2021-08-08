@@ -1,3 +1,4 @@
+import { Language } from '../../../intl/Language';
 import { ImageOrIconDefinition } from '../../../model/common/ImageOrIconDefinition';
 import { ActorDesc } from '../../../model/description/Actor/ActorDesc';
 import { StateDesc } from '../../../model/description/State/StateDesc';
@@ -24,6 +25,7 @@ interface NetworkProps {
     selectedActorId?: string;
     selectedAssetId?: string;
     hoveredElemId?: string;
+    language: Language;
 }
 
 const config = {
@@ -226,6 +228,7 @@ function makeAssetEls(p: { actorData: ActorViewData[]; numberOfSlots: number; pr
                 r: config.assetRadius,
                 numberOfChildren: a.children.length,
                 image: a.asset.image,
+                abbr: a.asset.abbr ? a.asset.abbr[p.props.language] : '',
             }),
         );
 

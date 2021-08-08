@@ -85,6 +85,7 @@ export function CanvasCtr() {
         selectedActorId,
         selectedAssetId,
         hoveredElemId: hoveredResource,
+        language: lang,
     });
 
     return <SVGNetworkCanvas elems={elems} onEvent={handleEvent} />;

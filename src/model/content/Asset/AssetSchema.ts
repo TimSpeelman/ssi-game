@@ -14,6 +14,7 @@ type AssetSchemaOptions<Props extends ContentTypeProps> = {
     typeName: string;
     kindName: string;
     title: Translation;
+    abbr?: Translation;
     image?: ImageOrIconDefinition;
     description?: Translation;
     props: Props;
@@ -26,6 +27,7 @@ export class AssetSchema<Props extends ContentTypeProps> {
     readonly typeName: string;
     readonly kindName: string;
     readonly title: Translation;
+    readonly abbr?: Translation;
     readonly image?: ImageOrIconDefinition;
     readonly description?: Translation;
     readonly props: ContentTypePropsRecord<Props>;
@@ -34,6 +36,7 @@ export class AssetSchema<Props extends ContentTypeProps> {
         this.typeName = options.typeName;
         this.kindName = options.kindName;
         this.title = options.title;
+        this.abbr = options.abbr;
         this.image = options.image;
         this.description = options.description;
         this.props = new ContentTypePropsRecord(options.props);

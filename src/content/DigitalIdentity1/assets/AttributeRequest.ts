@@ -11,7 +11,8 @@ const Schema = new AssetSchema({
         NL: 'Attribuutverzoek',
         EN: 'Attribuut request',
     },
-    image: { type: 'fa-icon', name: 'question' },
+    // image: { type: 'fa-icon', name: 'question' },
+    abbr: { NL: 'AtV', EN: 'AtR' },
     props: {
         subject: CommonProps.subject,
         verifier: CommonProps.verifier,

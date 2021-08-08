@@ -35,6 +35,18 @@ export function AssetShape({ elem: e, onEvent: dispatch }: ShapeProps<AssetEl>) 
                     color: e.image.color,
                 })}
 
+            {e.abbr && (
+                <text
+                    x={e.c[0]}
+                    y={e.c[1]}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    style={{ fontWeight: 'bold', fontSize: e.r * 0.7 }}
+                >
+                    {e.abbr}
+                </text>
+            )}
+
             <circle
                 cx={e.c[0]}
                 cy={e.c[1]}

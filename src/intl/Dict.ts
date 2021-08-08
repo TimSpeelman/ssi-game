@@ -112,8 +112,6 @@ export interface Dictionary {
 
     networkCanvasPage_msgStepXFails: string;
 
-    app_msgConfirmClear: string;
-    app_msgConfirmReset: string;
     app_msgConfirmDeleteProject: string;
     app_msgFileLoaded: string;
     btnSaveToFile: string;

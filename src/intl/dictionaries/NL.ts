@@ -103,8 +103,6 @@ export const DictionaryNL: Dictionary = {
 
     networkCanvasPage_msgStepXFails: 'Scenario faalt bij stap {0}',
 
-    app_msgConfirmClear: 'Weet je zeker dat je alles wilt wissen?',
-    app_msgConfirmReset: 'Weet je zeker dat je alles terug wilt zetten?',
     app_msgConfirmDeleteProject: 'Weet je zeker dat je dit project wilt verwijderen?',
     app_msgFileLoaded: 'Bestand is geladen!',
     btnSaveToFile: 'Opslaan',

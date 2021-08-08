@@ -13,6 +13,7 @@ import { Delete, Description, Edit, FileCopy, NoteAdd, RestorePage, Save } from 
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
+import { ContentLibraryDisplayScenario } from '../../../content/DigitalIdentity1/scenarios/ContentLibraryDisplay';
 import { OnlineLiquorPurchaseScenario } from '../../../content/DigitalIdentity1/scenarios/OnlineLiquorPurchaseScenario';
 import { GameActions } from '../../../state/actions';
 import { ProjectActions } from '../../../state/project/actions';
@@ -30,6 +31,14 @@ const templates: Record<string, any> = {
         title: {
             NL: 'Alcoholverkoop',
             EN: 'Liquor purchase',
+        },
+    },
+    ContentLibraryDisplay: {
+        id: 'ContentLibraryDisplayScenario',
+        definition: ContentLibraryDisplayScenario,
+        title: {
+            NL: 'Demo van library content',
+            EN: 'Demo of library content',
         },
     },
 };

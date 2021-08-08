@@ -7,8 +7,8 @@ import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { format } from '../../../util/util';
 import { AttributeKnowledge } from '../assets/AttributeKnowledge';
-import { AttributeProof } from '../assets/AttributeProof';
 import { AttributeRevocation } from '../assets/AttributeRevocation';
+import { Credential } from '../assets/Credential';
 import { Pseudonym } from '../assets/Pseudonym';
 import { Wallet } from '../assets/Wallet';
 import { CommonProps } from '../common/props';
@@ -27,7 +27,7 @@ export const Schema = BaseSchema.extend({
         verifierNym: CommonProps.verifierNym,
         subject: CommonProps.subject,
         subjectNym: CommonProps.subjectNym,
-        credential: CommonProps.attributeProof,
+        credential: CommonProps.credential,
         // attributeName: CommonProps.attributeName,
         // attributeValue: CommonProps.attributeValue,
     },
@@ -79,7 +79,7 @@ export class Presentation extends Action<Props> {
 
         if (!attribute) return [];
 
-        const attrProof: AttributeProof = attribute;
+        const attrProof: Credential = attribute;
 
         const attr = new AttributeKnowledge(this.id + '1', {
             attributeName: attrProof.defProps.attributeName,
@@ -97,7 +97,7 @@ export class Presentation extends Action<Props> {
 
         const subjectNym: Pseudonym | undefined = props.subjectNym;
         const verifierNym: Pseudonym | undefined = props.verifierNym;
-        const credential: AttributeProof | undefined = props.credential;
+        const credential: Credential | undefined = props.credential;
 
         const base = {
             from: subject,

@@ -4,7 +4,7 @@ import { Asset, CustomAssetDesc } from '../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { CommonProps } from '../common/props';
 import { urlCredential } from '../common/util';
-import { AttributeProof } from './AttributeProof';
+import { Credential } from './Credential';
 
 const Schema = new AssetSchema({
     typeName: 'Consent',
@@ -17,7 +17,7 @@ const Schema = new AssetSchema({
     props: {
         subject: CommonProps.subject,
         verifier: CommonProps.verifier,
-        credential: CommonProps.attributeProof,
+        credential: CommonProps.credential,
     },
 });
 
@@ -35,8 +35,8 @@ export class Consent extends Asset<Props> {
             transferrable: false,
             cloneable: true,
             sub: {
-                NL: `Voor het gebruik van ${urlCredential(credential as AttributeProof)}.`,
-                EN: `For the use of ${urlCredential(credential as AttributeProof)}.`,
+                NL: `Voor het gebruik van ${urlCredential(credential as Credential)}.`,
+                EN: `For the use of ${urlCredential(credential as Credential)}.`,
             },
         };
     }

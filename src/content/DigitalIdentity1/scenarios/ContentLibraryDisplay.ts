@@ -21,11 +21,11 @@ import { WalletSMSAuthentication } from '../actions/WalletSMSAuthentication';
 import { defaultActors } from '../actors/defaultActors';
 import { assetCollection } from '../assets';
 import { AttributeKnowledge } from '../assets/AttributeKnowledge';
-import { AttributeProof } from '../assets/AttributeProof';
 import { AttributeRequest } from '../assets/AttributeRequest';
 import { AttributeRevocation } from '../assets/AttributeRevocation';
 import { AuthenticationResult } from '../assets/AuthenticationResult';
 import { Consent } from '../assets/Consent';
+import { Credential } from '../assets/Credential';
 import { GovPassport } from '../assets/GovPassport';
 import { GreenFlag } from '../assets/GreenFlag';
 import { HumanRecord } from '../assets/HumanRecord';
@@ -72,13 +72,13 @@ const AttributeKnowledge1 = new AttributeKnowledge('AttributeKnowledge1', {
     issuerNym: Nym1.id,
     subjectNym: Nym2.id,
 });
-const AttributeProof1 = new AttributeProof('AttributeProof1', {
+const Credential1 = new Credential('Credential1', {
     attributeName: 'ATTR_NAME_1',
     attributeValue: 'ATTR_VAL_1',
     issuerNym: Nym1.id,
     subjectNym: Nym2.id,
 });
-const AttributeProof2 = new AttributeProof('AttributeProof2', {
+const Credential2 = new Credential('Credential2', {
     attributeName: 'ATTR_NAME_2',
     attributeValue: 'ATTR_VAL_2',
     issuerNym: Nym1.id,
@@ -90,7 +90,7 @@ const AttributeRequest1 = new AttributeRequest('AttributeRequest1', {
     verifier: Actor3.id,
 });
 const AttributeRevocation1 = new AttributeRevocation('AttributeRevocation1', {
-    credential: AttributeProof1.id,
+    credential: Credential1.id,
     issuer: Actor1.id,
     subject: Actor2.id,
 });
@@ -99,7 +99,7 @@ const AuthenticationResult1 = new AuthenticationResult('AuthenticationResult1', 
     subject: Actor2.id,
 });
 const Consent1 = new Consent('Consent1', {
-    credential: AttributeProof1.id,
+    credential: Credential1.id,
     subject: Actor2.id,
     verifier: Actor3.id,
 });
@@ -139,8 +139,8 @@ const actorConfig2: ActorConfig = {
     definition: Actor2,
     initialAssets: serializeAssets([
         Nym2,
-        AttributeProof1,
-        AttributeProof2,
+        Credential1,
+        Credential2,
         AttributeRequest1,
         AttributeRevocation1,
         GovPassport1,
@@ -176,7 +176,7 @@ const Issuance1 = new Issuance('Issuance1', {
     subjectNym: Nym2.id,
 });
 const Presentation1 = new Presentation('Presentation1', {
-    credential: AttributeProof2.id,
+    credential: Credential2.id,
     explanation: 'USER_EXPLANATION_2',
     subject: Actor2.id,
     subjectNym: Nym2.id,
@@ -184,7 +184,7 @@ const Presentation1 = new Presentation('Presentation1', {
     verifierNym: Nym3.id,
 });
 const PresentationConsent1 = new PresentationConsent('PresentationConsent1', {
-    credential: AttributeProof2.id,
+    credential: Credential2.id,
     explanation: 'USER_EXPLANATION_3',
     subject: Actor2.id,
     subjectNym: Nym2.id,
@@ -200,7 +200,7 @@ const PresentationRequest1 = new PresentationRequest('PresentationRequest1', {
     verifierNym: Nym3.id,
 });
 const Revocation1 = new Revocation('Revocation1', {
-    credential: AttributeProof2.id,
+    credential: Credential2.id,
     explanation: 'USER_EXPLANATION_5',
     issuer: Actor1.id,
     subject: Actor2.id,

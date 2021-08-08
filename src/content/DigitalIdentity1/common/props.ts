@@ -73,10 +73,10 @@ export const CommonProps = {
     }),
     attributeName: new StringProp({ title: translations.attributeName }),
     attributeValue: new StringProp({ title: translations.attributeValue }),
-    attributeProof: new AssetProp({
+    credential: new AssetProp({
         title: translations.attribute,
         dependsOn: ['subject'],
-        filter: (a, data) => a.asset.type === 'AttributeProof' && a.ownerId === data.subject,
+        filter: (a, data) => a.asset.type === 'Credential' && a.ownerId === data.subject,
         required: {
             NL: 'Een credential is vereist.',
             EN: 'A credential is required.',

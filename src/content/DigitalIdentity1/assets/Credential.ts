@@ -9,7 +9,7 @@ import { urlNym } from '../common/util';
 import { Pseudonym } from './Pseudonym';
 
 const Schema = new AssetSchema({
-    typeName: 'AttributeProof',
+    typeName: 'Credential',
     kindName: 'Data',
     title: {
         NL: 'Attribuutbewijs',
@@ -30,7 +30,7 @@ export type Props = TypeOfAssetSchema<typeof Schema>;
  * Attribute Proof is equivalent to Attribute Knowledge, except it enables the possessing Actor to prove it.
  * - Note: a proof could be decomposed into other data elements, but this simplification is made for ease of play.
  */
-export class AttributeProof extends Asset<Props> {
+export class Credential extends Asset<Props> {
     schema = Schema;
 
     _describe(state: ScenarioState): CustomAssetDesc {
@@ -93,7 +93,4 @@ export class AttributeProof extends Asset<Props> {
     }
 }
 
-export const AttributeProofType = new AssetType(
-    Schema,
-    (id, props, isInitial) => new AttributeProof(id, props, isInitial),
-);
+export const CredentialType = new AssetType(Schema, (id, props, isInitial) => new Credential(id, props, isInitial));

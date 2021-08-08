@@ -6,8 +6,8 @@ import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { format } from '../../../util/util';
-import { AttributeProof } from '../assets/AttributeProof';
 import { Consent } from '../assets/Consent';
+import { Credential } from '../assets/Credential';
 import { Pseudonym } from '../assets/Pseudonym';
 import { Wallet } from '../assets/Wallet';
 import { CommonProps } from '../common/props';
@@ -26,7 +26,7 @@ export const Schema = BaseSchema.extend({
         verifierNym: CommonProps.verifierNym,
         subject: CommonProps.subject,
         subjectNym: CommonProps.subjectNym,
-        credential: CommonProps.attributeProof,
+        credential: CommonProps.credential,
     },
 });
 
@@ -73,7 +73,7 @@ export class PresentationConsent extends Action<Props> {
 
         const subjectNym: Pseudonym | undefined = props.subjectNym;
         const verifierNym: Pseudonym | undefined = props.verifierNym;
-        const credential: AttributeProof | undefined = props.credential;
+        const credential: Credential | undefined = props.credential;
 
         const base = {
             from: subject,

@@ -1,10 +1,10 @@
 import { AssetTypesCollection } from '../../../model/content/Asset/AssetTypesCollection';
 import { AttributeKnowledgeType } from './AttributeKnowledge';
-import { AttributeProofType } from './AttributeProof';
 import { AttributeRequestType } from './AttributeRequest';
 import { AttributeRevocationType } from './AttributeRevocation';
 import { AuthenticationResultType } from './AuthenticationResult';
 import { ConsentType } from './Consent';
+import { CredentialType } from './Credential';
 import { GovPassportType } from './GovPassport';
 import { GreenFlagType } from './GreenFlag';
 import { HumanRecordType } from './HumanRecord';
@@ -16,7 +16,7 @@ export const assetCollection = new AssetTypesCollection([
     GreenFlagType,
     PseudonymType,
     AttributeKnowledgeType,
-    AttributeProofType,
+    CredentialType,
     AttributeRequestType,
     AttributeRevocationType,
 

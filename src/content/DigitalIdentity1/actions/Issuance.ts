@@ -7,7 +7,7 @@ import { ComputedStep } from '../../../model/logic/Step/ComputedStep';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { IValidationResult } from '../../../model/logic/Step/IValidationResult';
 import { format } from '../../../util/util';
-import { AttributeProof } from '../assets/AttributeProof';
+import { Credential } from '../assets/Credential';
 import { Pseudonym } from '../assets/Pseudonym';
 import { Wallet } from '../assets/Wallet';
 import { CommonProps } from '../common/props';
@@ -75,7 +75,7 @@ export class Issuance extends Action<Props> {
 
         if (!subjectWallet) return [];
 
-        const attr = new AttributeProof(
+        const attr = new Credential(
             this.credentialId,
             {
                 attributeName: this.defProps.attributeName,

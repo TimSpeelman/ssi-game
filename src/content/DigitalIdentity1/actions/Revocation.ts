@@ -4,8 +4,8 @@ import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { format } from '../../../util/util';
-import { AttributeProof } from '../assets/AttributeProof';
 import { AttributeRevocation } from '../assets/AttributeRevocation';
+import { Credential } from '../assets/Credential';
 import { Wallet } from '../assets/Wallet';
 import { CommonProps } from '../common/props';
 import { urlActor, urlCredential } from '../common/util';
@@ -20,7 +20,7 @@ export const Schema = BaseSchema.extend({
     props: {
         issuer: CommonProps.issuer,
         subject: CommonProps.subject,
-        credential: CommonProps.attributeProof,
+        credential: CommonProps.credential,
     },
 });
 
@@ -54,7 +54,7 @@ export class Revocation extends Action<Props> {
         const props = this.evaluateProps(state);
         const subject = props.subject!.actor;
         const issuer = props.issuer!.actor;
-        const credential: AttributeProof | undefined = props.credential;
+        const credential: Credential | undefined = props.credential;
 
         const base = {
             from: issuer,

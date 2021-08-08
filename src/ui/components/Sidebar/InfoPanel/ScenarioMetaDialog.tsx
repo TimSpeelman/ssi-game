@@ -64,14 +64,14 @@ export function ScenarioMetaDialog(props: Props) {
 
                             <TextField
                                 fullWidth
-                                label={'Titel'}
+                                label={dict.metaDialog.labelTitle}
                                 value={meta.title}
                                 onChange={(e) => setTitle(e.target.value)}
                                 style={{ marginBottom: '1em' }}
                             />
                             <TextField
                                 fullWidth
-                                label={'Auteur'}
+                                label={dict.metaDialog.labelAuthor}
                                 value={meta.author}
                                 onChange={(e) => setAuthor(e.target.value)}
                                 style={{ marginBottom: '1em' }}
@@ -79,7 +79,7 @@ export function ScenarioMetaDialog(props: Props) {
                             <TextField
                                 fullWidth
                                 multiline
-                                label={'Omschrijving'}
+                                label={dict.metaDialog.labelBody}
                                 value={meta.body}
                                 onChange={(e) => setBody(e.target.value)}
                                 style={{ marginBottom: '1em' }}

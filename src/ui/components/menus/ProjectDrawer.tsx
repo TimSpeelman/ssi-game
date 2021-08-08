@@ -19,6 +19,7 @@ import { GameActions } from '../../../state/actions';
 import { ProjectActions } from '../../../state/project/actions';
 import { ProjectState } from '../../../state/project/state';
 import { selectActiveProjectName, selectInactiveProjects, selectProjectDrawerOpen } from '../../../state/selectors';
+import { formatL } from '../../../util/util';
 import { useFilePersistence } from '../../hooks/useFilePersistence';
 import { useLang } from '../../hooks/useLang';
 import { HiddenFileInput } from '../elements/HiddenFileInput';
@@ -68,7 +69,8 @@ export function ProjectDrawer() {
 
     const copyActiveProject = () => {
         const id = uuid();
-        const name = `Kopie van ${activeName}`;
+        const name = formatL(dict.projectDrawer.copyOfX, [activeName]);
+
         dispatch(GameActions.COPY_ACTIVE_PROJECT({ id, name }));
         dispatch(GameActions.ACTIVATE_PROJECT({ id }));
         close();
@@ -111,7 +113,7 @@ export function ProjectDrawer() {
                 <ListItemIcon style={{ minWidth: 0, marginRight: '.5em' }}>
                     <NoteAdd />
                 </ListItemIcon>
-                <ListItemText primary={'Nieuw Project'} />
+                <ListItemText primary={dict.projectDrawer.btnNewProject} />
             </ListItem>
 
             <ListItem button component={'label'}>
@@ -122,7 +124,7 @@ export function ProjectDrawer() {
                 <HiddenFileInput onSelectFiles={handleFileUpload} />
             </ListItem>
 
-            <ListSubheader>Huidig Project</ListSubheader>
+            <ListSubheader>{dict.projectDrawer.titleActiveProject}</ListSubheader>
             <ListItem>
                 <ListItemIcon style={{ minWidth: 0, marginRight: '.5em' }}>
                     <Description />
@@ -165,7 +167,7 @@ export function ProjectDrawer() {
                 <ListItemText primary={'Kopie maken'} />
             </ListItem>
 
-            <ListSubheader>Opgeslagen Projecten</ListSubheader>
+            <ListSubheader>{dict.projectDrawer.titleSavedProjects}</ListSubheader>
             <List>
                 {projects.map((pr) => (
                     <ListItem key={pr.id} button onClick={() => activateProject(pr)}>
@@ -186,7 +188,7 @@ export function ProjectDrawer() {
                 ))}
             </List>
 
-            <ListSubheader>Sjablonen</ListSubheader>
+            <ListSubheader>{dict.projectDrawer.titleTemplates}</ListSubheader>
             <List>
                 {Object.entries(templates).map(([id, template]) => (
                     <ListItem key={id} button onClick={() => newFromTemplate(id)}>

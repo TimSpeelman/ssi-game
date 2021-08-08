@@ -7,6 +7,7 @@ import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode
 import { GameActions } from '../../../../state/actions';
 import { ProjectActions } from '../../../../state/project/actions';
 import { selectActiveActorDescs, selectSelectedAssetNode } from '../../../../state/selectors';
+import { formatL } from '../../../../util/util';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
 import { ImageOrIconSwitch } from '../../elements/ImageOrIconSwitch';
@@ -43,7 +44,7 @@ export function AssetInspector() {
     return (
         <div>
             <Button onClick={backToOwner}>
-                <ChevronLeft /> {dict.assetInspector.assetsOfX.replace('{0}', actor!.name)}
+                <ChevronLeft /> {formatL(dict.assetInspector.assetsOfX, [actor!.name])}
             </Button>
             <Divider />
 

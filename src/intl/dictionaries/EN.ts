@@ -40,6 +40,7 @@ export const DictionaryEN: Dictionary = {
         btnAdd: 'Add',
         btnCancel: 'Cancel',
         btnEdit: 'Edit',
+        btnShow: 'Show',
     },
 
     actorInspector: {
@@ -49,6 +50,8 @@ export const DictionaryEN: Dictionary = {
         btnEditProperties: 'Edit Properties',
         assets: 'Assets',
         btnAddAsset: 'Add Asset',
+        thPropertyName: 'Property',
+        thPropertyValue: 'Value',
     },
 
     assetKind: {
@@ -84,6 +87,9 @@ export const DictionaryEN: Dictionary = {
     metaDialog: {
         title: 'Change Scenario Description',
         explanation: 'You can change the scenario description here.',
+        labelTitle: 'Title',
+        labelAuthor: 'Author',
+        labelBody: 'Description',
     },
 
     optionPanel: {
@@ -98,6 +104,12 @@ export const DictionaryEN: Dictionary = {
         labelActorType: 'Actor Type',
         labelActorName: 'Name',
         labelActorDescription: 'Description',
+    },
+
+    editActorPropsDialog: {
+        title: 'Edit Actor Properties',
+        thPropertyName: 'Property',
+        thPropertyValue: 'Value',
     },
 
     assetDialog: {
@@ -117,5 +129,10 @@ export const DictionaryEN: Dictionary = {
         msgFileLoaded: 'File was successfully loaded!',
         btnSaveToFile: 'Save',
         btnLoadFromFile: 'Load',
+        copyOfX: 'Copy of {0}',
+        btnNewProject: 'New Project',
+        titleActiveProject: 'Active Project',
+        titleSavedProjects: 'Saved Projects',
+        titleTemplates: 'Templates',
     },
 };

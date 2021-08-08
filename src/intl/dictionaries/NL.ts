@@ -40,6 +40,7 @@ export const DictionaryNL: Dictionary = {
         btnAdd: 'Toevoegen',
         btnCancel: 'Annuleren',
         btnEdit: 'Bewerken',
+        btnShow: 'Tonen',
     },
 
     actorInspector: {
@@ -49,6 +50,8 @@ export const DictionaryNL: Dictionary = {
         btnEditProperties: 'Eigenschappen Bewerken',
         assets: 'Assets',
         btnAddAsset: 'Asset Toevoegen',
+        thPropertyName: 'Eigenschap',
+        thPropertyValue: 'Waarde',
     },
 
     assetKind: {
@@ -84,6 +87,9 @@ export const DictionaryNL: Dictionary = {
     metaDialog: {
         title: 'Scenario-omschrijving Aanpassen',
         explanation: 'Pas de omschrijving aan:',
+        labelTitle: 'Titel',
+        labelAuthor: 'Auteur',
+        labelBody: 'Omschrijving',
     },
 
     optionPanel: {
@@ -98,6 +104,12 @@ export const DictionaryNL: Dictionary = {
         labelActorType: 'Actortype',
         labelActorName: 'Naam',
         labelActorDescription: 'Beschrijving',
+    },
+
+    editActorPropsDialog: {
+        title: 'Actoreigenschappen Bewerken',
+        thPropertyName: 'Eigenschap',
+        thPropertyValue: 'Waarde',
     },
 
     assetDialog: {
@@ -117,5 +129,10 @@ export const DictionaryNL: Dictionary = {
         msgFileLoaded: 'Bestand is geladen!',
         btnSaveToFile: 'Opslaan',
         btnLoadFromFile: 'Laden',
+        copyOfX: 'Kopie van {0}',
+        btnNewProject: 'Nieuw Project',
+        titleActiveProject: 'Huidig Project',
+        titleSavedProjects: 'Opgeslagen Projecten',
+        titleTemplates: 'Sjablonen',
     },
 };

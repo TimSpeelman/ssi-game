@@ -51,14 +51,14 @@ export function EditActorPropertiesDialogCtr(props: Props) {
 
     return (
         <Fragment>
-            <DialogTitle>Edit Actor Properties</DialogTitle>
+            <DialogTitle>{dict.editActorPropsDialog.title}</DialogTitle>
             <DialogContent>
                 <DialogContentText></DialogContentText>
                 <table>
                     <thead>
                         <tr>
-                            <th style={{ textAlign: 'left' }}>Eigenschap</th>
-                            <th style={{ textAlign: 'left' }}>Waarde</th>
+                            <th style={{ textAlign: 'left' }}>{dict.editActorPropsDialog.thPropertyName}</th>
+                            <th style={{ textAlign: 'left' }}>{dict.editActorPropsDialog.thPropertyValue}</th>
                         </tr>
                     </thead>
                     <tbody>

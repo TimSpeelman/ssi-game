@@ -33,6 +33,7 @@ export interface Dictionary {
         btnSave: string;
         btnCancel: string;
         btnEdit: string;
+        btnShow: string;
     };
 
     actorInspector: {
@@ -42,6 +43,8 @@ export interface Dictionary {
         btnEditProperties: string;
         assets: string;
         btnAddAsset: string;
+        thPropertyName: string;
+        thPropertyValue: string;
     };
 
     assetKind: {
@@ -77,6 +80,9 @@ export interface Dictionary {
     metaDialog: {
         title: string;
         explanation: string;
+        labelTitle: string;
+        labelAuthor: string;
+        labelBody: string;
     };
 
     optionPanel: {
@@ -91,6 +97,12 @@ export interface Dictionary {
         labelActorType: string;
         labelActorName: string;
         labelActorDescription: string;
+    };
+
+    editActorPropsDialog: {
+        title: string;
+        thPropertyName: string;
+        thPropertyValue: string;
     };
 
     assetDialog: {
@@ -110,6 +122,11 @@ export interface Dictionary {
         msgFileLoaded: string;
         btnSaveToFile: string;
         btnLoadFromFile: string;
+        copyOfX: string;
+        btnNewProject: string;
+        titleActiveProject: string;
+        titleSavedProjects: string;
+        titleTemplates: string;
     };
 
     untitled: string;

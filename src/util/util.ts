@@ -117,7 +117,12 @@ export function format<T extends Record<string, string>>(template: (t: T) => str
 }
 
 /** Replaces a string template like "hello {0}" with "hello world" if data ["world"] is passed. */
-export function formatL(template: string, data: (string | number)[], failIfNoData = true, failIfDataUnused = true) {
+export function formatL(
+    template: string,
+    data: (string | number)[],
+    failIfNoData = true,
+    failIfDataUnused = true,
+): string {
     const matches = template.match(/\{([0-9]+)\}/g);
 
     // Collect all the keys used by the template
@@ -137,7 +142,10 @@ export function formatL(template: string, data: (string | number)[], failIfNoDat
         throw new Error(`Cannot format template '${template}', data keys unused: ${unusedData.join(', ')}`);
     }
 
-    const formatted = data.reduce((str: string, d, i) => str.replace(new RegExp(`\\{${i}\\}`, 'g'), `${d}`), template);
+    const formatted: string = data.reduce(
+        (str: string, d, i) => str.replace(new RegExp(`\\{${i}\\}`, 'g'), `${d}`),
+        template,
+    ) as string;
 
     return formatted;
 }

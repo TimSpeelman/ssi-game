@@ -67,7 +67,7 @@ export function NetworkCanvas() {
                             onClick={showFailingStep}
                             style={{ marginLeft: '1em' }}
                         >
-                            Tonen
+                            {dict.misc.btnShow}
                         </Button>
                     </div>
                 )}

@@ -83,8 +83,8 @@ export function ActorInspector() {
                 <table style={{ width: '100%' }}>
                     <thead>
                         <tr>
-                            <th style={{ textAlign: 'left' }}>Eigenschap</th>
-                            <th style={{ textAlign: 'left' }}>Waarde</th>
+                            <th style={{ textAlign: 'left' }}>{dict.actorInspector.thPropertyName}</th>
+                            <th style={{ textAlign: 'left' }}>{dict.actorInspector.thPropertyValue}</th>
                         </tr>
                     </thead>
                     <tbody>

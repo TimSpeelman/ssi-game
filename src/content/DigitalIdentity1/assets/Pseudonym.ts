@@ -1,5 +1,3 @@
-import { DictionaryEN } from '../../../intl/dictionaries/EN';
-import { DictionaryNL } from '../../../intl/dictionaries/NL';
 import { ImageOrIconDefinition } from '../../../model/common/ImageOrIconDefinition';
 import { AssetSchema, TypeOfAssetSchema } from '../../../model/content/Asset/AssetSchema';
 import { AssetType } from '../../../model/content/Asset/AssetType';
@@ -62,8 +60,8 @@ export class Pseudonym extends Asset<Props> {
         const { subject, image } = this.evaluateProps(state);
         return {
             title: {
-                NL: `${DictionaryNL.pseudonym} ${this.defProps.identifier}`,
-                EN: `${DictionaryEN.pseudonym} ${this.defProps.identifier}`,
+                NL: `Pseudoniem ${this.defProps.identifier}`,
+                EN: `Pseudonym ${this.defProps.identifier}`,
             },
             sub: {
                 NL: `Hoort bij ${subject?.actor.nounPhrase}.`,

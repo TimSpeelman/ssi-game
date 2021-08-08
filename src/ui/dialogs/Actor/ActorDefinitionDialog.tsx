@@ -65,12 +65,16 @@ export function ActorDefinitionDialog(props: Props) {
 
     return (
         <Fragment>
-            <DialogTitle>{props.isCreate ? dict.titleCreateActor : dict.titleEditActor}</DialogTitle>
+            <DialogTitle>
+                {props.isCreate
+                    ? dict.actorDefinitionDialog.titleCreateActor
+                    : dict.actorDefinitionDialog.titleEditActor}
+            </DialogTitle>
             <DialogContent>
                 <DialogContentText></DialogContentText>
 
                 <FormControl fullWidth style={{ marginBottom: '1em' }}>
-                    <InputLabel>{dict.labelActorType}</InputLabel>
+                    <InputLabel>{dict.actorDefinitionDialog.labelActorType}</InputLabel>
                     <Select
                         fullWidth
                         value={def.type}
@@ -121,7 +125,7 @@ export function ActorDefinitionDialog(props: Props) {
                 <TextField
                     fullWidth
                     InputLabelProps={{ shrink: true }}
-                    label={dict.labelActorName}
+                    label={dict.actorDefinitionDialog.labelActorName}
                     value={def.name}
                     placeholder={def.type.typeName}
                     onChange={(e) => setName(e.target.value)}
@@ -130,7 +134,7 @@ export function ActorDefinitionDialog(props: Props) {
                 <TextField
                     fullWidth
                     InputLabelProps={{ shrink: true }}
-                    label={dict.labelActorDescription}
+                    label={dict.actorDefinitionDialog.labelActorDescription}
                     value={def.description}
                     onChange={(e) => setDesc(e.target.value)}
                     style={{ marginBottom: '1em' }}
@@ -138,9 +142,9 @@ export function ActorDefinitionDialog(props: Props) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={save} color="primary">
-                    {dict.btnSave}
+                    {dict.misc.btnSave}
                 </Button>
-                <Button onClick={cancel}>{dict.btnCancel}</Button>
+                <Button onClick={cancel}>{dict.misc.btnCancel}</Button>
             </DialogActions>
         </Fragment>
     );

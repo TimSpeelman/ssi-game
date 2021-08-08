@@ -1,4 +1,3 @@
-import { translations } from '../../../intl/dictionaries';
 import { uniLang } from '../../../intl/Language';
 import { TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
@@ -7,6 +6,7 @@ import { StringProp } from '../../../model/content/Common/Prop/StringProp';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
+import { translations } from '../intl/dictionaries';
 
 export const Schema = BaseSchema.extend({
     typeName: 'CustomInteraction',

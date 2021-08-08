@@ -72,11 +72,11 @@ export function AssetDialog(props: Props) {
     return (
         <Fragment>
             <DialogTitle id="form-dialog-title">
-                {props.isCreate ? dict.titleCreateAsset : dict.titleEditAsset}
+                {props.isCreate ? dict.assetDialog.titleCreateAsset : dict.assetDialog.titleEditAsset}
             </DialogTitle>
             <DialogContent>
                 <FormControl fullWidth style={{ marginBottom: '1em' }}>
-                    <InputLabel shrink={true}>{dict.labelAssetType}</InputLabel>
+                    <InputLabel shrink={true}>{dict.assetDialog.labelAssetType}</InputLabel>
                     <Select disabled={!props.isCreate} value={type} onChange={(e) => setType(e.target.value as string)}>
                         {types.map((actType) => (
                             <MenuItem key={actType.typeName} value={actType.typeName}>
@@ -94,10 +94,10 @@ export function AssetDialog(props: Props) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={props.onCancel} color="primary">
-                    {dict.btnCancel}
+                    {dict.misc.btnCancel}
                 </Button>
                 <Button onClick={handleSubmit} color="primary">
-                    {props.isCreate ? dict.btnAdd : dict.btnSave}
+                    {props.isCreate ? dict.misc.btnAdd : dict.misc.btnSave}
                 </Button>
             </DialogActions>
         </Fragment>

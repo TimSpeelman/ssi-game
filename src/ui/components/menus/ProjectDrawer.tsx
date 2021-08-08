@@ -82,7 +82,7 @@ export function ProjectDrawer() {
     };
 
     function handleDelete(id: string) {
-        const conf = confirm(dict.app_msgConfirmDeleteProject);
+        const conf = confirm(dict.projectDrawer.msgConfirmDeleteProject);
         if (conf) {
             dispatch(GameActions.DELETE_PROJECT({ id }));
         }
@@ -118,7 +118,7 @@ export function ProjectDrawer() {
                 <ListItemIcon style={{ minWidth: 0, marginRight: '.5em' }}>
                     <RestorePage />
                 </ListItemIcon>
-                <ListItemText primary={dict.btnLoadFromFile} />
+                <ListItemText primary={dict.projectDrawer.btnLoadFromFile} />
                 <HiddenFileInput onSelectFiles={handleFileUpload} />
             </ListItem>
 
@@ -156,7 +156,7 @@ export function ProjectDrawer() {
                 <ListItemIcon style={{ minWidth: 0, marginRight: '.5em' }}>
                     <Save />
                 </ListItemIcon>
-                <ListItemText primary={dict.btnSaveToFile} />
+                <ListItemText primary={dict.projectDrawer.btnSaveToFile} />
             </ListItem>
             <ListItem button onClick={copyActiveProject}>
                 <ListItemIcon style={{ minWidth: 0, marginRight: '.5em' }}>

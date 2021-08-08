@@ -4,6 +4,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProjectActions } from '../../../state/project/actions';
 import { selectActiveStepDesc, selectActiveStepIndex, selectNumberOfSteps } from '../../../state/selectors';
+import { formatL } from '../../../util/util';
 import { useLang } from '../../hooks/useLang';
 
 export function TimeControlCtr() {
@@ -19,9 +20,7 @@ export function TimeControlCtr() {
                 <ChevronLeft />
             </IconButton>
             <span>
-                <strong>
-                    {dict.step} {currentStepIndex + 1} {dict.outOf} {numSteps}
-                </strong>
+                <strong>{formatL(dict.stepXOutOfY, [currentStepIndex + 1, numSteps])}</strong>
             </span>
             <IconButton
                 color={'inherit'}

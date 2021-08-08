@@ -1,7 +1,7 @@
-import { translations } from '../../../intl/dictionaries';
 import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
 import { AssetProp } from '../../../model/content/Common/Prop/AssetProp';
 import { StringProp } from '../../../model/content/Common/Prop/StringProp';
+import { translations } from '../intl/dictionaries';
 
 export const CommonProps = {
     issuer: new ActorProp({ title: translations.issuer }),

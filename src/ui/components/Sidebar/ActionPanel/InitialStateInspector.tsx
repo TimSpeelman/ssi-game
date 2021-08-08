@@ -17,8 +17,8 @@ export function InitialStateInspector() {
             </div>
 
             {steps.length > 0
-                ? dict.initialStateInspector_msgNavigateSteps
-                : dict.initialStateInspector_msgYouHaveNoSteps}
+                ? dict.initialStateInspector.msgNavigateSteps
+                : dict.initialStateInspector.msgYouHaveNoSteps}
         </div>
     );
 }

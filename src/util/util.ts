@@ -115,3 +115,29 @@ export function insertAt<T>(arr: T[], index: number, item: T): T[] {
 export function format<T extends Record<string, string>>(template: (t: T) => string, data: T) {
     return template(data);
 }
+
+/** Replaces a string template like "hello {0}" with "hello world" if data ["world"] is passed. */
+export function formatL(template: string, data: (string | number)[], failIfNoData = true, failIfDataUnused = true) {
+    const matches = template.match(/\{([0-9]+)\}/g);
+
+    // Collect all the keys used by the template
+    const usedKeysRec: Record<string, boolean> = {};
+    (matches || []).forEach((m) => {
+        usedKeysRec[m.replace(/[\{\}]/g, '')] = true;
+    });
+    const usedKeys = Object.keys(usedKeysRec).map((x) => parseInt(x, 10));
+    const missingDataKeys = usedKeys.filter((key) => key >= data.length);
+
+    if (missingDataKeys.length > 0 && failIfNoData) {
+        throw new Error(`Cannot format template '${template}', missing data keys ${missingDataKeys.join(', ')}`);
+    }
+
+    const unusedData = data.map((_, i) => i).filter((index) => !usedKeys.includes(index));
+    if (unusedData.length > 0 && failIfDataUnused) {
+        throw new Error(`Cannot format template '${template}', data keys unused: ${unusedData.join(', ')}`);
+    }
+
+    const formatted = data.reduce((str: string, d, i) => str.replace(new RegExp(`\\{${i}\\}`, 'g'), `${d}`), template);
+
+    return formatted;
+}

@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { StepDesc } from '../../../../model/description/Step/StepDesc';
 import { selectStepDescs } from '../../../../state/selectors';
+import { formatL } from '../../../../util/util';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
 import { replaceInternalResourceUrlStrings } from '../../elements/replaceInternalResourceUrlStrings';
@@ -22,9 +23,7 @@ export function StepInspector({ step }: Props) {
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="h6">
-                    {dict.step} {index + 1} {dict.outOf} {steps.length}
-                </Typography>
+                <Typography variant="h6">{formatL(dict.stepXOutOfY, [index + 1, steps.length])}</Typography>
                 <StepNav />
             </div>
 
@@ -43,7 +42,7 @@ export function StepInspector({ step }: Props) {
             {!step.success && (
                 <Fragment>
                     <Typography variant="h6" style={{ color: 'red' }}>
-                        {dict.msgStepIsFailing}
+                        {dict.stepInspector.msgStepIsFailing}
                     </Typography>
                     <ul>
                         {step.validation
@@ -56,7 +55,7 @@ export function StepInspector({ step }: Props) {
             )}
 
             {/* Outcome list */}
-            <Typography variant="h6">{dict.titleOutcomes}</Typography>
+            <Typography variant="h6">{dict.stepInspector.titleOutcomes}</Typography>
             {step.outcomes.length > 0 ? (
                 <ul>
                     {step.outcomes.map((o, i) => (
@@ -66,7 +65,7 @@ export function StepInspector({ step }: Props) {
             ) : (
                 <ul>
                     <li>
-                        <small>- {dict.emptyListIndicator} -</small>
+                        <small>- {dict.misc.emptyListIndicator} -</small>
                     </li>
                 </ul>
             )}

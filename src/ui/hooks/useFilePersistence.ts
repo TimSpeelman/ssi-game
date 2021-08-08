@@ -19,7 +19,7 @@ export function useFilePersistence() {
                 const p = { ...project, id: uuid() };
                 dispatch(GameActions.LOAD_PROJECT({ project: p }));
                 dispatch(GameActions.ACTIVATE_PROJECT({ id: p.id }));
-                alert(dict.app_msgFileLoaded);
+                alert(dict.projectDrawer.msgFileLoaded);
             })
             .catch((e) => alert(e));
     }

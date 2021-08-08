@@ -80,7 +80,7 @@ export function EditActorPropertiesDialogCtr(props: Props) {
                         <tr>
                             <td colSpan={3}>
                                 <Button onClick={addRow}>
-                                    <Add /> Toevoegen
+                                    <Add /> {dict.misc.btnAdd}
                                 </Button>{' '}
                             </td>
                         </tr>
@@ -89,9 +89,9 @@ export function EditActorPropertiesDialogCtr(props: Props) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={save} color="primary">
-                    {dict.btnSave}
+                    {dict.misc.btnSave}
                 </Button>
-                <Button onClick={cancel}>{dict.btnCancel}</Button>
+                <Button onClick={cancel}>{dict.misc.btnCancel}</Button>
             </DialogActions>
         </Fragment>
     );

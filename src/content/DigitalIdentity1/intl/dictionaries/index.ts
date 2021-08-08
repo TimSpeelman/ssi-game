@@ -1,6 +1,6 @@
-import { mapValues } from '../../util/util';
+import { Language, Translation } from '../../../../intl/Language';
+import { mapValues } from '../../../../util/util';
 import { Dictionary } from '../Dict';
-import { Language, Translation } from '../Language';
 import { DictionaryEN } from './EN';
 import { DictionaryNL } from './NL';
 
@@ -10,7 +10,10 @@ export const dictionaries: Record<Language, Dictionary> = {
     NL: DictionaryNL,
 };
 
-/** Record by 'string' => 'language' => translation (example: translations.issuer.NL = 'Uitgever') */
+/**
+ * Content Specific Dictionary
+ * Record by 'string' => 'language' => translation (example: translations.issuer.NL = 'Uitgever')
+ */
 export const translations = Object.keys(DictionaryEN).reduce(
     (all, str) => ({
         ...all,

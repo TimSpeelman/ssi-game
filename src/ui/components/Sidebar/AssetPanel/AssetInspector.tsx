@@ -23,7 +23,7 @@ export function AssetInspector() {
     const actor = actors.find((a) => a.id === asset?.ownerId);
     const { dict, lang } = useLang();
 
-    if (!asset) return <div>{dict.msgNoAssetSelected}</div>;
+    if (!asset) return <div></div>;
 
     // Depending on the chosen action type, select the appropriate form
     const type = asset?.asset.type;
@@ -43,12 +43,12 @@ export function AssetInspector() {
     return (
         <div>
             <Button onClick={backToOwner}>
-                <ChevronLeft /> {dict.assetsOfX.replace('{0}', actor!.name)}
+                <ChevronLeft /> {dict.assetInspector.assetsOfX.replace('{0}', actor!.name)}
             </Button>
             <Divider />
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
-                <Typography variant="h6">{dict.selectedAsset}</Typography>
+                <Typography variant="h6">{dict.assetInspector.selectedAsset}</Typography>
             </div>
 
             <div
@@ -97,12 +97,12 @@ export function AssetInspector() {
                 <Fragment>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                         <Typography variant="h6">
-                            {dict.assetContent} ({asset.children.length})
+                            {dict.assetInspector.assetContent} ({asset.children.length})
                         </Typography>
                         <Button
                             onClick={() => openDialog('AddAsset', { actorId: asset.ownerId, parentId: asset.asset.id })}
                         >
-                            <Add /> {dict.btnAddChildAsset}
+                            <Add /> {dict.assetInspector.btnAddChildAsset}
                         </Button>
                     </div>
                     <AssetList

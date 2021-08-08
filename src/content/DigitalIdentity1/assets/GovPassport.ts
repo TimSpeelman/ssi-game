@@ -1,10 +1,10 @@
-import { translations } from '../../../intl/dictionaries';
 import { AssetSchema, TypeOfAssetSchema } from '../../../model/content/Asset/AssetSchema';
 import { AssetType } from '../../../model/content/Asset/AssetType';
 import { StringProp } from '../../../model/content/Common/Prop/StringProp';
 import { Asset, CustomAssetDesc } from '../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { CommonProps } from '../common/props';
+import { translations } from '../intl/dictionaries';
 
 const Schema = new AssetSchema({
     typeName: 'GovPassport',

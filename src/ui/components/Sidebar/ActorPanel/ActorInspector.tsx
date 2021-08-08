@@ -27,22 +27,22 @@ export function ActorInspector() {
     const grouped = groupBy(assets, (a) => a.asset.kind);
     const groups = Object.entries(grouped).map(([group, items]) => ({ group, items }));
     const kinds = {
-        Feature: dict.kindFeature,
-        Data: dict.kindData,
-        Physical: dict.kindPhysical,
-        Software: dict.kindSoftware,
-        Flag: dict.kindFlag,
+        Feature: dict.assetKind.feature,
+        Data: dict.assetKind.data,
+        Physical: dict.assetKind.physical,
+        Software: dict.assetKind.software,
+        Flag: dict.assetKind.flag,
     };
 
     return (
         <div>
             <Button onClick={() => dispatch(ProjectActions.CLEAR_SELECTION())}>
-                <ChevronLeft /> {dict.allActors}
+                <ChevronLeft /> {dict.actorInspector.allActors}
             </Button>
             <Divider />
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
-                <Typography variant="h6">{dict.selectedActor}</Typography>
+                <Typography variant="h6">{dict.actorInspector.selectedActor}</Typography>
             </div>
 
             <div
@@ -72,10 +72,10 @@ export function ActorInspector() {
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                 <Typography variant="h6">
-                    {dict.actorProperties} ({definition.properties.length})
+                    {dict.actorInspector.actorProperties} ({definition.properties.length})
                 </Typography>
                 <Button onClick={() => openDialog('EditActorProperties', { actorId: definition.id })}>
-                    <Edit /> {dict.btnEditProperties}
+                    <Edit /> {dict.actorInspector.btnEditProperties}
                 </Button>
             </div>
 
@@ -100,10 +100,10 @@ export function ActorInspector() {
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                 <Typography variant="h6">
-                    {dict.assets} ({assets.length})
+                    {dict.actorInspector.assets} ({assets.length})
                 </Typography>
                 <Button onClick={() => openDialog('AddAsset', { actorId: definition.id })}>
-                    <Add /> {dict.btnAddAsset}
+                    <Add /> {dict.actorInspector.btnAddAsset}
                 </Button>
             </div>
             {groups.map(({ group, items }) => (

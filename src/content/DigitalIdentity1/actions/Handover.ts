@@ -1,4 +1,3 @@
-import { translations } from '../../../intl/dictionaries';
 import { TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
 import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
@@ -8,6 +7,7 @@ import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { format } from '../../../util/util';
 import { urlActor } from '../common/util';
+import { translations } from '../intl/dictionaries';
 import { TransferAssetOutcome } from '../outcomes/TransferAssetOutcome';
 
 export const Schema = BaseSchema.extend({

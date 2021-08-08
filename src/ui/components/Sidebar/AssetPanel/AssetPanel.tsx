@@ -13,9 +13,9 @@ export function AssetPanel() {
             {!selectedAsset && (
                 <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Typography variant="h6">{dict.msgNoAssetSelected}</Typography>
+                        <Typography variant="h6">{dict.assetPanel.msgNoAssetSelected.title}</Typography>
                     </div>
-                    <Typography variant="body1">{dict.assetPanel_msgSelectAnAsset}</Typography>
+                    <Typography variant="body1">{dict.assetPanel.msgNoAssetSelected.description}</Typography>
                 </div>
             )}
             {selectedAsset && <AssetInspector />}

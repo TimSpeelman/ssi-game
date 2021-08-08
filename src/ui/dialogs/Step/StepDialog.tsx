@@ -74,11 +74,11 @@ export function StepDialog(props: Props) {
     return (
         <Fragment>
             <DialogTitle id="form-dialog-title">
-                {props.isCreate ? dict.titleCreateStep : dict.titleEditStep}
+                {props.isCreate ? dict.actionDialog.titleCreateStep : dict.actionDialog.titleEditStep}
             </DialogTitle>
             <DialogContent>
                 <FormControl fullWidth style={{ marginBottom: '1em' }}>
-                    <InputLabel>{dict.labelStepType}</InputLabel>
+                    <InputLabel>{dict.actionDialog.labelStepType}</InputLabel>
                     <Select value={type} onChange={(e) => setType(e.target.value as string)} disabled={isEditing}>
                         {actionTypes.map((actType) => (
                             <MenuItem key={actType.typeName} value={actType.typeName}>
@@ -96,10 +96,10 @@ export function StepDialog(props: Props) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={props.onCancel} color="primary">
-                    {dict.btnCancel}
+                    {dict.misc.btnCancel}
                 </Button>
                 <Button onClick={handleSubmit} color="primary">
-                    {props.isCreate ? dict.btnAdd : dict.btnSave}
+                    {props.isCreate ? dict.misc.btnAdd : dict.misc.btnSave}
                 </Button>
             </DialogActions>
         </Fragment>

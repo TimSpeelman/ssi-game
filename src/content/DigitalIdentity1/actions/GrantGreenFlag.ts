@@ -1,4 +1,3 @@
-import { translations } from '../../../intl/dictionaries';
 import { uniLang } from '../../../intl/Language';
 import { TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
@@ -10,6 +9,7 @@ import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
 import { ucFirst } from '../../../util/util';
 import { GreenFlag } from '../assets/GreenFlag';
+import { translations } from '../intl/dictionaries';
 import { GainAssetOutcome } from '../outcomes/GainAssetOutcome';
 
 export const Schema = BaseSchema.extend({

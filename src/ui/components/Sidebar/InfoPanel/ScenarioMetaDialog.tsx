@@ -51,17 +51,16 @@ export function ScenarioMetaDialog(props: Props) {
                             <DialogContentText>{props.meta.body}</DialogContentText>
                         </DialogContent>
                         <DialogActions style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <Button onClick={() => setEdit(true)}>{dict.btnEditScenarioMeta}</Button>
                             <Button onClick={props.handleClose} color="primary">
-                                {dict.btnClose}
+                                {dict.misc.btnClose}
                             </Button>
                         </DialogActions>
                     </Fragment>
                 ) : (
                     <Fragment>
-                        <DialogTitle>{dict.metaDialog_title}</DialogTitle>
+                        <DialogTitle>{dict.metaDialog.title}</DialogTitle>
                         <DialogContent>
-                            <DialogContentText>{dict.metaDialog_explanation}</DialogContentText>
+                            <DialogContentText>{dict.metaDialog.explanation}</DialogContentText>
 
                             <TextField
                                 fullWidth
@@ -88,9 +87,9 @@ export function ScenarioMetaDialog(props: Props) {
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={save} color="primary">
-                                {dict.btnSave}
+                                {dict.misc.btnSave}
                             </Button>
-                            <Button onClick={cancel}>{dict.btnCancel}</Button>
+                            <Button onClick={cancel}>{dict.misc.btnCancel}</Button>
                         </DialogActions>
                     </Fragment>
                 )}

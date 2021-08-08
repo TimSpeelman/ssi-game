@@ -51,26 +51,26 @@ export function StepSequence() {
                 </Typography>
                 <Button variant={'outlined'} onClick={() => openDialog('AddStep', undefined)}>
                     {' '}
-                    <Add /> {dict.addStep}
+                    <Add /> {dict.stepSequence.addStep}
                 </Button>
             </div>
             {steps.length === 0 &&
                 (usedActors.length === 0 ? (
                     <div style={{ textAlign: 'center' }}>
                         <Typography variant={'body1'} style={{ marginBottom: '1rem' }}>
-                            {dict.msgYouHaveNoActors}
+                            {dict.stepSequence.msgYouHaveNoActors}
                         </Typography>
                         <Button
                             variant={'outlined'}
                             onClick={() => dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }))}
                         >
                             {' '}
-                            <Group /> {dict.goToActors}
+                            <Group /> {dict.stepSequence.goToActors}
                         </Button>
                     </div>
                 ) : (
                     <div style={{ textAlign: 'center' }}>
-                        <Typography variant={'body1'}>{dict.stepSequence_msgYouHaveNoSteps}</Typography>
+                        <Typography variant={'body1'}>{dict.stepSequence.stepSequence_msgYouHaveNoSteps}</Typography>
                     </div>
                 ))}
             {steps.length > 0 && (

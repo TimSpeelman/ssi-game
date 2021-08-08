@@ -25,7 +25,7 @@ export function UserManualDialog(props: Props) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={props.handleClose} color="primary">
-                    {dict.btnClose}
+                    {dict.misc.btnClose}
                 </Button>
             </DialogActions>
         </Dialog>

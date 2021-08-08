@@ -12,6 +12,7 @@ import {
     selectShowMeta,
     selectSnackbarIsOn,
 } from '../../state/selectors';
+import { formatL } from '../../util/util';
 import { CanvasCtr } from '../components/Canvas/CanvasCtr';
 import { replaceInternalResourceUrlStrings } from '../components/elements/replaceInternalResourceUrlStrings';
 import { ScenarioMetaDialog } from '../components/Sidebar/InfoPanel/ScenarioMetaDialog';
@@ -58,7 +59,7 @@ export function NetworkCanvas() {
                 {failedStep && (
                     <div className="scenario-status">
                         <strong>
-                            {dict.networkCanvasPage_msgStepXFails.replace('{0}', `${scenarioDesc.failingAtIndex! + 1}`)}
+                            {formatL(dict.networkCanvasPage.msgStepXFails, [scenarioDesc.failingAtIndex! + 1])}
                         </strong>
                         <Button
                             variant={'outlined'}

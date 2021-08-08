@@ -35,17 +35,17 @@ export function ActorList() {
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
                 <Typography variant="h6">
-                    {dict.titleActors} ({actors.length})
+                    {dict.actorList.titleActors} ({actors.length})
                 </Typography>
                 <Button variant={'outlined'} onClick={() => openDialog('AddActor', undefined)}>
-                    <Add /> {dict.btnAddActor}
+                    <Add /> {dict.actorList.btnAddActor}
                 </Button>
             </div>
 
             {actors.length === 0 ? (
                 <div style={{ textAlign: 'center' }}>
                     <Typography variant={'body1'} style={{ marginBottom: '1rem' }}>
-                        {dict.actorList_msgYouHaveNoActors}
+                        {dict.actorList.msgYouHaveNoActors}
                     </Typography>
                 </div>
             ) : (
@@ -93,11 +93,11 @@ export function ActorList() {
                                                 <Tooltip
                                                     title={
                                                         !canRemoveActor(actor.definition.id)
-                                                            ? dict.actorList_msgFirstRemoveActionsOfActorX.replace(
+                                                            ? dict.actorList.msgFirstRemoveActionsOfActorX.replace(
                                                                   '{0}',
                                                                   actor.definition.name,
                                                               )
-                                                            : dict.actorList_hintRemoveActorX.replace(
+                                                            : dict.actorList.hintRemoveActorX.replace(
                                                                   '{0}',
                                                                   actor.definition.name,
                                                               )

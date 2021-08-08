@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Dictionary } from '../../intl/Dict';
-import { dictionaries, translate } from '../../intl/dictionaries';
+import { dictionaries } from '../../intl/dictionaries';
 import { Language } from '../../intl/Language';
 import { GameActions } from '../../state/actions';
 import { selectLang } from '../../state/selectors';
@@ -14,7 +13,6 @@ export function useLang() {
         lang,
         languages: Object.keys(Language),
         setLang,
-        translate: (str: keyof Dictionary) => translate(lang, str),
         dict: dictionaries[lang],
     };
 }

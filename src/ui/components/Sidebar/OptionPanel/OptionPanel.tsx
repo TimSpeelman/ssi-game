@@ -11,9 +11,9 @@ export function OptionPanel() {
     const { dict } = useLang();
     return (
         <div style={{ padding: '1rem' }}>
-            <Typography variant="h6">{dict.titleOptions}</Typography>
+            <Typography variant="h6">{dict.optionPanel.titleOptions}</Typography>
             <Button variant={'outlined'} onClick={() => dispatch(GameActions.TOGGLE_SNACKBAR())}>
-                {snackbarIsOn ? dict.btnHideSnackbar : dict.btnShowSnackbar}
+                {snackbarIsOn ? dict.optionPanel.btnHideSnackbar : dict.optionPanel.btnShowSnackbar}
             </Button>
         </div>
     );

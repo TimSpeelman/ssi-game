@@ -20,7 +20,7 @@ export function ScenarioInspector({ meta }: Props) {
                 {dict.author}: {meta.author}
             </p>
             <ReactMarkdown>{meta.body}</ReactMarkdown>
-            <Button onClick={() => openDialog('EditMeta', undefined)}>{dict.btnEditScenarioMeta}</Button>
+            <Button onClick={() => openDialog('EditMeta', undefined)}>{dict.misc.btnEdit}</Button>
         </div>
     );
 }

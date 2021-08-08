@@ -53,7 +53,7 @@ export function AssetList({ assets, onEdit, onDelete, onClick }: Props) {
                 ))
             ) : (
                 <ListItem>
-                    <ListItemText primary={`- ${dict.emptyListIndicator} -`} />
+                    <ListItemText primary={`- ${dict.misc.emptyListIndicator} -`} />
                 </ListItem>
             )}
         </List>

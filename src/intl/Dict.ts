@@ -22,6 +22,10 @@ export interface Dictionary {
     };
 
     stepInspector: {
+        msgPreviousStepIsFailing: {
+            title: string;
+            messageFailsAtX: string;
+        };
         msgStepIsFailing: string;
         titleOutcomes: string;
     };

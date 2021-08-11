@@ -1,9 +1,9 @@
 import { Button, Typography } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { StepDesc } from '../../../../model/description/Step/StepDesc';
-import { selectStepDescs } from '../../../../state/selectors';
+import { selectFailedStepIndex, selectStepDescs } from '../../../../state/selectors';
 import { formatL } from '../../../../util/util';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
@@ -17,9 +17,11 @@ interface Props {
 /** Shows the details of a scenario step */
 export function StepInspector({ step }: Props) {
     const steps = useSelector(selectStepDescs);
+    const errorAt = useSelector(selectFailedStepIndex);
     const index = steps.findIndex((s) => step.action.id === s.action.id);
     const { openDialog } = useDialog();
     const { dict, lang } = useLang();
+
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
@@ -31,11 +33,41 @@ export function StepInspector({ step }: Props) {
                 </Button>
             </div>
 
+            {errorAt && errorAt < index ? (
+                <div style={{ padding: '1rem', margin: '1rem', color: '#805300', background: '#ffd27f' }}>
+                    <p style={{ margin: 0 }}>
+                        <strong>{dict.stepInspector.msgPreviousStepIsFailing.title} </strong>
+                        {formatL(dict.stepInspector.msgPreviousStepIsFailing.messageFailsAtX, [errorAt + 1])}
+                    </p>
+                </div>
+            ) : (
+                ''
+            )}
+
+            {errorAt && errorAt === index ? (
+                <div
+                    style={{ padding: '1rem', margin: '1rem', color: 'rgb(128,0,0)', background: 'rgb(255, 174, 174)' }}
+                >
+                    <p>
+                        <strong>{dict.stepInspector.msgStepIsFailing}</strong>
+                    </p>
+                    <ul>
+                        {step.validation
+                            .filter((v) => !v.success)
+                            .map((v, i) => (
+                                <li key={i}>{v.message[lang]}</li>
+                            ))}
+                    </ul>
+                </div>
+            ) : (
+                ''
+            )}
+
             {/* Same label as shown in the StepSequence */}
             <StepLabel step={step} />
 
             {/* Optional validation errors */}
-            {!step.success && (
+            {/* {!step.success && (
                 <Fragment>
                     <Typography variant="h6" style={{ color: 'red' }}>
                         {dict.stepInspector.msgStepIsFailing}
@@ -48,7 +80,7 @@ export function StepInspector({ step }: Props) {
                             ))}
                     </ul>
                 </Fragment>
-            )}
+            )} */}
 
             {/* Outcome list */}
             <Typography variant="h6">{dict.stepInspector.titleOutcomes}</Typography>

@@ -29,6 +29,10 @@ export const DictionaryEN: Dictionary = {
     },
 
     stepInspector: {
+        msgPreviousStepIsFailing: {
+            title: 'Warning!',
+            messageFailsAtX: 'This step may not be presented correctly because an error occurred in step {0}.',
+        },
         msgStepIsFailing: 'This step fails.',
         titleOutcomes: 'Outcomes',
     },

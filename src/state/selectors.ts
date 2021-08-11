@@ -65,6 +65,8 @@ export const selectFailedStepDesc = (r: any): StepDesc | undefined =>
         index !== undefined && index >= 0 ? selectStepDescs(r)[index] : undefined,
     );
 
+export const selectFailedStepIndex = (r: any): number | undefined => selectScenarioDesc(r).failingAtIndex;
+
 // Description : Active
 export const selectActiveStateDesc = (r: any): StateDesc =>
     w1th(selectActiveStepDesc(r), (currentStep) => (currentStep ? currentStep.result : selectInitialStateDesc(r)));

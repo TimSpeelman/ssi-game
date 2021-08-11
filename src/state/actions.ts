@@ -9,7 +9,7 @@ export const GameActions = {
     LOAD_PROJECT: event<{ project: PersistedProject }>('LOAD_PROJECT'),
 
     ACTIVATE_PROJECT: event<{ id: string }>('ACTIVATE_PROJECT'),
-    NEW_PROJECT: event<{ id: string; definition?: ScenarioDef }>('NEW_PROJECT'),
+    NEW_PROJECT: event<{ id: string; name?: string; definition?: ScenarioDef }>('NEW_PROJECT'),
     COPY_ACTIVE_PROJECT: event<{ id: string; name: string }>('COPY_ACTIVE_PROJECT'),
 
     DELETE_PROJECT: event<{ id: string }>('DELETE_PROJECT'),

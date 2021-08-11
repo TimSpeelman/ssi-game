@@ -78,7 +78,9 @@ export function ProjectDrawer() {
 
     const newFromTemplate = (templateId: string) => {
         const id = uuid();
-        dispatch(GameActions.NEW_PROJECT({ id, definition: templates[templateId].definition }));
+        const template = templates[templateId];
+        const name = template.title[lang];
+        dispatch(GameActions.NEW_PROJECT({ id, name, definition: template.definition }));
         dispatch(GameActions.ACTIVATE_PROJECT({ id }));
         close();
     };

@@ -35,7 +35,12 @@ export const ScenarioReducers: ReducerMap<RootState, typeof GameActions> = {
         L.inactiveProjects.set((prs) => [
             newHistory(
                 [],
-                { ...emptyProjectState, id: p.id, scenario: p.definition ? p.definition : emptyProjectState.scenario },
+                {
+                    ...emptyProjectState,
+                    id: p.id,
+                    name: p.name || '',
+                    scenario: p.definition ? p.definition : emptyProjectState.scenario,
+                },
                 [],
             ),
             ...prs,

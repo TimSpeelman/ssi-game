@@ -3,7 +3,8 @@ import { Translation } from '../../../intl/Language';
 import { Asset } from '../../../model/logic/Asset/Asset';
 import { Props, ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';
-import { seq, ucFirst } from '../../../util/util';
+import { format, seq } from '../../../util/util';
+import { urlActor } from '../common/util';
 
 export class TransferAssetOutcome implements IOutcome {
     constructor(
@@ -30,13 +31,21 @@ export class TransferAssetOutcome implements IOutcome {
     describe(state: ScenarioState): Translation {
         const source = state.props.byActor[this.props.sourceActorId].actor;
         const target = state.props.byActor[this.props.targetActorId].actor;
+        const asset = this.props.asset;
+        const assetTitle = asset.describe(state).title;
+
         return {
-            NL: `${ucFirst(source.nounPhrase)} geeft ${this.props.asset.describe(state).title.NL} aan ${
-                target.nounPhrase
-            }.`,
-            EN: `${ucFirst(source.nounPhrase)} passes ${this.props.asset.describe(state).title.EN} to ${
-                target.nounPhrase
-            }.`,
+            NL: format((s) => `${s.source} geeft ${s.asset} aan ${s.target}.`, {
+                source: urlActor(source, true),
+                asset: `[#${asset.id}](${assetTitle.NL})`,
+                target: urlActor(target, true),
+            }),
+
+            EN: format((s) => `${s.source} gives ${s.asset} to ${s.target}.`, {
+                source: urlActor(source, true),
+                asset: `[#${asset.id}](${assetTitle.EN})`,
+                target: urlActor(target, true),
+            }),
         };
     }
 }

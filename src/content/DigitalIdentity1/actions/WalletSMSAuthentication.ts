@@ -59,8 +59,8 @@ export class WalletSMSAuthentication extends Action<Props> {
         const subjectNym: Pseudonym | undefined = props.subjectNym;
 
         const base = {
-            from: subject,
-            to: verifier,
+            from: verifier,
+            to: subject,
         };
 
         if (!subjectNym) {

@@ -80,8 +80,8 @@ export class PresentationRequest extends Action<Props> {
         const verifierNym: Pseudonym | undefined = props.verifierNym;
 
         const base = {
-            from: subject,
-            to: verifier,
+            from: verifier,
+            to: subject,
         };
 
         if (!subjectNym || !verifierNym) {

@@ -48,8 +48,8 @@ export class WalletQRAuthentication extends Action<Props> {
         const subjectNym: Pseudonym | undefined = props.subjectNym;
 
         const base = {
-            from: subject,
-            to: verifier,
+            from: verifier,
+            to: subject,
         };
 
         if (!subjectNym) {
@@ -58,7 +58,6 @@ export class WalletQRAuthentication extends Action<Props> {
 
         return {
             ...base,
-            to: subject,
             to_nym: subjectNym?.id,
             to_mode: 'selfie',
             title: {

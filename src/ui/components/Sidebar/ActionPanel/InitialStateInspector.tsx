@@ -3,7 +3,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectStepDescs } from '../../../../state/selectors';
 import { useLang } from '../../../hooks/useLang';
-import { StepNav } from './StepNav';
 
 export function InitialStateInspector() {
     const steps = useSelector(selectStepDescs);
@@ -11,9 +10,8 @@ export function InitialStateInspector() {
 
     return (
         <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
                 <Typography variant="h6">{dict.startingState}</Typography>
-                <StepNav />
             </div>
 
             {steps.length > 0

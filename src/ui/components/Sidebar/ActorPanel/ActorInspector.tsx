@@ -1,4 +1,4 @@
-import { Button, Divider, ListSubheader, Typography } from '@material-ui/core';
+import { Button, Card, Divider, IconButton, ListSubheader, Typography } from '@material-ui/core';
 import { Add, ChevronLeft, Edit } from '@material-ui/icons';
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -41,34 +41,31 @@ export function ActorInspector() {
             </Button>
             <Divider />
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
+            {/* <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                 <Typography variant="h6">{dict.actorInspector.selectedActor}</Typography>
-            </div>
+            </div> */}
 
-            <div
-                style={{
-                    display: 'flex',
-                    marginTop: '1rem',
-                    alignItems: 'center',
-                    justifyContent: 'stretch',
-                    background: '#eee',
-                }}
-            >
-                <ImageOrIconSwitch
-                    image={definition.type.image}
-                    stylesPerType={{
-                        'fa-icon': { fontSize: '6rem' },
-                        image: { height: '6rem' },
-                    }}
-                />
-                <div style={{ flexGrow: 1 }}>
+            <Card style={{ display: 'flex', alignItems: 'center', marginTop: '1rem' }}>
+                <div style={{ background: '#eee', padding: '1rem', borderRight: '1px solid #ccc' }}>
+                    <ImageOrIconSwitch
+                        image={definition.type.image}
+                        stylesPerType={{
+                            'fa-icon': { fontSize: '6rem' },
+                            image: { height: '6rem' },
+                        }}
+                    />
+                </div>
+                <div style={{ flexGrow: 1, padding: '1rem' }}>
                     <Typography variant="h6">{definition.name}</Typography>
                     <Typography variant="subtitle2">{definition.description}</Typography>
                 </div>
-                <Button onClick={() => openDialog('EditActor', { actorId: definition.id })}>
+                <IconButton
+                    onClick={() => openDialog('EditActor', { actorId: definition.id })}
+                    style={{ marginRight: '1rem' }}
+                >
                     <Edit />
-                </Button>
-            </div>
+                </IconButton>
+            </Card>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                 <Typography variant="h6">

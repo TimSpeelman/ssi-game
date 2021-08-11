@@ -1,4 +1,5 @@
-import { Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
+import { Edit } from '@material-ui/icons';
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { StepDesc } from '../../../../model/description/Step/StepDesc';
@@ -8,7 +9,6 @@ import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
 import { replaceInternalResourceUrlStrings } from '../../elements/replaceInternalResourceUrlStrings';
 import { StepLabel } from './StepLabel';
-import { StepNav } from './StepNav';
 
 interface Props {
     step: StepDesc;
@@ -22,21 +22,17 @@ export function StepInspector({ step }: Props) {
     const { dict, lang } = useLang();
     return (
         <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
                 <Typography variant="h6">{formatL(dict.stepXOutOfY, [index + 1, steps.length])}</Typography>
-                <StepNav />
+                {/* <StepNav /> */}
+
+                <Button variant="outlined" onClick={() => openDialog('EditStep', { stepId: step.action.id })}>
+                    <Edit /> {dict.misc.btnEdit}
+                </Button>
             </div>
 
             {/* Same label as shown in the StepSequence */}
-            <StepLabel step={step} onEdit={() => openDialog('EditStep', { stepId: step.action.id })} />
-
-            {/* Additional explanation */}
-            <p style={{ marginBottom: '1em' }}>
-                {step.action.long ? replaceInternalResourceUrlStrings(step.action.long[lang]) : ''}
-            </p>
-
-            {/* Custom explanation */}
-            {step.action.explanation && <p style={{ marginBottom: '1em' }}>{step.action.explanation}</p>}
+            <StepLabel step={step} />
 
             {/* Optional validation errors */}
             {!step.success && (

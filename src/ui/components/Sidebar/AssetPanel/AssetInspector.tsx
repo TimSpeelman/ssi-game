@@ -1,4 +1,4 @@
-import { Button, Divider, Typography } from '@material-ui/core';
+import { Button, Card, Divider, IconButton, Typography } from '@material-ui/core';
 import { Add, ChevronLeft, Edit } from '@material-ui/icons';
 import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -48,51 +48,64 @@ export function AssetInspector() {
             </Button>
             <Divider />
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
+            {/* <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                 <Typography variant="h6">{dict.assetInspector.selectedAsset}</Typography>
-            </div>
+            </div> */}
 
-            <div
-                style={{
-                    display: 'flex',
-                    marginTop: '1rem',
-                    padding: '1rem',
-                    alignItems: 'center',
-                    justifyContent: 'stretch',
-                    background: '#eee',
-                }}
-            >
-                {asset.asset.image && (
-                    <ImageOrIconSwitch
-                        image={asset.asset.image}
-                        stylesPerType={{
-                            image: { height: '5rem', marginRight: '1rem' },
-                            'fa-icon': { fontSize: '5rem', marginRight: '1rem' },
-                        }}
-                    />
-                )}
-
-                <div style={{ flexGrow: 1 }}>
-                    <Typography variant="h6">{asset.asset.title[lang]}</Typography>
-                    {asset.asset.sub && <Typography variant="subtitle2">{asset.asset.sub[lang]}</Typography>}
+            <Card style={{ display: 'flex', alignItems: 'center', marginTop: '1rem' }}>
+                <div
+                    style={{
+                        background: '#eee',
+                        padding: '1rem',
+                        borderRight: '1px solid #ccc',
+                        height: 'auto',
+                        alignSelf: 'stretch',
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}
+                >
+                    {asset.asset.image && (
+                        <ImageOrIconSwitch
+                            image={asset.asset.image}
+                            stylesPerType={{
+                                image: { height: '5rem' },
+                                'fa-icon': { fontSize: '5rem' },
+                            }}
+                        />
+                    )}
+                </div>
+                <div style={{ flexGrow: 1, padding: '1rem' }}>
+                    <Typography gutterBottom variant="h6">
+                        {asset.asset.title[lang]}
+                    </Typography>
+                    {asset.asset.sub && (
+                        <Typography gutterBottom variant="subtitle2">
+                            {asset.asset.sub[lang]}
+                        </Typography>
+                    )}
+                    {asset.asset.long && (
+                        <Typography variant="body1" style={{ fontWeight: 300 }}>
+                            {replaceInternalResourceUrlStrings(asset.asset.long[lang])}
+                        </Typography>
+                    )}
                 </div>
 
                 {asset.asset.isInitial && (
-                    <Button
+                    <IconButton
                         onClick={() => openDialog('EditAsset', { actorId: asset.ownerId, assetId: asset.asset.id })}
                     >
                         <Edit />
-                    </Button>
+                    </IconButton>
                 )}
+            </Card>
+
+            <div style={{ marginTop: '1rem', fontSize: '80%', color: '#999' }}>
+                {asset.asset.propertyDesc.map(({ title, value }, i) => (
+                    <div key={i}>
+                        <strong>{title[lang]}: </strong> {value[lang]}
+                    </div>
+                ))}
             </div>
-
-            {asset.asset.long ? <p>{replaceInternalResourceUrlStrings(asset.asset.long[lang])}</p> : ''}
-
-            {asset.asset.propertyDesc.map(({ title, value }, i) => (
-                <div key={i}>
-                    <strong>{title[lang]}: </strong> {value[lang]}
-                </div>
-            ))}
 
             {asset.asset.canHaveChildren && (
                 <Fragment>

@@ -173,9 +173,15 @@ p {
 }
 
 .internal-resource-url {
-    text-decoration: underline;
-    color: blue;
+    border-bottom: 1px dashed #333;
+    color: #333;
     cursor: pointer;
+    background: #fef4bd00;
+    transition: all 0.3s;
+
+    &:hover {
+        background: #fef4bdff;
+    }
 }
 
 #notistack-snackbar {

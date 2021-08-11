@@ -1,52 +1,61 @@
-import { Button, ListItemProps, Typography } from '@material-ui/core';
-import { Edit } from '@material-ui/icons';
+import { Card, ListItemProps, Typography } from '@material-ui/core';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { StepDesc } from '../../../../model/description/Step/StepDesc';
 import { selectLang } from '../../../../state/selectors';
 import { ImageOrIconSwitch } from '../../elements/ImageOrIconSwitch';
+import { replaceInternalResourceUrlStrings } from '../../elements/replaceInternalResourceUrlStrings';
 
 export interface Props extends ListItemProps {
     step: StepDesc;
-    onEdit: () => void;
 }
 
-export function StepLabel({ step, onEdit, ...props }: Props) {
+export function StepLabel({ step, ...props }: Props) {
     const lang = useSelector(selectLang);
 
     return (
-        <div
-            style={{
-                display: 'flex',
-                marginTop: '1rem',
-                alignItems: 'center',
-                justifyContent: 'stretch',
-                background: '#eee',
-            }}
-        >
-            <div style={{ width: '3rem', textAlign: 'center', flexShrink: 0, marginRight: '1rem' }}>
+        <Card style={{ marginBottom: '1rem' }}>
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                    background: '#eee',
+                    padding: '1rem',
+                    borderBottom: '1px solid #ccc',
+                }}
+            >
                 <ImageOrIconSwitch
                     image={step.action.from.image}
                     stylesPerType={{
-                        'fa-icon': { fontSize: '3rem' },
-                        image: { height: '3rem' },
+                        'fa-icon': { fontSize: '5rem' },
+                        image: { height: '5rem' },
                     }}
                 />
                 <ImageOrIconSwitch
                     image={step.action.to.image}
                     stylesPerType={{
-                        'fa-icon': { fontSize: '3rem' },
-                        image: { height: '3rem' },
+                        'fa-icon': { fontSize: '5rem' },
+                        image: { height: '5rem' },
                     }}
                 />
             </div>
-            <div style={{ flexGrow: 1 }}>
+            <div style={{ padding: '1em' }}>
                 <Typography variant="h6">{step.action.title[lang]}</Typography>
-                <Typography variant="subtitle2">{step.action.sub[lang]}</Typography>
+
+                {/* Additional explanation */}
+                {step.action.long && (
+                    <Typography variant="body1" style={{ fontWeight: 300 }}>
+                        {replaceInternalResourceUrlStrings(step.action.long[lang])}
+                    </Typography>
+                )}
+
+                {/* Custom explanation */}
+                {step.action.explanation && (
+                    <Typography variant="body1" style={{ fontWeight: 300, marginTop: '1em' }}>
+                        {step.action.explanation}
+                    </Typography>
+                )}
             </div>
-            <Button onClick={() => onEdit()}>
-                <Edit />
-            </Button>
-        </div>
+        </Card>
     );
 }

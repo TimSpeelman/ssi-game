@@ -82,6 +82,7 @@ export const selectActiveStepId = (r: any): string | undefined => rootPr(r).acti
 export const selectActiveStepIndex = (r: any): number =>
     selectStepDescs(r).findIndex((step) => step.action.id === selectActiveStepId(r));
 export const selectNumberOfSteps = (r: any): number => selectStepDescs(r).length;
+export const selectIsInitialState = (r: any): boolean => selectActiveStepId(r) === undefined;
 
 // Selection
 export const selectSelectedActorId = (r: any): string | undefined => rootPr(r).selectedActorId;

@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GameActions } from '../../../../state/actions';
 import { ProjectActions } from '../../../../state/project/actions';
-import { selectScenarioDef, selectSelectedActorDesc } from '../../../../state/selectors';
+import { selectIsInitialState, selectScenarioDef, selectSelectedActorDesc } from '../../../../state/selectors';
 import { groupBy } from '../../../../util/util';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
@@ -23,6 +23,8 @@ export function ActorInspector() {
     const { definition, initialAssets } = actorConfig!;
     const { openDialog } = useDialog();
     const { dict } = useLang();
+
+    const isInitialState = useSelector(selectIsInitialState);
 
     const grouped = groupBy(assets, (a) => a.asset.kind);
     const groups = Object.entries(grouped).map(([group, items]) => ({ group, items }));
@@ -99,9 +101,15 @@ export function ActorInspector() {
                 <Typography variant="h6">
                     {dict.actorInspector.assets} ({assets.length})
                 </Typography>
-                <Button onClick={() => openDialog('AddAsset', { actorId: definition.id })}>
-                    <Add /> {dict.actorInspector.btnAddAsset}
-                </Button>
+                {isInitialState ? (
+                    <Button onClick={() => openDialog('AddAsset', { actorId: definition.id })}>
+                        <Add /> {dict.actorInspector.btnAddAsset}
+                    </Button>
+                ) : (
+                    <Button onClick={() => dispatch(ProjectActions.GOTO_STEP_INDEX({ index: -1 }))}>
+                        <Edit /> Begintoestand aanpassen
+                    </Button>
+                )}
             </div>
             {groups.map(({ group, items }) => (
                 <Fragment key={group}>

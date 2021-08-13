@@ -6,11 +6,12 @@ import { DefaultLibrary } from '../../../../content';
 import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode';
 import { GameActions } from '../../../../state/actions';
 import { ProjectActions } from '../../../../state/project/actions';
-import { selectActiveActorDescs, selectSelectedAssetNode } from '../../../../state/selectors';
+import { selectActiveActorDescs, selectIsInitialState, selectSelectedAssetNode } from '../../../../state/selectors';
 import { formatL } from '../../../../util/util';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
 import { ImageOrIconSwitch } from '../../elements/ImageOrIconSwitch';
+import { OptionalTooltip } from '../../elements/OptionalTooltip';
 import { replaceInternalResourceUrlStrings } from '../../elements/replaceInternalResourceUrlStrings';
 import { SidebarTab } from '../SidebarTab';
 import { AssetList } from './AssetList';
@@ -18,6 +19,8 @@ import { AssetList } from './AssetList';
 export function AssetInspector() {
     const dispatch = useDispatch();
     const { openDialog } = useDialog();
+
+    const isInitialState = useSelector(selectIsInitialState);
 
     const asset: AssetTreeNode | undefined = useSelector(selectSelectedAssetNode);
     const actors = useSelector(selectActiveActorDescs);
@@ -39,6 +42,10 @@ export function AssetInspector() {
     function backToOwner() {
         dispatch(ProjectActions.SELECT_ACTOR({ id: actor!.id }));
         dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
+    }
+
+    function goToInitialState() {
+        dispatch(ProjectActions.GOTO_STEP_INDEX({ index: -1 }));
     }
 
     return (
@@ -91,11 +98,18 @@ export function AssetInspector() {
                 </div>
 
                 {asset.asset.isInitial && (
-                    <IconButton
-                        onClick={() => openDialog('EditAsset', { actorId: asset.ownerId, assetId: asset.asset.id })}
-                    >
-                        <Edit />
-                    </IconButton>
+                    <OptionalTooltip on={!isInitialState} title={'Ga naar de begintoestand om te wijzigen'}>
+                        <div>
+                            <IconButton
+                                onClick={() =>
+                                    openDialog('EditAsset', { actorId: asset.ownerId, assetId: asset.asset.id })
+                                }
+                                disabled={!isInitialState}
+                            >
+                                <Edit />
+                            </IconButton>
+                        </div>
+                    </OptionalTooltip>
                 )}
             </Card>
 
@@ -113,11 +127,20 @@ export function AssetInspector() {
                         <Typography variant="h6">
                             {dict.assetInspector.assetContent} ({asset.children.length})
                         </Typography>
-                        <Button
-                            onClick={() => openDialog('AddAsset', { actorId: asset.ownerId, parentId: asset.asset.id })}
-                        >
-                            <Add /> {dict.assetInspector.btnAddChildAsset}
-                        </Button>
+                        {!isInitialState && (
+                            <Button onClick={goToInitialState}>
+                                <Edit /> Begintoestand aanpassen
+                            </Button>
+                        )}
+                        {isInitialState && (
+                            <Button
+                                onClick={() =>
+                                    openDialog('AddAsset', { actorId: asset.ownerId, parentId: asset.asset.id })
+                                }
+                            >
+                                <Add /> {dict.assetInspector.btnAddChildAsset}
+                            </Button>
+                        )}
                     </div>
                     <AssetList
                         assets={asset.children}

@@ -52,7 +52,7 @@ isHuman: true,
 ### Assets
 **Assets** have a custom `AssetSchema`, meaning the content developer can specify zero or more parameters for that asset. The parameters can be strings or numbers, but also references to actors and to other assets. To create a new type of **Asset**, do the following:
 
-1. Instantiate a new `AssetSchema` (API-reference is [here](./src/model/content/Asset/Asset.ts))
+1. Instantiate a new `AssetSchema` (API-reference is [here](./src/model/content/Asset/AssetSchema.ts))
 2. Define a new class extending `Asset` (defined [here](./src/model/logic/Asset/Asset.ts))
 3. Instantiate a new `AssetType` (defined [here](./src/model/content/Asset/AssetType.ts)) which combines the schema and the class.
 4. Add the `AssetType` to the `ContentLibrary` list of assets.
@@ -91,7 +91,7 @@ const myCustomAssetType = new AssetType(
 ### Actions
 **Actions** have a custom `ActionSchema`, meaning the content developer can specify zero or more parameters for that action. The parameters can be strings or numbers, but also references to actors and to other assets. To create a new type of **Action**, do the following:
 
-1. Instantiate a new `ActionSchema` (API-reference is [here](./src/model/content/Action/Action.ts))
+1. Instantiate a new `ActionSchema` (API-reference is [here](./src/model/content/Action/ActionSchema.ts))
 2. Define a new class extending `Action` (defined [here](./src/model/logic/Action/Action.ts))
 3. Instantiate a new `ActionType` (defined [here](./src/model/content/Action/ActionType.ts)) which combines the schema and the class.
 4. Add the `ActionType` to the `ContentLibrary` list of action.

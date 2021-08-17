@@ -10,6 +10,7 @@ export type CanvasEvent =
     | PseudonymLeaveEvent
     | ConnEnterEvent
     | ConnLeaveEvent
+    | ConnClickEvent
     | SlotDeleteEvent;
 
 export interface SlotEnterEvent {
@@ -30,6 +31,10 @@ export interface ConnEnterEvent {
 }
 export interface ConnLeaveEvent {
     type: 'conn-leave';
+    id: string;
+}
+export interface ConnClickEvent {
+    type: 'conn-click';
     id: string;
 }
 export interface SlotDeleteEvent {

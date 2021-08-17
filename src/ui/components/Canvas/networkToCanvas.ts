@@ -195,6 +195,7 @@ function makeConnectionEls(p: {
                                   // Only show connection when interacting remotely
                                   involvedInStep:
                                       slot1.involvedInStep && slot2.involvedInStep && locality === Locality.REMOTE,
+                                  clickable: !!slot1.involvedInStep && !!slot2.involvedInStep,
                               },
                           ],
                 [],

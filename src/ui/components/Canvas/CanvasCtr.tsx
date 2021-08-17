@@ -62,6 +62,8 @@ export function CanvasCtr() {
                 return dispatch(GameActions.HIGHLIGHT_RESOURCE({ resourceId: ev.id }));
             case 'conn-leave':
                 return dispatch(GameActions.UNHIGHLIGHT_RESOURCE({ resourceId: ev.id }));
+            case 'conn-click':
+                return dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.STEP }));
             case 'slot-delete':
                 return dispatch(ProjectActions.REMOVE_ACTOR({ id: ev.id }));
         }

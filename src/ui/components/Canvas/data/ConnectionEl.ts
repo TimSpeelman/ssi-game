@@ -9,4 +9,5 @@ export interface ConnectionEl {
     involvedInStep?: boolean;
     lit?: boolean;
     hovered?: boolean;
+    clickable: boolean;
 }

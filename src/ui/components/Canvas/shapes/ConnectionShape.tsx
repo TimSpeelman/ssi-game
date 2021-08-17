@@ -12,7 +12,7 @@ export function ConnectionShape({ elem: e, onEvent: dispatch, debug }: ShapeProp
             <path
                 d={cubicBezier(e.from, e.q, e.to)}
                 stroke={`#fef4bd`}
-                strokeWidth={e.lit || e.hovered ? 25 : 0}
+                strokeWidth={e.lit || (e.clickable && e.hovered) ? 25 : 0}
                 fill="transparent"
             />
 
@@ -27,12 +27,13 @@ export function ConnectionShape({ elem: e, onEvent: dispatch, debug }: ShapeProp
             {/* Capture mouse events on a (wider) transparent path */}
             <path
                 d={cubicBezier(e.from, e.q, e.to)}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: e.clickable ? 'pointer' : 'default' }}
                 stroke={debug ? 'rgba(0,255,255,0.1)' : 'transparent'}
                 strokeWidth={25}
                 fill="transparent"
                 onMouseEnter={() => dispatch({ type: 'conn-enter', id: e.id })}
                 onMouseLeave={() => dispatch({ type: 'conn-leave', id: e.id })}
+                onClick={() => dispatch({ type: 'conn-click', id: e.id })}
             />
         </g>
     );

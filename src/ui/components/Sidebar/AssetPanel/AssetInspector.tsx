@@ -124,9 +124,7 @@ export function AssetInspector() {
             {asset.asset.canHaveChildren && (
                 <Fragment>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
-                        <Typography variant="h6">
-                            {dict.assetInspector.assetContent} ({asset.children.length})
-                        </Typography>
+                        <Typography variant="h6">{dict.assetInspector.assetContent}</Typography>
                         {!isInitialState && (
                             <Button onClick={goToInitialState}>
                                 <Edit /> Begintoestand aanpassen

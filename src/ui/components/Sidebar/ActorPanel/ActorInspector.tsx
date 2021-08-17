@@ -70,9 +70,7 @@ export function ActorInspector() {
             </Card>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
-                <Typography variant="h6">
-                    {dict.actorInspector.actorProperties} ({definition.properties.length})
-                </Typography>
+                <Typography variant="h6">{dict.actorInspector.actorProperties}</Typography>
                 <Button onClick={() => openDialog('EditActorProperties', { actorId: definition.id })}>
                     <Edit /> {dict.actorInspector.btnEditProperties}
                 </Button>
@@ -98,9 +96,7 @@ export function ActorInspector() {
             )}
 
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
-                <Typography variant="h6">
-                    {dict.actorInspector.assets} ({assets.length})
-                </Typography>
+                <Typography variant="h6">{dict.actorInspector.assets}</Typography>
                 {isInitialState ? (
                     <Button onClick={() => openDialog('AddAsset', { actorId: definition.id })}>
                         <Add /> {dict.actorInspector.btnAddAsset}
@@ -113,9 +109,7 @@ export function ActorInspector() {
             </div>
             {groups.map(({ group, items }) => (
                 <Fragment key={group}>
-                    <ListSubheader style={{ padding: 0 }}>
-                        {kinds[group as keyof typeof kinds]} ({items.length})
-                    </ListSubheader>
+                    <ListSubheader style={{ padding: 0 }}>{kinds[group as keyof typeof kinds]}</ListSubheader>
                     <AssetList
                         assets={items}
                         onEdit={(id) => openDialog('EditAsset', { actorId: definition.id, assetId: id })}

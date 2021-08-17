@@ -34,9 +34,7 @@ export function ActorList() {
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                <Typography variant="h6">
-                    {dict.actorList.titleActors} ({actors.length})
-                </Typography>
+                <Typography variant="h6">{dict.actorList.titleActors}</Typography>
                 <Button variant={'outlined'} onClick={() => openDialog('AddActor', undefined)}>
                     <Add /> {dict.actorList.btnAddActor}
                 </Button>

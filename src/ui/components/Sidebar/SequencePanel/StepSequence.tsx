@@ -46,9 +46,7 @@ export function StepSequence() {
     return (
         <div style={{ padding: '1rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                <Typography variant="h6">
-                    {dict.steps} ({steps.length})
-                </Typography>
+                <Typography variant="h6">{dict.steps}</Typography>
                 <Button variant={'outlined'} onClick={() => openDialog('AddStep', undefined)}>
                     {' '}
                     <Add /> {dict.stepSequence.addStep}

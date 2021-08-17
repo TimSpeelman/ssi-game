@@ -32,12 +32,6 @@ p {
     flex-shrink: 1;
     position: relative;
 
-    .time-navigation {
-        position: absolute;
-        bottom: 3rem;
-        right: 3rem;
-    }
-
     .scenario-status {
         position: absolute;
         top: 2rem;
@@ -162,6 +156,10 @@ p {
     background: #333;
     color: white;
     padding: 1rem;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .asset-number-of-children {

@@ -229,6 +229,7 @@ function makeAssetEls(p: { actorData: ActorViewData[]; numberOfSlots: number; pr
                 numberOfChildren: a.children.length,
                 image: a.asset.image,
                 abbr: a.asset.abbr ? a.asset.abbr[p.props.language] : '',
+                transparent: !actorV.selected,
             }),
         );
 

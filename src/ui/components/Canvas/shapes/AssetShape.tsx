@@ -5,17 +5,13 @@ import { ShapeProps } from './ShapeProps';
 
 export function AssetShape({ elem: e, onEvent: dispatch }: ShapeProps<AssetEl>) {
     return (
-        <g key={e.id}>
+        <g key={e.id} opacity={e.transparent && !e.hovered ? 0.3 : 1}>
             {/* Selection or hover */}
-            <circle
-                cx={e.c[0]}
-                cy={e.c[1]}
-                r={e.selected || e.hovered ? e.r * 1.3 : 0}
-                opacity={0.9}
-                fill={'#fef4bd'}
-            />
+            <circle cx={e.c[0]} cy={e.c[1]} r={e.selected || e.hovered ? e.r * 1.3 : 0} fill={'#fef4bd'} />
 
+            {/* Background */}
             <circle cx={e.c[0]} cy={e.c[1]} r={e.r} fill={'#aaa'} />
+
             {e.numberOfChildren > 0 && (
                 <text x={e.c[0]} y={e.c[1]} textAnchor="middle" className="asset-number-of-children">
                     {e.numberOfChildren}
@@ -23,7 +19,7 @@ export function AssetShape({ elem: e, onEvent: dispatch }: ShapeProps<AssetEl>) 
             )}
 
             {e.image?.type === 'image' && (
-                <image href={e.image.url} x={e.c[0] - e.r} y={e.c[1] - e.r} width={e.r * 2} opacity={0.9} />
+                <image href={e.image.url} x={e.c[0] - e.r} y={e.c[1] - e.r} width={e.r * 2} />
             )}
 
             {e.image?.type === 'fa-icon' &&

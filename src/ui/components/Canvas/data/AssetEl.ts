@@ -13,4 +13,5 @@ export interface AssetEl {
     numberOfChildren: number;
     image?: ImageOrIconDefinition;
     abbr?: string;
+    transparent?: boolean;
 }

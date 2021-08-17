@@ -24,6 +24,7 @@ export function EditScenarioMetaDialog(props: Props) {
 
     const cancel = () => {
         setMeta(props.meta);
+        props.onCancel();
     };
 
     const { dict } = useLang();

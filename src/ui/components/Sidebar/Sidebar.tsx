@@ -1,9 +1,10 @@
 import { Category, Group, Info, Settings, SwapHoriz, Timeline } from '@material-ui/icons';
 import classNames from 'classnames';
-import React from 'react';
+import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GameActions } from '../../../state/actions';
 import { selectActiveSidebarTab } from '../../../state/selectors';
+import { useHighlightable } from '../../hooks/useHighlightable';
 import { TimeControlCtr } from '../Canvas/TimeControlCtr';
 import { ActionPanel } from './ActionPanel/ActionPanel';
 import { ActorPanel } from './ActorPanel/ActorPanel';
@@ -32,18 +33,26 @@ export function Sidebar() {
     const active = useSelector(selectActiveSidebarTab);
     const dispatch = useDispatch();
     const panels = tabOrder.map((key: Tab) => ({ ...sidebarItems[key], key }));
+
+    const refMain = useRef<HTMLDivElement>(null);
+    const refMenu = useRef<HTMLDivElement>(null);
+    const refTC = useRef<HTMLDivElement>(null);
+    useHighlightable('sidebar-main', refMain);
+    useHighlightable('sidebar-menu', refMenu);
+    useHighlightable('time-control', refTC, true);
+
     return (
         <div className="sidebar">
-            <div className="sidebar-main">
+            <div className="sidebar-main" ref={refMain}>
                 {panels.map(({ Panel }, i) => (
                     <div className={classNames(['sidebar-panel', { active: i === active }])} key={i}>
                         <Panel />
                     </div>
                 ))}
-                <div className="sidebar-menu">
+                <div className="sidebar-menu" ref={refMenu}>
                     {panels.map(({ Icon, key }, i) => (
                         <div
-                            className={classNames(['item', { active: i === active }])}
+                            className={classNames(['item', { active: i === active }, 'highlight-me'])}
                             key={key}
                             onClick={() => dispatch(GameActions.NAVIGATE_SIDEBAR({ to: key }))}
                         >
@@ -52,7 +61,7 @@ export function Sidebar() {
                     ))}
                 </div>
             </div>
-            <div className="time-control">
+            <div className="time-control" ref={refTC}>
                 <TimeControlCtr />
             </div>
         </div>

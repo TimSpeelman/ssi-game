@@ -6,7 +6,6 @@ import { App } from './App';
 import './assets/css/1-reset.css';
 import './assets/css/3-custom.css';
 import { DialogContextProvider } from './dialogs/DialogContext';
-import { HighlightsContextProvider } from './HighlightsContext';
 import * as serviceWorker from './serviceWorker';
 import { store } from './store';
 
@@ -29,9 +28,7 @@ export async function mount(rootElement: HTMLElement) {
         <Provider store={store}>
             <SnackbarProvider maxSnack={10}>
                 <DialogContextProvider>
-                    <HighlightsContextProvider>
-                        <App />
-                    </HighlightsContextProvider>
+                    <App />
                 </DialogContextProvider>
             </SnackbarProvider>
         </Provider>

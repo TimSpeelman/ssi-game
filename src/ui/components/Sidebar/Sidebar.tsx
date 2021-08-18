@@ -1,10 +1,9 @@
 import { Category, Group, Info, Settings, SwapHoriz, Timeline } from '@material-ui/icons';
 import classNames from 'classnames';
-import React, { useRef } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GameActions } from '../../../state/actions';
 import { selectActiveSidebarTab } from '../../../state/selectors';
-import { useHighlightable } from '../../hooks/useHighlightable';
 import { TimeControlCtr } from '../Canvas/TimeControlCtr';
 import { ActionPanel } from './ActionPanel/ActionPanel';
 import { ActorPanel } from './ActorPanel/ActorPanel';
@@ -34,22 +33,15 @@ export function Sidebar() {
     const dispatch = useDispatch();
     const panels = tabOrder.map((key: Tab) => ({ ...sidebarItems[key], key }));
 
-    const refMain = useRef<HTMLDivElement>(null);
-    const refMenu = useRef<HTMLDivElement>(null);
-    const refTC = useRef<HTMLDivElement>(null);
-    useHighlightable('sidebar-main', refMain);
-    useHighlightable('sidebar-menu', refMenu);
-    useHighlightable('time-control', refTC, true);
-
     return (
-        <div className="sidebar">
-            <div className="sidebar-main" ref={refMain}>
+        <div id="sidebar" className="sidebar">
+            <div id="sidebar-main" className="sidebar-main">
                 {panels.map(({ Panel }, i) => (
                     <div className={classNames(['sidebar-panel', { active: i === active }])} key={i}>
                         <Panel />
                     </div>
                 ))}
-                <div className="sidebar-menu" ref={refMenu}>
+                <div id="sidebar-menu" className="sidebar-menu">
                     {panels.map(({ Icon, key }, i) => (
                         <div
                             className={classNames(['item', { active: i === active }, 'highlight-me'])}
@@ -61,7 +53,7 @@ export function Sidebar() {
                     ))}
                 </div>
             </div>
-            <div className="time-control" ref={refTC}>
+            <div id="time-control" className="time-control">
                 <TimeControlCtr />
             </div>
         </div>

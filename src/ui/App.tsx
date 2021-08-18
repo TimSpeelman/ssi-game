@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { loadFromLocalStorage } from '../persistence/localStorage';
@@ -9,14 +9,26 @@ import { UserManualDialogCtr } from './components/Manual/UserManualDialogCtr';
 import { ProjectDrawer } from './components/menus/ProjectDrawer';
 import { TopMenu } from './components/menus/TopMenu';
 import { GlobalDialogRouter } from './dialogs/GlobalDialogRouter';
-import { useHighlightsContext } from './HighlightsContext';
+import { useChildMeasurements } from './hooks/useHighlights';
 import { NetworkCanvas } from './pages/NetworkCanvasPage';
 
-const lights = ['btn-project-drawer', 'btn-undo', 'btn-redo', 'btn-help', 'btn-lang'];
+const lights = [
+    { q: '#btn-project-drawer', expand: 0 },
+    { q: '#project-title', expand: 0 },
+    { q: '#btn-undo', expand: 0 },
+    { q: '#btn-redo', expand: 0 },
+    { q: '#btn-help', expand: 0 },
+    { q: '#btn-lang', expand: 0 },
+    { q: '#sidebar', expand: 0 },
+    { q: '#sidebar-main', expand: 0 },
+    { q: '#sidebar-menu', expand: 0 },
+    { q: '#time-control', expand: 1 },
+    { q: '.canvasarea', expand: -1 },
+];
 
 export function App() {
     const dispatch = useDispatch();
-    const highlights = useHighlightsContext();
+    const [hl, setHL] = useState<{ q: string; expand?: number } | undefined>(undefined);
 
     useEffect(() => {
         const savedState = loadFromLocalStorage('state');
@@ -24,12 +36,15 @@ export function App() {
             dispatch(GameActions.RESTORE_STATE({ state: savedState }));
         }
 
-        lights.forEach((l, i) => setTimeout(() => highlights.highlight(l), (i + 1) * 1000));
+        lights.forEach((l, i) => setTimeout(() => setHL(l), (i + 1) * 1000));
     }, []);
 
+    const ref = useRef(null);
+    const childRect = useChildMeasurements(ref, hl?.q);
+
     return (
-        <div className="fill">
-            <HighlightCover on={!!highlights.highlightedRect} highlight={highlights.highlightedRect} />
+        <div className="fill" ref={ref}>
+            <HighlightCover on={!!hl} rect={childRect} expand={hl?.expand} />
             <HotKeysContainer autoFocus>
                 <UserManualDialogCtr />
 

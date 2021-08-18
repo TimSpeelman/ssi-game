@@ -22,7 +22,13 @@ export function LanguageMenu() {
 
     return (
         <Fragment>
-            <Button aria-controls="language-menu" aria-haspopup="true" onClick={handleClick} style={{ color: 'white' }}>
+            <Button
+                id="btn-lang"
+                aria-controls="language-menu"
+                aria-haspopup="true"
+                onClick={handleClick}
+                style={{ color: 'white' }}
+            >
                 <LanguageRounded /> {lang}
             </Button>
             <Menu id="language-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>

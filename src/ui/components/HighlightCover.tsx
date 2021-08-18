@@ -1,15 +1,15 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import React from 'react';
-import { Highlight } from '../HighlightsContext';
 
 export interface Props {
-    highlight?: Highlight;
+    rect?: { top: number; right: number; bottom: number; left: number };
+    expand?: number;
     on: boolean;
 }
 
 export function HighlightCover(props: Props) {
-    const originalHL = props.highlight || { top: 0, right: 0, bottom: 0, left: 0 };
-    const d = props.highlight?.expand ? 10 : 0;
+    const originalHL = props.rect || { top: 0, right: 0, bottom: 0, left: 0 };
+    const d = (props.expand || 0) * 10;
     const hl = {
         top: originalHL.top - d,
         right: originalHL.right + d,

@@ -104,6 +104,7 @@ p {
   border-bottom: 1px solid #bbb !important;
   margin-bottom: -1px !important;
   padding: 1rem 0.5rem;
+  cursor: pointer;
 }
 
 .step-active {

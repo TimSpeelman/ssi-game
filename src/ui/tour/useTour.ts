@@ -13,6 +13,7 @@ export function useTour(tour: TourStep[]) {
 
     const next = () => setIndex((i) => Math.min(numberOfSteps, i + 1));
     const prev = () => setIndex((i) => Math.max(0, i - 1));
+    const close = () => setIndex(-1);
 
     const ctx = { state, dispatch, next, prev };
 
@@ -35,5 +36,5 @@ export function useTour(tour: TourStep[]) {
         highlight: typeof step.highlight === 'function' ? step.highlight(ctx.state) : step.highlight,
     };
 
-    return { step: stepState, next, prev, index, numberOfSteps };
+    return { step: stepState, next, prev, close, index, numberOfSteps };
 }

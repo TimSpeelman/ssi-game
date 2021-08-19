@@ -57,6 +57,7 @@ export function App() {
                         numberOfSteps={tour.numberOfSteps}
                         onNext={tour.next}
                         onPrev={tour.prev}
+                        onClose={tour.close}
                     />
                 )}
                 <HighlightCover on={!!childRect} rect={childRect} expand={tour.step?.highlight?.expand} />

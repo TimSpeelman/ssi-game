@@ -87,7 +87,7 @@ export const FullTour: TourStep[] = [
                 '3. **Acties** zijn de acties die zij alleen of samen uitvoeren om een doel te bereiken.\n\n' +
                 'Er wordt altijd een **momentopname** afgebeeld. ' +
                 'Op dit moment zien we twee actoren, John en de slijterij.' +
-                ' Bij John staat een **paspoort** (asset). Dat betekent dat John nu in het scenario, beschikt over een paspoort.' +
+                ' Bij John staat een **paspoort** (asset). Dat betekent dat John beschikt over een paspoort.' +
                 ' Er wordt nu nog géén actie uitgevoerd.' +
                 '\n\n**Klik op volgende.**',
             EN: '',

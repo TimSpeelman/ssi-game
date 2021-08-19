@@ -1,4 +1,5 @@
 import { PassportIssuanceType } from '../../content/DigitalIdentity1/actions/PassportIssuance';
+import { TourScenario } from '../../content/DigitalIdentity1/scenarios/TourScenario';
 import { GameActions } from '../../state/actions';
 import { ProjectActions } from '../../state/project/actions';
 import {
@@ -44,6 +45,14 @@ export const FullTour: TourStep[] = [
         },
         nextEnabled: true,
         onActivate: (ctx) => {
+            ctx.dispatch(
+                GameActions.NEW_PROJECT({
+                    id: 'tour',
+                    definition: TourScenario,
+                    name: 'Rondleiding',
+                }),
+            );
+            ctx.dispatch(GameActions.ACTIVATE_PROJECT({ id: 'tour' }));
             navSidebar(ctx, SidebarTab.INFO);
             toggleEditing(ctx, false);
             gotoStepIndex(ctx, -1);

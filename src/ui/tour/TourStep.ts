@@ -38,4 +38,6 @@ export interface Context {
     state: RootState;
     next: () => void;
     prev: () => void;
+    /** Re-invoke the step's onActivate method (useful for preventing/blocking certain actions) */
+    reactivate: () => void;
 }

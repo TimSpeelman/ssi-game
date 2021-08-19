@@ -55,9 +55,18 @@ export function useTour(tour: TourStep[]) {
         enter(newIndex);
     }
 
+    /** Re-invoke the step's onActivate method (useful for preventing/blocking certain actions) */
+    function reactivate() {
+        setTransitioning(true);
+
+        step.onActivate && step.onActivate(ctx);
+
+        setTransitioning(false);
+    }
+
     const close = () => setIndex(-1);
 
-    const ctx = { state, dispatch, next, prev };
+    const ctx = { state, dispatch, next, prev, reactivate };
 
     useEffect(() => {
         if (step && !transitioning && step.onStateChange) {

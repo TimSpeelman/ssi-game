@@ -6,7 +6,7 @@ export function TourPage() {
     return (
         <Fragment>
             <TourCtr />
-            <NetworkViewerCtr />
+            <NetworkViewerCtr tour />
         </Fragment>
     );
 }

@@ -20,7 +20,11 @@ import { ScenarioStatusCtr } from './ScenarioStatusCtr';
 import { ScenarioMetaDialog } from './Sidebar/InfoPanel/ScenarioMetaDialog';
 import { Sidebar } from './Sidebar/Sidebar';
 
-export function NetworkViewerCtr() {
+interface Props {
+    tour?: boolean;
+}
+
+export function NetworkViewerCtr(props: Props) {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const dispatch = useDispatch();
     const snackbarIsOn = useSelector(selectSnackbarIsOn);
@@ -46,7 +50,7 @@ export function NetworkViewerCtr() {
 
             <TopMenu />
 
-            <div className="network-canvas">
+            <div className="network-canvas" style={{ paddingLeft: props.tour ? 200 : 0 }}>
                 <ScenarioMetaDialog
                     meta={scenarioDesc.definition.meta}
                     open={showMeta}

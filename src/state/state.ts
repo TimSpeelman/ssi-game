@@ -14,4 +14,6 @@ export interface RootState {
     language: Language;
     highlightedResourceId?: string;
     userManualOpen: boolean;
+
+    editing: boolean;
 }

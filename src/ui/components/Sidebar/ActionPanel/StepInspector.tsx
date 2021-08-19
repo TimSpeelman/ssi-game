@@ -3,7 +3,7 @@ import { Edit } from '@material-ui/icons';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { StepDesc } from '../../../../model/description/Step/StepDesc';
-import { selectFailedStepIndex, selectStepDescs } from '../../../../state/selectors';
+import { selectEditing, selectFailedStepIndex, selectStepDescs } from '../../../../state/selectors';
 import { formatL } from '../../../../util/util';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
@@ -17,6 +17,8 @@ interface Props {
 /** Shows the details of a scenario step */
 export function StepInspector({ step }: Props) {
     const steps = useSelector(selectStepDescs);
+    const editing = useSelector(selectEditing);
+
     const errorAt = useSelector(selectFailedStepIndex);
     const index = steps.findIndex((s) => step.action.id === s.action.id);
     const showError = errorAt === index;
@@ -30,9 +32,11 @@ export function StepInspector({ step }: Props) {
                 <Typography variant="h6">{formatL(dict.stepXOutOfY, [index + 1, steps.length])}</Typography>
                 {/* <StepNav /> */}
 
-                <Button variant="outlined" onClick={() => openDialog('EditStep', { stepId: step.action.id })}>
-                    <Edit /> {dict.misc.btnEdit}
-                </Button>
+                {editing && (
+                    <Button variant="outlined" onClick={() => openDialog('EditStep', { stepId: step.action.id })}>
+                        <Edit /> {dict.misc.btnEdit}
+                    </Button>
+                )}
             </div>
 
             {showWarning && (

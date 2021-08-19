@@ -4,7 +4,12 @@ import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GameActions } from '../../../../state/actions';
 import { ProjectActions } from '../../../../state/project/actions';
-import { selectIsInitialState, selectScenarioDef, selectSelectedActorDesc } from '../../../../state/selectors';
+import {
+    selectEditing,
+    selectIsInitialState,
+    selectScenarioDef,
+    selectSelectedActorDesc,
+} from '../../../../state/selectors';
 import { groupBy } from '../../../../util/util';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
@@ -35,6 +40,7 @@ export function ActorInspector() {
         Software: dict.assetKind.software,
         Flag: dict.assetKind.flag,
     };
+    const editing = useSelector(selectEditing);
 
     return (
         <div>
@@ -61,20 +67,24 @@ export function ActorInspector() {
                     <Typography variant="h6">{definition.name}</Typography>
                     <Typography variant="subtitle2">{definition.description}</Typography>
                 </div>
-                <IconButton
-                    onClick={() => openDialog('EditActor', { actorId: definition.id })}
-                    style={{ marginRight: '1rem' }}
-                >
-                    <Edit />
-                </IconButton>
+                {editing && (
+                    <IconButton
+                        onClick={() => openDialog('EditActor', { actorId: definition.id })}
+                        style={{ marginRight: '1rem' }}
+                    >
+                        <Edit />
+                    </IconButton>
+                )}
             </Card>
 
             <div id="actor-properties">
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                     <Typography variant="h6">{dict.actorInspector.actorProperties}</Typography>
-                    <Button onClick={() => openDialog('EditActorProperties', { actorId: definition.id })}>
-                        <Edit /> {dict.actorInspector.btnEditProperties}
-                    </Button>
+                    {editing && (
+                        <Button onClick={() => openDialog('EditActorProperties', { actorId: definition.id })}>
+                            <Edit /> {dict.actorInspector.btnEditProperties}
+                        </Button>
+                    )}
                 </div>
 
                 {definition.properties.length > 0 && (
@@ -100,7 +110,9 @@ export function ActorInspector() {
             <div id="actor-assets">
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                     <Typography variant="h6">{dict.actorInspector.assets}</Typography>
-                    {isInitialState ? (
+                    {!editing ? (
+                        ''
+                    ) : isInitialState ? (
                         <Button onClick={() => openDialog('AddAsset', { actorId: definition.id })}>
                             <Add /> {dict.actorInspector.btnAddAsset}
                         </Button>

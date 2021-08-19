@@ -7,7 +7,13 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { GameActions } from '../../../../state/actions';
 import { ProjectActions } from '../../../../state/project/actions';
-import { selectActiveActorDescs, selectActiveStepId, selectLang, selectStepDescs } from '../../../../state/selectors';
+import {
+    selectActiveActorDescs,
+    selectActiveStepId,
+    selectEditing,
+    selectLang,
+    selectStepDescs,
+} from '../../../../state/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
 import { ImageOrIconSwitch } from '../../elements/ImageOrIconSwitch';
@@ -15,6 +21,7 @@ import { SidebarTab } from '../SidebarTab';
 
 export function StepSequence() {
     const { dict } = useLang();
+    const editing = useSelector(selectEditing);
     const steps = useSelector(selectStepDescs);
     const activeStepId = useSelector(selectActiveStepId);
     const lang = useSelector(selectLang);
@@ -47,10 +54,12 @@ export function StepSequence() {
         <div style={{ padding: '1rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
                 <Typography variant="h6">{dict.steps}</Typography>
-                <Button variant={'outlined'} onClick={() => openDialog('AddStep', undefined)}>
-                    {' '}
-                    <Add /> {dict.stepSequence.addStep}
-                </Button>
+                {editing && (
+                    <Button variant={'outlined'} onClick={() => openDialog('AddStep', undefined)}>
+                        {' '}
+                        <Add /> {dict.stepSequence.addStep}
+                    </Button>
+                )}
             </div>
             {steps.length === 0 &&
                 (usedActors.length === 0 ? (
@@ -90,7 +99,12 @@ export function StepSequence() {
                                 </ListItem>
 
                                 {steps.map((step, i) => (
-                                    <Draggable draggableId={step.action.id} index={i} key={step.action.id}>
+                                    <Draggable
+                                        draggableId={step.action.id}
+                                        index={i}
+                                        key={step.action.id}
+                                        isDragDisabled={!editing}
+                                    >
                                         {(provided) => (
                                             <div
                                                 {...provided.draggableProps}
@@ -145,15 +159,17 @@ export function StepSequence() {
                                                     <br />
                                                     {step.action.title[lang]}
                                                 </div>
-                                                <IconButton
-                                                    edge="end"
-                                                    aria-label="delete"
-                                                    onClick={() =>
-                                                        dispatch(ProjectActions.REMOVE_STEP({ id: step.action.id }))
-                                                    }
-                                                >
-                                                    <DeleteIcon />
-                                                </IconButton>
+                                                {editing && (
+                                                    <IconButton
+                                                        edge="end"
+                                                        aria-label="delete"
+                                                        onClick={() =>
+                                                            dispatch(ProjectActions.REMOVE_STEP({ id: step.action.id }))
+                                                        }
+                                                    >
+                                                        <DeleteIcon />
+                                                    </IconButton>
+                                                )}
                                             </div>
                                         )}
                                     </Draggable>

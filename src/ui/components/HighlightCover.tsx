@@ -26,8 +26,6 @@ export function HighlightCover(props: Props) {
         pointerEvents: props.on ? 'visible' : 'none',
     };
 
-    console.log('Highlighting', hl);
-
     return (
         <div
             style={{

@@ -11,6 +11,11 @@ export const DictionaryNL: Dictionary = {
 
     userManual: 'Gebruikershandleiding',
 
+    topMenu: {
+        tooltipEnableEditing: 'Bewerken inschakelen',
+        tooltipDisableEditing: 'Bewerken uitschakelen',
+    },
+
     networkCanvasPage: {
         msgStepXFails: 'Scenario faalt bij stap {0}',
     },

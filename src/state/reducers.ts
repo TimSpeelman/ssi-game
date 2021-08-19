@@ -72,6 +72,8 @@ export const ScenarioReducers: ReducerMap<RootState, typeof GameActions> = {
     // Display Meta Dialog
     HIDE_MANUAL: () => L.userManualOpen.set(false),
     SHOW_MANUAL: () => L.userManualOpen.set(true),
+
+    TOGGLE_EDITING: ({ editing }) => L.editing.set((e) => (editing === true ? true : editing === false ? false : !e)),
 };
 
 // undoable(scenario, {

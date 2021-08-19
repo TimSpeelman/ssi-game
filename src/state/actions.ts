@@ -32,6 +32,8 @@ export const GameActions = {
     // Display User Manual Dialog
     HIDE_MANUAL: event<void>('HIDE_MANUAL'),
     SHOW_MANUAL: event<void>('SHOW_MANUAL'),
+
+    TOGGLE_EDITING: event<{ editing?: boolean }>('TOGGLE_EDITING'),
 };
 
 checkActionCreatorsRecord(GameActions);

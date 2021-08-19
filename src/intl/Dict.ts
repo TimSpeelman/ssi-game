@@ -5,6 +5,11 @@ export interface Dictionary {
     startingState: string;
     author: string;
 
+    topMenu: {
+        tooltipEnableEditing: string;
+        tooltipDisableEditing: string;
+    };
+
     networkCanvasPage: {
         msgStepXFails: string;
     };

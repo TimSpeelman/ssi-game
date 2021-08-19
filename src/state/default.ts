@@ -12,4 +12,5 @@ export const defaultState: RootState = {
     activeSidebarTab: SidebarTab.TIMELINE,
     language: Language.NL,
     userManualOpen: false,
+    editing: false,
 };

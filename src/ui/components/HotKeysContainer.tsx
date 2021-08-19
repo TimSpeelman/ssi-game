@@ -13,6 +13,8 @@ export function HotKeysContainer({ children, autoFocus }: { children: ReactNode;
     const keyHandlers: HandlerMap = {
         CLEAR_SELECTION: () => dispatch(ProjectActions.CLEAR_SELECTION()),
 
+        TOGGLE_EDITING: () => dispatch(GameActions.TOGGLE_EDITING({})),
+
         UNDO: () => dispatch(ActionCreators.undo()),
         REDO: () => dispatch(ActionCreators.redo()),
 

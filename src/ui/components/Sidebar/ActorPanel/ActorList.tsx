@@ -7,7 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ActorConfig } from '../../../../model/definition/Actor/ActorConfig';
 import { GameActions } from '../../../../state/actions';
 import { ProjectActions } from '../../../../state/project/actions';
-import { selectHighlightedResource, selectIdsOfInvolvedActors, selectScenarioDef } from '../../../../state/selectors';
+import {
+    selectEditing,
+    selectHighlightedResource,
+    selectIdsOfInvolvedActors,
+    selectScenarioDef,
+} from '../../../../state/selectors';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
 import { ImageOrIconSwitch } from '../../elements/ImageOrIconSwitch';
@@ -30,14 +35,17 @@ export function ActorList() {
         sourceIndex !== targetIndex && dispatch(ProjectActions.REORDER_ACTORS({ sourceIndex, targetIndex }));
     const removeActor = (id: string) => setActors(actors.filter((a) => a.definition.id !== id));
     const { dict } = useLang();
+    const editing = useSelector(selectEditing);
 
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
                 <Typography variant="h6">{dict.actorList.titleActors}</Typography>
-                <Button variant={'outlined'} onClick={() => openDialog('AddActor', undefined)}>
-                    <Add /> {dict.actorList.btnAddActor}
-                </Button>
+                {editing && (
+                    <Button variant={'outlined'} onClick={() => openDialog('AddActor', undefined)}>
+                        <Add /> {dict.actorList.btnAddActor}
+                    </Button>
+                )}
             </div>
 
             {actors.length === 0 ? (
@@ -52,7 +60,12 @@ export function ActorList() {
                         {(provided) => (
                             <List innerRef={provided.innerRef} {...provided.droppableProps}>
                                 {actors.map((actor, i) => (
-                                    <Draggable draggableId={actor.definition.id} index={i} key={actor.definition.id}>
+                                    <Draggable
+                                        draggableId={actor.definition.id}
+                                        index={i}
+                                        key={actor.definition.id}
+                                        isDragDisabled={!editing}
+                                    >
                                         {(provided) => (
                                             <ListItem
                                                 {...provided.draggableProps}
@@ -88,31 +101,35 @@ export function ActorList() {
                                                     secondary={actor.definition.description}
                                                 />
 
-                                                <Tooltip
-                                                    title={
-                                                        !canRemoveActor(actor.definition.id)
-                                                            ? dict.actorList.msgFirstRemoveActionsOfActorX.replace(
-                                                                  '{0}',
-                                                                  actor.definition.name,
-                                                              )
-                                                            : dict.actorList.hintRemoveActorX.replace(
-                                                                  '{0}',
-                                                                  actor.definition.name,
-                                                              )
-                                                    }
-                                                >
-                                                    <span>
-                                                        <IconButton
-                                                            edge="end"
-                                                            aria-label="delete"
-                                                            disabled={!canRemoveActor(actor.definition.id)}
-                                                            style={{ marginRight: '.5rem' }}
-                                                            onClick={() => removeActor(actor.definition.id)}
-                                                        >
-                                                            <DeleteIcon />
-                                                        </IconButton>
-                                                    </span>
-                                                </Tooltip>
+                                                {!editing ? (
+                                                    ''
+                                                ) : (
+                                                    <Tooltip
+                                                        title={
+                                                            !canRemoveActor(actor.definition.id)
+                                                                ? dict.actorList.msgFirstRemoveActionsOfActorX.replace(
+                                                                      '{0}',
+                                                                      actor.definition.name,
+                                                                  )
+                                                                : dict.actorList.hintRemoveActorX.replace(
+                                                                      '{0}',
+                                                                      actor.definition.name,
+                                                                  )
+                                                        }
+                                                    >
+                                                        <span>
+                                                            <IconButton
+                                                                edge="end"
+                                                                aria-label="delete"
+                                                                disabled={!canRemoveActor(actor.definition.id)}
+                                                                style={{ marginRight: '.5rem' }}
+                                                                onClick={() => removeActor(actor.definition.id)}
+                                                            >
+                                                                <DeleteIcon />
+                                                            </IconButton>
+                                                        </span>
+                                                    </Tooltip>
+                                                )}
                                             </ListItem>
                                         )}
                                     </Draggable>

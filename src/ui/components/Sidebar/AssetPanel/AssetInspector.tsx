@@ -6,7 +6,12 @@ import { DefaultLibrary } from '../../../../content';
 import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode';
 import { GameActions } from '../../../../state/actions';
 import { ProjectActions } from '../../../../state/project/actions';
-import { selectActiveActorDescs, selectIsInitialState, selectSelectedAssetNode } from '../../../../state/selectors';
+import {
+    selectActiveActorDescs,
+    selectEditing,
+    selectIsInitialState,
+    selectSelectedAssetNode,
+} from '../../../../state/selectors';
 import { formatL } from '../../../../util/util';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
@@ -19,6 +24,7 @@ import { AssetList } from './AssetList';
 export function AssetInspector() {
     const dispatch = useDispatch();
     const { openDialog } = useDialog();
+    const editing = useSelector(selectEditing);
 
     const isInitialState = useSelector(selectIsInitialState);
 
@@ -97,7 +103,7 @@ export function AssetInspector() {
                     )}
                 </div>
 
-                {asset.asset.isInitial && (
+                {editing && asset.asset.isInitial && (
                     <OptionalTooltip on={!isInitialState} title={'Ga naar de begintoestand om te wijzigen'}>
                         <div>
                             <IconButton
@@ -125,12 +131,12 @@ export function AssetInspector() {
                 <Fragment>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                         <Typography variant="h6">{dict.assetInspector.assetContent}</Typography>
-                        {!isInitialState && (
+                        {editing && !isInitialState && (
                             <Button onClick={goToInitialState}>
                                 <Edit /> Begintoestand aanpassen
                             </Button>
                         )}
-                        {isInitialState && (
+                        {editing && isInitialState && (
                             <Button
                                 onClick={() =>
                                     openDialog('AddAsset', { actorId: asset.ownerId, parentId: asset.asset.id })

@@ -4,7 +4,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode';
 import { GameActions } from '../../../../state/actions';
-import { selectHighlightedResource, selectIsInitialState } from '../../../../state/selectors';
+import { selectEditing, selectHighlightedResource, selectIsInitialState } from '../../../../state/selectors';
 import { stopPropagation } from '../../../../util/util';
 import { useLang } from '../../../hooks/useLang';
 
@@ -23,6 +23,7 @@ export function AssetList({ assets, onEdit, onDelete, onClick }: Props) {
 
     const dispatch = useDispatch();
     const isInitialState = useSelector(selectIsInitialState);
+    const editing = useSelector(selectEditing);
 
     const highlightedResource = useSelector(selectHighlightedResource);
     const onMouseEnter = (id: string) => dispatch(GameActions.HIGHLIGHT_RESOURCE({ resourceId: id }));
@@ -41,12 +42,12 @@ export function AssetList({ assets, onEdit, onDelete, onClick }: Props) {
                         onMouseLeave={() => onMouseLeave(a.asset.id)}
                     >
                         <ListItemText primary={title(a)} secondary={sub(a)} />
-                        {a.asset.isInitial && isInitialState && (
+                        {editing && a.asset.isInitial && isInitialState && (
                             <Button onClick={stopPropagation<any>(() => onEdit(a.asset.id))}>
                                 <Edit />
                             </Button>
                         )}
-                        {a.asset.isInitial && isInitialState && (
+                        {editing && a.asset.isInitial && isInitialState && (
                             <Button onClick={stopPropagation<any>(() => onDelete(a.asset.id))}>
                                 <Delete />
                             </Button>

@@ -1,6 +1,8 @@
 export const hotkeys = {
     CLEAR_SELECTION: 'escape',
 
+    TOGGLE_EDITING: 'l',
+
     UNDO: 'ctrl+z',
     REDO: ['ctrl+y', 'ctrl+shift+z'],
 

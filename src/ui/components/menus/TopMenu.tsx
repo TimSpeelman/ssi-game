@@ -1,10 +1,10 @@
-import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core';
-import { Help, Menu, Redo, Undo } from '@material-ui/icons';
+import { AppBar, Button, IconButton, Toolbar, Tooltip, Typography } from '@material-ui/core';
+import { Help, Lock, LockOpen, Menu, Redo, Undo } from '@material-ui/icons';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActionCreators } from 'redux-undo';
 import { GameActions } from '../../../state/actions';
-import { selectActiveProjectName, selectRedoable, selectUndoable } from '../../../state/selectors';
+import { selectActiveProjectName, selectEditing, selectRedoable, selectUndoable } from '../../../state/selectors';
 import { useLang } from '../../hooks/useLang';
 import { LanguageMenu } from './LanguageMenu';
 
@@ -12,10 +12,13 @@ export function TopMenu() {
     const undoable = useSelector(selectUndoable);
     const redoable = useSelector(selectRedoable);
     const projectName = useSelector(selectActiveProjectName);
+    const editing = useSelector(selectEditing);
 
     const { dict } = useLang();
 
     const dispatch = useDispatch();
+
+    const toggleEditing = () => dispatch(GameActions.TOGGLE_EDITING({}));
 
     const undo = () => dispatch(ActionCreators.undo());
 
@@ -36,24 +39,34 @@ export function TopMenu() {
                         Identity Game | {projectName === '' ? dict.untitledProject : projectName}
                     </Typography>
                 </div>
-                <Button
-                    id="btn-undo"
-                    color={'inherit'}
-                    onClick={undo}
-                    style={{ marginRight: '.5rem' }}
-                    disabled={!undoable}
-                >
-                    <Undo />
-                </Button>
-                <Button
-                    id="btn-redo"
-                    color={'inherit'}
-                    onClick={redo}
-                    style={{ marginRight: '.5rem' }}
-                    disabled={!redoable}
-                >
-                    <Redo />
-                </Button>
+
+                {editing && (
+                    <Button
+                        id="btn-undo"
+                        color={'inherit'}
+                        onClick={undo}
+                        style={{ marginRight: '.5rem' }}
+                        disabled={!undoable}
+                    >
+                        <Undo />
+                    </Button>
+                )}
+                {editing && (
+                    <Button
+                        id="btn-redo"
+                        color={'inherit'}
+                        onClick={redo}
+                        style={{ marginRight: '.5rem' }}
+                        disabled={!redoable}
+                    >
+                        <Redo />
+                    </Button>
+                )}
+                <Tooltip title={editing ? dict.topMenu.tooltipDisableEditing : dict.topMenu.tooltipEnableEditing}>
+                    <Button id="btn-editing" color={'inherit'} onClick={toggleEditing} style={{ marginRight: '.5rem' }}>
+                        {!editing ? <Lock /> : <LockOpen />}
+                    </Button>
+                </Tooltip>
                 <Button id="btn-help" color={'inherit'} onClick={showManual} style={{ marginRight: '.5rem' }}>
                     <Help />
                 </Button>

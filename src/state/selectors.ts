@@ -98,8 +98,10 @@ export const selectActiveSidebarTab = (r: any): SidebarTab => root(r).activeSide
 export const selectHighlightedResource = (r: any): string | undefined => root(r).highlightedResourceId;
 
 // Display Meta Dialog
-export const selectShowMeta = (r: any) => rootPr(r).showMeta;
-export const selectProjectDrawerOpen = (r: any) => root(r).projectDrawerOpen;
+export const selectShowMeta = (r: any): boolean => rootPr(r).showMeta;
+export const selectProjectDrawerOpen = (r: any): boolean => root(r).projectDrawerOpen;
 
 // Options
-export const selectSnackbarIsOn = (r: any) => root(r).snackbarOn;
+export const selectSnackbarIsOn = (r: any): boolean => root(r).snackbarOn;
+
+export const selectEditing = (r: any): boolean => root(r).editing;

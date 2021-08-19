@@ -12,6 +12,11 @@ export const DictionaryEN: Dictionary = {
 
     userManual: 'User Manual',
 
+    topMenu: {
+        tooltipEnableEditing: 'Enable editing',
+        tooltipDisableEditing: 'Disabled editing',
+    },
+
     networkCanvasPage: {
         msgStepXFails: 'Scenario fails at step {0}',
     },

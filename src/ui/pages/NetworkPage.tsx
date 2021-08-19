@@ -6,6 +6,7 @@ import { GameActions } from '../../state/actions';
 import { root, selectStepDescs } from '../../state/selectors';
 import { GameState } from '../../state/state';
 import { throttle1 } from '../../util/util';
+import { HotKeysContainer } from '../components/HotKeysContainer';
 import { NetworkViewerCtr } from '../components/NetworkViewerCtr';
 
 export function NetworkPage() {
@@ -34,5 +35,9 @@ export function NetworkPage() {
         update(rootState);
     }, [rootState]);
 
-    return <NetworkViewerCtr />;
+    return (
+        <HotKeysContainer>
+            <NetworkViewerCtr />
+        </HotKeysContainer>
+    );
 }

@@ -8,6 +8,8 @@ export interface Dictionary {
     topMenu: {
         tooltipEnableEditing: string;
         tooltipDisableEditing: string;
+        btnStartTour: string;
+        btnStopTour: string;
     };
 
     networkCanvasPage: {

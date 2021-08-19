@@ -8,7 +8,11 @@ import { selectActiveProjectName, selectEditing, selectRedoable, selectUndoable 
 import { useLang } from '../../hooks/useLang';
 import { LanguageMenu } from './LanguageMenu';
 
-export function TopMenu() {
+export interface Props {
+    tour?: boolean;
+}
+
+export function TopMenu(props: Props) {
     const undoable = useSelector(selectUndoable);
     const redoable = useSelector(selectRedoable);
     const projectName = useSelector(selectActiveProjectName);
@@ -70,8 +74,17 @@ export function TopMenu() {
                 <Button id="btn-help" color={'inherit'} onClick={showManual} style={{ marginRight: '.5rem' }}>
                     <Help />
                 </Button>
-
                 <LanguageMenu />
+
+                <Button
+                    id="btn-tour"
+                    color={'inherit'}
+                    href={props.tour ? '/' : '/tour'}
+                    variant={'outlined'}
+                    style={{ marginLeft: '.5rem' }}
+                >
+                    {props.tour ? dict.topMenu.btnStopTour : dict.topMenu.btnStartTour}
+                </Button>
             </Toolbar>
         </AppBar>
     );

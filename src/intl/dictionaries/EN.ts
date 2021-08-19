@@ -15,6 +15,8 @@ export const DictionaryEN: Dictionary = {
     topMenu: {
         tooltipEnableEditing: 'Enable editing',
         tooltipDisableEditing: 'Disabled editing',
+        btnStartTour: 'Start Tour',
+        btnStopTour: 'Stop Tour',
     },
 
     networkCanvasPage: {

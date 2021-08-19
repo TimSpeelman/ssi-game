@@ -14,6 +14,8 @@ export const DictionaryNL: Dictionary = {
     topMenu: {
         tooltipEnableEditing: 'Bewerken inschakelen',
         tooltipDisableEditing: 'Bewerken uitschakelen',
+        btnStartTour: 'Start Rondleiding',
+        btnStopTour: 'Stop Rondleiding',
     },
 
     networkCanvasPage: {

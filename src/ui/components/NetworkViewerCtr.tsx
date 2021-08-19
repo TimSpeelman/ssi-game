@@ -1,5 +1,5 @@
 import { useSnackbar } from 'notistack';
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProjectActions } from '../../state/project/actions';
 import {
@@ -12,7 +12,6 @@ import {
 import { GlobalDialogRouter } from '../dialogs/GlobalDialogRouter';
 import { CanvasCtr } from './Canvas/CanvasCtr';
 import { replaceInternalResourceUrlStrings } from './elements/replaceInternalResourceUrlStrings';
-import { HotKeysContainer } from './HotKeysContainer';
 import { UserManualDialogCtr } from './Manual/UserManualDialogCtr';
 import { ProjectDrawer } from './menus/ProjectDrawer';
 import { TopMenu } from './menus/TopMenu';
@@ -41,14 +40,14 @@ export function NetworkViewerCtr(props: Props) {
     }, [currentStep]);
 
     return (
-        <HotKeysContainer autoFocus>
+        <Fragment>
             <UserManualDialogCtr />
 
             <GlobalDialogRouter />
 
             <ProjectDrawer />
 
-            <TopMenu />
+            <TopMenu tour={props.tour} />
 
             <div className="network-canvas" style={{ paddingLeft: props.tour ? 200 : 0 }}>
                 <ScenarioMetaDialog
@@ -63,6 +62,6 @@ export function NetworkViewerCtr(props: Props) {
                 </div>
                 <Sidebar />
             </div>
-        </HotKeysContainer>
+        </Fragment>
     );
 }

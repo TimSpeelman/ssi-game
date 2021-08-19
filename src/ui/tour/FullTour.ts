@@ -97,6 +97,9 @@ export const FullTour: TourStep[] = [
         },
         nextEnabled: true,
         highlight: { q: '#network-svg-root', expand: 1 },
+        onActivate: (ctx) => {
+            ctx.dispatch(ProjectActions.GOTO_STEP_INDEX({ index: -1 }));
+        },
     },
     {
         title: {
@@ -117,6 +120,9 @@ export const FullTour: TourStep[] = [
         },
         nextEnabled: (s) => selectActiveStepIndex(s) === 0,
         highlight: { q: '.time-navigation', expand: 1 },
+        onActivate: (ctx) => {
+            ctx.dispatch(ProjectActions.GOTO_STEP_INDEX({ index: -1 }));
+        },
     },
     {
         title: {
@@ -137,6 +143,9 @@ export const FullTour: TourStep[] = [
         },
         nextEnabled: true,
         highlight: { q: '#network-svg-root', expand: 1 },
+        onActivate: (ctx) => {
+            ctx.dispatch(ProjectActions.GOTO_STEP_INDEX({ index: 0 }));
+        },
     },
     {
         title: {
@@ -156,6 +165,9 @@ export const FullTour: TourStep[] = [
                 ctx.next();
             }
         },
+        onActivate: (ctx) => {
+            ctx.dispatch(ProjectActions.GOTO_STEP_INDEX({ index: 0 }));
+        },
     },
     {
         title: {
@@ -171,6 +183,10 @@ export const FullTour: TourStep[] = [
         },
         nextEnabled: true,
         highlight: { q: `.sidebar-main` },
+        onActivate: (ctx) => {
+            ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.STEP }));
+            ctx.dispatch(ProjectActions.GOTO_STEP_INDEX({ index: 0 }));
+        },
     },
     {
         title: {
@@ -195,6 +211,10 @@ export const FullTour: TourStep[] = [
                 ctx.next();
             }
         },
+        onActivate: (ctx) => {
+            ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.STEP }));
+            ctx.dispatch(ProjectActions.GOTO_STEP_INDEX({ index: 0 }));
+        },
     },
     {
         title: {
@@ -210,6 +230,11 @@ export const FullTour: TourStep[] = [
         },
         nextEnabled: true,
         highlight: { q: `.sidebar-main` },
+        onActivate: (ctx) => {
+            ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ASSETS }));
+            if (selectSelectedAssetId(ctx.state) !== authResID)
+                ctx.dispatch(ProjectActions.SELECT_ASSET({ id: authResID }));
+        },
     },
     {
         title: {
@@ -225,6 +250,10 @@ export const FullTour: TourStep[] = [
         },
         nextEnabled: true,
         highlight: { q: `#asset-${authResID}`, expand: 1 },
+        onActivate: (ctx) => {
+            if (selectSelectedAssetId(ctx.state) !== authResID)
+                ctx.dispatch(ProjectActions.SELECT_ASSET({ id: authResID }));
+        },
     },
     {
         title: {
@@ -266,6 +295,10 @@ export const FullTour: TourStep[] = [
             }
         },
         highlight: { q: `.sidebar` },
+        onActivate: (ctx) => {
+            ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.TIMELINE }));
+            ctx.dispatch(ProjectActions.GOTO_STEP_INDEX({ index: 0 }));
+        },
     },
     {
         title: {
@@ -283,6 +316,10 @@ export const FullTour: TourStep[] = [
         nextEnabled: true,
         // highlight: { q: '#network-svg-root', expand: 1 },
         highlight: { q: `.sidebar` },
+        onActivate: (ctx) => {
+            ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.STEP }));
+            ctx.dispatch(ProjectActions.GOTO_STEP_INDEX({ index: 1 }));
+        },
     },
     {
         title: {
@@ -325,6 +362,8 @@ export const FullTour: TourStep[] = [
         },
         onActivate: (ctx) => {
             ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
+            if (selectSelectedActorId(ctx.state) !== actorJohnID)
+                ctx.dispatch(ProjectActions.SELECT_ACTOR({ id: actorJohnID }));
         },
         nextEnabled: true,
         highlight: { q: '#sidebar-main' },
@@ -353,6 +392,8 @@ export const FullTour: TourStep[] = [
         },
         onActivate: (ctx) => {
             ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
+            if (selectSelectedActorId(ctx.state) !== actorJohnID)
+                ctx.dispatch(ProjectActions.SELECT_ACTOR({ id: actorJohnID }));
         },
         nextEnabled: true,
         highlight: { q: '#actor-properties', expand: 1 },
@@ -378,6 +419,8 @@ export const FullTour: TourStep[] = [
         highlight: { q: '#actor-assets', expand: 1 },
         onActivate: (ctx) => {
             ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
+            if (selectSelectedActorId(ctx.state) !== actorJohnID)
+                ctx.dispatch(ProjectActions.SELECT_ACTOR({ id: actorJohnID }));
         },
     },
 
@@ -415,7 +458,7 @@ export const FullTour: TourStep[] = [
                 '**Klik op volgende.**',
             EN: '',
         },
-        nextEnabled: (s) => true,
+        nextEnabled: true,
     },
     {
         title: {
@@ -429,7 +472,7 @@ export const FullTour: TourStep[] = [
                 '**Selecteer John om verder te gaan.**',
             EN: '',
         },
-        nextEnabled: (s) => false,
+        nextEnabled: false,
         onActivate: (ctx) => ctx.dispatch(ProjectActions.CLEAR_SELECTION()),
         onStateChange: (ctx) => {
             if (
@@ -451,13 +494,18 @@ export const FullTour: TourStep[] = [
                 "**Klik op de knop 'Begintoestand aanpassen' om verder te gaan**",
             EN: '',
         },
-        nextEnabled: (s) => false,
+        nextEnabled: false,
         onStateChange: (ctx) => {
             if (selectActiveStepIndex(ctx.state) === -1) {
                 ctx.next();
             }
         },
         highlight: { q: '#btn-goto-initial-state' },
+        onActivate: (ctx) => {
+            ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
+            if (selectSelectedActorId(ctx.state) !== actorJohnID)
+                ctx.dispatch(ProjectActions.SELECT_ACTOR({ id: actorJohnID }));
+        },
     },
     {
         title: {
@@ -470,13 +518,18 @@ export const FullTour: TourStep[] = [
                 '**Verwijder het paspoort om verder te gaan.**',
             EN: '',
         },
-        nextEnabled: (s) => false,
+        nextEnabled: false,
         onStateChange: (ctx) => {
             if (!(assetPassportID in selectAssetDefinitions(ctx.state))) {
                 ctx.next();
             }
         },
         highlight: { q: '#actor-assets', expand: 1 },
+        onActivate: (ctx) => {
+            ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
+            if (selectSelectedActorId(ctx.state) !== actorJohnID)
+                ctx.dispatch(ProjectActions.SELECT_ACTOR({ id: actorJohnID }));
+        },
     },
     {
         title: {
@@ -521,6 +574,11 @@ export const FullTour: TourStep[] = [
             }
         },
         highlight: { q: '.sidebar' },
+
+        onActivate: (ctx) => {
+            ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.STEP }));
+            ctx.dispatch(ProjectActions.GOTO_STEP_INDEX({ index: 0 }));
+        },
     },
     {
         title: {
@@ -541,6 +599,11 @@ export const FullTour: TourStep[] = [
             }
         },
         highlight: { q: '.sidebar-main' },
+
+        onActivate: (ctx) => {
+            ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.STEP }));
+            ctx.dispatch(ProjectActions.GOTO_STEP_INDEX({ index: 1 }));
+        },
     },
     {
         title: {
@@ -561,6 +624,12 @@ export const FullTour: TourStep[] = [
             }
         },
         highlight: { q: '#btn-all-actors' },
+
+        onActivate: (ctx) => {
+            ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
+            if (selectSelectedActorId(ctx.state) !== actorJohnID)
+                ctx.dispatch(ProjectActions.SELECT_ACTOR({ id: actorJohnID }));
+        },
     },
     {
         title: {
@@ -585,6 +654,10 @@ export const FullTour: TourStep[] = [
             ) {
                 ctx.next();
             }
+        },
+        onActivate: (ctx) => {
+            ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }));
+            ctx.dispatch(ProjectActions.CLEAR_SELECTION());
         },
     },
     {
@@ -627,6 +700,10 @@ export const FullTour: TourStep[] = [
                 ctx.next();
             }
         },
+        onActivate: (ctx) => {
+            ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.TIMELINE }));
+            ctx.dispatch(ProjectActions.GOTO_STEP_INDEX({ index: 1 }));
+        },
     },
     {
         title: {
@@ -648,6 +725,9 @@ export const FullTour: TourStep[] = [
                 ctx.next();
             }
         },
+        onActivate: (ctx) => {
+            ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.TIMELINE }));
+        },
     },
     {
         title: {
@@ -665,6 +745,9 @@ export const FullTour: TourStep[] = [
             if (selectActiveSidebarTab(ctx.state) === SidebarTab.STEP && selectActiveStepIndex(ctx.state) === 1) {
                 ctx.next();
             }
+        },
+        onActivate: (ctx) => {
+            ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.TIMELINE }));
         },
     },
     {
@@ -685,6 +768,10 @@ export const FullTour: TourStep[] = [
             if (!selectFailedStepDesc(ctx.state)) {
                 ctx.next();
             }
+        },
+        onActivate: (ctx) => {
+            ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.STEP }));
+            ctx.dispatch(ProjectActions.GOTO_STEP_INDEX({ index: 1 }));
         },
     },
     {

@@ -1,7 +1,7 @@
 import { newHistory } from 'redux-undo';
 import { defaultState } from '../state/default';
 import { ProjectState } from '../state/project/state';
-import { RootState } from '../state/state';
+import { GameState } from '../state/state';
 
 export type PersistedProject = Pick<ProjectState, 'id' | 'name' | 'scenario'>;
 
@@ -10,7 +10,7 @@ export interface PersistedState {
     inactiveProjects: PersistedProject[];
 }
 
-export function selectPersistedState(s: RootState): PersistedState {
+export function selectPersistedState(s: GameState): PersistedState {
     return {
         activeProject: projectStateToPersistable(s.activeProject.present),
         inactiveProjects: s.inactiveProjects.map((p) => projectStateToPersistable(p.present)),
@@ -34,7 +34,7 @@ export function persistableToProjectState(state: PersistedProject): ProjectState
     };
 }
 
-export function persistableToRootState(state: PersistedState): RootState {
+export function persistableToRootState(state: PersistedState): GameState {
     return {
         ...defaultState,
         activeProject: newHistory([], persistableToProjectState(state.activeProject), []),

@@ -3,7 +3,7 @@ import { getReducer, IAction } from '../util/redux';
 import { ProjectReducers } from './project/reducers';
 import { ProjectState } from './project/state';
 import { ScenarioReducers } from './reducers';
-import { RootState } from './state';
+import { GameState } from './state';
 
 const getProjectReducer = getReducer(ProjectReducers);
 const getGameReducer = getReducer(ScenarioReducers);
@@ -18,7 +18,7 @@ export const undoableActiveProjectReducer = undoable(ActiveProjectReducer, {
     syncFilter: true,
 });
 
-export function ScenarioReducer(s: RootState, e: IAction<any>): RootState {
+export function ScenarioReducer(s: GameState, e: IAction<any>): GameState {
     const r = getGameReducer(e);
     if (r) {
         return r(e.payload)(s);

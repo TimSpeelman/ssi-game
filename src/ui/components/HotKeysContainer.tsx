@@ -23,7 +23,7 @@ export function HotKeysContainer({ children, autoFocus }: { children: ReactNode;
         PREV_STEP: () => dispatch(ProjectActions.PREV_STEP()),
         NEXT_STEP: () => dispatch(ProjectActions.NEXT_STEP()),
         LAST_STEP: () => dispatch(ProjectActions.LAST_STEP()),
-        GOTO_STEP: (e: any) => dispatch(ProjectActions.GOTO_STEP_INDEX({ index: parseInt(e.key, 10) })),
+        GOTO_STEP: (e: any) => dispatch(ProjectActions.GOTO_STEP_INDEX({ index: parseInt(e.key, 10) - 1 })),
 
         // Sidebar Navigation
         TAB_INFO: () => dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.INFO })),

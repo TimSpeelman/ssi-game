@@ -3,8 +3,11 @@ import { ScenarioDef } from '../model/definition/Scenario/ScenarioDef';
 import { PersistedProject, PersistedState } from '../persistence/persistence';
 import { SidebarTab } from '../ui/components/Sidebar/SidebarTab';
 import { checkActionCreatorsRecord, event } from '../util/redux';
+import { GameState } from './state';
 
 export const GameActions = {
+    SET_GAME_STATE: event<{ state: GameState }>('SET_GAME_STATE'),
+
     RESTORE_STATE: event<{ state: PersistedState }>('RESTORE_STATE'),
     LOAD_PROJECT: event<{ project: PersistedProject }>('LOAD_PROJECT'),
 

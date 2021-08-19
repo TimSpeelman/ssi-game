@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { GameActions } from '../../state/actions';
 import { RootState } from '../../state/state';
 import { TourStep, TourStepState } from './TourStep';
 
@@ -11,26 +12,55 @@ export function useTour(tour: TourStep[]) {
     const numberOfSteps = tour.length;
     const step = tour[index];
 
-    const next = () => {
+    // When the user presses PREVIOUS, we simply reset the entire state.
+    const [history, setHistory] = useState<RootState[]>([]);
+
+    function saveStepPreState(index: number, preState: RootState) {
+        setHistory((h) => [...h.slice(0, index), preState]);
+    }
+
+    function resetStepPreState(index: number) {
+        dispatch(GameActions.SET_GAME_STATE({ state: history[index].scenario }));
+    }
+
+    // To prevent triggering the onStateChange event handler when transitioning
+    // between steps, we keep track of the transitioning state.
+    const [transitioning, setTransitioning] = useState(false);
+
+    function enter(index: number) {
+        setTransitioning(true);
+
+        setIndex(index);
+        const step = tour[index];
+
+        saveStepPreState(index, state);
+
+        step.onActivate && step.onActivate(ctx);
+
+        setTransitioning(false);
+    }
+
+    function next() {
+        setTransitioning(true);
+
         if (step && step.beforeNext) step.beforeNext(ctx);
-        setIndex((i) => Math.min(numberOfSteps, i + 1));
-    };
-    const prev = () => {
-        if (step && step.beforePrev) step.beforePrev(ctx);
-        setIndex((i) => Math.max(0, i - 1));
-    };
+        enter(Math.min(numberOfSteps, index + 1));
+    }
+
+    function prev() {
+        setTransitioning(true);
+
+        const newIndex = Math.max(0, index - 1);
+        resetStepPreState(newIndex);
+        enter(newIndex);
+    }
+
     const close = () => setIndex(-1);
 
     const ctx = { state, dispatch, next, prev };
 
     useEffect(() => {
-        if (step) {
-            step.onActivate && step.onActivate(ctx);
-        }
-    }, [index]);
-
-    useEffect(() => {
-        if (step && step.onStateChange) {
+        if (step && !transitioning && step.onStateChange) {
             step.onStateChange(ctx);
         }
     }, [state]);

@@ -98,7 +98,7 @@ export const ProjectReducers: ReducerMap<ProjectState, typeof ProjectActions> = 
     GOTO_STEP_INDEX: (p) =>
         L.set((s) => {
             const steps = s.scenario.steps;
-            const goto = Math.max(-1, Math.min(p.index - 1, steps.length - 1));
+            const goto = Math.max(-1, Math.min(p.index, steps.length - 1));
             return { ...s, activeStepId: goto === -1 ? undefined : steps[goto].id };
         }),
     NEXT_STEP: (p) =>

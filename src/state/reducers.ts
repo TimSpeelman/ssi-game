@@ -5,11 +5,13 @@ import { ReducerMap } from '../util/redux';
 import { w1th } from '../util/w1th';
 import { GameActions } from './actions';
 import { emptyProjectState } from './project/default';
-import { RootState } from './state';
+import { GameState } from './state';
 
-const L = lens<RootState>();
+const L = lens<GameState>();
 
-export const ScenarioReducers: ReducerMap<RootState, typeof GameActions> = {
+export const ScenarioReducers: ReducerMap<GameState, typeof GameActions> = {
+    SET_GAME_STATE: (p) => L.set(p.state),
+
     RESTORE_STATE: (p) => L.set(persistableToRootState(p.state)),
     LOAD_PROJECT: (p) =>
         L.inactiveProjects.set((prs) => [newHistory([], persistableToProjectState(p.project), []), ...prs]),

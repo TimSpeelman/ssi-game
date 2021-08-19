@@ -3,7 +3,7 @@ import { Language } from '../intl/Language';
 import { SidebarTab } from '../ui/components/Sidebar/SidebarTab';
 import { ProjectState } from './project/state';
 
-export interface RootState {
+export interface GameState {
     inactiveProjects: StateWithHistory<ProjectState>[];
     activeProject: StateWithHistory<ProjectState>;
 
@@ -16,4 +16,8 @@ export interface RootState {
     userManualOpen: boolean;
 
     editing: boolean;
+}
+
+export interface RootState {
+    scenario: GameState;
 }

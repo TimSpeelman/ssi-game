@@ -81,12 +81,15 @@ export const FullTour: TourStep[] = [
         },
         message: {
             NL:
-                'Het "canvas" is het hoofdpodium van de Identity Game.' +
-                ' Hierop wordt een **momentopname** schematisch afgebeeld.\n\n' +
-                'We zien in dit scenario twee actoren: John en de slijterij.' +
-                ' Bij John staat een **paspoort**. Dat betekent dat John,' +
-                ' op dit moment in het scenario, beschikt over een paspoort.\n\n' +
-                '**Klik op volgende.**',
+                'Op het "canvas" worden schematisch de drie kernelementen van de Identity Game afgebeeld:\n' +
+                '1. **Actoren** zijn de mensen en organisaties die in dit scenario zijn betrokken.\n' +
+                '2. **Assets** zijn de relevante kennis en middelen waar zij over beschikken.\n' +
+                '3. **Acties** zijn de acties die zij alleen of samen uitvoeren om een doel te bereiken.\n\n' +
+                'Er wordt altijd een **momentopname** afgebeeld. ' +
+                'Op dit moment zien we twee actoren, John en de slijterij.' +
+                ' Bij John staat een **paspoort** (asset). Dat betekent dat John nu in het scenario, beschikt over een paspoort.' +
+                ' Er wordt nu nog géén actie uitgevoerd.' +
+                '\n\n**Klik op volgende.**',
             EN: '',
         },
         nextEnabled: true,

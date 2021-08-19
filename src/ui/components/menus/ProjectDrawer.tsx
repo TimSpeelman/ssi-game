@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { ContentLibraryDisplayScenario } from '../../../content/DigitalIdentity1/scenarios/ContentLibraryDisplay';
 import { OnlineLiquorPurchaseScenario } from '../../../content/DigitalIdentity1/scenarios/OnlineLiquorPurchaseScenario';
+import { TourScenario } from '../../../content/DigitalIdentity1/scenarios/TourScenario';
 import { GameActions } from '../../../state/actions';
 import { ProjectActions } from '../../../state/project/actions';
 import { ProjectState } from '../../../state/project/state';
@@ -40,6 +41,14 @@ const templates: Record<string, any> = {
         title: {
             NL: 'Demo van library content',
             EN: 'Demo of library content',
+        },
+    },
+    TourScenario: {
+        id: 'TourScenario',
+        definition: TourScenario,
+        title: {
+            NL: 'Scenario t.b.v rondleiding',
+            EN: 'Scenario for guided tour',
         },
     },
 };

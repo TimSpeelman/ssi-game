@@ -30,6 +30,9 @@ interface NetworkProps {
 
 const config = {
     /** Angle of the first actor's position, relative to the canvas center (0: starting East, -Pi/2: starting North) */
+    networkRotationWithTwoActors: 0,
+
+    /** Angle of the first actor's position, relative to the canvas center (0: starting East, -Pi/2: starting North) */
     networkRotation: -Math.PI / 2,
 
     /** The relative size of the actor circle (on which actors are positioned) (1: equal to the canvas width) */
@@ -212,7 +215,8 @@ function makeAssetEls(p: { actorData: ActorViewData[]; numberOfSlots: number; pr
         const numAssets = assets.length;
 
         const actorCenter = p.actorData[actorIndex].homePosition;
-        const actorAngle = config.networkRotation + ((2 * Math.PI) / p.numberOfSlots) * actorIndex; // center the range
+        const baseRotation = p.actorData.length === 2 ? config.networkRotationWithTwoActors : config.networkRotation;
+        const actorAngle = baseRotation + ((2 * Math.PI) / p.numberOfSlots) * actorIndex; // center the range
         const spaceInRad = config.radialAssetSpacing;
         const assetPositionsUnit = pointsOnCircleFixedRangeCentered(numAssets, actorAngle, spaceInRad);
         const assetPositionsAbs = assetPositionsUnit.map((p) => add(actorCenter, scale(config.assetRingRadius)(p)));
@@ -247,9 +251,9 @@ function makeActorViewData(p: {
 }): ActorViewData[] {
     const actorHomePos = actorBasePositions({
         center: p.center,
-        ringRadius: (p.props.width / 2) * config.relativeSlotRingSize,
+        ringRadius: p.actors.length === 1 ? 0 : (p.props.width / 2) * config.relativeSlotRingSize,
         numberOfSlots: p.numberOfSlots,
-        startAtRad: config.networkRotation,
+        startAtRad: p.actors.length === 2 ? config.networkRotationWithTwoActors : config.networkRotation,
     });
 
     // Compute the actor's positions

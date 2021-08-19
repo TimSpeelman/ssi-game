@@ -5,7 +5,7 @@ import { ShapeProps } from './ShapeProps';
 
 export function AssetShape({ elem: e, onEvent: dispatch }: ShapeProps<AssetEl>) {
     return (
-        <g key={e.id} opacity={e.transparent && !e.hovered ? 0.3 : 1}>
+        <g key={e.id} opacity={e.transparent && !e.hovered && !e.selected ? 0.3 : 1} id={`asset-${e.id}`}>
             {/* Selection or hover */}
             <circle cx={e.c[0]} cy={e.c[1]} r={e.selected || e.hovered ? e.r * 1.3 : 0} fill={'#fef4bd'} />
 

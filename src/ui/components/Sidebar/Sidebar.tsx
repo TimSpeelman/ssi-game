@@ -44,6 +44,7 @@ export function Sidebar() {
                 <div id="sidebar-menu" className="sidebar-menu">
                     {panels.map(({ Icon, key }, i) => (
                         <div
+                            id={`sidebar-menu-item-${key}`}
                             className={classNames(['item', { active: i === active }, 'highlight-me'])}
                             key={key}
                             onClick={() => dispatch(GameActions.NAVIGATE_SIDEBAR({ to: key }))}

@@ -5,7 +5,7 @@ import { ShapeProps } from './ShapeProps';
 
 export function SlotShape({ elem: e, onEvent: dispatch }: ShapeProps<SlotEl>) {
     return (
-        <g key={e.id}>
+        <g key={e.id} id={`slot-${e.id}`}>
             {/* Background for hiding edges */}
             <circle cx={e.c[0]} cy={e.c[1]} r={e.r * 1.2} opacity={1} fill={'#eee'} />
 

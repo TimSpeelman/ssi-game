@@ -8,6 +8,7 @@ export interface Props {
 }
 
 export function HighlightCover(props: Props) {
+    const off = !props.on || !props.rect;
     const originalHL = props.rect || { top: 0, right: 0, bottom: 0, left: 0 };
     const d = (props.expand || 0) * 10;
     const hl = {
@@ -21,6 +22,7 @@ export function HighlightCover(props: Props) {
         position: 'absolute',
         background: '#333',
         transition: 'all .5s',
+        transitionTimingFunction: 'easeInOutCubic',
         pointerEvents: props.on ? 'visible' : 'none',
     };
 
@@ -36,18 +38,18 @@ export function HighlightCover(props: Props) {
                 right: 0,
                 left: 0,
                 bottom: 0,
-                transition: 'all .5s',
+                transition: 'all .5s ',
                 pointerEvents: 'none',
             }}
         >
             {/* Top bar */}
-            <div style={{ ...baseCss, left: 0, top: 0, right: 0, height: Math.max(0, hl.top) }} />
+            <div style={{ ...baseCss, left: 0, top: 0, right: 0, height: off ? '50%' : Math.max(0, hl.top) }} />
             {/* Right bar */}
-            <div style={{ ...baseCss, left: hl.right, top: 0, right: 0, bottom: 0 }} />
+            <div style={{ ...baseCss, left: off ? '50%' : hl.right, top: 0, right: 0, bottom: 0 }} />
             {/* Bottom bar */}
-            <div style={{ ...baseCss, left: 0, top: hl.bottom, right: 0, bottom: 0 }} />
+            <div style={{ ...baseCss, left: 0, top: off ? '50%' : hl.bottom, right: 0, bottom: 0 }} />
             {/* Left bar */}
-            <div style={{ ...baseCss, left: 0, top: 0, width: Math.max(0, hl.left), bottom: 0 }} />
+            <div style={{ ...baseCss, left: 0, top: 0, width: off ? '50%' : Math.max(0, hl.left), bottom: 0 }} />
         </div>
     );
 }

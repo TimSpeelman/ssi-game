@@ -7,7 +7,7 @@ export const cubicBezier = (a: Vec, q: Vec, b: Vec) => `M ${a[0]} ${a[1]} Q ${q[
 
 export function ConnectionShape({ elem: e, onEvent: dispatch, debug }: ShapeProps<ConnectionEl>) {
     return (
-        <g key={e.id}>
+        <g key={e.id} id={`connection-${e.id}`}>
             {/* Hover highlight */}
             <path
                 d={cubicBezier(e.from, e.q, e.to)}

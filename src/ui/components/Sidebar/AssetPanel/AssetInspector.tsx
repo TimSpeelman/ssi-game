@@ -50,7 +50,7 @@ export function AssetInspector() {
 
     return (
         <div>
-            <Button onClick={backToOwner}>
+            <Button onClick={backToOwner} id="btn-back-to-actor">
                 <ChevronLeft /> {formatL(dict.assetInspector.assetsOfX, [actor!.name])}
             </Button>
             <Divider />

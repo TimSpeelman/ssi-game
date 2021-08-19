@@ -69,58 +69,62 @@ export function ActorInspector() {
                 </IconButton>
             </Card>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
-                <Typography variant="h6">{dict.actorInspector.actorProperties}</Typography>
-                <Button onClick={() => openDialog('EditActorProperties', { actorId: definition.id })}>
-                    <Edit /> {dict.actorInspector.btnEditProperties}
-                </Button>
-            </div>
+            <div id="actor-properties">
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
+                    <Typography variant="h6">{dict.actorInspector.actorProperties}</Typography>
+                    <Button onClick={() => openDialog('EditActorProperties', { actorId: definition.id })}>
+                        <Edit /> {dict.actorInspector.btnEditProperties}
+                    </Button>
+                </div>
 
-            {definition.properties.length > 0 && (
-                <table style={{ width: '100%' }}>
-                    <thead>
-                        <tr>
-                            <th style={{ textAlign: 'left' }}>{dict.actorInspector.thPropertyName}</th>
-                            <th style={{ textAlign: 'left' }}>{dict.actorInspector.thPropertyValue}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {definition.properties.map(([key, val], index) => (
-                            <tr key={index}>
-                                <td>{key}</td>
-                                <td>{val}</td>
+                {definition.properties.length > 0 && (
+                    <table style={{ width: '100%' }}>
+                        <thead>
+                            <tr>
+                                <th style={{ textAlign: 'left' }}>{dict.actorInspector.thPropertyName}</th>
+                                <th style={{ textAlign: 'left' }}>{dict.actorInspector.thPropertyValue}</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
-                <Typography variant="h6">{dict.actorInspector.assets}</Typography>
-                {isInitialState ? (
-                    <Button onClick={() => openDialog('AddAsset', { actorId: definition.id })}>
-                        <Add /> {dict.actorInspector.btnAddAsset}
-                    </Button>
-                ) : (
-                    <Button onClick={() => dispatch(ProjectActions.GOTO_STEP_INDEX({ index: -1 }))}>
-                        <Edit /> Begintoestand aanpassen
-                    </Button>
+                        </thead>
+                        <tbody>
+                            {definition.properties.map(([key, val], index) => (
+                                <tr key={index}>
+                                    <td>{key}</td>
+                                    <td>{val}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 )}
             </div>
-            {groups.map(({ group, items }) => (
-                <Fragment key={group}>
-                    <ListSubheader style={{ padding: 0 }}>{kinds[group as keyof typeof kinds]}</ListSubheader>
-                    <AssetList
-                        assets={items}
-                        onEdit={(id) => openDialog('EditAsset', { actorId: definition.id, assetId: id })}
-                        onDelete={(id) => dispatch(ProjectActions.REMOVE_ASSET({ actorId: definition.id, id: id }))}
-                        onClick={(id) => {
-                            dispatch(ProjectActions.SELECT_ASSET({ id: id }));
-                            dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ASSETS }));
-                        }}
-                    />
-                </Fragment>
-            ))}
+
+            <div id="actor-assets">
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
+                    <Typography variant="h6">{dict.actorInspector.assets}</Typography>
+                    {isInitialState ? (
+                        <Button onClick={() => openDialog('AddAsset', { actorId: definition.id })}>
+                            <Add /> {dict.actorInspector.btnAddAsset}
+                        </Button>
+                    ) : (
+                        <Button onClick={() => dispatch(ProjectActions.GOTO_STEP_INDEX({ index: -1 }))}>
+                            <Edit /> Begintoestand aanpassen
+                        </Button>
+                    )}
+                </div>
+                {groups.map(({ group, items }) => (
+                    <Fragment key={group}>
+                        <ListSubheader style={{ padding: 0 }}>{kinds[group as keyof typeof kinds]}</ListSubheader>
+                        <AssetList
+                            assets={items}
+                            onEdit={(id) => openDialog('EditAsset', { actorId: definition.id, assetId: id })}
+                            onDelete={(id) => dispatch(ProjectActions.REMOVE_ASSET({ actorId: definition.id, id: id }))}
+                            onClick={(id) => {
+                                dispatch(ProjectActions.SELECT_ASSET({ id: id }));
+                                dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ASSETS }));
+                            }}
+                        />
+                    </Fragment>
+                ))}
+            </div>
         </div>
     );
 }

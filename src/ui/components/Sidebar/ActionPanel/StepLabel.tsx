@@ -14,7 +14,7 @@ export function StepLabel({ step, ...props }: Props) {
     const lang = useSelector(selectLang);
 
     return (
-        <Card style={{ marginBottom: '1rem' }}>
+        <Card style={{ marginBottom: '1rem' }} className="step-label">
             <div
                 style={{
                     display: 'flex',

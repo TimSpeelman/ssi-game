@@ -5,7 +5,7 @@ import { ShapeProps } from './ShapeProps';
 
 export function ActorShape({ elem: e, onEvent: dispatch, debug }: ShapeProps<ActorEl>) {
     return (
-        <g key={e.id}>
+        <g key={e.id} id={`actor-${e.id}`}>
             {/* Selection or hover */}
             <circle
                 cx={e.c[0]}

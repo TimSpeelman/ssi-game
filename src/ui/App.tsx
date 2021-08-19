@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { loadFromLocalStorage } from '../persistence/localStorage';
@@ -8,9 +8,12 @@ import { HotKeysContainer } from './components/HotKeysContainer';
 import { UserManualDialogCtr } from './components/Manual/UserManualDialogCtr';
 import { ProjectDrawer } from './components/menus/ProjectDrawer';
 import { TopMenu } from './components/menus/TopMenu';
+import { TourMessage } from './components/TourMessage';
 import { GlobalDialogRouter } from './dialogs/GlobalDialogRouter';
 import { useChildMeasurements } from './hooks/useHighlights';
 import { NetworkCanvas } from './pages/NetworkCanvasPage';
+import { FullTour } from './tour/FullTour';
+import { useTour } from './tour/useTour';
 
 const lights = [
     { q: '#btn-project-drawer', expand: 0 },
@@ -28,7 +31,9 @@ const lights = [
 
 export function App() {
     const dispatch = useDispatch();
-    const [hl, setHL] = useState<{ q: string; expand?: number } | undefined>(undefined);
+    const tour = useTour(FullTour);
+
+    // const [hl, setHL] = useState<{ q: string; expand?: number } | undefined>(undefined);
 
     useEffect(() => {
         const savedState = loadFromLocalStorage('state');
@@ -36,16 +41,25 @@ export function App() {
             dispatch(GameActions.RESTORE_STATE({ state: savedState }));
         }
 
-        lights.forEach((l, i) => setTimeout(() => setHL(l), (i + 1) * 1000));
+        tour.next(); // start
     }, []);
 
     const ref = useRef(null);
-    const childRect = useChildMeasurements(ref, hl?.q);
+    const childRect = useChildMeasurements(ref, tour.step?.highlight?.q);
 
     return (
         <div className="fill" ref={ref}>
-            <HighlightCover on={!!hl} rect={childRect} expand={hl?.expand} />
             <HotKeysContainer autoFocus>
+                {tour.step && (
+                    <TourMessage
+                        index={tour.index}
+                        step={tour.step}
+                        numberOfSteps={tour.numberOfSteps}
+                        onNext={tour.next}
+                        onPrev={tour.prev}
+                    />
+                )}
+                <HighlightCover on={!!childRect} rect={childRect} expand={tour.step?.highlight?.expand} />
                 <UserManualDialogCtr />
 
                 <GlobalDialogRouter />

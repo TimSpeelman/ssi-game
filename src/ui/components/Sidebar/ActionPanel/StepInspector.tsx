@@ -81,20 +81,22 @@ export function StepInspector({ step }: Props) {
             )} */}
 
             {/* Outcome list */}
-            <Typography variant="h6">{dict.stepInspector.titleOutcomes}</Typography>
-            {step.outcomes.length > 0 ? (
-                <ul>
-                    {step.outcomes.map((o, i) => (
-                        <li key={i}>{replaceInternalResourceUrlStrings(o[lang])}</li>
-                    ))}
-                </ul>
-            ) : (
-                <ul>
-                    <li>
-                        <small>- {dict.misc.emptyListIndicator} -</small>
-                    </li>
-                </ul>
-            )}
+            <div id="outcome-list">
+                <Typography variant="h6">{dict.stepInspector.titleOutcomes}</Typography>
+                {step.outcomes.length > 0 ? (
+                    <ul>
+                        {step.outcomes.map((o, i) => (
+                            <li key={i}>{replaceInternalResourceUrlStrings(o[lang])}</li>
+                        ))}
+                    </ul>
+                ) : (
+                    <ul>
+                        <li>
+                            <small>- {dict.misc.emptyListIndicator} -</small>
+                        </li>
+                    </ul>
+                )}
+            </div>
         </div>
     );
 }

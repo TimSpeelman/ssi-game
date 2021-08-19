@@ -11,8 +11,14 @@ export function useTour(tour: TourStep[]) {
     const numberOfSteps = tour.length;
     const step = tour[index];
 
-    const next = () => setIndex((i) => Math.min(numberOfSteps, i + 1));
-    const prev = () => setIndex((i) => Math.max(0, i - 1));
+    const next = () => {
+        if (step && step.beforeNext) step.beforeNext(ctx);
+        setIndex((i) => Math.min(numberOfSteps, i + 1));
+    };
+    const prev = () => {
+        if (step && step.beforePrev) step.beforePrev(ctx);
+        setIndex((i) => Math.max(0, i - 1));
+    };
     const close = () => setIndex(-1);
 
     const ctx = { state, dispatch, next, prev };

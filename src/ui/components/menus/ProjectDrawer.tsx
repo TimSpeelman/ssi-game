@@ -110,7 +110,7 @@ export function ProjectDrawer() {
     }
 
     return (
-        <Drawer anchor={'left'} open={open} onClose={close}>
+        <Drawer anchor={'left'} open={open} onClose={close} id="project-drawer">
             <ListItem button onClick={newProject}>
                 <ListItemIcon style={{ minWidth: 0, marginRight: '.5em' }}>
                     <NoteAdd />

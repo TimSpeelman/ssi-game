@@ -22,7 +22,7 @@ export function StepInspector({ step }: Props) {
     const errorAt = useSelector(selectFailedStepIndex);
     const index = steps.findIndex((s) => step.action.id === s.action.id);
     const showError = errorAt === index;
-    const showWarning = errorAt && errorAt > 0 && errorAt < index;
+    const showWarning = errorAt !== undefined && errorAt >= 0 && errorAt < index;
     const { openDialog } = useDialog();
     const { dict, lang } = useLang();
 

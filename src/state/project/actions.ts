@@ -23,7 +23,7 @@ export const ProjectActions = {
     REMOVE_ASSET: event<{ actorId: string; id: string }>('REMOVE_ASSET', true),
 
     // Definition Manipulation : Steps
-    INSERT_STEP: event<{ step: ActionDef<any>; index: number }>('INSERT_STEP', true),
+    INSERT_STEP: event<{ step: ActionDef<any>; afterIndex: number }>('INSERT_STEP', true),
     REMOVE_STEP: event<{ id: string }>('REMOVE_STEP', true),
     REORDER_STEPS: event<{ sourceIndex: number; targetIndex: number }>('REORDER_STEPS', true),
     UPDATE_STEP: event<{ step: ActionDef<any> }>('UPDATE_STEP', true),

@@ -117,7 +117,10 @@ export function ActorInspector() {
                             <Add /> {dict.actorInspector.btnAddAsset}
                         </Button>
                     ) : (
-                        <Button onClick={() => dispatch(ProjectActions.GOTO_STEP_INDEX({ index: -1 }))}>
+                        <Button
+                            onClick={() => dispatch(ProjectActions.GOTO_STEP_INDEX({ index: -1 }))}
+                            id="btn-goto-initial-state"
+                        >
                             <Edit /> Begintoestand aanpassen
                         </Button>
                     )}

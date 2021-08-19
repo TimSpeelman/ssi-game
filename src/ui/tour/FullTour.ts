@@ -1,17 +1,23 @@
 import { GameActions } from '../../state/actions';
 import { ProjectActions } from '../../state/project/actions';
 import {
+    selectActiveActorDescs,
     selectActiveSidebarTab,
     selectActiveStepIndex,
+    selectAssetDefinitions,
+    selectEditing,
     selectSelectedActorId,
     selectSelectedAssetId,
+    selectStepDescs,
 } from '../../state/selectors';
 import { SidebarTab } from '../components/Sidebar/SidebarTab';
 import { TourStep } from './TourStep';
 
 const actorJohnID = 'human_1';
+const actorShopID = 'shop_1';
 const assetPassportID = 'subject-passport-1';
 const authResID = '11';
+const passportIssuanceTypeName = 'Issuance';
 
 export const FullTour: TourStep[] = [
     {
@@ -36,6 +42,7 @@ export const FullTour: TourStep[] = [
         nextEnabled: true,
         onActivate: (ctx) => {
             ctx.dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.INFO }));
+            ctx.dispatch(GameActions.TOGGLE_EDITING({ editing: false }));
             ctx.dispatch(ProjectActions.GOTO_STEP_INDEX({ index: -1 }));
         },
     },
@@ -370,17 +377,276 @@ export const FullTour: TourStep[] = [
 
     {
         title: {
-            NL: 'Tip: Handleiding',
+            NL: 'Scenario Bewerken',
             EN: '',
         },
         message: {
-            NL: 'Alles nog eens rustig nalezen? Klik op het vraagteken om de handleiding te tonen.',
+            NL:
+                'Nu we de kernconcepten van de Identity Game hebben besproken' +
+                ' kunnen we écht aan de slag. De ware kracht van het spel ligt ' +
+                " in de mogelijkheid om zelf scenario's te ontwikkelen. Tot" +
+                ' nu toe was bewerken uitgeschakeld.\n\n' +
+                '**Schakel bewerken in en klik op volgende.**',
+            EN: '',
+        },
+        nextEnabled: (s) => selectEditing(s),
+        highlight: { q: '#btn-editing' },
+        onActivate: (ctx) => ctx.dispatch(ProjectActions.GOTO_STEP_INDEX({ index: 2 })),
+    },
+    {
+        title: {
+            NL: 'Het scenario uitbreiden',
+            EN: '',
+        },
+        message: {
+            NL:
+                'Stel we willen dit scenario uitbreiden door de uitgifte van het' +
+                ' paspoort erin te betrekken. Daarvoor moeten we drie aanpassingen doen:\n' +
+                "1. John's paspoort in de begintoestand verwijderen.\n" +
+                '2. Een nieuwe actor toevoegen: de overheid.\n' +
+                '3. Een nieuwe stap toevoegen: uitgifte van een paspoort.\n\n' +
+                '_**Tip:** indien gewenst kun je met ctrl+z of de knoppen in het bovenmenu je wijzigingen ongedaan maken._\n\n' +
+                '**Klik op volgende**',
+            EN: '',
+        },
+        nextEnabled: (s) => true,
+    },
+    {
+        title: {
+            NL: "John's paspoort verwijderen",
+            EN: '',
+        },
+        message: {
+            NL:
+                "Omdat we willen uitbeelden dat de overheid John's paspoort uitgeeft," +
+                ' stellen we eerst in dat John begint zónder paspoort.\n\n' +
+                '**Selecteer John om verder te gaan**',
+            EN: '',
+        },
+        nextEnabled: (s) => false,
+        onStateChange: (ctx) => {
+            if (
+                selectActiveSidebarTab(ctx.state) === SidebarTab.ACTORS &&
+                selectSelectedActorId(ctx.state) === actorJohnID
+            ) {
+                ctx.next();
+            }
+        },
+    },
+    {
+        title: {
+            NL: "John's paspoort verwijderen",
+            EN: '',
+        },
+        message: {
+            NL:
+                'We kunnen het paspoort alleen verwijderen als we in de begintoestand zijn.\n\n' +
+                "**Klik op de knop 'Begintoestand aanpassen' om verder te gaan**",
+            EN: '',
+        },
+        nextEnabled: (s) => false,
+        onStateChange: (ctx) => {
+            if (selectActiveStepIndex(ctx.state) === -1) {
+                ctx.next();
+            }
+        },
+        highlight: { q: '#btn-goto-initial-state' },
+    },
+    {
+        title: {
+            NL: "John's paspoort verwijderen",
+            EN: '',
+        },
+        message: {
+            NL:
+                'In de begintoestand is te zien dat John beschikt over een paspoort.\n\n' +
+                '**Verwijder het paspoort om verder te gaan**',
+            EN: '',
+        },
+        nextEnabled: (s) => false,
+        onStateChange: (ctx) => {
+            if (!(assetPassportID in selectAssetDefinitions(ctx.state))) {
+                ctx.next();
+            }
+        },
+        highlight: { q: '#actor-assets', expand: 1 },
+    },
+    {
+        title: {
+            NL: 'Foutmelding',
+            EN: '',
+        },
+        message: {
+            NL:
+                'Heel goed. Nu het paspoort is verwijderd verschijnt een foutmelding.' +
+                ' Klik op de foutmelding om te zien wat er mis gaat.\n\n' +
+                '**Klik op Tonen om verder te gaan**',
+            EN: '',
+        },
+        nextEnabled: false,
+        onStateChange: (ctx) => {
+            if (selectActiveSidebarTab(ctx.state) === SidebarTab.STEP && selectActiveStepIndex(ctx.state) === 0) {
+                ctx.next();
+            }
+        },
+        highlight: { q: '.scenario-status' },
+    },
+    {
+        title: {
+            NL: 'Foutmelding',
+            EN: '',
+        },
+        message: {
+            NL:
+                'In het zij-menu stapdetails zie je dat bij stap 1 iets misgaat.' +
+                ' Een paspoort is immers vereist voor deze stap "Fysieke authenticatie o.b.v. paspoort".\n\n' +
+                ' De Identity Game bevat dergelijke eenvoudige controles om de gebruiker te helpen' +
+                " kloppende scenario's te bouwen. Deze controles zijn echter niet sluitend.\n\n" +
+                '**Ga met de tijdregelaar naar stap 2 om verder te gaan**',
+            EN: '',
+        },
+        nextEnabled: false,
+        onStateChange: (ctx) => {
+            if (selectActiveSidebarTab(ctx.state) === SidebarTab.STEP && selectActiveStepIndex(ctx.state) === 1) {
+                ctx.next();
+            }
+        },
+        highlight: { q: '.sidebar' },
+    },
+    {
+        title: {
+            NL: 'Waarschuwing',
+            EN: '',
+        },
+        message: {
+            NL:
+                'In stap 2 zie je ook een melding. Omdat er iets fout gaat in stap 1 kan het zijn dat' +
+                ' de rest van het scenario niet meer klopt.\n\n' +
+                '**Ga naar het zij-menu "actoren" om verder te gaan.**',
+            EN: '',
+        },
+        nextEnabled: false,
+        onStateChange: (ctx) => {
+            if (selectActiveSidebarTab(ctx.state) === SidebarTab.ACTORS) {
+                ctx.next();
+            }
+        },
+        highlight: { q: '.sidebar-main' },
+    },
+    {
+        title: {
+            NL: 'Actor Toevoegen',
+            EN: '',
+        },
+        message: {
+            NL:
+                'Voordat John een paspoort kan krijgen van de overheid, moet' +
+                ' de overheid eerst als partij worden toegevoegd aan het scenario.\n\n' +
+                ' Met de knop "Actor Toevoegen" krijg je een dialoogvenster waar je' +
+                ' gewenste actoren kan toevoegen. Zorg dat je bij "Actor Type" in ieder' +
+                ' geval voor Overheid hebt gekozen.\n\n' +
+                '**Voeg de actor Overheid toe en klik op volgende.**',
+            EN: '',
+        },
+        nextEnabled: (s) =>
+            selectActiveActorDescs(s).length > 2 &&
+            !!selectActiveActorDescs(s).find((a) => !a.isHuman && a.id !== actorShopID),
+    },
+    {
+        title: {
+            NL: 'Actor Toegevoegd',
+            EN: '',
+        },
+        message: {
+            NL:
+                'Goed zo. De laatste aanpassing die we moeten maken is het toevoegen van een stap:' +
+                ' de uitgifte van het paspoort.\n\n' +
+                '**Ga naar het zij-menu "tijdlijn" om verder te gaan.**',
+            EN: '',
+        },
+        nextEnabled: false,
+        onStateChange: (ctx) => {
+            if (selectActiveSidebarTab(ctx.state) === SidebarTab.TIMELINE) {
+                ctx.next();
+            }
+        },
+    },
+    {
+        title: {
+            NL: 'Stap Toevoegen',
+            EN: '',
+        },
+        message: {
+            NL:
+                'Met de knop "Stap Toevoegen" krijg je een dialoogvenster waarin je acties kunt kiezen.\n' +
+                '1. Kies bij "Handeling" voor "Paspoortuitgifte".\n' +
+                '2. Kies bij "Uitgever" voor de Overheid.\n' +
+                '3. Kies bij "Subject" voor John. John is immers het subject van het uit te geven paspoort.' +
+                '4. Vul naar wens de resterende velden in, of laat ze leeg.\n\n' +
+                '**Voeg de stap "paspoortuitgifte" toe om verder te gaan.**',
+            EN: '',
+        },
+        nextEnabled: false,
+        onStateChange: (ctx) => {
+            if (!!selectStepDescs(ctx.state).find((s) => s.action.type === passportIssuanceTypeName)) {
+                ctx.next();
+            }
+        },
+    },
+    {
+        title: {
+            NL: 'Stap Toegevoegd',
+            EN: '',
+        },
+        message: {
+            NL:
+                'Heel goed. De paspoortuitgifte is nu opgenomen in het scenario. Er is echter nog één' +
+                ' laatste aanpassing te doen. De paspoortuitgifte vindt plaatst nádat John wijn heeft' +
+                ' willen kopen, dus stap 1 mislukt nog steeds.\n\n' +
+                'Je kunt de volgorde van stappen veranderen door ze te slepen.\n\n' +
+                '**Sleep de paspoortuitgifte naar het begin om verder te gaan.**',
+            EN: '',
+        },
+        nextEnabled: false,
+        onStateChange: (ctx) => {
+            if (selectStepDescs(ctx.state).findIndex((s) => s.action.type === passportIssuanceTypeName) === 0) {
+                ctx.next();
+            }
+        },
+    },
+    {
+        title: {
+            NL: 'Geslaagd!',
+            EN: '',
+        },
+        message: {
+            NL:
+                'Top! Het scenario is compleet!\n\n' +
+                '**Dit was de rondleiding. Hierna volgen nog enkele tips. Veel plezier met de Identity Game!**',
             EN: '',
         },
         nextEnabled: true,
-        highlight: { q: `#btn-help` },
     },
     {
+        title: {
+            NL: 'Tip: projectbeheer en import/export',
+            EN: '',
+        },
+        message: {
+            NL:
+                "Je kunt scenario's opslaan als bestanden en ze op die manier met anderen uitwisselen." +
+                ' In het bestandsmenu links zie je een overzicht van alle projecten die tijdelijk in je browser' +
+                ' staan opgeslagen. In dit menu kun je nieuwe projecten aanmaken, ze exporteren en importeren.',
+            EN: '',
+        },
+        nextEnabled: true,
+        onActivate: (ctx) => ctx.dispatch(GameActions.OPEN_PROJECT_DRAWER()),
+        beforeNext: (ctx) => ctx.dispatch(GameActions.CLOSE_PROJECT_DRAWER()),
+        highlight: { q: `#project-drawer` },
+    },
+
+    {
+        onActivate: (ctx) => ctx.dispatch(GameActions.CLOSE_PROJECT_DRAWER()),
         title: {
             NL: 'Tip: Sneltoetsen',
             EN: '',
@@ -388,9 +654,7 @@ export const FullTour: TourStep[] = [
         message: {
             NL:
                 'Diverse sneltoetsen zijn beschikbaar om snel' +
-                ' door de Identity Game te navigeren. In de handleiding' +
-                ' (achter het vraagteken) vind je onderstaand overzicht' +
-                ' snel terug:\n' +
+                ' door de Identity Game te navigeren:\n' +
                 '-   Deselecteren: `escape` \n' +
                 '-   Ongedaan maken: `ctrl+z` \n' +
                 '-   Opnieuw: `ctrl+y` of `ctrl+shift+z` \n' +
@@ -410,5 +674,17 @@ export const FullTour: TourStep[] = [
         },
         nextEnabled: true,
         highlight: { q: `.sidebar-menu` },
+    },
+    {
+        title: {
+            NL: 'Tip: Handleiding',
+            EN: '',
+        },
+        message: {
+            NL: 'Alles nog eens rustig nalezen? Klik op het vraagteken om de handleiding te tonen.',
+            EN: '',
+        },
+        nextEnabled: true,
+        highlight: { q: `#btn-help` },
     },
 ];

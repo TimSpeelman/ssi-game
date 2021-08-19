@@ -132,7 +132,7 @@ export function AssetInspector() {
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
                         <Typography variant="h6">{dict.assetInspector.assetContent}</Typography>
                         {editing && !isInitialState && (
-                            <Button onClick={goToInitialState}>
+                            <Button onClick={goToInitialState} id="btn-goto-initial-state">
                                 <Edit /> Begintoestand aanpassen
                             </Button>
                         )}

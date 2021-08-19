@@ -55,7 +55,7 @@ export const ProjectReducers: ReducerMap<ProjectState, typeof ProjectActions> = 
         ),
 
     // Definition Manipulation : Steps
-    INSERT_STEP: (p) => L.scenario.steps.set((steps) => insertAt(steps, p.index, p.step)),
+    INSERT_STEP: (p) => L.scenario.steps.set((steps) => insertAt(steps, p.afterIndex + 1, p.step)),
     REMOVE_STEP: (p) => L.scenario.steps.set((steps) => steps.filter((a) => a.id !== p.id)),
     REORDER_STEPS: (p) => L.scenario.steps.set((steps) => reorder(steps, p.sourceIndex, p.targetIndex)),
     UPDATE_STEP: (p) => L.scenario.steps.set((steps) => steps.map((s) => (s.id === p.step.id ? p.step : s))),

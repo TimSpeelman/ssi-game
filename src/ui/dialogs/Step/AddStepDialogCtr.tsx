@@ -19,7 +19,7 @@ export function AddStepDialogCtr(props: Props) {
     return (
         <StepDialog
             onSubmit={(step) => {
-                dispatch(ProjectActions.INSERT_STEP({ step, index }));
+                dispatch(ProjectActions.INSERT_STEP({ step, afterIndex: index }));
                 props.onSubmit();
             }}
             onCancel={props.onCancel}

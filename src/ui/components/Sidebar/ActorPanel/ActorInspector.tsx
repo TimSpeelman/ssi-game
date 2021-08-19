@@ -44,7 +44,7 @@ export function ActorInspector() {
 
     return (
         <div>
-            <Button onClick={() => dispatch(ProjectActions.CLEAR_SELECTION())}>
+            <Button onClick={() => dispatch(ProjectActions.CLEAR_SELECTION())} id="btn-all-actors">
                 <ChevronLeft /> {dict.actorInspector.allActors}
             </Button>
             <Divider />

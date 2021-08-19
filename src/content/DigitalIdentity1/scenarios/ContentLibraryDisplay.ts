@@ -11,6 +11,7 @@ import { CustomInteraction } from '../actions/CustomInteraction';
 import { GrantGreenFlag } from '../actions/GrantGreenFlag';
 import { Handover } from '../actions/Handover';
 import { Issuance } from '../actions/Issuance';
+import { PassportIssuance } from '../actions/PassportIssuance';
 import { PhysicalPassportAuthentication } from '../actions/PhysicalPassportAuthentication';
 import { Presentation } from '../actions/Presentation';
 import { PresentationConsent } from '../actions/PresentationConsent';
@@ -166,6 +167,22 @@ if (missingAssets.length > 0) {
 
 // **Steps**
 // We now create an action of each type
+const PassportIssuance1 = new PassportIssuance('PassportIssuance1', {
+    issuer: Actor1.id,
+    subject: Actor2.id,
+    explanation: '',
+    identifier: 'BSN_2',
+    name: 'NAME_2',
+    firstName: 'FIRST_NAME_2',
+    dateOfBirth: 'DOB_2',
+    placeOfIssuance: 'PLACE_OF_ISSUANCE_2',
+    placeOfBirth: 'PLACE_OF_BIRTH_2',
+    dateOfIssuance: 'DATE_OF_ISSUANCE_2',
+    dateOfExpiry: 'DATE_OF_EXPIRY_2',
+    height: 'HEIGHT_2',
+    documentNumber: 'DOC_NUMBER_2',
+    nationality: 'NATIONALITY_2',
+});
 const Issuance1 = new Issuance('Issuance1', {
     attributeName: 'ATTR_NAME_3',
     attributeValue: 'ATTR_VALUE_3',
@@ -244,6 +261,7 @@ const Handover1 = new Handover('Handover1', {
 });
 
 const steps = [
+    PassportIssuance1,
     Issuance1,
     Presentation1,
     PresentationConsent1,

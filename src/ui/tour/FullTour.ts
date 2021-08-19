@@ -1,3 +1,4 @@
+import { PassportIssuanceType } from '../../content/DigitalIdentity1/actions/PassportIssuance';
 import { GameActions } from '../../state/actions';
 import { ProjectActions } from '../../state/project/actions';
 import {
@@ -6,18 +7,20 @@ import {
     selectActiveStepIndex,
     selectAssetDefinitions,
     selectEditing,
+    selectFailedStepDesc,
     selectSelectedActorId,
     selectSelectedAssetId,
     selectStepDescs,
 } from '../../state/selectors';
 import { SidebarTab } from '../components/Sidebar/SidebarTab';
+import { hotkeys } from '../config/hotkeys';
 import { TourStep } from './TourStep';
 
 const actorJohnID = 'human_1';
 const actorShopID = 'shop_1';
 const assetPassportID = 'subject-passport-1';
 const authResID = '11';
-const passportIssuanceTypeName = 'Issuance';
+const passportIssuanceTypeName = PassportIssuanceType.schema.typeName;
 
 export const FullTour: TourStep[] = [
     {
@@ -143,7 +146,7 @@ export const FullTour: TourStep[] = [
         message: {
             NL:
                 'Deze stap wordt toegelicht in het zij-menu **stapdetails**.\n\n' +
-                '**Ga naar het zij-menu stapdetails om verder te gaan.**',
+                `**Ga naar het zij-menu stapdetails (sneltoets: ${hotkeys.TAB_STEP.toUpperCase()}) om verder te gaan.**`,
             EN: '',
         },
         nextEnabled: false,
@@ -178,7 +181,8 @@ export const FullTour: TourStep[] = [
             NL:
                 'Onder de stapinformatiekaart staat een lijst uitkomsten.' +
                 ' Uitkomsten geven concreet aan wat de relevante gevolgen' +
-                ' zijn van een actie. \n\n' +
+                ' zijn van een actie, zoals het verkrijgen of verliezen' +
+                ' van kennis en materialen. \n\n' +
                 'In dit geval zien we dat de Slijterij' +
                 ' nieuwe kennis heeft vergaard.\n\n' +
                 '**Klik op "Authenticatieresultaat" om verder te gaan.**',
@@ -199,10 +203,9 @@ export const FullTour: TourStep[] = [
         },
         message: {
             NL:
-                'Je hebt zojuist het "Authenticatieresultaat" geselecteerd' +
-                ' waardoor je in het zij-menu **assetdetails** meer informatie' +
-                ' over asset (een stuk kennis in dit geval) te zien krijgt.\n\n' +
-                '**Lees de omschrijving op de assetkaart en klik op volgende**',
+                'Je hebt zojuist de asset "Authenticatieresultaat" geselecteerd.' +
+                ' In het zij-menu **assetdetails** vind je uitleg over deze asset.\n\n' +
+                '**Lees de omschrijving op de assetkaart en klik op volgende.**',
             EN: '',
         },
         nextEnabled: true,
@@ -217,7 +220,7 @@ export const FullTour: TourStep[] = [
             NL:
                 'Merk ook op dat het "Authenticatieresultaat" op het canvas is verschenen.' +
                 ' De gele ring geeft aan dat de asset is geselecteerd.\n\n' +
-                '**Klik op volgende**',
+                '**Klik op volgende.**',
             EN: '',
         },
         nextEnabled: true,
@@ -231,7 +234,7 @@ export const FullTour: TourStep[] = [
         message: {
             NL:
                 'Om alle stappen in het scenario te zien ga je naar het zij-menu **tijdlijn**.\n\n' +
-                '**Ga naar het zij-menu tijdlijn om verder te gaan.**',
+                `**Ga naar het zij-menu tijdlijn (sneltoets: ${hotkeys.TAB_TIMELINE.toUpperCase()}) om verder te gaan.**`,
             EN: '',
         },
         nextEnabled: false,
@@ -289,7 +292,7 @@ export const FullTour: TourStep[] = [
         message: {
             NL:
                 'In het zij-menu **actoren** vind je meer informatie over' +
-                ' actoren.\n\n' +
+                ' actoren. Selecteer John.\n\n' +
                 '_**Tip:** je kunt op meerdere manieren bij John komen:_ \n' +
                 '1. _door op de onderstreepte naam John te klikken;_ \n' +
                 '2. _door in het canvas op John te klikken; of,_ \n' +
@@ -334,7 +337,7 @@ export const FullTour: TourStep[] = [
         message: {
             NL:
                 'Deze tabel bevat _eigenschappen_ van deze actor' +
-                ' die voor dit scenario relevant zijn.' +
+                ' die voor dit scenario relevant zijn.\n\n' +
                 ' In dit voorbeeld is de geboortedatum van John' +
                 ' belangrijk.' +
                 ' De Identity Game gaat voornamelijk over kennis.' +
@@ -342,7 +345,7 @@ export const FullTour: TourStep[] = [
                 ' immers relevante en betrouwbare kennis over' +
                 ' elkaar kunnen verzamelen.\n\n' +
                 'Echter, kennis kan afwezig, verouderd of onjuist zijn.' +
-                ' Om duidelijk onderscheid te kunnen maken tussen wat _is_' +
+                ' Om duidelijk onderscheid te kunnen maken tussen de _feiten_' +
                 ' en wat Actoren _weten_ (of denken te weten) beschrijft deze' +
                 ' tabel de werkelijkheid.\n\n' +
                 '**Klik op volgende.**',
@@ -363,7 +366,7 @@ export const FullTour: TourStep[] = [
             NL:
                 'Deze lijst bevat de kennis en materialen ' +
                 ' die deze actor, op dit moment in het scenario,' +
-                ' bezit.' +
+                ' bezit.\n\n' +
                 ' In dit voorbeeld beschikte John al bij het' +
                 ' begin van het scenario over een paspoort en' +
                 ' verkreeg hij in stap 2 de fles wijn waar het' +
@@ -387,9 +390,9 @@ export const FullTour: TourStep[] = [
             NL:
                 'Nu we de kernconcepten van de Identity Game hebben besproken' +
                 ' kunnen we écht aan de slag. De ware kracht van het spel ligt ' +
-                " in de mogelijkheid om zelf scenario's te ontwikkelen. Tot" +
-                ' nu toe was bewerken uitgeschakeld.\n\n' +
-                '**Schakel bewerken in en klik op volgende.**',
+                " in de mogelijkheid om zelf scenario's te ontwikkelen. Klik op" +
+                ' het slotje om het scenario te ontgrendelen voor bewerking.\n\n' +
+                `**Schakel bewerken in (sneltoets: ${hotkeys.TOGGLE_EDITING.toUpperCase()}) en klik op volgende.**`,
             EN: '',
         },
         nextEnabled: (s) => selectEditing(s),
@@ -405,11 +408,11 @@ export const FullTour: TourStep[] = [
             NL:
                 'Stel we willen dit scenario uitbreiden door de uitgifte van het' +
                 ' paspoort erin te betrekken. Daarvoor moeten we drie aanpassingen doen:\n' +
-                "1. John's paspoort in de begintoestand verwijderen.\n" +
+                "1. John's paspoort verwijderen.\n" +
                 '2. Een nieuwe actor toevoegen: de overheid.\n' +
                 '3. Een nieuwe stap toevoegen: uitgifte van een paspoort.\n\n' +
                 '_**Tip:** indien gewenst kun je met ctrl+z of de knoppen in het bovenmenu je wijzigingen ongedaan maken._\n\n' +
-                '**Klik op volgende**',
+                '**Klik op volgende.**',
             EN: '',
         },
         nextEnabled: (s) => true,
@@ -423,10 +426,11 @@ export const FullTour: TourStep[] = [
             NL:
                 "Omdat we willen uitbeelden dat de overheid John's paspoort uitgeeft," +
                 ' stellen we eerst in dat John begint zónder paspoort.\n\n' +
-                '**Selecteer John om verder te gaan**',
+                '**Selecteer John om verder te gaan.**',
             EN: '',
         },
         nextEnabled: (s) => false,
+        onActivate: (ctx) => ctx.dispatch(ProjectActions.CLEAR_SELECTION()),
         onStateChange: (ctx) => {
             if (
                 selectActiveSidebarTab(ctx.state) === SidebarTab.ACTORS &&
@@ -463,7 +467,7 @@ export const FullTour: TourStep[] = [
         message: {
             NL:
                 'In de begintoestand is te zien dat John beschikt over een paspoort.\n\n' +
-                '**Verwijder het paspoort om verder te gaan**',
+                '**Verwijder het paspoort om verder te gaan.**',
             EN: '',
         },
         nextEnabled: (s) => false,
@@ -483,7 +487,7 @@ export const FullTour: TourStep[] = [
             NL:
                 'Heel goed. Nu het paspoort is verwijderd verschijnt een foutmelding.' +
                 ' Klik op de foutmelding om te zien wat er mis gaat.\n\n' +
-                '**Klik op Tonen om verder te gaan**',
+                '**Klik op Tonen om verder te gaan.**',
             EN: '',
         },
         nextEnabled: false,
@@ -504,8 +508,10 @@ export const FullTour: TourStep[] = [
                 'In het zij-menu stapdetails zie je dat bij stap 1 iets misgaat.' +
                 ' Een paspoort is immers vereist voor deze stap "Fysieke authenticatie o.b.v. paspoort".\n\n' +
                 ' De Identity Game bevat dergelijke eenvoudige controles om de gebruiker te helpen' +
-                " kloppende scenario's te bouwen. Deze controles zijn echter niet sluitend.\n\n" +
-                '**Ga met de tijdregelaar naar stap 2 om verder te gaan**',
+                " kloppende scenario's te bouwen. \n\n" +
+                ' Deze controles zijn echter niet sluitend:' +
+                ' zo wordt bijvoorbeeld niet de leeftijd van John getoetst. Ook als John jonger is dan 18 (of helemaal geen geboortedatum heeft) zal er geen foutmelding optreden.\n\n' +
+                '**Ga met de tijdregelaar naar stap 2 om verder te gaan.**',
             EN: '',
         },
         nextEnabled: false,
@@ -524,8 +530,8 @@ export const FullTour: TourStep[] = [
         message: {
             NL:
                 'In stap 2 zie je ook een melding. Omdat er iets fout gaat in stap 1 kan het zijn dat' +
-                ' de rest van het scenario niet meer klopt.\n\n' +
-                '**Ga naar het zij-menu "actoren" om verder te gaan.**',
+                ' de rest van het scenario niet meer klopt. Zo is het bijvoorbeeld niet de bedoeling dat John de fles wijn krijgt als hij geen paspoort kan tonen.\n\n' +
+                `**Ga naar het zij-menu "actoren" (sneltoets: ${hotkeys.TAB_ACTORS.toUpperCase()}) om verder te gaan.**`,
             EN: '',
         },
         nextEnabled: false,
@@ -542,18 +548,44 @@ export const FullTour: TourStep[] = [
             EN: '',
         },
         message: {
+            NL: '**Klik op "Alle Actoren" om terug te gaan naar de lijst van actoren.**',
+            EN: '',
+        },
+        nextEnabled: false,
+        onStateChange: (ctx) => {
+            if (
+                selectActiveSidebarTab(ctx.state) === SidebarTab.ACTORS &&
+                selectSelectedActorId(ctx.state) === undefined
+            ) {
+                ctx.next();
+            }
+        },
+        highlight: { q: '#btn-all-actors' },
+    },
+    {
+        title: {
+            NL: 'Actor Toevoegen',
+            EN: '',
+        },
+        message: {
             NL:
                 'Voordat John een paspoort kan krijgen van de overheid, moet' +
                 ' de overheid eerst als partij worden toegevoegd aan het scenario.\n\n' +
                 ' Met de knop "Actor Toevoegen" krijg je een dialoogvenster waar je' +
                 ' gewenste actoren kan toevoegen. Zorg dat je bij "Actor Type" in ieder' +
                 ' geval voor Overheid hebt gekozen.\n\n' +
-                '**Voeg de actor Overheid toe en klik op volgende.**',
+                '**Voeg de actor Overheid toe om verder te gaan.**',
             EN: '',
         },
-        nextEnabled: (s) =>
-            selectActiveActorDescs(s).length > 2 &&
-            !!selectActiveActorDescs(s).find((a) => !a.isHuman && a.id !== actorShopID),
+        nextEnabled: false,
+        onStateChange: (ctx) => {
+            if (
+                selectActiveActorDescs(ctx.state).length > 2 &&
+                !!selectActiveActorDescs(ctx.state).find((a) => !a.isHuman && a.id !== actorShopID)
+            ) {
+                ctx.next();
+            }
+        },
     },
     {
         title: {
@@ -562,9 +594,9 @@ export const FullTour: TourStep[] = [
         },
         message: {
             NL:
-                'Goed zo. De laatste aanpassing die we moeten maken is het toevoegen van een stap:' +
-                ' de uitgifte van het paspoort.\n\n' +
-                '**Ga naar het zij-menu "tijdlijn" om verder te gaan.**',
+                'Goed zo. Nu moeten we er nog voor zorgen dat John een paspoort krijgt van de overheid.' +
+                ' Daartoe gaan we een Actie toevoegen.\n\n' +
+                `**Ga naar het zij-menu "tijdlijn" (sneltoets: ${hotkeys.TAB_TIMELINE.toUpperCase()}) om verder te gaan.**`,
             EN: '',
         },
         nextEnabled: false,
@@ -582,11 +614,11 @@ export const FullTour: TourStep[] = [
         message: {
             NL:
                 'Met de knop "Stap Toevoegen" krijg je een dialoogvenster waarin je acties kunt kiezen.\n' +
-                '1. Kies bij "Handeling" voor "Paspoortuitgifte".\n' +
+                '1. Kies bij "Handeling" voor "Uitgifte van paspoort".\n' +
                 '2. Kies bij "Uitgever" voor de Overheid.\n' +
-                '3. Kies bij "Subject" voor John. John is immers het subject van het uit te geven paspoort.' +
+                '3. Kies bij "Subject" voor John. John is immers het subject van het uit te geven paspoort.\n' +
                 '4. Vul naar wens de resterende velden in, of laat ze leeg.\n\n' +
-                '**Voeg de stap "paspoortuitgifte" toe om verder te gaan.**',
+                '**Voeg de stap "Uitgifte van paspoort" toe om verder te gaan.**',
             EN: '',
         },
         nextEnabled: false,
@@ -603,16 +635,54 @@ export const FullTour: TourStep[] = [
         },
         message: {
             NL:
-                'Heel goed. De paspoortuitgifte is nu opgenomen in het scenario. Er is echter nog één' +
-                ' laatste aanpassing te doen. De paspoortuitgifte vindt plaatst nádat John wijn heeft' +
-                ' willen kopen, dus stap 1 mislukt nog steeds.\n\n' +
+                'Heel goed. De uitgifte van het paspoort is nu opgenomen in het scenario.' +
+                ' Toch blijft de foutmelding staan omdat het paspoort pas wordt uitgegeven nádat John de wijn probeert te kopen.' +
+                ' Daarom mislukt stap 1 nog steeds.\n\n' +
                 'Je kunt de volgorde van stappen veranderen door ze te slepen.\n\n' +
-                '**Sleep de paspoortuitgifte naar het begin om verder te gaan.**',
+                '**Sleep de uitgifte van het paspoort naar het begin om verder te gaan.**',
             EN: '',
         },
         nextEnabled: false,
         onStateChange: (ctx) => {
             if (selectStepDescs(ctx.state).findIndex((s) => s.action.type === passportIssuanceTypeName) === 0) {
+                ctx.next();
+            }
+        },
+    },
+    {
+        title: {
+            NL: 'Paspoort koppelen',
+            EN: '',
+        },
+        message: {
+            NL:
+                'Tot slot moeten we het nieuwe paspoort, dat John in stap 1 krijgt, ook daadwerkelijk in stap 2 gebruiken.\n\n' +
+                '**Dubbel-klik op stap 2 om verder te gaan.**',
+            EN: '',
+        },
+        nextEnabled: false,
+        onStateChange: (ctx) => {
+            if (selectActiveSidebarTab(ctx.state) === SidebarTab.STEP && selectActiveStepIndex(ctx.state) === 1) {
+                ctx.next();
+            }
+        },
+    },
+    {
+        title: {
+            NL: 'Paspoort koppelen',
+            EN: '',
+        },
+        message: {
+            NL:
+                'Je ziet dat deze stap klaagt dat een paspoort nog steeds ontbreekt.' +
+                ' Je zult deze actie nog moeten vertellen het nieuwe paspoort van John te gebruiken.\n\n' +
+                ' Klik op de knop "Bewerken" om deze actie aan te passen. Kies in het dialoogvenster voor het Paspoort en sla de wijzigingen op.\n\n' +
+                '**Wijzig deze actie om verder te gaan.**',
+            EN: '',
+        },
+        nextEnabled: false,
+        onStateChange: (ctx) => {
+            if (!selectFailedStepDesc(ctx.state)) {
                 ctx.next();
             }
         },
@@ -676,7 +746,6 @@ export const FullTour: TourStep[] = [
             EN: '',
         },
         nextEnabled: true,
-        highlight: { q: `.sidebar-menu` },
     },
     {
         title: {

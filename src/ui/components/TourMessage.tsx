@@ -15,6 +15,8 @@ export interface Props {
 }
 export function TourMessage({ step, index, numberOfSteps, ...p }: Props) {
     const { lang } = useLang();
+    const isFirst = index === 0;
+    const isLast = index === numberOfSteps - 1;
     return (
         <div
             style={{
@@ -38,9 +40,9 @@ export function TourMessage({ step, index, numberOfSteps, ...p }: Props) {
             </div>
             <ReactMarkdown>{step.message[lang]}</ReactMarkdown>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Button onClick={p.onPrev}>Vorige</Button>
+                {isFirst ? <div></div> : <Button onClick={p.onPrev}>Vorige</Button>}
                 <Button onClick={p.onNext} color="primary" disabled={!step.nextEnabled}>
-                    Volgende
+                    {isLast ? 'Sluiten' : 'Volgende'}
                 </Button>
             </div>
         </div>

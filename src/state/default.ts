@@ -12,5 +12,5 @@ export const defaultState: GameState = {
     activeSidebarTab: SidebarTab.TIMELINE,
     language: Language.NL,
     userManualOpen: false,
-    editing: false,
+    editing: true,
 };

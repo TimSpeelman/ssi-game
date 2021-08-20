@@ -10,6 +10,7 @@ import {
     selectSnackbarIsOn,
 } from '../../state/selectors';
 import { GlobalDialogRouter } from '../dialogs/GlobalDialogRouter';
+import { Tour } from '../tour/Tour';
 import { CanvasCtr } from './Canvas/CanvasCtr';
 import { replaceInternalResourceUrlStrings } from './elements/replaceInternalResourceUrlStrings';
 import { UserManualDialogCtr } from './Manual/UserManualDialogCtr';
@@ -20,7 +21,7 @@ import { ScenarioMetaDialog } from './Sidebar/InfoPanel/ScenarioMetaDialog';
 import { Sidebar } from './Sidebar/Sidebar';
 
 interface Props {
-    tour?: boolean;
+    tour?: Tour;
 }
 
 export function NetworkViewerCtr(props: Props) {

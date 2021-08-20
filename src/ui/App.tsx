@@ -11,9 +11,11 @@ export function App() {
                     <NetworkPage />
                 </Route>
 
-                <Route exact path={'/tour'}>
-                    <TourPage />
+                <Route exact path={'/tour/:id'}>
+                    {(p) => <TourPage tourId={p.match?.params.id} />}
                 </Route>
+
+                <Redirect from="/tour" to="/tour/full" />
 
                 {/* Catch 404's */}
                 <Redirect from="*" to="/" />

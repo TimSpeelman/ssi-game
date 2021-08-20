@@ -6,10 +6,11 @@ import { ActionCreators } from 'redux-undo';
 import { GameActions } from '../../../state/actions';
 import { selectActiveProjectName, selectEditing, selectRedoable, selectUndoable } from '../../../state/selectors';
 import { useLang } from '../../hooks/useLang';
+import { Tour } from '../../tour/Tour';
 import { LanguageMenu } from './LanguageMenu';
 
 export interface Props {
-    tour?: boolean;
+    tour?: Tour;
 }
 
 export function TopMenu(props: Props) {
@@ -18,7 +19,8 @@ export function TopMenu(props: Props) {
     const projectName = useSelector(selectActiveProjectName);
     const editing = useSelector(selectEditing);
 
-    const { dict } = useLang();
+    const { tour } = props;
+    const { dict, lang } = useLang();
 
     const dispatch = useDispatch();
 
@@ -32,6 +34,8 @@ export function TopMenu(props: Props) {
 
     const openProjectDrawer = () => dispatch(GameActions.OPEN_PROJECT_DRAWER());
 
+    const title = tour ? tour.title[lang] : projectName === '' ? dict.untitledProject : projectName;
+
     return (
         <AppBar position="static">
             <Toolbar>
@@ -40,7 +44,7 @@ export function TopMenu(props: Props) {
                 </IconButton>
                 <div style={{ display: 'flex', flexGrow: 1 }} id="project-title">
                     <Typography variant="h6" style={{ marginRight: '.5rem' }}>
-                        Identity Game | {projectName === '' ? dict.untitledProject : projectName}
+                        Identity Game | {title}
                     </Typography>
                 </div>
 
@@ -83,7 +87,7 @@ export function TopMenu(props: Props) {
                     variant={'outlined'}
                     style={{ marginLeft: '.5rem' }}
                 >
-                    {props.tour ? dict.topMenu.btnStopTour : dict.topMenu.btnStartTour}
+                    {tour ? dict.topMenu.btnStopTour : dict.topMenu.btnStartTour}
                 </Button>
             </Toolbar>
         </AppBar>

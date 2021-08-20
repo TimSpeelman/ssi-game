@@ -2,15 +2,17 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GameActions } from '../../state/actions';
 import { RootState } from '../../state/state';
-import { TourStep, TourStepState } from './TourStep';
+import { Tour } from './Tour';
+import { TourStepState } from './TourStep';
 
-export function useTour(tour: TourStep[]) {
+export function useTour(tour: Tour) {
     const state = useSelector((s) => s) as RootState;
     const dispatch = useDispatch();
 
     const [index, setIndex] = useState(-1);
-    const numberOfSteps = tour.length;
-    const step = tour[index];
+    const steps = tour.steps;
+    const numberOfSteps = steps.length;
+    const step = steps[index];
 
     // When the user presses PREVIOUS, we simply reset the entire state.
     const [history, setHistory] = useState<RootState[]>([]);
@@ -31,7 +33,7 @@ export function useTour(tour: TourStep[]) {
         setTransitioning(true);
 
         setIndex(index);
-        const step = tour[index];
+        const step = steps[index];
 
         saveStepPreState(index, state);
 

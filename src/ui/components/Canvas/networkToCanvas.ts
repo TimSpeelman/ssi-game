@@ -216,40 +216,43 @@ function makeAssetEls(p: {
     props: NetworkProps;
     interactionData: InteractionViewData;
 }) {
-    return p.actorData.reduce((all, actorV, actorIndex): AssetEl[] => {
-        const actor = actorV.actor;
-        const assets = p.props.state.actors[actor.id].assetTrees;
-        const numAssets = assets.length;
+    return p.actorData
+        .reduce((all, actorV, actorIndex): AssetEl[] => {
+            const actor = actorV.actor;
+            const assets = p.props.state.actors[actor.id].assetTrees;
+            const numAssets = assets.length;
 
-        const isUsedInInteraction = (id: string) =>
-            p.interactionData.step?.outcomes.some((o) => o.usesAssetIds?.includes(id));
+            const isUsedInInteraction = (id: string) =>
+                p.interactionData.step?.outcomes.some((o) => o.usesAssetIds?.includes(id));
 
-        const actorCenter = p.actorData[actorIndex].homePosition;
-        const baseRotation = p.actorData.length === 2 ? config.networkRotationWithTwoActors : config.networkRotation;
-        const actorAngle = baseRotation + ((2 * Math.PI) / p.numberOfSlots) * actorIndex; // center the range
-        const spaceInRad = config.radialAssetSpacing;
-        const assetPositionsUnit = pointsOnCircleFixedRangeCentered(numAssets, actorAngle, spaceInRad);
-        const assetPositionsAbs = assetPositionsUnit.map((p) => add(actorCenter, scale(config.assetRingRadius)(p)));
-        const assetsEls = assets.map(
-            (a, assetIndex): AssetEl => ({
-                type: 'asset',
-                active: false,
-                selected: a.asset.id === p.props.selectedAssetId,
-                hovered: a.asset.id === p.props.hoveredElemId,
-                c: assetPositionsAbs[assetIndex],
-                // id: `asset-${actorIndex}-${assetIndex}`, // todo fixme
-                id: a.asset.id,
-                lit: false,
-                r: config.assetRadius,
-                numberOfChildren: a.children.length,
-                image: a.asset.image,
-                abbr: a.asset.abbr ? a.asset.abbr[p.props.language] : '',
-                transparent: !actorV.selected && !isUsedInInteraction(a.asset.id),
-            }),
-        );
+            const actorCenter = p.actorData[actorIndex].homePosition;
+            const baseRotation =
+                p.actorData.length === 2 ? config.networkRotationWithTwoActors : config.networkRotation;
+            const actorAngle = baseRotation + ((2 * Math.PI) / p.numberOfSlots) * actorIndex; // center the range
+            const spaceInRad = config.radialAssetSpacing;
+            const assetPositionsUnit = pointsOnCircleFixedRangeCentered(numAssets, actorAngle, spaceInRad);
+            const assetPositionsAbs = assetPositionsUnit.map((p) => add(actorCenter, scale(config.assetRingRadius)(p)));
+            const assetsEls = assets.map(
+                (a, assetIndex): AssetEl => ({
+                    type: 'asset',
+                    active: false,
+                    selected: a.asset.id === p.props.selectedAssetId,
+                    hovered: a.asset.id === p.props.hoveredElemId,
+                    c: assetPositionsAbs[assetIndex],
+                    // id: `asset-${actorIndex}-${assetIndex}`, // todo fixme
+                    id: a.asset.id,
+                    lit: false,
+                    r: config.assetRadius,
+                    numberOfChildren: a.children.length,
+                    image: a.asset.image,
+                    abbr: a.asset.abbr ? a.asset.abbr[p.props.language] : '',
+                    transparent: !actorV.selected && !isUsedInInteraction(a.asset.id),
+                }),
+            );
 
-        return [...all, ...assetsEls];
-    }, []);
+            return [...all, ...assetsEls];
+        }, [])
+        .sort((a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0));
 }
 
 function makeActorViewData(p: {

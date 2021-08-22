@@ -9,7 +9,9 @@ export function SVGNetworkCanvas(props: Props) {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width={'100%'} height={'100%'} viewBox="0 0 600 600" id="network-svg">
             <g id="network-svg-root">
-                {props.elems.map((e) => ShapeSwitch({ elem: e, onEvent: props.onEvent, debug }))}
+                {props.elems.map((e) => (
+                    <ShapeSwitch key={e.id} elem={e} onEvent={props.onEvent} debug={debug} />
+                ))}
             </g>
         </svg>
     );

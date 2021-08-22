@@ -36,7 +36,9 @@ export function NetworkViewerCtr(props: Props) {
     useEffect(() => {
         closeSnackbar();
         if (currentStep && snackbarIsOn) {
-            currentStep.outcomes.forEach((o) => enqueueSnackbar(replaceInternalResourceUrlStrings(o[lang])));
+            currentStep.outcomes.forEach((o) =>
+                enqueueSnackbar(replaceInternalResourceUrlStrings(o.description[lang])),
+            );
         }
     }, [currentStep]);
 

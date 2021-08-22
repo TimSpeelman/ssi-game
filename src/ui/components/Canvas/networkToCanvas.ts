@@ -78,7 +78,7 @@ export function createNetworkCanvasData(props: NetworkProps): CanvasElem[] {
     const slotEls = makeSlotEls({ actorData });
     const actorEls = makeActorEls({ actorData });
     const connectionEls = makeConnectionEls({ interactionData, slotEls, center });
-    const assetEls = makeAssetEls({ actorData, numberOfSlots, props });
+    const assetEls = makeAssetEls({ actorData, numberOfSlots, props, interactionData });
 
     // Combine all elems
     const elems: CanvasElem[] = [...connectionEls, ...slotEls, ...actorEls, ...assetEls, ...pseudonymEls];
@@ -100,6 +100,7 @@ interface ActorViewData {
 
 /** A contextually meaningful description of an actor */
 interface InteractionViewData {
+    step: StepDesc | undefined;
     action: ActionDesc | undefined;
     fromIndex: number;
     toIndex: number;
@@ -132,6 +133,7 @@ function actorBasePositions(props: { center: Vec; ringRadius: number; numberOfSl
 
 function makeInteractionViewData(props: NetworkProps): InteractionViewData {
     return {
+        step: props.step,
         action: props.step?.action,
         fromIndex: !!props.step ? props.actors.findIndex((a) => a.id === props.step!.action.from.id) : -1,
         toIndex: !!props.step ? props.actors.findIndex((a) => a.id === props.step!.action.to.id) : -1,
@@ -208,11 +210,19 @@ function makeConnectionEls(p: {
     );
 }
 
-function makeAssetEls(p: { actorData: ActorViewData[]; numberOfSlots: number; props: NetworkProps }) {
+function makeAssetEls(p: {
+    actorData: ActorViewData[];
+    numberOfSlots: number;
+    props: NetworkProps;
+    interactionData: InteractionViewData;
+}) {
     return p.actorData.reduce((all, actorV, actorIndex): AssetEl[] => {
         const actor = actorV.actor;
         const assets = p.props.state.actors[actor.id].assetTrees;
         const numAssets = assets.length;
+
+        const isUsedInInteraction = (id: string) =>
+            p.interactionData.step?.outcomes.some((o) => o.usesAssetIds?.includes(id));
 
         const actorCenter = p.actorData[actorIndex].homePosition;
         const baseRotation = p.actorData.length === 2 ? config.networkRotationWithTwoActors : config.networkRotation;
@@ -234,7 +244,7 @@ function makeAssetEls(p: { actorData: ActorViewData[]; numberOfSlots: number; pr
                 numberOfChildren: a.children.length,
                 image: a.asset.image,
                 abbr: a.asset.abbr ? a.asset.abbr[p.props.language] : '',
-                transparent: !actorV.selected,
+                transparent: !actorV.selected && !isUsedInInteraction(a.asset.id),
             }),
         );
 

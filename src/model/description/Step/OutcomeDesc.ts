@@ -1,3 +1,7 @@
 import { Translation } from '../../../intl/Language';
 
-export type OutcomeDesc = Translation;
+export type OutcomeDesc = {
+    description: Translation;
+
+    usesAssetIds?: string[];
+};

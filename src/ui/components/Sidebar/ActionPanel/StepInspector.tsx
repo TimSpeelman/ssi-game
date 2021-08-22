@@ -87,7 +87,7 @@ export function StepInspector({ step }: Props) {
                 {step.outcomes.length > 0 ? (
                     <ul>
                         {step.outcomes.map((o, i) => (
-                            <li key={i}>{replaceInternalResourceUrlStrings(o[lang])}</li>
+                            <li key={i}>{replaceInternalResourceUrlStrings(o.description[lang])}</li>
                         ))}
                     </ul>
                 ) : (

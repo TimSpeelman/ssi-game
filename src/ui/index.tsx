@@ -1,14 +1,9 @@
-import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 import { App } from './App';
 import './assets/css/1-reset.css';
 import './assets/css/3-custom.css';
-import { DialogContextProvider } from './dialogs/DialogContext';
 import * as serviceWorker from './serviceWorker';
-import { store } from './store';
-
 /**
  * If our app crashes due to corrupt or outdated local storage, offer a reset
  * (for development purposes only, of course)
@@ -24,15 +19,7 @@ window.addEventListener('hashchange', checkReset);
 checkReset();
 
 export async function mount(rootElement: HTMLElement) {
-    const root = (
-        <Provider store={store}>
-            <SnackbarProvider maxSnack={10}>
-                <DialogContextProvider>
-                    <App />
-                </DialogContextProvider>
-            </SnackbarProvider>
-        </Provider>
-    );
+    const root = <App />;
 
     ReactDOM.render(root, rootElement);
 

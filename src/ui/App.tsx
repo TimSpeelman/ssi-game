@@ -1,25 +1,20 @@
+import { SnackbarProvider } from 'notistack';
 import React from 'react';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import { NetworkPage } from './pages/NetworkPage';
-import { TourPage } from './pages/TourPage';
+import { Provider } from 'react-redux';
+import './assets/css/1-reset.css';
+import './assets/css/3-custom.css';
+import { DialogContextProvider } from './dialogs/DialogContext';
+import { Router } from './Router';
+import { store } from './store';
 
 export function App() {
     return (
-        <BrowserRouter>
-            <Switch>
-                <Route exact path={'/'}>
-                    <NetworkPage />
-                </Route>
-
-                <Route exact path={'/tour/:id'}>
-                    {(p) => <TourPage tourId={p.match?.params.id} />}
-                </Route>
-
-                <Redirect from="/tour" to="/tour/full" />
-
-                {/* Catch 404's */}
-                <Redirect from="*" to="/" />
-            </Switch>
-        </BrowserRouter>
+        <Provider store={store}>
+            <SnackbarProvider maxSnack={10}>
+                <DialogContextProvider>
+                    <Router />
+                </DialogContextProvider>
+            </SnackbarProvider>
+        </Provider>
     );
 }

@@ -3,6 +3,7 @@
  * It displays every piece of content in this content library.
  */
 import { ActorConfig } from '../../../model/definition/Actor/ActorConfig';
+import { AssetDef } from '../../../model/definition/Asset/AssetDef';
 import { ScenarioDef } from '../../../model/definition/Scenario/ScenarioDef';
 import { Asset } from '../../../model/logic/Asset/Asset';
 import { Action } from '../../../model/logic/Step/Action';
@@ -162,7 +163,7 @@ const actorConfig3: ActorConfig = {
 const actorsConfigurations = [actorConfig1, actorConfig2, actorConfig3];
 
 // Just checking we did not miss any asset types in our library.
-const allAssets = actorsConfigurations.reduce((all, c) => [...all, ...c.initialAssets], []);
+const allAssets = actorsConfigurations.reduce((all, c) => [...all, ...c.initialAssets], [] as AssetDef<any>[]);
 const allAssetTypesInLibrary = assetCollection.types.map((t) => t.schema.typeName);
 const missingAssets = allAssetTypesInLibrary.filter((t) => !allAssets.some((a) => a.typeName === t));
 if (missingAssets.length > 0) {

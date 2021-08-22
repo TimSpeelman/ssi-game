@@ -1,11 +1,3 @@
-/**
- * For tsconfig manual see:
- * @see https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
- * 
- * Schema:
- * @see http://json.schemastore.org/tsconfig
- * @see https://www.typescriptlang.org/docs/handbook/react-&-webpack.html
- */
 {
     "compilerOptions": {
         "module": "esnext",
@@ -17,7 +9,7 @@
         "allowUnreachableCode": false,
         "moduleResolution": "node",
         "esModuleInterop": true,
-        "jsx": "preserve",
+        "jsx": "react",
         "resolveJsonModule": true,
         "declaration": true,
         "declarationMap": true,
@@ -34,11 +26,7 @@
         ],
     },
     "include": [
-        "src/**/*.ts",
-        "./typings.d.ts"
-    ],
-    "exclude": [
-        "**/node_modules/**"
+        "src/**/*"
     ],
     "files": [
         "./typings.d.ts"

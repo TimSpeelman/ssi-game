@@ -47,30 +47,20 @@ export const ProjectReducers: ReducerMap<ProjectState, typeof ProjectActions> = 
     CLEAR_SELECTION: (p) =>
         L.set((s) => ({
             ...s,
-            selectedStepId: undefined,
             selectedActorId: undefined,
             selectedAssetId: undefined,
         })),
     SELECT_ACTOR: (p) =>
         L.set((s) => ({
             ...s,
-            selectedStepId: undefined,
             selectedActorId: p.id,
             selectedAssetId: undefined,
         })),
     SELECT_ASSET: (p) =>
         L.set((s) => ({
             ...s,
-            selectedStepId: undefined,
             selectedActorId: undefined,
             selectedAssetId: p.id,
-        })),
-    SELECT_STEP: (p) =>
-        L.set((s) => ({
-            ...s,
-            selectedStepId: p.id,
-            selectedActorId: undefined,
-            selectedAssetId: undefined,
         })),
 
     // Sequence Navigation

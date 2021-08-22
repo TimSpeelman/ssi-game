@@ -34,7 +34,6 @@ export const ProjectActions = {
     CLEAR_SELECTION: event<void>('CLEAR_SELECTION'),
     SELECT_ACTOR: event<{ id: string }>('SELECT_ACTOR'),
     SELECT_ASSET: event<{ id: string }>('SELECT_ASSET'),
-    SELECT_STEP: event<{ id: string }>('SELECT_STEP'),
 
     // Time Control
     GOTO_STEP: event<{ id: string | undefined }>('GOTO_STEP'),

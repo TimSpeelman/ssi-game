@@ -14,7 +14,6 @@ export interface ProjectState {
 
     selectedActorId?: string;
     selectedAssetId?: string;
-    selectedStepId?: string;
     activeStepId?: string;
 }
 

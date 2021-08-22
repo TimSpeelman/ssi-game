@@ -29,11 +29,6 @@ export function StepSequence() {
     const usedActors = useSelector(selectActiveActorDescs);
 
     function handleClick(id: string | undefined) {
-        if (id === undefined) {
-            dispatch(ProjectActions.CLEAR_SELECTION());
-        } else {
-            dispatch(ProjectActions.SELECT_STEP({ id }));
-        }
         dispatch(ProjectActions.GOTO_STEP({ id }));
     }
 

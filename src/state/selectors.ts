@@ -52,7 +52,7 @@ export const selectAssetDefinitions = createSelector(selectScenarioDef, (def) =>
 );
 
 // .reduce((all, a) => ({ ...all, ...a.initialAssets.reduce((x, y) => ) }), {} as Record<string, AssetDef>)
-export const selectListActorDefs = (id: string) => (r: RootState) => orderedMap.list(selectScenarioDef(r).actors);
+export const selectListActorDefs = (r: RootState) => orderedMap.list(selectScenarioDef(r).actors);
 export const selectActorDefById = (id: string) => (r: RootState): ActorConfig => selectScenarioDef(r).actors.byId[id];
 export const selectAssetDefById = (id: string) => (r: RootState) => selectAssetDefinitions(r)[id];
 export const selectActionDefById = (id: string) => (r: RootState) =>

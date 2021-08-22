@@ -12,7 +12,7 @@ import {
     selectIdsOfInvolvedActors,
     selectScenarioDef,
 } from '../../../../state/selectors';
-import { orderedMap } from '../../../../util/orderedMap';
+import { orderedMap } from '../../../../util/types/OrderedMap';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
 import { ImageOrIconSwitch } from '../../elements/ImageOrIconSwitch';

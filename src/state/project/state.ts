@@ -1,6 +1,6 @@
 import { newHistory, StateWithHistory } from 'redux-undo';
 import { ScenarioDef } from '../../model/definition/Scenario/ScenarioDef';
-import { orderedMap } from '../../util/orderedMap';
+import { orderedMap } from '../../util/types/OrderedMap';
 
 export interface ProjectStateWithHistory {
     id: string;

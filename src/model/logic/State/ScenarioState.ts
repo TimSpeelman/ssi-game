@@ -1,5 +1,5 @@
 import { lens } from 'lens.ts';
-import { orderedMap } from '../../../util/orderedMap';
+import { orderedMap } from '../../../util/types/OrderedMap';
 import { mapValues, omit } from '../../../util/util';
 import { ContentLibrary } from '../../content/ContentLibrarty';
 import { ScenarioDef } from '../../definition/Scenario/ScenarioDef';

@@ -2,7 +2,7 @@ import each from 'jest-each';
 import { pointsOnCircleEquidistant } from './circle';
 import { round } from './util';
 
-describe('pointsOnCircle', function () {
+describe('pointsOnCircleEquidistant', function () {
     const sqrt3over2 = round(Math.sqrt(2) / 2, 3);
     each([
         [0, []],

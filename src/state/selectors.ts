@@ -12,7 +12,7 @@ import { StepDesc } from '../model/description/Step/StepDesc';
 import { computeScenarioFromDefinition } from '../model/logic';
 import { PersistedProject, projectStateToPersistable } from '../persistence/persistence';
 import { SidebarTab } from '../ui/components/Sidebar/SidebarTab';
-import { orderedMap } from '../util/orderedMap';
+import { orderedMap } from '../util/types/OrderedMap';
 import { keyBy, mergeRecords } from '../util/util';
 import { w1th } from '../util/w1th';
 import { ProjectState, ProjectStateWithHistory } from './project/state';

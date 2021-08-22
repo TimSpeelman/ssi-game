@@ -1,5 +1,5 @@
 import { Translation } from '../../../intl/Language';
-import { Extend } from '../../../util/extend';
+import { Extend } from '../../../util/types/Extend';
 import { ActionDef } from '../../definition/Action/ActionDef';
 import { ScenarioState } from '../../logic/State/ScenarioState';
 import {

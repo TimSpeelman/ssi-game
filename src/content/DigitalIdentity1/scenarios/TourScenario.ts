@@ -1,6 +1,6 @@
 import { ActorConfig } from '../../../model/definition/Actor/ActorConfig';
 import { ScenarioDef } from '../../../model/definition/Scenario/ScenarioDef';
-import { orderedMap } from '../../../util/orderedMap';
+import { orderedMap } from '../../../util/types/OrderedMap';
 import { GrantGreenFlag } from '../actions/GrantGreenFlag';
 import { PhysicalPassportAuthentication } from '../actions/PhysicalPassportAuthentication';
 import { defaultActors } from '../actors/defaultActors';

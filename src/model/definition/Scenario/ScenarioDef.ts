@@ -1,4 +1,4 @@
-import { OrderedMap } from '../../../util/orderedMap';
+import { OrderedMap } from '../../../util/types/OrderedMap';
 import { ActionDef } from '../Action/ActionDef';
 import { ActorConfig } from '../Actor/ActorConfig';
 import { ScenarioMeta } from './ScenarioMeta';

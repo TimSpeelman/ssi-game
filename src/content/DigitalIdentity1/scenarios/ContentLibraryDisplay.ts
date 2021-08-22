@@ -6,7 +6,7 @@ import { ActorConfig } from '../../../model/definition/Actor/ActorConfig';
 import { ScenarioDef } from '../../../model/definition/Scenario/ScenarioDef';
 import { Asset } from '../../../model/logic/Asset/Asset';
 import { Action } from '../../../model/logic/Step/Action';
-import { orderedMap } from '../../../util/orderedMap';
+import { orderedMap } from '../../../util/types/OrderedMap';
 import { actionCollection } from '../actions';
 import { CustomInteraction } from '../actions/CustomInteraction';
 import { GrantGreenFlag } from '../actions/GrantGreenFlag';

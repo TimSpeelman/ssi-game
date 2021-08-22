@@ -1,7 +1,7 @@
 import { lens } from 'lens.ts';
 import { ActorConfig } from '../../model/definition/Actor/ActorConfig';
-import { orderedMap } from '../../util/orderedMap';
 import { ReducerMap } from '../../util/redux';
+import { orderedMap } from '../../util/types/OrderedMap';
 import { cascadeRemove, insertAt, reorder } from '../../util/util';
 import { ProjectActions } from './actions';
 import { ProjectState } from './state';

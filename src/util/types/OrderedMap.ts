@@ -1,4 +1,4 @@
-import { omit, reorder } from './util';
+import { omit, reorder } from '../util';
 
 export interface HasId {
     id: string;

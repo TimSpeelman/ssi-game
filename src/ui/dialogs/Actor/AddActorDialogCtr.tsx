@@ -22,7 +22,7 @@ export function AddActorDialogCtr(props: Props) {
             handleClose={props.onCancel}
             handleSubmit={(newActor) => {
                 const id = uuid();
-                const newActorConfig: ActorConfig = { initialAssets: [], definition: { ...newActor, id } };
+                const newActorConfig: ActorConfig = { id, initialAssets: [], definition: { ...newActor, id } };
                 dispatch(ProjectActions.ADD_ACTOR({ actor: newActorConfig }));
                 props.onSubmit();
             }}

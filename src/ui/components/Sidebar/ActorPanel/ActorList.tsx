@@ -10,8 +10,9 @@ import {
     selectEditing,
     selectHighlightedResource,
     selectIdsOfInvolvedActors,
-    selectScenarioDef,
+    selectScenarioDef
 } from '../../../../state/selectors';
+import { orderedMap } from '../../../../util/orderedMap';
 import { useDialog } from '../../../dialogs/dialogs';
 import { useLang } from '../../../hooks/useLang';
 import { ImageOrIconSwitch } from '../../elements/ImageOrIconSwitch';
@@ -21,7 +22,8 @@ export function ActorList() {
     const involvedActors = useSelector(selectIdsOfInvolvedActors);
     const scenarioDef = useSelector(selectScenarioDef);
     const { openDialog } = useDialog();
-    const { meta, actors } = scenarioDef;
+    const { meta, actors: actorMap } = scenarioDef;
+    const actors = orderedMap.list(actorMap);
 
     const highlightedResource = useSelector(selectHighlightedResource);
     const onMouseEnter = (id: string) => dispatch(GameActions.HIGHLIGHT_RESOURCE({ resourceId: id }));

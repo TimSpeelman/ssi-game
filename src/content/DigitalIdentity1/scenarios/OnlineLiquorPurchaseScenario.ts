@@ -1,5 +1,6 @@
 import { ActorConfig } from '../../../model/definition/Actor/ActorConfig';
 import { ScenarioDef } from '../../../model/definition/Scenario/ScenarioDef';
+import { orderedMap } from '../../../util/orderedMap';
 import { CustomInteraction } from '../actions/CustomInteraction';
 import { GrantGreenFlag } from '../actions/GrantGreenFlag';
 import { Issuance } from '../actions/Issuance';
@@ -68,20 +69,24 @@ const SubjectPassport = new GovPassport(
 
 const actors: ActorConfig[] = [
     {
+        id: Ledger.id,
         definition: Ledger,
         initialAssets: [],
     },
     {
+        id: Government.id,
         definition: Government,
         initialAssets: [GovernmentNym1, new HumanRecord('2', { subject: SubjectIdAtGov }, true)].map((a) =>
             a.serialize(),
         ),
     },
     {
+        id: Subject.id,
         definition: Subject,
         initialAssets: [SubjectNym1, new Wallet('wallet1', {}, true), SubjectPassport].map((a) => a.serialize()),
     },
     {
+        id: Shop.id,
         definition: Shop,
         initialAssets: [
             ShopNym1,
@@ -136,7 +141,7 @@ export const OnlineLiquorPurchaseScenario: ScenarioDef = {
             'bewijs van 18+ zijn op bij het gemeenteloket, welke hij vervolgens gebruikt ' +
             'om online alcohol te kopen.',
     },
-    actors,
+    actors: orderedMap.fromList(actors),
     steps: [
         // Issuance Phase
         new PhysicalPassportAuthentication('1', {

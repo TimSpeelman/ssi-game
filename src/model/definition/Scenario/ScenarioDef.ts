@@ -1,3 +1,4 @@
+import { OrderedMap } from '../../../util/orderedMap';
 import { ActionDef } from '../Action/ActionDef';
 import { ActorConfig } from '../Actor/ActorConfig';
 import { ScenarioMeta } from './ScenarioMeta';
@@ -7,7 +8,7 @@ export interface ScenarioDef {
     /** The scenario meta data */
     meta: ScenarioMeta;
     /** The actor's and their initial assets */
-    actors: ActorConfig[];
+    actors: OrderedMap<ActorConfig>;
     /** All steps of this scenario */
     steps: ActionDef[];
 }

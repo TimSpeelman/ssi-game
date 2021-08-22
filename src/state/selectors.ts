@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import { Language } from '../intl/Language';
 import { ActionDef } from '../model/definition/Action/ActionDef';
+import { ActorConfig } from '../model/definition/Actor/ActorConfig';
 import { ScenarioDef } from '../model/definition/Scenario/ScenarioDef';
 import { ScenarioMeta } from '../model/definition/Scenario/ScenarioMeta';
 import { ActorDesc } from '../model/description/Actor/ActorDesc';
@@ -11,6 +12,7 @@ import { StepDesc } from '../model/description/Step/StepDesc';
 import { computeScenarioFromDefinition } from '../model/logic';
 import { PersistedProject, projectStateToPersistable } from '../persistence/persistence';
 import { SidebarTab } from '../ui/components/Sidebar/SidebarTab';
+import { orderedMap } from '../util/orderedMap';
 import { keyBy, mergeRecords } from '../util/util';
 import { w1th } from '../util/w1th';
 import { ProjectState, ProjectStateWithHistory } from './project/state';
@@ -46,12 +48,12 @@ export const selectIdsOfInvolvedActors = (r: RootState): Record<string, true> =>
     selectStepDescs(r).reduce((ids, step) => ({ ...ids, [step.action.from.id]: true, [step.action.to.id]: true }), {});
 
 export const selectAssetDefinitions = createSelector(selectScenarioDef, (def) =>
-    mergeRecords(def.actors.map((actor) => keyBy(actor.initialAssets, 'id'))),
+    mergeRecords(orderedMap.list(def.actors).map((actor) => keyBy(actor.initialAssets, 'id'))),
 );
 
 // .reduce((all, a) => ({ ...all, ...a.initialAssets.reduce((x, y) => ) }), {} as Record<string, AssetDef>)
-export const selectActorDefById = (id: string) => (r: RootState) =>
-    selectScenarioDef(r).actors.find((a) => a.definition.id === id);
+export const selectListActorDefs = (id: string) => (r: RootState) => orderedMap.list(selectScenarioDef(r).actors);
+export const selectActorDefById = (id: string) => (r: RootState): ActorConfig => selectScenarioDef(r).actors.byId[id];
 export const selectAssetDefById = (id: string) => (r: RootState) => selectAssetDefinitions(r)[id];
 export const selectActionDefById = (id: string) => (r: RootState) =>
     selectScenarioDef(r).steps.find((s) => s.id === id);
@@ -73,7 +75,7 @@ export const selectActiveStateDesc = (r: RootState): StateDesc =>
     w1th(selectActiveStepDesc(r), (currentStep) => (currentStep ? currentStep.result : selectInitialStateDesc(r)));
 export const selectActiveActorDescs = (r: RootState): ActorDesc[] =>
     w1th(selectActiveStateDesc(r), (state) =>
-        rootPr(r).scenario.actors.map((a) => state.actors[a.definition.id].actor),
+        orderedMap.list(rootPr(r).scenario.actors).map((a) => state.actors[a.definition.id].actor),
     );
 export const selectActiveActionDef = (r: RootState): ActionDef<RootState> | undefined =>
     rootPr(r).scenario.steps.find((s) => s.id === rootPr(r).activeStepId);
@@ -89,6 +91,9 @@ export const selectIsInitialState = (r: RootState): boolean => selectActiveStepI
 export const selectSelectedActorId = (r: RootState): string | undefined => rootPr(r).selectedActorId;
 export const selectSelectedActorDesc = (r: RootState): ActorStateDesc | undefined =>
     w1th(rootPr(r).selectedActorId, (id) => (id ? selectActiveStateDesc(r).actors[id] : undefined));
+export const selectSelectedActorConf = (r: RootState): ActorConfig | undefined =>
+    w1th(rootPr(r).selectedActorId, (id) => (id ? selectActorDefById(id)(r) : undefined));
+
 export const selectSelectedAssetId = (r: RootState): string | undefined => rootPr(r).selectedAssetId;
 export const selectSelectedAssetNode = (r: RootState): AssetTreeNode | undefined =>
     w1th(rootPr(r).selectedAssetId, (id) => (id ? selectActiveStateDesc(r).assets[id] : undefined));

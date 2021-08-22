@@ -1,5 +1,6 @@
 import { newHistory, StateWithHistory } from 'redux-undo';
 import { ScenarioDef } from '../../model/definition/Scenario/ScenarioDef';
+import { orderedMap } from '../../util/orderedMap';
 
 export interface ProjectStateWithHistory {
     id: string;
@@ -30,7 +31,7 @@ export const makeProjectState = (s: Partial<ProjectState>): ProjectState => ({
 });
 
 export const makeScenarioDef = (def: Partial<ScenarioDef>): ScenarioDef => ({
-    actors: [],
+    actors: orderedMap.empty,
     meta: {
         title: '',
         author: '',

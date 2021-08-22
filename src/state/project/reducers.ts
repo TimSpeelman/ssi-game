@@ -1,4 +1,6 @@
 import { lens } from 'lens.ts';
+import { ActorConfig } from '../../model/definition/Actor/ActorConfig';
+import { orderedMap } from '../../util/orderedMap';
 import { ReducerMap } from '../../util/redux';
 import { cascadeRemove, insertAt, reorder } from '../../util/util';
 import { ProjectActions } from './actions';
@@ -13,43 +15,22 @@ export const ProjectReducers: ReducerMap<ProjectState, typeof ProjectActions> = 
     SET_SCENARIO: (p) => L.scenario.set(p.scenario),
 
     // Definition Manipulation : Actors
-    ADD_ACTOR: (p) => L.scenario.actors.set((actors) => [...actors, p.actor]),
-    REMOVE_ACTOR: (p) => L.scenario.actors.set((actors) => actors.filter((a) => a.definition.id !== p.id)),
-    REORDER_ACTORS: (p) => L.scenario.actors.set((actors) => reorder(actors, p.sourceIndex, p.targetIndex)),
-    UPDATE_ACTOR_DEFINITION: (p) =>
-        L.scenario.actors.set((actors) =>
-            actors.map((a) => (a.definition.id === p.def.id ? { ...a, definition: p.def } : a)),
-        ),
+    ADD_ACTOR: (p) => L.scenario.actors.set(orderedMap.push<ActorConfig>(p.actor)),
+    REMOVE_ACTOR: (p) => L.scenario.actors.set(orderedMap.dropById<ActorConfig>(p.id)),
+    REORDER_ACTORS: (p) => L.scenario.actors.set(orderedMap.reorder<ActorConfig>(p.sourceIndex, p.targetIndex)),
+    UPDATE_ACTOR_DEFINITION: (p) => L.scenario.actors.byId.k(p.def.id).definition.set(p.def),
 
     // Definition Manipulation : Asset
-    ADD_ASSET: (p) =>
-        L.scenario.actors.set((actors) =>
-            actors.map((a) =>
-                a.definition.id === p.actorId ? { ...a, initialAssets: [...a.initialAssets, p.asset] } : a,
-            ),
-        ),
+    ADD_ASSET: (p) => L.scenario.actors.byId.k(p.actorId).initialAssets.set((a) => [...a, p.asset]),
     UPDATE_ASSET: (p) =>
-        L.scenario.actors.set((actors) =>
-            actors.map((a) =>
-                a.definition.id === p.actorId
-                    ? { ...a, initialAssets: a.initialAssets.map((a) => (a.id === p.asset.id ? p.asset : a)) }
-                    : a,
-            ),
-        ),
+        L.scenario.actors.byId.k(p.actorId).initialAssets.set((a) => a.map((a) => (a.id === p.asset.id ? p.asset : a))),
     REMOVE_ASSET: (p) =>
-        L.scenario.actors.set((actors) =>
-            actors.map((a) =>
-                a.definition.id === p.actorId
-                    ? {
-                          ...a,
-                          initialAssets: cascadeRemove(
-                              p.id,
-                              a.initialAssets,
-                              (a) => a.id,
-                              (a) => a.props.parentId,
-                          ),
-                      }
-                    : a,
+        L.scenario.actors.byId.k(p.actorId).initialAssets.set((a) =>
+            cascadeRemove(
+                p.id,
+                a,
+                (a) => a.id,
+                (a) => a.props.parentId,
             ),
         ),
 

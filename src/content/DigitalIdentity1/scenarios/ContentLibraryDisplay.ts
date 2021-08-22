@@ -6,6 +6,7 @@ import { ActorConfig } from '../../../model/definition/Actor/ActorConfig';
 import { ScenarioDef } from '../../../model/definition/Scenario/ScenarioDef';
 import { Asset } from '../../../model/logic/Asset/Asset';
 import { Action } from '../../../model/logic/Step/Action';
+import { orderedMap } from '../../../util/orderedMap';
 import { actionCollection } from '../actions';
 import { CustomInteraction } from '../actions/CustomInteraction';
 import { GrantGreenFlag } from '../actions/GrantGreenFlag';
@@ -133,10 +134,12 @@ const Wallet1 = new Wallet('Wallet1', {});
 // We will need to assign each of the initial assets to actors
 
 const actorConfig1: ActorConfig = {
+    id: Actor1.id,
     definition: Actor1,
     initialAssets: serializeAssets([Nym1, AttributeKnowledge1, HumanRecord1]),
 };
 const actorConfig2: ActorConfig = {
+    id: Actor2.id,
     definition: Actor2,
     initialAssets: serializeAssets([
         Nym2,
@@ -151,6 +154,7 @@ const actorConfig2: ActorConfig = {
     ]),
 };
 const actorConfig3: ActorConfig = {
+    id: Actor3.id,
     definition: Actor3,
     initialAssets: serializeAssets([Nym3, AuthenticationResult1, Consent1]),
 };
@@ -294,7 +298,7 @@ export const ContentLibraryDisplayScenario: ScenarioDef = {
             'This scenario is for testing and development purposes only.' +
             ' It displays every piece of content in this content library.',
     },
-    actors: actorsConfigurations,
+    actors: orderedMap.fromList(actorsConfigurations),
     steps: serializeActions(steps),
 };
 

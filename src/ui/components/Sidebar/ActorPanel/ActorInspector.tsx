@@ -8,6 +8,7 @@ import {
     selectEditing,
     selectIsInitialState,
     selectScenarioDef,
+    selectSelectedActorConf,
     selectSelectedActorDesc,
 } from '../../../../state/selectors';
 import { groupBy } from '../../../../util/util';
@@ -23,8 +24,7 @@ export function ActorInspector() {
     const actorState = useSelector(selectSelectedActorDesc)!;
     const { assetTrees: assets } = actorState;
     const scenarioDef = useSelector(selectScenarioDef);
-    const { actors } = scenarioDef;
-    const actorConfig = actors.find((a) => a.definition.id === actorState?.actor.id);
+    const actorConfig = useSelector(selectSelectedActorConf);
     const { definition, initialAssets } = actorConfig!;
     const { openDialog } = useDialog();
     const { dict } = useLang();

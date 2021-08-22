@@ -31,17 +31,23 @@ export function FontAwesomeIconShape({ icon, pathProps, cx, cy, color, ...svgPro
         const y = cy ? cy - edgeLength / 2 : svgProps.y || 0;
 
         return (
-            <svg
-                {...svgProps}
-                viewBox={`${x0} ${y0} ${x1} ${y1}`}
-                preserveAspectRatio="xMinYMin meet"
-                width={edgeLength}
-                height={edgeLength}
-                x={x}
-                y={y}
+            <g
+                style={{
+                    transform: `translate(${x}px, ${y}px)`,
+                }}
             >
-                <path d={d} {...pathProps} fill={color}></path>
-            </svg>
+                <svg
+                    {...svgProps}
+                    viewBox={`${x0} ${y0} ${x1} ${y1}`}
+                    preserveAspectRatio="xMinYMin meet"
+                    width={edgeLength}
+                    height={edgeLength}
+                    x={0}
+                    y={0}
+                >
+                    <path d={d} {...pathProps} fill={color}></path>
+                </svg>
+            </g>
         );
     }
 }

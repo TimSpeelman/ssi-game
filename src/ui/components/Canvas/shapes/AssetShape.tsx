@@ -4,6 +4,12 @@ import { FontAwesomeIconShape } from './FontAwesomeIconShape';
 import { ShapeProps } from './ShapeProps';
 
 export function AssetShape({ elem: e, onEvent: dispatch }: ShapeProps<AssetEl>) {
+    const x0 = 0;
+    const y0 = 0;
+    const x1 = 600;
+    const y1 = 600;
+    const x = e.c[0];
+    const y = e.c[1];
     return (
         <g key={e.id} opacity={e.transparent && !e.hovered && !e.selected ? 0.3 : 1} id={`asset-${e.id}`}>
             {/* Selection or hover */}

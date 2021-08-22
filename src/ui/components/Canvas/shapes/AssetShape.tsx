@@ -4,12 +4,6 @@ import { FontAwesomeIconShape } from './FontAwesomeIconShape';
 import { ShapeProps } from './ShapeProps';
 
 export function AssetShape({ elem: e, onEvent: dispatch }: ShapeProps<AssetEl>) {
-    const x0 = 0;
-    const y0 = 0;
-    const x1 = 600;
-    const y1 = 600;
-    const x = e.c[0];
-    const y = e.c[1];
     return (
         <g key={e.id} opacity={e.transparent && !e.hovered && !e.selected ? 0.3 : 1} id={`asset-${e.id}`}>
             {/* Selection or hover */}
@@ -19,7 +13,11 @@ export function AssetShape({ elem: e, onEvent: dispatch }: ShapeProps<AssetEl>) 
             <circle cx={e.c[0]} cy={e.c[1]} r={e.r} fill={'#aaa'} />
 
             {e.numberOfChildren > 0 && (
-                <text x={e.c[0]} y={e.c[1]} textAnchor="middle" className="asset-number-of-children">
+                <text
+                    style={{ transform: `translate(${e.c[0]}px, ${e.c[1]}px)` }}
+                    textAnchor="middle"
+                    className="asset-number-of-children"
+                >
                     {e.numberOfChildren}
                 </text>
             )}
@@ -39,11 +37,13 @@ export function AssetShape({ elem: e, onEvent: dispatch }: ShapeProps<AssetEl>) 
 
             {e.abbr && (
                 <text
-                    x={e.c[0]}
-                    y={e.c[1]}
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    style={{ fontWeight: 'bold', fontSize: e.r * 0.7 }}
+                    style={{
+                        fontWeight: 'bold',
+                        fontSize: e.r * 0.7,
+                        transform: `translate(${e.c[0]}px, ${e.c[1]}px)`,
+                    }}
                 >
                     {e.abbr}
                 </text>

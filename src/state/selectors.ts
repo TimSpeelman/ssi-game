@@ -13,18 +13,18 @@ import { PersistedProject, projectStateToPersistable } from '../persistence/pers
 import { SidebarTab } from '../ui/components/Sidebar/SidebarTab';
 import { keyBy, mergeRecords } from '../util/util';
 import { w1th } from '../util/w1th';
-import { ProjectState } from './project/state';
+import { ProjectState, ProjectStateWithHistory } from './project/state';
 import { GameState, RootState } from './state';
 
 export const root = (r: RootState): GameState => r.scenario;
 // export const root = (r: RootState): RootState => r.scenario.present;
-export const rootPr = (r: RootState): ProjectState => root(r).activeProject.present;
+export const rootPr = (r: RootState): ProjectState => root(r).activeProject.history.present;
 
-export const selectUndoable = (r: RootState): boolean => root(r).activeProject.past.length > 0;
-export const selectRedoable = (r: RootState): boolean => root(r).activeProject.future.length > 0;
+export const selectUndoable = (r: RootState): boolean => root(r).activeProject.history.past.length > 0;
+export const selectRedoable = (r: RootState): boolean => root(r).activeProject.history.future.length > 0;
 
 export const selectPersistableProject = (r: RootState): PersistedProject =>
-    projectStateToPersistable(root(r).activeProject.present);
+    projectStateToPersistable(root(r).activeProject.id, root(r).activeProject.history.present);
 
 export const selectLang = (r: RootState): Language => root(r).language;
 
@@ -32,9 +32,9 @@ export const selectManualOpen = (r: RootState): boolean => root(r).userManualOpe
 
 export const selectAllProjects = (r: RootState): ProjectState[] => [
     rootPr(r),
-    ...root(r).inactiveProjects.map((p) => p.present),
+    ...root(r).inactiveProjects.map((p) => p.history.present),
 ];
-export const selectInactiveProjects = (r: RootState): ProjectState[] => root(r).inactiveProjects.map((p) => p.present);
+export const selectInactiveProjects = (r: RootState): ProjectStateWithHistory[] => root(r).inactiveProjects;
 
 export const selectActiveProjectName = (r: RootState) => rootPr(r).name;
 

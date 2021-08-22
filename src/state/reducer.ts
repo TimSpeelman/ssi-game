@@ -25,7 +25,10 @@ export function ScenarioReducer(s: GameState, e: IAction<any>): GameState {
     } else {
         return {
             ...s,
-            activeProject: undoableActiveProjectReducer(s.activeProject, e),
+            activeProject: {
+                id: s.activeProject.id,
+                history: undoableActiveProjectReducer(s.activeProject.history, e),
+            },
         };
     }
 }

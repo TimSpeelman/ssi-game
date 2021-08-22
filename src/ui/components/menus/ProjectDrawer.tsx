@@ -18,7 +18,7 @@ import { OnlineLiquorPurchaseScenario } from '../../../content/DigitalIdentity1/
 import { TourScenario } from '../../../content/DigitalIdentity1/scenarios/TourScenario';
 import { GameActions } from '../../../state/actions';
 import { ProjectActions } from '../../../state/project/actions';
-import { ProjectState } from '../../../state/project/state';
+import { ProjectStateWithHistory } from '../../../state/project/state';
 import { selectActiveProjectName, selectInactiveProjects, selectProjectDrawerOpen } from '../../../state/selectors';
 import { formatL } from '../../../util/util';
 import { useFilePersistence } from '../../hooks/useFilePersistence';
@@ -64,7 +64,7 @@ export function ProjectDrawer() {
         dispatch(GameActions.HIDE_PROJECT_DRAWER());
     }
 
-    const activateProject = (project: ProjectState) => {
+    const activateProject = (project: ProjectStateWithHistory) => {
         dispatch(GameActions.ACTIVATE_PROJECT({ id: project.id }));
         close();
     };
@@ -186,7 +186,7 @@ export function ProjectDrawer() {
                             <Description />
                         </ListItemIcon>
                         <ListItemText
-                            primary={pr.name === '' ? dict.untitledProject : pr.name}
+                            primary={pr.history.present.name === '' ? dict.untitledProject : pr.history.present.name}
                             style={{ marginRight: '2em' }}
                         />
 

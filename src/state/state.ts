@@ -1,11 +1,10 @@
-import { StateWithHistory } from 'redux-undo';
 import { Language } from '../intl/Language';
 import { SidebarTab } from '../ui/components/Sidebar/SidebarTab';
-import { ProjectState } from './project/state';
+import { ProjectStateWithHistory } from './project/state';
 
 export interface GameState {
-    inactiveProjects: StateWithHistory<ProjectState>[];
-    activeProject: StateWithHistory<ProjectState>;
+    inactiveProjects: ProjectStateWithHistory[];
+    activeProject: ProjectStateWithHistory;
 
     snackbarOn: boolean;
     activeSidebarTab: SidebarTab;

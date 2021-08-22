@@ -1,10 +1,12 @@
 import { lens } from 'lens.ts';
-import { newHistory } from 'redux-undo';
-import { persistableToProjectState, persistableToRootState } from '../persistence/persistence';
+import {
+    persistableToProjectState as persistableToProjectWrapperState,
+    persistableToRootState,
+} from '../persistence/persistence';
 import { ReducerMap } from '../util/redux';
 import { w1th } from '../util/w1th';
 import { GameActions } from './actions';
-import { emptyProjectState } from './project/default';
+import { makeProjectState, makeProjectWrapperState } from './project/state';
 import { GameState } from './state';
 
 const L = lens<GameState>();
@@ -13,13 +15,12 @@ export const ScenarioReducers: ReducerMap<GameState, typeof GameActions> = {
     SET_GAME_STATE: (p) => L.set(p.state),
 
     RESTORE_PERSISTED_STATE: (p) => L.set(persistableToRootState(p.state)),
-    LOAD_PROJECT: (p) =>
-        L.inactiveProjects.set((prs) => [newHistory([], persistableToProjectState(p.project), []), ...prs]),
+    LOAD_PROJECT: (p) => L.inactiveProjects.set((prs) => [persistableToProjectWrapperState(p.project), ...prs]),
 
     ACTIVATE_PROJECT: (p) =>
         L.set((s) =>
             w1th(
-                s.inactiveProjects.find((pr) => p.id === pr.present.id),
+                s.inactiveProjects.find((pr) => p.id === pr.id),
                 (projectToActivate) =>
                     !projectToActivate
                         ? s
@@ -35,28 +36,24 @@ export const ScenarioReducers: ReducerMap<GameState, typeof GameActions> = {
         ),
     CREATE_PROJECT: (p) =>
         L.inactiveProjects.set((prs) => [
-            newHistory(
-                [],
-                {
-                    ...emptyProjectState,
-                    id: p.id,
-                    name: p.name || '',
-                    scenario: p.definition ? p.definition : emptyProjectState.scenario,
-                },
-                [],
+            makeProjectWrapperState(
+                p.id,
+                makeProjectState(p.definition ? { name: p.name, scenario: p.definition } : { name: p.name }),
             ),
             ...prs,
         ]),
+
     COPY_ACTIVE_PROJECT: (p) =>
         L.set((s) => ({
             ...s,
             inactiveProjects: [
-                newHistory([], { ...s.activeProject.present, id: p.id, name: p.name }, []),
+                makeProjectWrapperState(p.id, makeProjectState({ ...s.activeProject.history.present, name: p.name })),
                 ...s.inactiveProjects,
             ],
         })),
+
     SET_LANGUAGE: (p) => L.language.set(p.language),
-    DELETE_PROJECT: (p) => L.inactiveProjects.set((prs) => prs.filter((pr) => pr.present.id !== p.id)),
+    DELETE_PROJECT: (p) => L.inactiveProjects.set((prs) => prs.filter((pr) => pr.id !== p.id)),
 
     // Sidebar Navigation
     NAVIGATE_SIDEBAR: (p) => L.activeSidebarTab.set(p.to),

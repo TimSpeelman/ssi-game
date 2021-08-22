@@ -7,7 +7,6 @@ import { ProjectActions } from '../../../../state/project/actions';
 import {
     selectEditing,
     selectIsInitialState,
-    selectScenarioDef,
     selectSelectedActorConf,
     selectSelectedActorDesc,
 } from '../../../../state/selectors';
@@ -23,9 +22,8 @@ export function ActorInspector() {
     const dispatch = useDispatch();
     const actorState = useSelector(selectSelectedActorDesc)!;
     const { assetTrees: assets } = actorState;
-    const scenarioDef = useSelector(selectScenarioDef);
     const actorConfig = useSelector(selectSelectedActorConf);
-    const { definition, initialAssets } = actorConfig!;
+    const { definition } = actorConfig!;
     const { openDialog } = useDialog();
     const { dict } = useLang();
 
@@ -121,7 +119,7 @@ export function ActorInspector() {
                             onClick={() => dispatch(ProjectActions.GOTO_STEP_INDEX({ index: -1 }))}
                             id="btn-goto-initial-state"
                         >
-                            <Edit /> Begintoestand aanpassen
+                            <Edit /> {dict.actorInspector.btnEditInitialState}
                         </Button>
                     )}
                 </div>

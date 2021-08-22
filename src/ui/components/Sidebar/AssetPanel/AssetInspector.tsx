@@ -7,7 +7,7 @@ import { AssetTreeNode } from '../../../../model/description/Asset/AssetTreeNode
 import { GameActions } from '../../../../state/actions';
 import { ProjectActions } from '../../../../state/project/actions';
 import {
-    selectActiveActorDescs,
+    selectActorDefById,
     selectEditing,
     selectIsInitialState,
     selectSelectedAssetNode,
@@ -29,8 +29,7 @@ export function AssetInspector() {
     const isInitialState = useSelector(selectIsInitialState);
 
     const asset: AssetTreeNode | undefined = useSelector(selectSelectedAssetNode);
-    const actors = useSelector(selectActiveActorDescs);
-    const actor = actors.find((a) => a.id === asset?.ownerId);
+    const actor = useSelector(asset ? selectActorDefById(asset.ownerId) : () => undefined)?.definition;
     const { dict, lang } = useLang();
 
     if (!asset) return <div></div>;
@@ -38,8 +37,6 @@ export function AssetInspector() {
     // Depending on the chosen action type, select the appropriate form
     const type = asset?.asset.type;
     const assetType = type === undefined ? undefined : DefaultLibrary.assets.requireTypeByName(type);
-    const fields = assetType ? Object.entries(assetType.schema.props) : [];
-    const data = assetType ? Object.entries(assetType.schema.computeDisplayProperties(asset.asset)) : [];
 
     function handleAssetClick(id: string) {
         dispatch(ProjectActions.SELECT_ASSET({ id }));

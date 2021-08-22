@@ -18,7 +18,7 @@ export function EditActorDialogCtr(props: Props) {
     const dispatch = useDispatch();
     const selector = selectActorDefById(props.options.actorId);
     const actor = useSelector(selector);
-    const { definition, initialAssets } = actor!;
+    const { definition } = actor!;
 
     return (
         <ActorDefinitionDialog

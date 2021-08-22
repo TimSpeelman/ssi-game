@@ -9,6 +9,7 @@ import { IValidationResult } from './IValidationResult';
  * resulting in some outcomes that produce a new state.
  */
 export class ComputedStep implements Props {
+    readonly index: number;
     readonly action: Action<any>;
     readonly outcomes: IOutcome[];
     readonly postState: ScenarioState;
@@ -17,6 +18,7 @@ export class ComputedStep implements Props {
     readonly validation: IValidationResult[];
 
     constructor(props: Props) {
+        this.index = props.index;
         this.action = props.action;
         this.outcomes = props.outcomes;
         this.postState = props.postState;
@@ -31,6 +33,7 @@ export class ComputedStep implements Props {
 
     describe(): StepDesc {
         return {
+            index: this.index,
             action: this.action.describe(this.preState, this),
             active: this.status.scenarioIsValidBeforeStep,
             outcomes: this.outcomes.map((o) => o.describe(this.preState)),
@@ -42,6 +45,7 @@ export class ComputedStep implements Props {
 }
 
 export interface Props {
+    index: number;
     action: Action<any>;
     outcomes: IOutcome[];
     postState: ScenarioState;

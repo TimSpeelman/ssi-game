@@ -5,6 +5,8 @@ import { ValidationResultDesc } from './ValidationResultDesc';
 
 /** Describes a computed step */
 export interface StepDesc {
+    index: number;
+
     /** Indicates whether the step was successful */
     success: boolean;
 

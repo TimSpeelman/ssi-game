@@ -39,12 +39,15 @@ export function EditActorPropertiesDialogCtr(props: Props) {
     function setKey(index: number, newKey: string) {
         setData((d) => d.map(([key, val], i) => (i === index ? [newKey, val] : [key, val])));
     }
+
     function setVal(index: number, newVal: string) {
         setData((d) => d.map(([key, val], i) => (i === index ? [key, newVal] : [key, val])));
     }
+
     function dropRow(index: number) {
         setData((d) => d.filter(([key, val], i) => i !== index));
     }
+
     function addRow() {
         setData((d) => [...d, ['', '']]);
     }

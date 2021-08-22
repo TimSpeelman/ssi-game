@@ -59,6 +59,7 @@ export const DictionaryNL: Dictionary = {
         selectedActor: 'Geselecteerde Actor',
         actorProperties: 'Eigenschappen',
         btnEditProperties: 'Eigenschappen Bewerken',
+        btnEditInitialState: 'Begintoestand Aanpassen',
         assets: 'Assets',
         btnAddAsset: 'Asset Toevoegen',
         thPropertyName: 'Eigenschap',

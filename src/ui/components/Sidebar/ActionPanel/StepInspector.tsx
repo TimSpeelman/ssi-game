@@ -20,16 +20,13 @@ export function StepInspector({ step }: Props) {
     const editing = useSelector(selectEditing);
 
     const errorAt = useSelector(selectFailedStepIndex);
-    const index = steps.findIndex((s) => step.action.id === s.action.id);
-    const showError = errorAt === index;
-    const showWarning = errorAt !== undefined && errorAt >= 0 && errorAt < index;
     const { openDialog } = useDialog();
     const { dict, lang } = useLang();
 
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                <Typography variant="h6">{formatL(dict.stepXOutOfY, [index + 1, steps.length])}</Typography>
+                <Typography variant="h6">{formatL(dict.stepXOutOfY, [step.index + 1, steps.length])}</Typography>
                 {/* <StepNav /> */}
 
                 {editing && (
@@ -39,7 +36,7 @@ export function StepInspector({ step }: Props) {
                 )}
             </div>
 
-            {showWarning && (
+            {!step.success && (
                 <div style={{ padding: '1rem', margin: '1rem', color: '#805300', background: '#ffd27f' }}>
                     <p style={{ margin: 0 }}>
                         <strong>{dict.stepInspector.msgPreviousStepIsFailing.title} </strong>
@@ -48,7 +45,7 @@ export function StepInspector({ step }: Props) {
                 </div>
             )}
 
-            {showError && (
+            {step.success && !step.active && (
                 <div
                     style={{ padding: '1rem', margin: '1rem', color: 'rgb(128,0,0)', background: 'rgb(255, 174, 174)' }}
                 >

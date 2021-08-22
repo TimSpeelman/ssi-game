@@ -14,7 +14,7 @@ export type AddStepDialogOptions = void;
 
 export function AddStepDialogCtr(props: Props) {
     const dispatch = useDispatch();
-    const index = useSelector(selectActiveStepIndex) + 1;
+    const index = useSelector(selectActiveStepIndex);
 
     return (
         <StepDialog

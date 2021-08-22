@@ -10,7 +10,7 @@ import {
     selectEditing,
     selectHighlightedResource,
     selectIdsOfInvolvedActors,
-    selectScenarioDef
+    selectScenarioDef,
 } from '../../../../state/selectors';
 import { orderedMap } from '../../../../util/orderedMap';
 import { useDialog } from '../../../dialogs/dialogs';
@@ -18,24 +18,24 @@ import { useLang } from '../../../hooks/useLang';
 import { ImageOrIconSwitch } from '../../elements/ImageOrIconSwitch';
 
 export function ActorList() {
-    const dispatch = useDispatch();
     const involvedActors = useSelector(selectIdsOfInvolvedActors);
     const scenarioDef = useSelector(selectScenarioDef);
-    const { openDialog } = useDialog();
-    const { meta, actors: actorMap } = scenarioDef;
+    const editing = useSelector(selectEditing);
+    const highlightedResource = useSelector(selectHighlightedResource);
+    const { actors: actorMap } = scenarioDef;
     const actors = orderedMap.list(actorMap);
 
-    const highlightedResource = useSelector(selectHighlightedResource);
-    const onMouseEnter = (id: string) => dispatch(GameActions.HIGHLIGHT_RESOURCE({ resourceId: id }));
-    const onMouseLeave = (id: string) => dispatch(GameActions.UNHIGHLIGHT_RESOURCE({ resourceId: id }));
-
-    // Actor Setters
     const canRemoveActor = (id: string) => !(id in involvedActors);
-    const handleReorder = (sourceIndex: number, targetIndex: number) =>
-        sourceIndex !== targetIndex && dispatch(ProjectActions.REORDER_ACTORS({ sourceIndex, targetIndex }));
-    const removeActor = (id: string) => dispatch(ProjectActions.REMOVE_ACTOR({ id }));
+
     const { dict } = useLang();
-    const editing = useSelector(selectEditing);
+    const { openDialog } = useDialog();
+
+    const dispatch = useDispatch();
+    const highlightResource = (id: string) => dispatch(GameActions.HIGHLIGHT_RESOURCE({ resourceId: id }));
+    const unhighlightResource = (id: string) => dispatch(GameActions.UNHIGHLIGHT_RESOURCE({ resourceId: id }));
+    const reorderActors = (fromIndex: number, toIndex: number) =>
+        dispatch(ProjectActions.REORDER_ACTORS({ fromIndex, toIndex }));
+    const removeActor = (id: string) => dispatch(ProjectActions.REMOVE_ACTOR({ id }));
 
     return (
         <div>
@@ -55,7 +55,7 @@ export function ActorList() {
                     </Typography>
                 </div>
             ) : (
-                <DragDropContext onDragEnd={(x) => handleReorder(x.source!.index, x.destination!.index)}>
+                <DragDropContext onDragEnd={(x) => reorderActors(x.source!.index, x.destination!.index)}>
                     <Droppable droppableId={'d123'}>
                         {(provided) => (
                             <List innerRef={provided.innerRef} {...provided.droppableProps}>
@@ -73,8 +73,8 @@ export function ActorList() {
                                                 innerRef={provided.innerRef}
                                                 button
                                                 selected={highlightedResource === actor.definition.id}
-                                                onMouseEnter={() => onMouseEnter(actor.definition.id)}
-                                                onMouseLeave={() => onMouseLeave(actor.definition.id)}
+                                                onMouseEnter={() => highlightResource(actor.definition.id)}
+                                                onMouseLeave={() => unhighlightResource(actor.definition.id)}
                                                 onClick={() =>
                                                     dispatch(ProjectActions.SELECT_ACTOR({ id: actor.definition.id }))
                                                 }

@@ -49,7 +49,6 @@ export function ActorDefinitionDialog(props: Props) {
     const { dict } = useLang();
 
     const save = () => {
-        // dispatch(ScenarioActions.CHANGE_META({ meta }));
         const L = lens<ActorDef>();
         const typeName = L.type.typeName.get()(def);
         const withName = L.name.set((n) => (n ? n : typeName))(def);
@@ -59,7 +58,6 @@ export function ActorDefinitionDialog(props: Props) {
     };
 
     const cancel = () => {
-        // setDefinition(props.meta);
         props.handleClose();
     };
 

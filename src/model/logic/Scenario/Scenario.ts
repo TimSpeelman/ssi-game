@@ -15,8 +15,8 @@ export class Scenario {
         let state = this.initial.withUpdate((s) => ({ ...s, isInitial: false }));
 
         // Cache the outcome and result computation.
-        this.steps = steps.map((step, i) => {
-            const computedStep = step.computeStep(state);
+        this.steps = steps.map((step, index) => {
+            const computedStep = step.computeStep(state, index);
             state = computedStep.postState;
             return computedStep;
         });

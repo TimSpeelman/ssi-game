@@ -44,7 +44,7 @@ export function StepSequence() {
 
     function handleReorder(sourceIndex: number, targetIndex: number) {
         if (sourceIndex !== targetIndex) {
-            dispatch(ProjectActions.REORDER_STEPS({ sourceIndex, targetIndex }));
+            dispatch(ProjectActions.REORDER_STEPS({ fromIndex: sourceIndex, toIndex: targetIndex }));
         }
     }
 

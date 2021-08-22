@@ -40,7 +40,7 @@ export abstract class Action<Props extends BaseProps> {
     constructor(readonly id: string, readonly defProps: DefTypesOfContentTypeProps<Props>) {}
 
     /** Compute the results of this action */
-    public computeStep(preState: ScenarioState): ComputedStep {
+    public computeStep(preState: ScenarioState, index: number): ComputedStep {
         const scenarioIsValidBeforeStep = preState.props.valid;
 
         const dependencyValidation = this.validateDependencies(preState, { scenarioIsValidBeforeStep });
@@ -65,6 +65,7 @@ export abstract class Action<Props extends BaseProps> {
             .withUpdate((s) => ({ ...s, valid: scenarioIsValidAfterStep }));
 
         return new ComputedStep({
+            index,
             action: this,
             outcomes,
             status: {

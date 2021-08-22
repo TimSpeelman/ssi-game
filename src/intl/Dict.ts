@@ -52,6 +52,7 @@ export interface Dictionary {
         selectedActor: string;
         actorProperties: string;
         btnEditProperties: string;
+        btnEditInitialState: string;
         assets: string;
         btnAddAsset: string;
         thPropertyName: string;

@@ -18,7 +18,7 @@ export function EditScenarioMetaDialogCtr(props: Props) {
         <EditScenarioMetaDialog
             meta={meta}
             onSubmit={(meta) => {
-                dispatch(ProjectActions.CHANGE_META({ meta }));
+                dispatch(ProjectActions.UPDATE_META({ meta }));
                 props.onSubmit();
             }}
             onCancel={props.onCancel}

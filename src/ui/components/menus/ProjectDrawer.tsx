@@ -61,7 +61,7 @@ export function ProjectDrawer() {
     const dispatch = useDispatch();
 
     function close() {
-        dispatch(GameActions.CLOSE_PROJECT_DRAWER());
+        dispatch(GameActions.HIDE_PROJECT_DRAWER());
     }
 
     const activateProject = (project: ProjectState) => {
@@ -71,7 +71,7 @@ export function ProjectDrawer() {
 
     const newProject = () => {
         const id = uuid();
-        dispatch(GameActions.NEW_PROJECT({ id }));
+        dispatch(GameActions.CREATE_PROJECT({ id }));
         dispatch(GameActions.ACTIVATE_PROJECT({ id }));
         close();
     };
@@ -89,7 +89,7 @@ export function ProjectDrawer() {
         const id = uuid();
         const template = templates[templateId];
         const name = template.title[lang];
-        dispatch(GameActions.NEW_PROJECT({ id, name, definition: template.definition }));
+        dispatch(GameActions.CREATE_PROJECT({ id, name, definition: template.definition }));
         dispatch(GameActions.ACTIVATE_PROJECT({ id }));
         close();
     };

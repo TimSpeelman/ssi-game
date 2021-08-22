@@ -12,7 +12,7 @@ const L = lens<GameState>();
 export const ScenarioReducers: ReducerMap<GameState, typeof GameActions> = {
     SET_GAME_STATE: (p) => L.set(p.state),
 
-    RESTORE_STATE: (p) => L.set(persistableToRootState(p.state)),
+    RESTORE_PERSISTED_STATE: (p) => L.set(persistableToRootState(p.state)),
     LOAD_PROJECT: (p) =>
         L.inactiveProjects.set((prs) => [newHistory([], persistableToProjectState(p.project), []), ...prs]),
 
@@ -33,7 +33,7 @@ export const ScenarioReducers: ReducerMap<GameState, typeof GameActions> = {
                           },
             ),
         ),
-    NEW_PROJECT: (p) =>
+    CREATE_PROJECT: (p) =>
         L.inactiveProjects.set((prs) => [
             newHistory(
                 [],
@@ -60,10 +60,9 @@ export const ScenarioReducers: ReducerMap<GameState, typeof GameActions> = {
 
     // Sidebar Navigation
     NAVIGATE_SIDEBAR: (p) => L.activeSidebarTab.set(p.to),
-    NAVIGATE_TO_RESOURCE: (p) => (s: any) => s, // TODO FIXME
 
-    OPEN_PROJECT_DRAWER: () => L.projectDrawerOpen.set(true),
-    CLOSE_PROJECT_DRAWER: () => L.projectDrawerOpen.set(false),
+    SHOW_PROJECT_DRAWER: () => L.projectDrawerOpen.set(true),
+    HIDE_PROJECT_DRAWER: () => L.projectDrawerOpen.set(false),
 
     // Options
     TOGGLE_SNACKBAR: (p) => L.snackbarOn.set((on) => !on),

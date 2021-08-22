@@ -28,7 +28,7 @@ export function ScenarioMetaDialog(props: Props) {
     const setAuthor = (author: string) => setMeta((m) => ({ ...m, author }));
     const setBody = (body: string) => setMeta((m) => ({ ...m, body }));
     const save = () => {
-        dispatch(ProjectActions.CHANGE_META({ meta }));
+        dispatch(ProjectActions.UPDATE_META({ meta }));
         setEdit(false);
     };
     const cancel = () => {

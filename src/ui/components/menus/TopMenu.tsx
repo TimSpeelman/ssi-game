@@ -32,7 +32,7 @@ export function TopMenu(props: Props) {
 
     const showManual = () => dispatch(GameActions.SHOW_MANUAL());
 
-    const openProjectDrawer = () => dispatch(GameActions.OPEN_PROJECT_DRAWER());
+    const openProjectDrawer = () => dispatch(GameActions.SHOW_PROJECT_DRAWER());
 
     const title = tour ? tour.title[lang] : projectName === '' ? dict.untitledProject : projectName;
 

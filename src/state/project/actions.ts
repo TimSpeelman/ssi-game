@@ -9,7 +9,6 @@ import { checkActionCreatorsRecord, event } from '../../util/redux';
 export const ProjectActions = {
     RENAME_PROJECT: event<{ name: string }>('RENAME_PROJECT'),
     SET_SCENARIO: event<{ scenario: ScenarioDef }>('SET_SCENARIO'),
-    SET_ACTORS: event<{ actors: ActorConfig[] }>('SET_ACTORS', true),
 
     // Definition Manipulation : Actors
     ADD_ACTOR: event<{ actor: ActorConfig }>('ADD_ACTOR', true),
@@ -19,17 +18,17 @@ export const ProjectActions = {
 
     // Definition Manipulation : Assets
     ADD_ASSET: event<{ actorId: string; asset: AssetDef }>('ADD_ASSET', true),
-    UPDATE_ASSET: event<{ actorId: string; asset: AssetDef }>('UPDATE_ASSET', true),
     REMOVE_ASSET: event<{ actorId: string; id: string }>('REMOVE_ASSET', true),
+    UPDATE_ASSET: event<{ actorId: string; asset: AssetDef }>('UPDATE_ASSET', true),
 
     // Definition Manipulation : Steps
-    INSERT_STEP: event<{ step: ActionDef<any>; afterIndex: number }>('INSERT_STEP', true),
+    ADD_STEP: event<{ step: ActionDef<any>; afterIndex: number }>('ADD_STEP', true),
     REMOVE_STEP: event<{ id: string }>('REMOVE_STEP', true),
     REORDER_STEPS: event<{ sourceIndex: number; targetIndex: number }>('REORDER_STEPS', true),
     UPDATE_STEP: event<{ step: ActionDef<any> }>('UPDATE_STEP', true),
 
     // Definition Manipulation : Meta
-    CHANGE_META: event<{ meta: ScenarioMeta }>('CHANGE_META', true),
+    UPDATE_META: event<{ meta: ScenarioMeta }>('UPDATE_META', true),
 
     // Selection
     CLEAR_SELECTION: event<void>('CLEAR_SELECTION'),
@@ -37,7 +36,7 @@ export const ProjectActions = {
     SELECT_ASSET: event<{ id: string }>('SELECT_ASSET'),
     SELECT_STEP: event<{ id: string }>('SELECT_STEP'),
 
-    // Sequence Navigation
+    // Time Control
     GOTO_STEP: event<{ id: string | undefined }>('GOTO_STEP'),
     GOTO_STEP_INDEX: event<{ index: number }>('GOTO_STEP_INDEX'),
     NEXT_STEP: event<void>('NEXT_STEP'),

@@ -52,7 +52,7 @@ export const FullTour: Tour = {
             nextEnabled: true,
             onActivate: (ctx) => {
                 ctx.dispatch(
-                    GameActions.NEW_PROJECT({
+                    GameActions.CREATE_PROJECT({
                         id: 'tour',
                         definition: TourScenario,
                         name: 'Rondleiding',
@@ -844,13 +844,13 @@ export const FullTour: Tour = {
                 EN: '',
             },
             nextEnabled: true,
-            onActivate: (ctx) => ctx.dispatch(GameActions.OPEN_PROJECT_DRAWER()),
-            beforeNext: (ctx) => ctx.dispatch(GameActions.CLOSE_PROJECT_DRAWER()),
+            onActivate: (ctx) => ctx.dispatch(GameActions.SHOW_PROJECT_DRAWER()),
+            beforeNext: (ctx) => ctx.dispatch(GameActions.HIDE_PROJECT_DRAWER()),
             highlight: { q: `#project-drawer` },
         },
 
         {
-            onActivate: (ctx) => ctx.dispatch(GameActions.CLOSE_PROJECT_DRAWER()),
+            onActivate: (ctx) => ctx.dispatch(GameActions.HIDE_PROJECT_DRAWER()),
             title: {
                 NL: 'Tip: Sneltoetsen',
                 EN: '',

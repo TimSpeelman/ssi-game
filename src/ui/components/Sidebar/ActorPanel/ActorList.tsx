@@ -4,7 +4,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import React from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { ActorConfig } from '../../../../model/definition/Actor/ActorConfig';
 import { GameActions } from '../../../../state/actions';
 import { ProjectActions } from '../../../../state/project/actions';
 import {
@@ -30,10 +29,9 @@ export function ActorList() {
 
     // Actor Setters
     const canRemoveActor = (id: string) => !(id in involvedActors);
-    const setActors = (actors: ActorConfig[]) => dispatch(ProjectActions.SET_ACTORS({ actors }));
     const handleReorder = (sourceIndex: number, targetIndex: number) =>
         sourceIndex !== targetIndex && dispatch(ProjectActions.REORDER_ACTORS({ sourceIndex, targetIndex }));
-    const removeActor = (id: string) => setActors(actors.filter((a) => a.definition.id !== id));
+    const removeActor = (id: string) => dispatch(ProjectActions.REMOVE_ACTOR({ id }));
     const { dict } = useLang();
     const editing = useSelector(selectEditing);
 

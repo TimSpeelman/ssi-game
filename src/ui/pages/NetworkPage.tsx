@@ -16,7 +16,7 @@ export function NetworkPage() {
     useEffect(() => {
         const savedState = loadFromLocalStorage('state');
         if (savedState) {
-            dispatch(GameActions.RESTORE_STATE({ state: savedState }));
+            dispatch(GameActions.RESTORE_PERSISTED_STATE({ state: savedState }));
         }
     }, []);
 

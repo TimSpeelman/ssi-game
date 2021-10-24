@@ -13,6 +13,9 @@ export interface TourStep {
 
     highlight?: TOrStateToT<{ q: string; expand?: number }>;
 
+    /** Defaults to NEW_INDEX */
+    indexType?: IndexType;
+
     /** Event handler when the step activates */
     onActivate?: (ctx: Context) => void;
     /** Event handler that fires when the state changes */
@@ -31,6 +34,9 @@ export interface TourStepState {
     nextEnabled: boolean;
 
     highlight?: { q: string; expand?: number };
+
+    /** The visible step index */
+    index: number | undefined;
 }
 
 export interface Context {
@@ -40,4 +46,13 @@ export interface Context {
     prev: () => void;
     /** Re-invoke the step's onActivate method (useful for preventing/blocking certain actions) */
     reactivate: () => void;
+}
+
+export enum IndexType {
+    /** The TourStep has no number */
+    NONE,
+    /** The TourStap has a new number */
+    NEW_INDEX,
+    /** The TourStep has the same number as the previous step */
+    SAME_AS_PREVIOUS,
 }

@@ -9,16 +9,28 @@ export interface Props {
     step: TourStepState;
     index: number;
     numberOfSteps: number;
+    highestIndex: number;
     onNext: () => void;
     onPrev: () => void;
     onClose: () => void;
 }
-export function TourMessage({ step, index, numberOfSteps, ...p }: Props) {
+export function TourMessage({ step, index, numberOfSteps, highestIndex, ...p }: Props) {
     const { lang } = useLang();
     const isFirst = index === 0;
     const isLast = index === numberOfSteps - 1;
+
+    const showNumberOfSteps = false;
+
+    const indexDisplay =
+        step.index === undefined
+            ? ''
+            : showNumberOfSteps
+            ? `(${step.index + 1}/${highestIndex + 1})`
+            : `${step.index + 1}.`;
+
     return (
         <div
+            key={index}
             style={{
                 position: 'fixed',
                 left: 30,
@@ -32,7 +44,7 @@ export function TourMessage({ step, index, numberOfSteps, ...p }: Props) {
         >
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Typography variant="h6" style={{ flexGrow: 1 }}>
-                    ({index + 1}/{numberOfSteps}) {step.title[lang]}
+                    {indexDisplay} {step.title[lang]}
                 </Typography>
                 <IconButton onClick={p.onClose}>
                     <Close />

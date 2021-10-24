@@ -20,6 +20,7 @@ export function TourCtr(props: Props) {
             {tour.step && (
                 <TourMessage
                     index={tour.index}
+                    highestIndex={tour.highestIndex}
                     step={tour.step}
                     numberOfSteps={tour.numberOfSteps}
                     onNext={tour.next}

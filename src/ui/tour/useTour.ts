@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GameActions } from '../../state/actions';
 import { RootState } from '../../state/state';
 import { Tour } from './Tour';
-import { TourStepState } from './TourStep';
+import { IndexType, TourStep, TourStepState } from './TourStep';
 
 export function useTour(tour: Tour) {
     const state = useSelector((s) => s) as RootState;
@@ -11,6 +11,8 @@ export function useTour(tour: Tour) {
 
     const [index, setIndex] = useState(-1);
     const steps = tour.steps;
+    const { indices, highestIndex } = getVisibleIndices(steps);
+
     const numberOfSteps = steps.length;
     const step = steps[index];
 
@@ -81,7 +83,24 @@ export function useTour(tour: Tour) {
         message: typeof step.message === 'function' ? step.message(ctx.state) : step.message,
         nextEnabled: typeof step.nextEnabled === 'function' ? step.nextEnabled(ctx.state) : step.nextEnabled,
         highlight: typeof step.highlight === 'function' ? step.highlight(ctx.state) : step.highlight,
+        index: indices[index],
     };
 
-    return { step: stepState, next, prev, close, index, numberOfSteps };
+    return { step: stepState, next, prev, close, index, numberOfSteps, highestIndex };
+}
+
+/** Some tour steps have the same visible index, or have no index */
+function getVisibleIndices(steps: TourStep[]): { indices: (number | undefined)[]; highestIndex: number } {
+    let i = -1;
+    const indices = steps.map((s) => {
+        switch (s.indexType) {
+            case IndexType.NONE:
+                return undefined;
+            case IndexType.SAME_AS_PREVIOUS:
+                return i;
+            default:
+                return ++i;
+        }
+    });
+    return { indices, highestIndex: i };
 }

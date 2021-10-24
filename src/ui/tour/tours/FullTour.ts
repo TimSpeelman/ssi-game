@@ -187,6 +187,7 @@ export const FullTour: Tour = {
             },
             onActivate: (ctx) => {
                 gotoStepIndex(ctx, 0);
+                clearSelection(ctx);
             },
         },
         {

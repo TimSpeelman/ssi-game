@@ -83,7 +83,7 @@ export function TopMenu(props: Props) {
                 <Button
                     id="btn-tour"
                     color={'inherit'}
-                    href={props.tour ? '/' : '/tour'}
+                    href={props.tour ? '/app' : '/tour'}
                     variant={'outlined'}
                     style={{ marginLeft: '.5rem' }}
                 >

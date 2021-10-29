@@ -417,7 +417,7 @@ export const ViewersTour: Tour = {
                     ' meer informatie kunt vinden.\n\n' +
                     '**Vervolgstappen:**\n\n' +
                     "1. Leer hoe je [zelf scenario's kunt bouwen](/tour/build).\n" +
-                    "2. Bekijk [voorbeeldscenario's](/scenarios).",
+                    "2. Bekijk [voorbeeldscenario's](/examples).",
                 EN: '',
             },
             indexType: IndexType.NONE,

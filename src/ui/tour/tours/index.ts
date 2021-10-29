@@ -5,6 +5,6 @@ import { ViewersTour } from './ViewersTour';
 
 export const tours: Record<string, Tour> = {
     full: FullTour,
-    view: ViewersTour,
+    intro: ViewersTour,
     build: BuildersTour,
 };

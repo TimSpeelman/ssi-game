@@ -12,6 +12,214 @@ p {
   margin-bottom: 1em;
 }
 
+#landing-page {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+}
+
+#landing-page h1 {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+#landing-page p.subtitle {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+#landing-page p {
+  font-size: 1.2rem;
+}
+
+#landing-left,
+#landing-right {
+  width: 50%;
+  height: 100%;
+}
+
+#landing-left {
+  background: #3f51b5;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 1rem;
+}
+
+#landing-left > div {
+  max-width: 30rem;
+}
+
+#landing-right {
+  background: #3f51b5;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 1rem;
+}
+
+.landing-cta {
+  color: white;
+  padding: 2rem;
+  border: 3px solid white;
+  width: 100%;
+  max-width: 30rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  display: block;
+  text-decoration: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.landing-cta.small {
+  padding: 1rem;
+  width: auto;
+  border: none;
+  font-size: 1.2rem;
+}
+
+.landing-cta .title {
+  font-size: 2em;
+  font-weight: bold;
+  display: block;
+}
+
+.landing-cta .subtitle {
+  font-size: 1.2rem;
+}
+
+.landing-cta.inverted {
+  background: white;
+  color: #3f51b5;
+}
+
+.landing-cta:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+#examples-page {
+  background: #3f51b5;
+  color: white;
+  height: 100%;
+  overflow: auto;
+  padding: 3rem;
+}
+
+#examples-page h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 3rem;
+}
+
+#examples-page .back-btn {
+  font-size: 2.5rem;
+  padding: 1rem;
+  margin: -1rem 1rem -1rem -1rem;
+  color: white !important;
+}
+
+#examples-page p.subtitle {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+#examples-page p {
+  font-size: 1.2rem;
+}
+
+#examples-list {
+  -webkit-column-count: 4;
+          column-count: 4;
+}
+
+@media only screen and (max-width: 100rem) {
+  #examples-list {
+    -webkit-column-count: 3;
+            column-count: 3;
+  }
+}
+
+@media only screen and (max-width: 80rem) {
+  #examples-list {
+    -webkit-column-count: 2;
+            column-count: 2;
+  }
+}
+
+@media only screen and (max-width: 60rem) {
+  #examples-list {
+    -webkit-column-count: 1;
+            column-count: 1;
+  }
+}
+
+a.example-scenario {
+  width: 100%;
+  display: -ms-inline-grid;
+  display: inline-grid;
+  -webkit-column-break-inside: avoid;
+          break-inside: avoid;
+  page-break-inside: avoid;
+  color: white;
+  padding: 2rem;
+  border: 3px solid white;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+  text-decoration: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  max-width: 30rem;
+}
+
+a.example-scenario.small {
+  padding: 1rem;
+  width: auto;
+  border: none;
+  font-size: 1.2rem;
+}
+
+a.example-scenario .title {
+  font-size: 2em;
+  font-weight: bold;
+  display: block;
+}
+
+a.example-scenario .subtitle {
+  font-size: 1.2rem;
+}
+
+a.example-scenario.inverted {
+  background: white;
+  color: #3f51b5;
+}
+
+a.example-scenario:hover {
+  -webkit-transform: scale(1.04);
+          transform: scale(1.04);
+}
+
 .fill,
 #root {
   width: 100%;

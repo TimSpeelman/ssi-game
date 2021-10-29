@@ -41,7 +41,7 @@ export const BuildersTour: Tour = {
                     ` te ontwikkelen. In deze rondleiding leer je hoe je dit kunt doen.` +
                     `\n\n` +
                     `Ben je nog niet bekend met de basisconcepten van de Identity Game? Volg dan` +
-                    ` eerst een korte [introductie](/tour/view).` +
+                    ` eerst een korte [introductie](/tour/intro).` +
                     `\n\n` +
                     `**Klik op volgende om te beginnen met bouwen.**`,
                 EN: '',
@@ -289,8 +289,8 @@ export const BuildersTour: Tour = {
                         ` kopen.` +
                         `\n\n` +
                         `Met de Identity Game zijn echter veel spannendere scenario's te bouwen.\n` +
-                        `- Begin met een [leeg canvas](/game).\n` +
-                        `- Bekijk [bestaande scenario's](/scenarios).\n`,
+                        `- Begin met een [leeg canvas](/app).\n` +
+                        `- Bekijk [bestaande scenario's](/examples).\n`,
                     EN: '',
                 })),
             onStateChange: (ctx) => {

@@ -7,6 +7,12 @@ export interface StringPropOptions {
     title: Translation;
     helperText?: Translation;
     multiline?: boolean;
+    default?: string | (() => string);
+}
+
+function getDefaultFromOptions(options: StringPropOptions): string {
+    const d = options.default;
+    return !d ? '' : typeof d === 'string' ? d : d();
 }
 
 export class StringProp implements IContentTypeProp<string, string> {
@@ -14,7 +20,9 @@ export class StringProp implements IContentTypeProp<string, string> {
         return this.options.title;
     }
 
-    constructor(readonly options: StringPropOptions) {}
+    constructor(readonly options: StringPropOptions) {
+        // this.options.default = getDefaultFromOptions(this.options); // cache default
+    }
 
     extend(options: Partial<StringPropOptions>) {
         return new StringProp({ ...this.options, ...options });
@@ -22,7 +30,10 @@ export class StringProp implements IContentTypeProp<string, string> {
 
     /** Computes the default value. */
     getDefaultValue() {
-        return '';
+        if (!this.options.default) {
+            return '';
+        }
+        return typeof this.options.default === 'string' ? this.options.default : this.options.default();
     }
 
     /** Computes the field properties to display in the creation or edit form. */

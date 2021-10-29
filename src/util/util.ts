@@ -1,3 +1,26 @@
+/** Random integer between min (inclusive) and max (inclusive) */
+export function getRandomInt(min: number, max: number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+export function getRandomDate(min: Date, max: Date) {
+    const d = getRandomInt(min.getTime(), max.getTime());
+    return new Date(d);
+}
+
+export function getRandomInList<T>(list: T[]): T | undefined {
+    return list.length === 0 ? undefined : list[getRandomInt(0, list.length - 1)];
+}
+
+export function getRandomString(length: number, chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('')) {
+    return new Array(length)
+        .fill(0)
+        .map(() => getRandomInList(chars)!)
+        .join('');
+}
+
 export function zeroes(n: number) {
     return new Array(n).fill(0);
 }

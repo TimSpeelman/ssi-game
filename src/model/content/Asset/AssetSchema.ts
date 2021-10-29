@@ -55,6 +55,11 @@ export class AssetSchema<Props extends ContentTypeProps> {
         return this.props.getFormFieldProps(formData, state);
     }
 
+    /** Compute the form properties */
+    getFormDefaults() {
+        return this.props.getDefaultValues();
+    }
+
     /** Based on the active state and the form input, compute the ActionDef */
     parseUserInput(id: string, formData: any, state: ScenarioState, parentId?: string): AssetDef {
         return {

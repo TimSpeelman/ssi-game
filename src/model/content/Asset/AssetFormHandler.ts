@@ -16,6 +16,15 @@ export class AssetFormHandler {
         }));
     }
 
+    public getFormDefaults(selectedAssetType: string | undefined): any {
+        if (!selectedAssetType) {
+            return {};
+        } else {
+            const asset = this.assetTypes.requireTypeByName(selectedAssetType).schema;
+            return asset.getFormDefaults();
+        }
+    }
+
     public computeFormProperties(
         scenarioDefinition: ScenarioDef,
         currentStepIndex: number,

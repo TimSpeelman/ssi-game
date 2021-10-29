@@ -35,10 +35,14 @@ export function AssetDialog(props: Props) {
     const step = useSelector(selectActiveStepIndex);
     const isEditing = !!props.asset;
 
+    const stateIndex = -1; // Use the initial state, because assets are defined only on the initial state
+    const types = formHandler.listAvailableAssetTypes();
+    const formProps = formHandler.computeFormProperties(def, stateIndex, type, formData);
+
     // Clear data when changing type
     useEffect(() => {
         if (!isEditing) {
-            setData({});
+            setData(formHandler.getFormDefaults(type));
         }
     }, [type]);
 
@@ -64,9 +68,6 @@ export function AssetDialog(props: Props) {
 
     const { dict, lang } = useLang();
 
-    const stateIndex = -1; // Use the initial state, because assets are defined only on the initial state
-    const types = formHandler.listAvailableAssetTypes();
-    const formProps = formHandler.computeFormProperties(def, stateIndex, type, formData);
     const fields = Object.entries(formProps ? formProps.fields : {});
 
     return (

@@ -18,10 +18,12 @@ export function ScenarioInspector({ meta }: Props) {
     const { openDialog } = useDialog();
     return (
         <div style={{ padding: '1rem' }}>
-            <Typography variant="h6">{meta.title}</Typography>
-            <p>
-                {dict.author}: {meta.author}
-            </p>
+            <Typography variant="h6">{meta.title || 'Naamloos Scenario'}</Typography>
+            {meta.author && (
+                <p>
+                    {dict.author}: {meta.author}
+                </p>
+            )}
             <ReactMarkdown>{meta.body}</ReactMarkdown>
             {editing && <Button onClick={() => openDialog('EditMeta', undefined)}>{dict.misc.btnEdit}</Button>}
         </div>

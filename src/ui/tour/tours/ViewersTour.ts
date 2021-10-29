@@ -6,11 +6,12 @@ import {
     selectActiveStepIndex,
     selectEditing,
     selectSelectedActorId,
-    selectSelectedAssetId,
+    selectSelectedAssetId
 } from '../../../state/selectors';
 import { SidebarTab } from '../../components/Sidebar/SidebarTab';
 import { Tour } from '../Tour';
 import { Context, IndexType } from '../TourStep';
+import { querySelectors as q } from './querySelectors';
 
 const actorJohnID = 'human_1';
 const authResID = '11';
@@ -78,7 +79,7 @@ export const ViewersTour: Tour = {
                 EN: '',
             },
             nextEnabled: true,
-            highlight: { q: '.sidebar-main' },
+            highlight: { q: q.sidebarMainSection },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.INFO);
                 gotoStepIndex(ctx, -1);
@@ -103,7 +104,7 @@ export const ViewersTour: Tour = {
                 EN: '',
             },
             nextEnabled: true,
-            highlight: { q: '#network-svg-root', expand: 1 },
+            highlight: { q: q.canvas, expand: 1 },
             onActivate: (ctx) => {
                 gotoStepIndex(ctx, -1);
             },
@@ -126,7 +127,7 @@ export const ViewersTour: Tour = {
                 EN: '',
             },
             nextEnabled: (s) => selectActiveStepIndex(s) === 0,
-            highlight: { q: '.time-navigation', expand: 1 },
+            highlight: { q: q.timeNavigationControls, expand: 1 },
             onActivate: (ctx) => {
                 gotoStepIndex(ctx, -1);
             },
@@ -148,7 +149,7 @@ export const ViewersTour: Tour = {
                 EN: '',
             },
             nextEnabled: true,
-            highlight: { q: '#network-svg-root', expand: 1 },
+            highlight: { q: q.canvas, expand: 1 },
             onActivate: (ctx) => {
                 gotoStepIndex(ctx, 0);
             },
@@ -166,7 +167,7 @@ export const ViewersTour: Tour = {
                 EN: '',
             },
             nextEnabled: false,
-            highlight: { q: `#sidebar-menu-item-${SidebarTab.STEP}` },
+            highlight: { q: q.menuItem[SidebarTab.STEP] },
             onStateChange: (ctx) => {
                 if (selectActiveSidebarTab(ctx.state) === SidebarTab.STEP) {
                     ctx.next();
@@ -196,7 +197,7 @@ export const ViewersTour: Tour = {
             },
             indexType: IndexType.SAME_AS_PREVIOUS,
             nextEnabled: false,
-            highlight: { q: `.sidebar-main` },
+            highlight: { q: q.sidebarMainSection },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.STEP);
                 clearSelection(ctx);
@@ -223,7 +224,7 @@ export const ViewersTour: Tour = {
                 EN: '',
             },
             nextEnabled: true,
-            highlight: { q: `.sidebar-main` },
+            highlight: { q: q.sidebarMainSection },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.ASSETS);
                 gotoStepIndex(ctx, 0);
@@ -244,7 +245,7 @@ export const ViewersTour: Tour = {
                 EN: '',
             },
             nextEnabled: false,
-            highlight: { q: `#sidebar-menu-item-${SidebarTab.TIMELINE}` },
+            highlight: { q: q.menuItem[SidebarTab.TIMELINE] },
             onStateChange: (ctx) => {
                 if (selectActiveSidebarTab(ctx.state) === SidebarTab.TIMELINE) {
                     ctx.next();
@@ -274,7 +275,7 @@ export const ViewersTour: Tour = {
                     ctx.reactivate();
                 }
             },
-            highlight: { q: `.sidebar` },
+            highlight: { q: q.sidebar },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.TIMELINE);
                 gotoStepIndex(ctx, 0);
@@ -295,7 +296,7 @@ export const ViewersTour: Tour = {
             },
             nextEnabled: true,
             // highlight: { q: '#network-svg-root', expand: 1 },
-            highlight: { q: `.sidebar` },
+            highlight: { q: q.sidebar },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.STEP);
                 gotoStepIndex(ctx, 1);
@@ -346,7 +347,7 @@ export const ViewersTour: Tour = {
                 selectActor(ctx, actorJohnID);
             },
             nextEnabled: true,
-            highlight: { q: '#sidebar-main' },
+            highlight: { q: q.sidebarMainSection },
             onStateChange: (ctx) => ctx.reactivate(),
         },
         {
@@ -377,7 +378,7 @@ export const ViewersTour: Tour = {
             },
             onStateChange: (ctx) => ctx.reactivate(),
             nextEnabled: true,
-            highlight: { q: '#actor-properties', expand: 1 },
+            highlight: { q: q.actorDetailsPropertiesSection, expand: 1 },
         },
         {
             title: {
@@ -397,7 +398,7 @@ export const ViewersTour: Tour = {
                 EN: '',
             },
             nextEnabled: true,
-            highlight: { q: '#actor-assets', expand: 1 },
+            highlight: { q: q.actorDetailsAssetsSection, expand: 1 },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.ACTORS);
                 selectActor(ctx, actorJohnID);
@@ -415,8 +416,8 @@ export const ViewersTour: Tour = {
                     ' Je hebt gezien hoe je door een scenario kunt navigeren en ' +
                     ' meer informatie kunt vinden.\n\n' +
                     '**Vervolgstappen:**\n\n' +
-                    "1. Leer hoe je zelf scenario's kunt bouwen.\n" +
-                    "2. Bekijk voorbeeldscenario's.",
+                    "1. Leer hoe je [zelf scenario's kunt bouwen](/tour/build).\n" +
+                    "2. Bekijk [voorbeeldscenario's](/scenarios).",
                 EN: '',
             },
             indexType: IndexType.NONE,

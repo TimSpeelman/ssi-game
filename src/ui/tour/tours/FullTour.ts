@@ -17,6 +17,7 @@ import { SidebarTab } from '../../components/Sidebar/SidebarTab';
 import { hotkeys } from '../../config/hotkeys';
 import { Tour } from '../Tour';
 import { Context } from '../TourStep';
+import { querySelectors as q } from './querySelectors';
 
 const actorJohnID = 'human_1';
 const actorShopID = 'shop_1';
@@ -86,7 +87,7 @@ export const FullTour: Tour = {
                 EN: '',
             },
             nextEnabled: true,
-            highlight: { q: '.sidebar-main' },
+            highlight: { q: q.sidebarMainSection },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.INFO);
                 gotoStepIndex(ctx, -1);
@@ -112,7 +113,7 @@ export const FullTour: Tour = {
                 EN: '',
             },
             nextEnabled: true,
-            highlight: { q: '#network-svg-root', expand: 1 },
+            highlight: { q: q.canvas, expand: 1 },
             onActivate: (ctx) => {
                 gotoStepIndex(ctx, -1);
             },
@@ -136,7 +137,7 @@ export const FullTour: Tour = {
                 EN: '',
             },
             nextEnabled: (s) => selectActiveStepIndex(s) === 0,
-            highlight: { q: '.time-navigation', expand: 1 },
+            highlight: { q: q.timeNavigationControls, expand: 1 },
             onActivate: (ctx) => {
                 gotoStepIndex(ctx, -1);
             },
@@ -159,7 +160,7 @@ export const FullTour: Tour = {
                 EN: '',
             },
             nextEnabled: true,
-            highlight: { q: '#network-svg-root', expand: 1 },
+            highlight: { q: q.canvas, expand: 1 },
             onActivate: (ctx) => {
                 gotoStepIndex(ctx, 0);
             },
@@ -177,7 +178,7 @@ export const FullTour: Tour = {
                 EN: '',
             },
             nextEnabled: false,
-            highlight: { q: `#sidebar-menu-item-${SidebarTab.STEP}` },
+            highlight: { q: q.menuItem[SidebarTab.STEP] },
             onStateChange: (ctx) => {
                 if (selectActiveSidebarTab(ctx.state) === SidebarTab.STEP) {
                     ctx.next();
@@ -203,7 +204,7 @@ export const FullTour: Tour = {
                 EN: '',
             },
             nextEnabled: true,
-            highlight: { q: `.sidebar-main` },
+            highlight: { q: q.sidebarMainSection },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.STEP);
                 gotoStepIndex(ctx, 0);
@@ -227,7 +228,7 @@ export const FullTour: Tour = {
                 EN: '',
             },
             nextEnabled: false,
-            highlight: { q: `#outcome-list`, expand: 1 },
+            highlight: { q: q.stepDetailsOutcomesSection, expand: 1 },
             onStateChange: (ctx) => {
                 if (selectSelectedAssetId(ctx.state) === authResID) {
                     ctx.next();
@@ -253,7 +254,7 @@ export const FullTour: Tour = {
                 EN: '',
             },
             nextEnabled: true,
-            highlight: { q: `.sidebar-main` },
+            highlight: { q: q.sidebarMainSection },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.ASSETS);
                 gotoStepIndex(ctx, 0);
@@ -292,7 +293,7 @@ export const FullTour: Tour = {
                 EN: '',
             },
             nextEnabled: false,
-            highlight: { q: `#sidebar-menu-item-${SidebarTab.TIMELINE}` },
+            highlight: { q: q.menuItem[SidebarTab.TIMELINE] },
             onStateChange: (ctx) => {
                 if (selectActiveSidebarTab(ctx.state) === SidebarTab.TIMELINE) {
                     ctx.next();
@@ -321,7 +322,7 @@ export const FullTour: Tour = {
                     ctx.reactivate();
                 }
             },
-            highlight: { q: `.sidebar` },
+            highlight: { q: q.sidebar },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.TIMELINE);
                 gotoStepIndex(ctx, 0);
@@ -342,7 +343,7 @@ export const FullTour: Tour = {
             },
             nextEnabled: true,
             // highlight: { q: '#network-svg-root', expand: 1 },
-            highlight: { q: `.sidebar` },
+            highlight: { q: q.sidebar },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.STEP);
                 gotoStepIndex(ctx, 1);
@@ -393,7 +394,7 @@ export const FullTour: Tour = {
                 selectActor(ctx, actorJohnID);
             },
             nextEnabled: true,
-            highlight: { q: '#sidebar-main' },
+            highlight: { q: q.sidebarMainSection },
             onStateChange: (ctx) => ctx.reactivate(),
         },
         {
@@ -424,7 +425,7 @@ export const FullTour: Tour = {
             },
             onStateChange: (ctx) => ctx.reactivate(),
             nextEnabled: true,
-            highlight: { q: '#actor-properties', expand: 1 },
+            highlight: { q: q.actorDetailsPropertiesSection, expand: 1 },
         },
         {
             title: {
@@ -444,7 +445,7 @@ export const FullTour: Tour = {
                 EN: '',
             },
             nextEnabled: true,
-            highlight: { q: '#actor-assets', expand: 1 },
+            highlight: { q: q.actorDetailsAssetsSection, expand: 1 },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.ACTORS);
                 selectActor(ctx, actorJohnID);
@@ -467,7 +468,7 @@ export const FullTour: Tour = {
                 EN: '',
             },
             nextEnabled: (s) => selectEditing(s),
-            highlight: { q: '#btn-editing' },
+            highlight: { q: q.btnEditLock },
             onActivate: (ctx) => gotoStepIndex(ctx, 2),
         },
         {
@@ -530,7 +531,7 @@ export const FullTour: Tour = {
                     ctx.reactivate();
                 }
             },
-            highlight: { q: '#btn-goto-initial-state' },
+            highlight: { q: q.btnGotoInitialState },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.ACTORS);
                 if (selectSelectedActorId(ctx.state) !== actorJohnID) selectActor(ctx, actorJohnID);
@@ -555,7 +556,7 @@ export const FullTour: Tour = {
                     ctx.reactivate();
                 }
             },
-            highlight: { q: '#actor-assets', expand: 1 },
+            highlight: { q: q.actorDetailsAssetsSection, expand: 1 },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.ACTORS);
                 if (selectSelectedActorId(ctx.state) !== actorJohnID) selectActor(ctx, actorJohnID);
@@ -579,7 +580,7 @@ export const FullTour: Tour = {
                     ctx.next();
                 }
             },
-            highlight: { q: '.scenario-status' },
+            highlight: { q: q.scenarioStatusIndicator },
         },
         {
             title: {
@@ -605,7 +606,7 @@ export const FullTour: Tour = {
                     ctx.reactivate();
                 }
             },
-            highlight: { q: '.sidebar' },
+            highlight: { q: q.sidebar },
 
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.STEP);
@@ -632,7 +633,7 @@ export const FullTour: Tour = {
                     ctx.reactivate();
                 }
             },
-            highlight: { q: '.sidebar-main' },
+            highlight: { q: q.sidebarMainSection },
 
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.STEP);
@@ -659,7 +660,7 @@ export const FullTour: Tour = {
                     ctx.reactivate();
                 }
             },
-            highlight: { q: '#btn-all-actors' },
+            highlight: { q: q.btnNavigateToActorIndex },
 
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.ACTORS);
@@ -847,7 +848,7 @@ export const FullTour: Tour = {
             nextEnabled: true,
             onActivate: (ctx) => ctx.dispatch(GameActions.SHOW_PROJECT_DRAWER()),
             beforeNext: (ctx) => ctx.dispatch(GameActions.HIDE_PROJECT_DRAWER()),
-            highlight: { q: `#project-drawer` },
+            highlight: { q: q.projectDrawer },
         },
 
         {
@@ -889,7 +890,7 @@ export const FullTour: Tour = {
                 EN: '',
             },
             nextEnabled: true,
-            highlight: { q: `#btn-help` },
+            highlight: { q: q.btnHelp },
         },
     ],
 };

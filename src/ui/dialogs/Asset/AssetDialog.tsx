@@ -39,6 +39,9 @@ export function AssetDialog(props: Props) {
     const types = formHandler.listAvailableAssetTypes();
     const formProps = formHandler.computeFormProperties(def, stateIndex, type, formData);
 
+    const [showErrors, setShowErrors] = useState(false);
+    const hasErrors = Object.values(formProps?.fields || {}).some((f) => !!f.error);
+
     // Clear data when changing type
     useEffect(() => {
         if (!isEditing) {
@@ -60,6 +63,10 @@ export function AssetDialog(props: Props) {
 
     function handleSubmit() {
         if (!type) return;
+        if (hasErrors) {
+            setShowErrors(true);
+            return;
+        }
         const id = props.asset?.id || uuid();
         const parentId = props.asset ? props.asset.parentId : props.parentId;
         const definition = formHandler.parseFormData(def, stateIndex, type, formData, id, parentId);
@@ -68,7 +75,10 @@ export function AssetDialog(props: Props) {
 
     const { dict, lang } = useLang();
 
-    const fields = Object.entries(formProps ? formProps.fields : {});
+    let fields = Object.entries(formProps ? formProps.fields : {});
+    if (!showErrors) {
+        fields = fields.map(([key, field]) => [key, { ...field, error: undefined }]);
+    }
 
     return (
         <Fragment>

@@ -8,4 +8,5 @@ export interface StringField {
     disabled?: Translation;
     helperText?: Translation;
     error?: Translation;
+    required?: boolean;
 }

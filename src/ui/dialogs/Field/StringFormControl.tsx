@@ -19,7 +19,7 @@ export function StringFormControl({ props, setField }: Props) {
             style={{ marginBottom: '1em' }}
             margin="dense"
             multiline={props.multiline}
-            label={title}
+            label={title + (props.required ? '*' : '')}
             value={value}
             error={!!errorMsg}
             onChange={(e) => setField(e.target.value)}

@@ -47,6 +47,16 @@ export class ActorProp implements IPropHandler<string, ActorState, ActorField> {
         const autoFill = this.options.autoFill ? items[0]?.id : undefined;
         const defaultValue = autoFill || this.getDefaultValue();
         const value = !formData[key] || formData[key] === '' ? defaultValue : formData[key];
+
+        const hasError = !formData[key] && this.options.required;
+        const errorMessage =
+            typeof this.options.required === 'object'
+                ? this.options.required
+                : {
+                      NL: 'Dit veld is vereist',
+                      EN: 'This field is required',
+                  };
+
         return {
             type: 'actor',
             title: this.options.title,
@@ -54,6 +64,8 @@ export class ActorProp implements IPropHandler<string, ActorState, ActorField> {
             options: items,
             value,
             disabled,
+            error: hasError ? errorMessage : undefined,
+            required: !!this.options.required,
         };
     }
 

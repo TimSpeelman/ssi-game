@@ -14,10 +14,15 @@ export function ActorFormControl({ props, setField }: Props) {
     const title = props.title[lang];
     const value = props.value;
     const actors = props.options;
+    const errorMsg = props.error ? props.error[lang] : null;
 
+    const helperText = errorMsg ? errorMsg : (props.helperText || {})[lang];
     return (
-        <FormControl fullWidth style={{ marginBottom: '1em' }}>
-            <InputLabel>{title}</InputLabel>
+        <FormControl fullWidth style={{ marginBottom: '1em' }} error={!!errorMsg}>
+            <InputLabel>
+                {title}
+                {props.required && '*'}
+            </InputLabel>
             <Select value={value} onChange={(e) => setField(e.target.value)}>
                 {actors.map((actor) => (
                     <MenuItem key={actor.id} value={actor.id}>
@@ -32,7 +37,7 @@ export function ActorFormControl({ props, setField }: Props) {
                     </MenuItem>
                 ))}
             </Select>
-            {props.helperText && <FormHelperText>{props.helperText[lang]}</FormHelperText>}
+            {helperText && <FormHelperText>{helperText}</FormHelperText>}
         </FormControl>
     );
 }

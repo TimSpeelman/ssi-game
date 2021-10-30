@@ -47,7 +47,7 @@ const Schema = new AssetSchema({
             },
         }),
         identifier: CommonProps.identifier,
-        image: new ImageSelectProp({ title: { NL: 'Afbeelding', EN: 'Image' }, items: images }),
+        image: new ImageSelectProp({ title: { NL: 'Afbeelding', EN: 'Image' }, items: images, required: true }),
     },
 });
 

@@ -25,8 +25,8 @@ const Schema = new AssetSchema({
     image: { type: 'fa-icon', name: 'passport' },
     props: {
         subject: CommonProps.subject,
-        name: new StringProp({ title: translations.name }),
-        firstName: new StringProp({ title: translations.firstName }),
+        name: new StringProp({ title: translations.name, required: true }),
+        firstName: new StringProp({ title: translations.firstName, required: true }),
         identifier: new StringProp({
             title: translations.identifier,
             helperText: {
@@ -34,31 +34,44 @@ const Schema = new AssetSchema({
                 EN: 'In the Netherlands, this is the Burgerservicenummer (BSN)',
             },
             default: () => sampleInvalidBSN(),
+            required: true,
         }),
         dateOfBirth: new StringProp({
             title: translations.dateOfBirth,
             default: () => sampleDateOfBirth(),
             required: true,
         }),
-        placeOfIssuance: new StringProp({ title: translations.placeOfIssuance, default: () => sampleDutchPlace() }),
-        placeOfBirth: new StringProp({ title: translations.placeOfBirth, default: () => sampleDutchPlace() }),
+        placeOfIssuance: new StringProp({
+            title: translations.placeOfIssuance,
+            default: () => sampleDutchPlace(),
+            required: true,
+        }),
+        placeOfBirth: new StringProp({
+            title: translations.placeOfBirth,
+            default: () => sampleDutchPlace(),
+            required: true,
+        }),
         dateOfIssuance: new StringProp({
             title: translations.dateOfIssuance,
             default: () => sampleDateOfIssuance(),
+            required: true,
         }),
         dateOfExpiry: new StringProp({
             title: translations.dateOfExpiry,
             default: () => sampleDateOfExpiry(),
+            required: true,
         }),
         height: new StringProp({
             title: translations.height,
             default: () => sampleHeight(),
+            required: true,
         }),
         documentNumber: new StringProp({
             title: translations.documentNumber,
             default: () => sampleInvalidDocumentNumber(),
+            required: true,
         }),
-        nationality: new StringProp({ title: translations.nationality, default: 'Nederlandse' }),
+        nationality: new StringProp({ title: translations.nationality, default: 'Nederlandse', required: true }),
     },
 });
 

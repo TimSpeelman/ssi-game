@@ -5,7 +5,13 @@ import { translations } from '../intl/dictionaries';
 
 export const CommonProps = {
     issuer: new ActorProp({ title: translations.issuer }),
-    subject: new ActorProp({ title: translations.subject }),
+    subject: new ActorProp({
+        title: translations.subject,
+        required: {
+            NL: 'Een subject is vereist.',
+            EN: 'A subject is required.',
+        },
+    }),
     verifier: new ActorProp({ title: translations.verifier }),
     issuerNym: new AssetProp({
         title: translations.issuerPseudonym,

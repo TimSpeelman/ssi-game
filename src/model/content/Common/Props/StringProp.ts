@@ -8,7 +8,7 @@ export interface StringPropOptions {
     helperText?: Translation;
     multiline?: boolean;
     default?: string | (() => string);
-    required?: boolean;
+    required?: Translation | boolean;
 }
 
 export class StringProp implements IPropHandler<string, string, StringField> {
@@ -32,19 +32,23 @@ export class StringProp implements IPropHandler<string, string, StringField> {
 
     /** Computes the field properties to display in the creation or edit form. */
     getFormFieldProps(key: string, formData: any, state: ScenarioState): StringField {
+        const hasError = !formData[key] && this.options.required;
+        const errorMessage =
+            typeof this.options.required === 'object'
+                ? this.options.required
+                : {
+                      NL: 'Dit veld is vereist',
+                      EN: 'This field is required',
+                  };
+
         return {
             type: 'string',
             multiline: this.options.multiline,
             title: this.options.title,
             helperText: this.options.helperText,
             value: formData[key],
-            error:
-                !formData[key] && this.options.required
-                    ? {
-                          NL: 'Dit veld is vereist',
-                          EN: 'This field is required',
-                      }
-                    : undefined,
+            error: hasError ? errorMessage : undefined,
+            required: !!this.options.required,
         };
     }
 

@@ -21,10 +21,15 @@ export function ImageSelectFormControl({ props, setField }: Props) {
         ) : (
             <img src={image.url} style={{ height: '2rem' }} />
         );
+    const errorMsg = props.error ? props.error[lang] : null;
 
+    const helperText = errorMsg ? errorMsg : (props.helperText || {})[lang];
     return (
-        <FormControl fullWidth style={{ marginBottom: '1em' }}>
-            <InputLabel>{title}</InputLabel>
+        <FormControl fullWidth style={{ marginBottom: '1em' }} error={!!errorMsg}>
+            <InputLabel>
+                {title}
+                {props.required && '*'}
+            </InputLabel>
             <Select value={value} onChange={(e) => setField(e.target.value)}>
                 {options.map((option) => (
                     <MenuItem key={option.id} value={option.id}>
@@ -32,7 +37,7 @@ export function ImageSelectFormControl({ props, setField }: Props) {
                     </MenuItem>
                 ))}
             </Select>
-            {props.helperText && <FormHelperText>{props.helperText[lang]}</FormHelperText>}
+            {helperText && <FormHelperText>{helperText}</FormHelperText>}
         </FormControl>
     );
 }

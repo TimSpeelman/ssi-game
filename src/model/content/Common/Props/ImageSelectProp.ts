@@ -8,6 +8,7 @@ export interface ImageSelectPropOptions {
     title: Translation;
     helperText?: Translation;
     items: Array<{ id: string; image: ImageOrIconDefinition; title?: Translation }>;
+    required?: Translation | boolean;
 }
 
 export class ImageSelectProp implements IPropHandler<string, ImageOrIconDefinition, ImageSelectField> {
@@ -30,12 +31,24 @@ export class ImageSelectProp implements IPropHandler<string, ImageOrIconDefiniti
     getFormFieldProps(key: string, formData: any, state: ScenarioState): ImageSelectField {
         const defaultValue = this.getDefaultValue();
         const value = !formData[key] || formData[key] === '' ? defaultValue : formData[key];
+
+        const hasError = !formData[key] && this.options.required;
+        const errorMessage =
+            typeof this.options.required === 'object'
+                ? this.options.required
+                : {
+                      NL: 'Dit veld is vereist',
+                      EN: 'This field is required',
+                  };
+
         return {
             type: 'image-select',
             title: this.options.title,
             helperText: this.options.helperText,
             options: this.options.items,
             value: value,
+            error: hasError ? errorMessage : undefined,
+            required: !!this.options.required,
         };
     }
 

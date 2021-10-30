@@ -15,10 +15,22 @@ export function AssetFormControl({ props, setField }: Props) {
     const assets = props.options;
     const disabled = !!props.disabled;
     const disabledMsg = props.disabled ? props.disabled[lang] : '';
+    const errorMsg = props.error ? props.error[lang] : null;
+
+    const helperText = errorMsg ? errorMsg : (props.helperText || {})[lang];
 
     return (
-        <FormControl fullWidth style={{ marginBottom: '1em' }} disabled={disabled} title={disabledMsg}>
-            <InputLabel>{title}</InputLabel>
+        <FormControl
+            fullWidth
+            style={{ marginBottom: '1em' }}
+            disabled={disabled}
+            title={disabledMsg}
+            error={!!errorMsg}
+        >
+            <InputLabel>
+                {title}
+                {props.required && '*'}
+            </InputLabel>
             <Select value={value} onChange={(e) => setField(e.target.value)}>
                 {assets.map((asset) => (
                     <MenuItem key={asset.id} value={asset.id}>
@@ -26,7 +38,7 @@ export function AssetFormControl({ props, setField }: Props) {
                     </MenuItem>
                 ))}
             </Select>
-            {props.helperText && <FormHelperText>{props.helperText[lang]}</FormHelperText>}
+            {helperText && <FormHelperText>{helperText}</FormHelperText>}
         </FormControl>
     );
 }

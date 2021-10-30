@@ -1,7 +1,7 @@
 import { TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
-import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
-import { AssetProp } from '../../../model/content/Common/Prop/AssetProp';
+import { ActorProp } from '../../../model/content/Common/Props/ActorProp';
+import { AssetProp } from '../../../model/content/Common/Props/AssetProp';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';
 import { IOutcome } from '../../../model/logic/Step/IOutcome';

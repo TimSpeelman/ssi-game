@@ -1,6 +1,6 @@
-import { EvaluatedTypeOfProp } from './Prop/IContentTypeProp';
-import { ContentTypeProps } from './PropRecord/ContentTypeProps';
+import { PropEvaluatedValue } from './Schema/PropEvaluatedValue';
+import { RecordOfPropHandlers } from './Schema/RecordOfPropHandlers';
 
-export type ContentTypeInput<T extends ContentTypeProps> = {
-    [K in keyof T]: EvaluatedTypeOfProp<T[K]>;
+export type ContentTypeInput<T extends RecordOfPropHandlers> = {
+    [K in keyof T]: PropEvaluatedValue<T[K]>;
 };

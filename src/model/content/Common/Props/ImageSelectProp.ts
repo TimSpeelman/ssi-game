@@ -1,8 +1,8 @@
 import { Translation } from '../../../../intl/Language';
 import { ImageOrIconDefinition } from '../../../common/ImageOrIconDefinition';
 import { ScenarioState } from '../../../logic/State/ScenarioState';
-import { Field } from '../View/Field';
-import { IContentTypeProp } from './IContentTypeProp';
+import { IPropHandler } from '../Schema/IPropHandler';
+import { ImageSelectField } from '../View/ImageSelectField';
 
 export interface ImageSelectPropOptions {
     title: Translation;
@@ -10,7 +10,7 @@ export interface ImageSelectPropOptions {
     items: Array<{ id: string; image: ImageOrIconDefinition; title?: Translation }>;
 }
 
-export class ImageSelectProp implements IContentTypeProp<string, ImageOrIconDefinition> {
+export class ImageSelectProp implements IPropHandler<string, ImageOrIconDefinition, ImageSelectField> {
     get title() {
         return this.options.title;
     }
@@ -27,7 +27,7 @@ export class ImageSelectProp implements IContentTypeProp<string, ImageOrIconDefi
     }
 
     /** Computes the field properties to display in the creation or edit form. */
-    getFormFieldProps(key: string, formData: any, state: ScenarioState): Field {
+    getFormFieldProps(key: string, formData: any, state: ScenarioState): ImageSelectField {
         const defaultValue = this.getDefaultValue();
         const value = !formData[key] || formData[key] === '' ? defaultValue : formData[key];
         return {

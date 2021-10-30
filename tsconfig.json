@@ -41,6 +41,6 @@
         "**/node_modules/**"
     ],
     "files": [
-        "./typings.d.ts"
+        "./typings.d.ts",
     ]
 }

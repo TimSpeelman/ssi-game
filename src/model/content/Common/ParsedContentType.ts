@@ -1,6 +1,6 @@
-import { DefTypeOfProp } from './Prop/IContentTypeProp';
-import { ContentTypeProps } from './PropRecord/ContentTypeProps';
+import { PropValue } from './Schema/PropValue';
+import { RecordOfPropHandlers } from './Schema/RecordOfPropHandlers';
 
-export type ParsedContentType<T extends ContentTypeProps> = {
-    [K in keyof T]: DefTypeOfProp<T[K]>;
+export type ParsedContentType<T extends RecordOfPropHandlers> = {
+    [K in keyof T]: PropValue<T[K]>;
 };

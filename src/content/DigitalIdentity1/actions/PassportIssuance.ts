@@ -1,6 +1,6 @@
 import { TypeOfActionSchema } from '../../../model/content/Action/ActionSchema';
 import { ActionType } from '../../../model/content/Action/ActionType';
-import { StringProp } from '../../../model/content/Common/Prop/StringProp';
+import { StringProp } from '../../../model/content/Common/Props/StringProp';
 import { Locality } from '../../../model/description/Step/ActionDesc';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { Action, BaseSchema, CustomActionDesc } from '../../../model/logic/Step/Action';

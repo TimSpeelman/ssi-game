@@ -2,14 +2,12 @@ import { Translation } from '../../../intl/Language';
 import { Extend } from '../../../util/types/Extend';
 import { ActionDef } from '../../definition/Action/ActionDef';
 import { ScenarioState } from '../../logic/State/ScenarioState';
-import {
-    ContentTypeProps,
-    DefTypesOfContentTypeProps,
-    EvaluatedTypeOfContentProps,
-} from '../Common/PropRecord/ContentTypeProps';
-import { ContentTypePropsRecord } from '../Common/PropRecord/ContentTypePropsRecord';
+import { PropEvaluatedValues } from '../Common/Schema/PropEvaluatedValues';
+import { PropHandlerCollection } from '../Common/Schema/PropHandlerCollection';
+import { PropValues } from '../Common/Schema/PropValues';
+import { RecordOfPropHandlers } from '../Common/Schema/RecordOfPropHandlers';
 
-export interface ActionSchemaOptions<Props extends ContentTypeProps> {
+export interface ActionSchemaOptions<Props extends RecordOfPropHandlers> {
     typeName: string;
     title: Translation;
     description?: Translation;
@@ -19,20 +17,20 @@ export interface ActionSchemaOptions<Props extends ContentTypeProps> {
 /**
  * Define a custom action type schema
  */
-export class ActionSchema<Props extends ContentTypeProps> {
+export class ActionSchema<Props extends RecordOfPropHandlers> {
     readonly typeName: string;
     readonly title: Translation;
     readonly description?: Translation;
-    readonly props: ContentTypePropsRecord<Props>;
+    readonly props: PropHandlerCollection<Props>;
 
     constructor(options: ActionSchemaOptions<Props>) {
         this.typeName = options.typeName;
         this.title = options.title;
         this.description = options.description;
-        this.props = new ContentTypePropsRecord(options.props);
+        this.props = new PropHandlerCollection(options.props);
     }
 
-    extend<NewProps extends ContentTypeProps>(
+    extend<NewProps extends RecordOfPropHandlers>(
         options: ActionSchemaOptions<NewProps>,
     ): ActionSchema<Extend<Props, NewProps>> {
         const props: Extend<Props, NewProps> = { ...this.props.props, ...options.props };
@@ -59,7 +57,7 @@ export class ActionSchema<Props extends ContentTypeProps> {
     }
 
     /** Based on the active state and the definition, evaluate the props */
-    evaluateDefinitionProps(defProps: any, state: ScenarioState): EvaluatedTypeOfContentProps<Props> {
+    evaluateDefinitionProps(defProps: any, state: ScenarioState): PropEvaluatedValues<Props> {
         return this.props.evaluateDefinitionProps(defProps, state);
     }
 
@@ -71,5 +69,5 @@ export class ActionSchema<Props extends ContentTypeProps> {
 export type TypeOfActionSchema<T extends ActionSchema<any>> = T extends ActionSchema<infer U> ? U : never;
 
 export type DefTypeOfActionSchema<T extends ActionSchema<any>> = T extends ActionSchema<infer U>
-    ? DefTypesOfContentTypeProps<U>
+    ? PropValues<U>
     : never;

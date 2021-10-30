@@ -1,7 +1,7 @@
 import { ImageOrIconDefinition } from '../../../model/common/ImageOrIconDefinition';
 import { AssetSchema, TypeOfAssetSchema } from '../../../model/content/Asset/AssetSchema';
 import { AssetType } from '../../../model/content/Asset/AssetType';
-import { ImageSelectProp } from '../../../model/content/Common/Prop/ImageSelectProp';
+import { ImageSelectProp } from '../../../model/content/Common/Props/ImageSelectProp';
 import { Asset, CustomAssetDesc } from '../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 import { CommonProps } from '../common/props';

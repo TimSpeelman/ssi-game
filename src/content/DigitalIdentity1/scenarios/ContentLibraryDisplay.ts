@@ -163,7 +163,7 @@ const actorConfig3: ActorConfig = {
 const actorsConfigurations = [actorConfig1, actorConfig2, actorConfig3];
 
 // Just checking we did not miss any asset types in our library.
-const allAssets = actorsConfigurations.reduce((all, c) => [...all, ...c.initialAssets], [] as AssetDef<any>[]);
+const allAssets = actorsConfigurations.reduce((all, c) => [...all, ...c.initialAssets], [] as AssetDef[]);
 const allAssetTypesInLibrary = assetCollection.types.map((t) => t.schema.typeName);
 const missingAssets = allAssetTypesInLibrary.filter((t) => !allAssets.some((a) => a.typeName === t));
 if (missingAssets.length > 0) {

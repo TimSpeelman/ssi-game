@@ -18,7 +18,7 @@ export class AssetTypesCollection {
         }
     }
 
-    deserialize(s: AssetDef<any>): Asset<any> {
+    deserialize(s: AssetDef): Asset<any> {
         const type = this.requireTypeByName(s.typeName);
         return type.factory(s.id, s.props, true);
     }

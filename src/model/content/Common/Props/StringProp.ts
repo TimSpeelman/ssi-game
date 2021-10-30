@@ -1,7 +1,7 @@
 import { Translation } from '../../../../intl/Language';
 import { ScenarioState } from '../../../logic/State/ScenarioState';
-import { Field } from '../View/Field';
-import { IContentTypeProp } from './IContentTypeProp';
+import { IPropHandler } from '../Schema/IPropHandler';
+import { StringField } from '../View/StringField';
 
 export interface StringPropOptions {
     title: Translation;
@@ -11,7 +11,7 @@ export interface StringPropOptions {
     required?: boolean;
 }
 
-export class StringProp implements IContentTypeProp<string, string> {
+export class StringProp implements IPropHandler<string, string, StringField> {
     get title() {
         return this.options.title;
     }
@@ -31,7 +31,7 @@ export class StringProp implements IContentTypeProp<string, string> {
     }
 
     /** Computes the field properties to display in the creation or edit form. */
-    getFormFieldProps(key: string, formData: any, state: ScenarioState): Field {
+    getFormFieldProps(key: string, formData: any, state: ScenarioState): StringField {
         return {
             type: 'string',
             multiline: this.options.multiline,

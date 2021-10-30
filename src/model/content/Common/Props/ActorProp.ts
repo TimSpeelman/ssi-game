@@ -1,8 +1,8 @@
 import { Translation } from '../../../../intl/Language';
 import { ActorState } from '../../../logic/State/ActorState';
 import { ScenarioState } from '../../../logic/State/ScenarioState';
-import { Field } from '../View/Field';
-import { IContentTypeProp } from './IContentTypeProp';
+import { IPropHandler } from '../Schema/IPropHandler';
+import { ActorField } from '../View/ActorField';
 
 export interface ActorPropOptions {
     title: Translation;
@@ -13,7 +13,7 @@ export interface ActorPropOptions {
     required?: Translation;
 }
 
-export class ActorProp implements IContentTypeProp<string, ActorState> {
+export class ActorProp implements IPropHandler<string, ActorState, ActorField> {
     get title() {
         return this.options.title;
     }
@@ -30,7 +30,7 @@ export class ActorProp implements IContentTypeProp<string, ActorState> {
     }
 
     /** Computes the field properties to display in the creation or edit form. */
-    getFormFieldProps(key: string, formData: any, state: ScenarioState): Field {
+    getFormFieldProps(key: string, formData: any, state: ScenarioState): ActorField {
         const allItems = Object.values(state.props.byActor);
         const filteredItems = this.options.filter
             ? allItems.filter((a) => this.options.filter!(a, formData))

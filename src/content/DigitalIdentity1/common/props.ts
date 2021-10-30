@@ -1,6 +1,6 @@
-import { ActorProp } from '../../../model/content/Common/Prop/ActorProp';
-import { AssetProp } from '../../../model/content/Common/Prop/AssetProp';
-import { StringProp } from '../../../model/content/Common/Prop/StringProp';
+import { ActorProp } from '../../../model/content/Common/Props/ActorProp';
+import { AssetProp } from '../../../model/content/Common/Props/AssetProp';
+import { StringProp } from '../../../model/content/Common/Props/StringProp';
 import { translations } from '../intl/dictionaries';
 
 export const CommonProps = {

@@ -2,8 +2,8 @@ import { Translation } from '../../../../intl/Language';
 import { AssetTreeNode } from '../../../description/Asset/AssetTreeNode';
 import { Asset } from '../../../logic/Asset/Asset';
 import { ScenarioState } from '../../../logic/State/ScenarioState';
-import { Field } from '../View/Field';
-import { IContentTypeProp } from './IContentTypeProp';
+import { IPropHandler } from '../Schema/IPropHandler';
+import { AssetField } from '../View/AssetField';
 
 export interface AssetPropOptions {
     title: Translation;
@@ -14,7 +14,7 @@ export interface AssetPropOptions {
     required?: Translation;
 }
 
-export class AssetProp implements IContentTypeProp<string, Asset<any>> {
+export class AssetProp implements IPropHandler<string, Asset<any>, AssetField> {
     get title() {
         return this.options.title;
     }
@@ -31,7 +31,7 @@ export class AssetProp implements IContentTypeProp<string, Asset<any>> {
     }
 
     /** Computes the field properties to display in the creation or edit form. */
-    getFormFieldProps(key: string, formData: any, state: ScenarioState): Field {
+    getFormFieldProps(key: string, formData: any, state: ScenarioState): AssetField {
         const allItems = Object.values(state.describe().assets);
         const filteredItems = !!this.options.filter
             ? allItems.filter((a) => this.options.filter!(a, formData))

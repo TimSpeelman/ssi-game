@@ -2,14 +2,16 @@ import { Translation } from '../../../../intl/Language';
 import { mapValues } from '../../../../util/util';
 import { ScenarioState } from '../../../logic/State/ScenarioState';
 import { Field } from '../View/Field';
-import { ContentTypeProps, DefTypesOfContentTypeProps, EvaluatedTypeOfContentProps } from './ContentTypeProps';
+import { PropEvaluatedValues } from './PropEvaluatedValues';
+import { PropValues } from './PropValues';
+import { RecordOfPropHandlers } from './RecordOfPropHandlers';
 
-/** Sugar for controlling a collection of content type props */
-export class ContentTypePropsRecord<Props extends ContentTypeProps> {
+/** A collection of content type props */
+export class PropHandlerCollection<Props extends RecordOfPropHandlers> {
     constructor(readonly props: Props) {}
 
     /** Computes the default value of each prop. */
-    getDefaultValues(): DefTypesOfContentTypeProps<Props> {
+    getDefaultValues(): PropValues<Props> {
         // @ts-ignore
         return mapValues(this.props, (def) => def.getDefaultValue());
     }
@@ -20,13 +22,13 @@ export class ContentTypePropsRecord<Props extends ContentTypeProps> {
     }
 
     /** Parses the entire form data. */
-    parseUserInput(formData: any, state: ScenarioState): DefTypesOfContentTypeProps<Props> {
+    parseUserInput(formData: any, state: ScenarioState): PropValues<Props> {
         // @ts-ignore
         return mapValues(this.props, (def, key) => def.parseUserInput(key, formData, state));
     }
 
     /** Evaluate the property against the current scenario state */
-    evaluateDefinitionProps(defProps: any, state: ScenarioState): EvaluatedTypeOfContentProps<Props> {
+    evaluateDefinitionProps(defProps: any, state: ScenarioState): PropEvaluatedValues<Props> {
         // @ts-ignore
         return mapValues(this.props, (def, key) => def.evaluateDefinitionProp(key, defProps, state));
     }

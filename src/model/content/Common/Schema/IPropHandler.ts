@@ -1,18 +1,17 @@
 import { Translation } from '../../../../intl/Language';
 import { ScenarioState } from '../../../logic/State/ScenarioState';
-import { Field } from '../View/Field';
 
 /**
  * A generic way of describing properties of content types like assets and actions.
  */
-export interface IContentTypeProp<DefType, EvaluatedType> {
+export interface IPropHandler<DefType, EvaluatedType, FieldType> {
     readonly title: Translation;
 
     /** The default value of this property */
     getDefaultValue(): DefType;
 
     /** Computes the field properties to display in the creation or edit form */
-    getFormFieldProps(key: string, formData: any, state: ScenarioState): Field;
+    getFormFieldProps(key: string, formData: any, state: ScenarioState): FieldType;
 
     /** Parse the user's input */
     parseUserInput(key: string, formData: any, state: ScenarioState): DefType;
@@ -23,9 +22,3 @@ export interface IContentTypeProp<DefType, EvaluatedType> {
     /** Validate whether the prop requirements are satisfied */
     validateDefinitionProp(key: string, defProps: any, state: ScenarioState): Translation | undefined;
 }
-
-export type DefTypeOfProp<T extends IContentTypeProp<any, any>> = T extends IContentTypeProp<infer U, any> ? U : never;
-
-export type EvaluatedTypeOfProp<T extends IContentTypeProp<any, any>> = T extends IContentTypeProp<any, infer U>
-    ? U
-    : never;

@@ -1,6 +1,6 @@
 import { AssetSchema, TypeOfAssetSchema } from '../../../model/content/Asset/AssetSchema';
 import { AssetType } from '../../../model/content/Asset/AssetType';
-import { StringProp } from '../../../model/content/Common/Prop/StringProp';
+import { StringProp } from '../../../model/content/Common/Props/StringProp';
 import { Asset, CustomAssetDesc } from '../../../model/logic/Asset/Asset';
 import { ScenarioState } from '../../../model/logic/State/ScenarioState';
 

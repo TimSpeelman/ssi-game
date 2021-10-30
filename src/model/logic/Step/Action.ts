@@ -1,7 +1,7 @@
 import { uniLang } from '../../../intl/Language';
 import { ActionSchema, TypeOfActionSchema } from '../../content/Action/ActionSchema';
-import { StringProp } from '../../content/Common/Prop/StringProp';
-import { DefTypesOfContentTypeProps } from '../../content/Common/PropRecord/ContentTypeProps';
+import { StringProp } from '../../content/Common/Props/StringProp';
+import { PropValues } from '../../content/Common/Schema/PropValues';
 import { ActionDef } from '../../definition/Action/ActionDef';
 import { ActionDesc, Locality } from '../../description/Step/ActionDesc';
 import { ScenarioState } from '../State/ScenarioState';
@@ -37,7 +37,7 @@ export type BaseProps = TypeOfActionSchema<typeof BaseSchema>;
 export abstract class Action<Props extends BaseProps> {
     abstract readonly schema: ActionSchema<Props>;
 
-    constructor(readonly id: string, readonly defProps: DefTypesOfContentTypeProps<Props>) {}
+    constructor(readonly id: string, readonly defProps: PropValues<Props>) {}
 
     /** Compute the results of this action */
     public computeStep(preState: ScenarioState, index: number): ComputedStep {

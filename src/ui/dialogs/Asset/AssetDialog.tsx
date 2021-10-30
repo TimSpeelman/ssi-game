@@ -19,9 +19,9 @@ import { useLang } from '../../hooks/useLang';
 import { FormControlSwitch } from '../Field/FormControlSwitch';
 
 interface Props {
-    asset?: AssetDef<any>;
+    asset?: AssetDef;
     parentId?: string;
-    onSubmit: (act: AssetDef<any>) => void;
+    onSubmit: (act: AssetDef) => void;
     onCancel: () => void;
     isCreate: boolean;
 }

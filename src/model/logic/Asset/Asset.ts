@@ -1,21 +1,22 @@
 import { AssetSchema } from '../../content/Asset/AssetSchema';
-import { ContentTypeProps, DefTypesOfContentTypeProps } from '../../content/Common/PropRecord/ContentTypeProps';
+import { PropValues } from '../../content/Common/Schema/PropValues';
+import { RecordOfPropHandlers } from '../../content/Common/Schema/RecordOfPropHandlers';
 import { AssetDef } from '../../definition/Asset/AssetDef';
 import { AssetDesc } from '../../description/Asset/AssetDesc';
 import { ScenarioState } from '../State/ScenarioState';
 
-export abstract class Asset<Props extends ContentTypeProps> {
+export abstract class Asset<Props extends RecordOfPropHandlers> {
     abstract readonly schema: AssetSchema<Props>;
 
     constructor(
         readonly id: string,
-        readonly defProps: DefTypesOfContentTypeProps<Props>,
+        readonly defProps: PropValues<Props>,
         readonly isInitial: boolean = false,
         readonly parentId?: string,
     ) {}
 
     /** Provide a generic description of this action for viewing purposes */
-    describe(state: ScenarioState): AssetDesc<Props> {
+    describe(state: ScenarioState): AssetDesc {
         return {
             isInitial: this.isInitial,
             parentId: this.parentId,
@@ -39,7 +40,7 @@ export abstract class Asset<Props extends ContentTypeProps> {
     /** Provide a generic description of this action for viewing purposes */
     abstract _describe(state: ScenarioState): CustomAssetDesc;
 
-    serialize(): AssetDef<Props> {
+    serialize(): AssetDef {
         return { id: this.id, props: this.defProps, typeName: this.schema.typeName, parentId: this.parentId };
     }
 

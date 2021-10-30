@@ -3,6 +3,7 @@ import { mapValues } from '../../../util/util';
 import { ActionDef } from '../../definition/Action/ActionDef';
 import { ScenarioDef } from '../../definition/Scenario/ScenarioDef';
 import { Scenario } from '../../logic/Scenario/Scenario';
+import { Field } from '../Common/Props/Field';
 import { ActionFormData } from './ActionFormData';
 import { ActionTypesCollection } from './ActionTypesCollection';
 
@@ -37,7 +38,7 @@ export class ActionFormHandler {
             return undefined;
         } else {
             const action = this.actionTypes.requireTypeByName(selectedActionType).schema;
-            const fields = action.computeFormProperties(formData, state);
+            const fields = action.computeFormProperties(formData, state) as Record<string, Field>;
             return {
                 typeName: action.typeName,
                 title: action.title,

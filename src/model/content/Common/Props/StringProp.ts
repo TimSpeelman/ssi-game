@@ -1,7 +1,7 @@
 import { Translation } from '../../../../intl/Language';
 import { ScenarioState } from '../../../logic/State/ScenarioState';
 import { IPropHandler } from '../Schema/IPropHandler';
-import { StringField } from '../View/StringField';
+import { StringField } from './StringField';
 
 export interface StringPropOptions {
     title: Translation;

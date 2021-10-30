@@ -3,7 +3,7 @@ import { AssetTreeNode } from '../../../description/Asset/AssetTreeNode';
 import { Asset } from '../../../logic/Asset/Asset';
 import { ScenarioState } from '../../../logic/State/ScenarioState';
 import { IPropHandler } from '../Schema/IPropHandler';
-import { AssetField } from '../View/AssetField';
+import { AssetField } from './AssetField';
 
 export interface AssetPropOptions {
     title: Translation;

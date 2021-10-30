@@ -1,6 +1,6 @@
 import { TextField } from '@material-ui/core';
 import React from 'react';
-import { StringField } from '../../../model/content/Common/View/StringField';
+import { StringField } from '../../../model/content/Common/Props/StringField';
 import { useLang } from '../../hooks/useLang';
 
 export interface Props {

@@ -1,5 +1,5 @@
 import { Translation } from '../../../intl/Language';
-import { Field } from '../Common/View/Field';
+import { Field } from '../Common/Props/Field';
 
 /** A view model for creating and manipulating actions */
 export interface ActionFormData {

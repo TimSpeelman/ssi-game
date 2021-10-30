@@ -1,7 +1,7 @@
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React from 'react';
 import { ImageOrIconDefinition } from '../../../model/common/ImageOrIconDefinition';
-import { ImageSelectField } from '../../../model/content/Common/View/ImageSelectField';
+import { ImageSelectField } from '../../../model/content/Common/Props/ImageSelectField';
 import { useLang } from '../../hooks/useLang';
 
 export interface Props {

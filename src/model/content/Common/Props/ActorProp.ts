@@ -2,7 +2,7 @@ import { Translation } from '../../../../intl/Language';
 import { ActorState } from '../../../logic/State/ActorState';
 import { ScenarioState } from '../../../logic/State/ScenarioState';
 import { IPropHandler } from '../Schema/IPropHandler';
-import { ActorField } from '../View/ActorField';
+import { ActorField } from './ActorField';
 
 export interface ActorPropOptions {
     title: Translation;

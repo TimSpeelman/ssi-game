@@ -2,7 +2,7 @@ import { Translation } from '../../../../intl/Language';
 import { ImageOrIconDefinition } from '../../../common/ImageOrIconDefinition';
 import { ScenarioState } from '../../../logic/State/ScenarioState';
 import { IPropHandler } from '../Schema/IPropHandler';
-import { ImageSelectField } from '../View/ImageSelectField';
+import { ImageSelectField } from './ImageSelectField';
 
 export interface ImageSelectPropOptions {
     title: Translation;

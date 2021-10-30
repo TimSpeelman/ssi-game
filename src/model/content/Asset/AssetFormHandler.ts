@@ -2,6 +2,7 @@ import { DefaultLibrary } from '../../../content';
 import { AssetDef } from '../../definition/Asset/AssetDef';
 import { ScenarioDef } from '../../definition/Scenario/ScenarioDef';
 import { Scenario } from '../../logic/Scenario/Scenario';
+import { Field } from '../Common/Props/Field';
 import { AssetFormData } from './AssetFormData';
 import { AssetTypesCollection } from './AssetTypesCollection';
 
@@ -36,7 +37,7 @@ export class AssetFormHandler {
             return undefined;
         } else {
             const asset = this.assetTypes.requireTypeByName(selectedAssetType).schema;
-            const fields = asset.computeFormProperties(formData, state);
+            const fields = asset.computeFormProperties(formData, state) as Record<string, Field>;
             return {
                 typeName: asset.typeName,
                 title: asset.title,

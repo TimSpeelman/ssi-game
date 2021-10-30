@@ -1,6 +1,6 @@
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React from 'react';
-import { ActorField } from '../../../model/content/Common/View/ActorField';
+import { ActorField } from '../../../model/content/Common/Props/ActorField';
 import { ImageOrIconSwitch } from '../../components/elements/ImageOrIconSwitch';
 import { useLang } from '../../hooks/useLang';
 

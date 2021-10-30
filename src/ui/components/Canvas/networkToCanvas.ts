@@ -36,7 +36,7 @@ const config = {
     networkRotation: -Math.PI / 2,
 
     /** The relative size of the actor circle (on which actors are positioned) (1: equal to the canvas width) */
-    relativeSlotRingSize: 0.6,
+    relativeSlotRingSize: 0.5,
 
     /** The radius of an actor slot */
     slotRadius: 50,

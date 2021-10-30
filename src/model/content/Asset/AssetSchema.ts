@@ -5,9 +5,9 @@ import { ImageOrIconDefinition } from '../../common/ImageOrIconDefinition';
 import { AssetDef } from '../../definition/Asset/AssetDef';
 import { ScenarioState } from '../../logic/State/ScenarioState';
 import { PropEvaluatedValues } from '../Common/Schema/PropEvaluatedValues';
-import { PropHandlerCollection } from '../Common/Schema/PropHandlerCollection';
 import { PropValues } from '../Common/Schema/PropValues';
 import { RecordOfPropHandlers } from '../Common/Schema/RecordOfPropHandlers';
+import { SchemaHandler } from '../Common/Schema/SchemaHandler';
 
 type AssetSchemaOptions<Props extends RecordOfPropHandlers> = {
     typeName: string;
@@ -29,7 +29,7 @@ export class AssetSchema<Props extends RecordOfPropHandlers> {
     readonly abbr?: Translation;
     readonly image?: ImageOrIconDefinition;
     readonly description?: Translation;
-    readonly props: PropHandlerCollection<Props>;
+    readonly props: SchemaHandler<Props>;
 
     constructor(options: AssetSchemaOptions<Props>) {
         this.typeName = options.typeName;
@@ -38,7 +38,7 @@ export class AssetSchema<Props extends RecordOfPropHandlers> {
         this.abbr = options.abbr;
         this.image = options.image;
         this.description = options.description;
-        this.props = new PropHandlerCollection(options.props);
+        this.props = new SchemaHandler(options.props);
     }
 
     extend<NewProps extends RecordOfPropHandlers>(

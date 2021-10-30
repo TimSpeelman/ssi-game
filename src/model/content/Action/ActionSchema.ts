@@ -4,9 +4,9 @@ import { mapValues } from '../../../util/util';
 import { ActionDef } from '../../definition/Action/ActionDef';
 import { ScenarioState } from '../../logic/State/ScenarioState';
 import { PropEvaluatedValues } from '../Common/Schema/PropEvaluatedValues';
-import { PropHandlerCollection } from '../Common/Schema/PropHandlerCollection';
 import { PropValues } from '../Common/Schema/PropValues';
 import { RecordOfPropHandlers } from '../Common/Schema/RecordOfPropHandlers';
+import { SchemaHandler } from '../Common/Schema/SchemaHandler';
 
 export interface ActionSchemaOptions<Props extends RecordOfPropHandlers> {
     typeName: string;
@@ -22,13 +22,13 @@ export class ActionSchema<Props extends RecordOfPropHandlers> {
     readonly typeName: string;
     readonly title: Translation;
     readonly description?: Translation;
-    readonly props: PropHandlerCollection<Props>;
+    readonly props: SchemaHandler<Props>;
 
     constructor(options: ActionSchemaOptions<Props>) {
         this.typeName = options.typeName;
         this.title = options.title;
         this.description = options.description;
-        this.props = new PropHandlerCollection(options.props);
+        this.props = new SchemaHandler(options.props);
     }
 
     extend<NewProps extends RecordOfPropHandlers>(

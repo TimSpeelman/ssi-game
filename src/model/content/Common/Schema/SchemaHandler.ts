@@ -6,8 +6,15 @@ import { PropFieldTypes } from './PropFieldTypes';
 import { PropValues } from './PropValues';
 import { RecordOfPropHandlers } from './RecordOfPropHandlers';
 
-/** A collection of content type props */
-export class PropHandlerCollection<Props extends RecordOfPropHandlers> {
+/**
+ * A Content Type Schema is responsible for the following operations regarding a
+ * type defined in a Content Library:
+ * - Handles user input [input] -> [fieldprops]
+ * - Parses user input [input] -> [def]
+ * - Validates definitions [def] -> [validation errors]
+ * - Evaluates definitions [def] -> [eval]
+ */
+export class SchemaHandler<Props extends RecordOfPropHandlers> {
     constructor(readonly props: Props) {}
 
     /** Computes the default value of each prop. */

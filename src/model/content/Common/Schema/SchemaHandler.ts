@@ -9,10 +9,10 @@ import { RecordOfPropHandlers } from './RecordOfPropHandlers';
 /**
  * A Content Type Schema is responsible for the following operations regarding a
  * type defined in a Content Library:
- * - Handles user input [input] -> [fieldprops]
- * - Parses user input [input] -> [def]
- * - Validates definitions [def] -> [validation errors]
- * - Evaluates definitions [def] -> [eval]
+ * - Handles user input (RawInput => PropFieldTypes)
+ * - Parses user input (RawInput => PropValues)
+ * - Validates definitions (PropValues => Validation)
+ * - Evaluates definitions (PropValues => PropEvaluatedValues)
  */
 export class SchemaHandler<Props extends RecordOfPropHandlers> {
     constructor(readonly props: Props) {}

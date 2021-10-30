@@ -20,7 +20,6 @@ import { Wallet } from '../assets/Wallet';
 const Government = defaultActors.government_1;
 const Shop = defaultActors.shop_1;
 const Subject = defaultActors.human_1;
-const Ledger = defaultActors.ledger_1;
 
 const SubjectIdAtGov = 'BSN_990223190';
 const SubjectNym1 = new Pseudonym(
@@ -68,11 +67,6 @@ const SubjectPassport = new GovPassport(
 );
 
 const actors: ActorConfig[] = [
-    {
-        id: Ledger.id,
-        definition: Ledger,
-        initialAssets: [],
-    },
     {
         id: Government.id,
         definition: Government,

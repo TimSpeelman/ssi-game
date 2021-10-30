@@ -45,7 +45,14 @@ export function StepDialog(props: Props) {
     const stateIndex = isEditing ? step : step + 1;
     const actionTypes = formHandler.listAvailableActionTypes();
     const formProps = formHandler.computeFormProperties(def, stateIndex, type, formData);
-    const fields = Object.entries(formProps ? formProps.fields : {});
+
+    const [showErrors, setShowErrors] = useState(false);
+    const hasErrors = Object.values(formProps?.fields || {}).some((f) => !!f.error);
+
+    let fields = Object.entries(formProps ? formProps.fields : {});
+    if (!showErrors) {
+        fields = fields.map(([key, field]) => [key, { ...field, error: undefined }]);
+    }
 
     // When an action is provided, load its data into local state
     useEffect(() => {
@@ -61,6 +68,10 @@ export function StepDialog(props: Props) {
 
     function handleSubmit() {
         if (!type) return;
+        if (hasErrors) {
+            setShowErrors(true);
+            return;
+        }
         const definition: ActionDef<any> = {
             id: props.action?.id || uuid(),
             props: formProps!.data,

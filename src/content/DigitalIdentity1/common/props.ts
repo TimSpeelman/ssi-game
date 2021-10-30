@@ -4,7 +4,13 @@ import { StringProp } from '../../../model/content/Common/Props/StringProp';
 import { translations } from '../intl/dictionaries';
 
 export const CommonProps = {
-    issuer: new ActorProp({ title: translations.issuer }),
+    issuer: new ActorProp({
+        title: translations.issuer,
+        required: {
+            NL: 'Een issuer is vereist.',
+            EN: 'A issuer is required.',
+        },
+    }),
     subject: new ActorProp({
         title: translations.subject,
         required: {
@@ -12,7 +18,13 @@ export const CommonProps = {
             EN: 'A subject is required.',
         },
     }),
-    verifier: new ActorProp({ title: translations.verifier }),
+    verifier: new ActorProp({
+        title: translations.verifier,
+        required: {
+            NL: 'Een verifier is vereist.',
+            EN: 'A verifier is required.',
+        },
+    }),
     issuerNym: new AssetProp({
         title: translations.issuerPseudonym,
         dependsOn: ['issuer'],
@@ -77,8 +89,8 @@ export const CommonProps = {
             EN: 'A verifier pseudonym is required.',
         },
     }),
-    attributeName: new StringProp({ title: translations.attributeName }),
-    attributeValue: new StringProp({ title: translations.attributeValue }),
+    attributeName: new StringProp({ title: translations.attributeName, required: true }),
+    attributeValue: new StringProp({ title: translations.attributeValue, required: true }),
     credential: new AssetProp({
         title: translations.attribute,
         dependsOn: ['subject'],
@@ -88,6 +100,6 @@ export const CommonProps = {
             EN: 'A credential is required.',
         },
     }),
-    identifier: new StringProp({ title: translations.identifier }),
-    description: new StringProp({ title: translations.description }),
+    identifier: new StringProp({ title: translations.identifier, required: true }),
+    description: new StringProp({ title: translations.description, required: true }),
 };

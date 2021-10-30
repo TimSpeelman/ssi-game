@@ -47,8 +47,8 @@ export class SchemaHandler<Props extends RecordOfPropHandlers> {
     /** Validate whether the prop requirements are satisfied */
     validationDefinitionProps(defProps: any, state: ScenarioState): Array<{ prop: string; error: Translation }> {
         const validationErrors = Object.entries(this.props)
-            .map(([key, def]) => {
-                const error = def.validateDefinitionProp(key, defProps, state);
+            .map(([key, prop]) => {
+                const error = prop.validateDefinitionProp(key, defProps, state);
 
                 return error === undefined ? undefined : { prop: key, error: error };
             })

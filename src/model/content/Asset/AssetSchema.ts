@@ -1,4 +1,5 @@
 import { Translation } from '../../../intl/Language';
+import { Extend } from '../../../util/types/Extend';
 import { mapValues } from '../../../util/util';
 import { ImageOrIconDefinition } from '../../common/ImageOrIconDefinition';
 import { AssetDef } from '../../definition/Asset/AssetDef';
@@ -40,8 +41,15 @@ export class AssetSchema<Props extends RecordOfPropHandlers> {
         this.props = new PropHandlerCollection(options.props);
     }
 
+    extend<NewProps extends RecordOfPropHandlers>(
+        options: AssetSchemaOptions<NewProps>,
+    ): AssetSchema<Extend<Props, NewProps>> {
+        const props: Extend<Props, NewProps> = { ...this.props.props, ...options.props };
+        return new AssetSchema({ ...options, props });
+    }
+
     /** Compute display properties */
-    computeDisplayProperties(defProps: any) {
+    computeDisplayProperties(defProps: PropValues<Props>) {
         return mapValues(this.props.props, (p, key) => ({
             title: p.title,
             value: defProps[key],
@@ -59,7 +67,7 @@ export class AssetSchema<Props extends RecordOfPropHandlers> {
     }
 
     /** Based on the active state and the form input, compute the ActionDef */
-    parseUserInput(id: string, formData: any, state: ScenarioState, parentId?: string): AssetDef {
+    parseUserInput(id: string, formData: any, state: ScenarioState, parentId?: string): AssetDef<PropValues<Props>> {
         return {
             id: id,
             props: this.props.parseUserInput(formData, state),
@@ -69,7 +77,7 @@ export class AssetSchema<Props extends RecordOfPropHandlers> {
     }
 
     /** Based on the active state and the definition, evaluate the props */
-    evaluateDefinitionProps(defProps: any, state: ScenarioState): PropEvaluatedValues<Props> {
+    evaluateDefinitionProps(defProps: PropValues<Props>, state: ScenarioState): PropEvaluatedValues<Props> {
         return this.props.evaluateDefinitionProps(defProps, state);
     }
 }

@@ -1,5 +1,6 @@
 import { Translation } from '../../../intl/Language';
 import { Extend } from '../../../util/types/Extend';
+import { mapValues } from '../../../util/util';
 import { ActionDef } from '../../definition/Action/ActionDef';
 import { ScenarioState } from '../../logic/State/ScenarioState';
 import { PropEvaluatedValues } from '../Common/Schema/PropEvaluatedValues';
@@ -37,6 +38,14 @@ export class ActionSchema<Props extends RecordOfPropHandlers> {
         return new ActionSchema({ ...options, props });
     }
 
+    /** Compute display properties */
+    computeDisplayProperties(defProps: PropValues<Props>) {
+        return mapValues(this.props.props, (p, key) => ({
+            title: p.title,
+            value: defProps[key],
+        }));
+    }
+
     /** Compute the form properties */
     computeFormProperties(formData: any, state: ScenarioState) {
         return this.props.getFormFieldProps(formData, state);
@@ -48,7 +57,7 @@ export class ActionSchema<Props extends RecordOfPropHandlers> {
     }
 
     /** Based on the active state and the form input, compute the ActionDef */
-    parseUserInput(id: string, formData: any, state: ScenarioState): ActionDef {
+    parseUserInput(id: string, formData: any, state: ScenarioState): ActionDef<PropValues<Props>> {
         return {
             id: id,
             props: this.props.parseUserInput(formData, state),
@@ -57,11 +66,11 @@ export class ActionSchema<Props extends RecordOfPropHandlers> {
     }
 
     /** Based on the active state and the definition, evaluate the props */
-    evaluateDefinitionProps(defProps: any, state: ScenarioState): PropEvaluatedValues<Props> {
+    evaluateDefinitionProps(defProps: PropValues<Props>, state: ScenarioState): PropEvaluatedValues<Props> {
         return this.props.evaluateDefinitionProps(defProps, state);
     }
 
-    validate(defProps: any, state: ScenarioState): Array<{ prop: string; error: Translation }> {
+    validate(defProps: PropValues<Props>, state: ScenarioState): Array<{ prop: string; error: Translation }> {
         return this.props.validationDefinitionProps(defProps, state);
     }
 }

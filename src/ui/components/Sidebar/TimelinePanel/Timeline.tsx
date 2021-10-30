@@ -19,7 +19,7 @@ import { useLang } from '../../../hooks/useLang';
 import { ImageOrIconSwitch } from '../../elements/ImageOrIconSwitch';
 import { SidebarTab } from '../SidebarTab';
 
-export function StepSequence() {
+export function Timeline() {
     const { dict } = useLang();
     const editing = useSelector(selectEditing);
     const steps = useSelector(selectStepDescs);
@@ -48,11 +48,11 @@ export function StepSequence() {
     return (
         <div style={{ padding: '1rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                <Typography variant="h6">{dict.steps}</Typography>
+                <Typography variant="h6">{dict.timeline.title}</Typography>
                 {editing && (
                     <Button variant={'outlined'} onClick={() => openDialog('AddStep', undefined)}>
                         {' '}
-                        <Add /> {dict.stepSequence.addStep}
+                        <Add /> {dict.timeline.addStep}
                     </Button>
                 )}
             </div>
@@ -60,19 +60,19 @@ export function StepSequence() {
                 (usedActors.length === 0 ? (
                     <div style={{ textAlign: 'center' }}>
                         <Typography variant={'body1'} style={{ marginBottom: '1rem' }}>
-                            {dict.stepSequence.msgYouHaveNoActors}
+                            {dict.timeline.msgYouHaveNoActors}
                         </Typography>
                         <Button
                             variant={'outlined'}
                             onClick={() => dispatch(GameActions.NAVIGATE_SIDEBAR({ to: SidebarTab.ACTORS }))}
                         >
                             {' '}
-                            <Group /> {dict.stepSequence.goToActors}
+                            <Group /> {dict.timeline.goToActors}
                         </Button>
                     </div>
                 ) : (
                     <div style={{ textAlign: 'center' }}>
-                        <Typography variant={'body1'}>{dict.stepSequence.stepSequence_msgYouHaveNoSteps}</Typography>
+                        <Typography variant={'body1'}>{dict.timeline.msgYouHaveNoSteps}</Typography>
                     </div>
                 ))}
             {steps.length > 0 && (

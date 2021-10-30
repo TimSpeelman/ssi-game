@@ -38,6 +38,7 @@ const Schema = new AssetSchema({
         dateOfBirth: new StringProp({
             title: translations.dateOfBirth,
             default: () => sampleDateOfBirth(),
+            required: true,
         }),
         placeOfIssuance: new StringProp({ title: translations.placeOfIssuance, default: () => sampleDutchPlace() }),
         placeOfBirth: new StringProp({ title: translations.placeOfBirth, default: () => sampleDutchPlace() }),

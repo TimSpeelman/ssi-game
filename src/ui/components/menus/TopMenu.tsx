@@ -75,10 +75,6 @@ export function TopMenu(props: Props) {
                         {!editing ? <Lock /> : <LockOpen />}
                     </Button>
                 </Tooltip>
-                <Button id="btn-help" color={'inherit'} onClick={showManual} style={{ marginRight: '.5rem' }}>
-                    <Help />
-                </Button>
-                <LanguageMenu />
 
                 <Button
                     id="btn-tour"
@@ -89,6 +85,12 @@ export function TopMenu(props: Props) {
                 >
                     {tour ? dict.topMenu.btnStopTour : dict.topMenu.btnStartTour}
                 </Button>
+
+                <Button id="btn-help" color={'inherit'} onClick={showManual} style={{ marginRight: '.5rem' }}>
+                    <Help />
+                </Button>
+
+                <LanguageMenu />
             </Toolbar>
         </AppBar>
     );

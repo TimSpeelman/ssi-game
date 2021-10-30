@@ -8,4 +8,5 @@ export interface ActorField {
     value: string;
     disabled?: Translation;
     helperText?: Translation;
+    error?: string;
 }

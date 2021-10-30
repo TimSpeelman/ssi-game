@@ -16,11 +16,12 @@ export interface Dictionary {
         msgStepXFails: string;
     };
 
-    stepSequence: {
+    timeline: {
+        title: string;
         addStep: string;
         msgYouHaveNoActors: string;
         goToActors: string;
-        stepSequence_msgYouHaveNoSteps: string;
+        msgYouHaveNoSteps: string;
     };
 
     initialStateInspector: {

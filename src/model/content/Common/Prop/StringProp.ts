@@ -8,11 +8,7 @@ export interface StringPropOptions {
     helperText?: Translation;
     multiline?: boolean;
     default?: string | (() => string);
-}
-
-function getDefaultFromOptions(options: StringPropOptions): string {
-    const d = options.default;
-    return !d ? '' : typeof d === 'string' ? d : d();
+    required?: boolean;
 }
 
 export class StringProp implements IContentTypeProp<string, string> {
@@ -20,9 +16,7 @@ export class StringProp implements IContentTypeProp<string, string> {
         return this.options.title;
     }
 
-    constructor(readonly options: StringPropOptions) {
-        // this.options.default = getDefaultFromOptions(this.options); // cache default
-    }
+    constructor(readonly options: StringPropOptions) {}
 
     extend(options: Partial<StringPropOptions>) {
         return new StringProp({ ...this.options, ...options });
@@ -43,7 +37,14 @@ export class StringProp implements IContentTypeProp<string, string> {
             multiline: this.options.multiline,
             title: this.options.title,
             helperText: this.options.helperText,
-            value: formData[key] || this.getDefaultValue(),
+            value: formData[key],
+            error:
+                !formData[key] && this.options.required
+                    ? {
+                          NL: 'Dit veld is vereist',
+                          EN: 'This field is required',
+                      }
+                    : undefined,
         };
     }
 

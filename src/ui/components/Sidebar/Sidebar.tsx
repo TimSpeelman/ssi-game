@@ -10,8 +10,8 @@ import { ActorPanel } from './ActorPanel/ActorPanel';
 import { AssetPanel } from './AssetPanel/AssetPanel';
 import { InfoPanel } from './InfoPanel/InfoPanel';
 import { OptionPanel } from './OptionPanel/OptionPanel';
-import { SequencePanel } from './SequencePanel/SequencePanel';
 import { SidebarTab as Tab } from './SidebarTab';
+import { TimelinePanel } from './TimelinePanel/TimelinePanel';
 
 const tabOrder = [Tab.INFO, Tab.ACTORS, Tab.ASSETS, Tab.TIMELINE, Tab.STEP, Tab.SETTINGS];
 
@@ -19,7 +19,7 @@ const sidebarItems: Record<Tab, { Icon: React.FC; Panel: React.FC }> = {
     [Tab.INFO]: { Icon: Info, Panel: InfoPanel },
     [Tab.ACTORS]: { Icon: Group, Panel: ActorPanel },
     [Tab.ASSETS]: { Icon: Category, Panel: AssetPanel },
-    [Tab.TIMELINE]: { Icon: Timeline, Panel: SequencePanel },
+    [Tab.TIMELINE]: { Icon: Timeline, Panel: TimelinePanel },
     [Tab.STEP]: { Icon: SwapHoriz, Panel: ActionPanel },
     [Tab.SETTINGS]: { Icon: Settings, Panel: OptionPanel },
 };

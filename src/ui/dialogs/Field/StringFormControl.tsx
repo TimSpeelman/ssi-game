@@ -12,6 +12,7 @@ export function StringFormControl({ props, setField }: Props) {
     const { lang } = useLang();
     const title = props.title[lang];
     const value = props.value;
+    const errorMsg = props.error ? props.error[lang] : null;
 
     return (
         <TextField
@@ -20,9 +21,10 @@ export function StringFormControl({ props, setField }: Props) {
             multiline={props.multiline}
             label={title}
             value={value}
+            error={!!errorMsg}
             onChange={(e) => setField(e.target.value)}
             fullWidth
-            helperText={props.helperText ? props.helperText[lang] : undefined}
+            helperText={!!errorMsg ? errorMsg : props.helperText ? props.helperText[lang] : undefined}
         />
     );
 }

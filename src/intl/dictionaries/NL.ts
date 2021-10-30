@@ -22,12 +22,13 @@ export const DictionaryNL: Dictionary = {
         msgStepXFails: 'Scenario faalt bij stap {0}',
     },
 
-    stepSequence: {
+    timeline: {
+        title: 'Tijdlijn',
         addStep: 'Stap Toevoegen',
         msgYouHaveNoActors:
             'Je hebt nog geen actoren. Voordat je je scenario kunt opbouwen moet je eerst actoren toevoegen.',
         goToActors: 'Naar Actoren',
-        stepSequence_msgYouHaveNoSteps: 'Je hebt nog geen stappen. Voeg stappen toe om een scenario te beschrijven.',
+        msgYouHaveNoSteps: 'Je hebt nog geen stappen. Voeg stappen toe om een scenario te beschrijven.',
     },
 
     initialStateInspector: {

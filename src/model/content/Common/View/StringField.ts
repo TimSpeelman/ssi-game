@@ -7,4 +7,5 @@ export interface StringField {
     multiline?: boolean;
     disabled?: Translation;
     helperText?: Translation;
+    error?: Translation;
 }

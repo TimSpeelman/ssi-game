@@ -25,13 +25,13 @@ export class ContentTypePropsRecord<Props extends ContentTypeProps> {
         return mapValues(this.props, (def, key) => def.parseUserInput(key, formData, state));
     }
 
-    /** Parses the entire form data. */
+    /** Evaluate the property against the current scenario state */
     evaluateDefinitionProps(defProps: any, state: ScenarioState): EvaluatedTypeOfContentProps<Props> {
         // @ts-ignore
         return mapValues(this.props, (def, key) => def.evaluateDefinitionProp(key, defProps, state));
     }
 
-    /** Parses the entire form data. */
+    /** Validate whether the prop requirements are satisfied */
     validationDefinitionProps(defProps: any, state: ScenarioState): Array<{ prop: string; error: Translation }> {
         // @ts-ignore
         return Object.entries(this.props)

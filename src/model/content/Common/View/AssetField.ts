@@ -8,4 +8,5 @@ export interface AssetField {
     value: string;
     disabled?: Translation;
     helperText?: Translation;
+    error?: string;
 }

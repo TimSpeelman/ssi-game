@@ -12,8 +12,8 @@ const Schema = new AssetSchema({
     typeName: 'Credential',
     kindName: 'Data',
     title: {
-        NL: 'Attribuutbewijs',
-        EN: 'Attribute proof',
+        NL: 'Credential',
+        EN: 'Credential',
     },
     image: { type: 'fa-icon', name: 'id-badge' },
     props: {

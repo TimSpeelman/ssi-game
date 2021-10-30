@@ -1,11 +1,11 @@
 import React from 'react';
-import { StepSequence } from './StepSequence';
+import { Timeline } from './Timeline';
 
 /** The InfoPanel describes the Scenario's Information */
-export function SequencePanel() {
+export function TimelinePanel() {
     return (
         <div>
-            <StepSequence />
+            <Timeline />
         </div>
     );
 }

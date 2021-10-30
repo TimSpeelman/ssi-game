@@ -8,4 +8,5 @@ export interface ImageSelectField {
     value: string;
     disabled?: Translation;
     helperText?: Translation;
+    error?: string;
 }

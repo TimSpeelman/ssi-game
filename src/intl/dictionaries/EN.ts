@@ -23,11 +23,12 @@ export const DictionaryEN: Dictionary = {
         msgStepXFails: 'Scenario fails at step {0}',
     },
 
-    stepSequence: {
+    timeline: {
+        title: 'Timeline',
         addStep: 'Add Step',
         msgYouHaveNoActors: 'You have no actors yet. Before you can build your scenario, please add actors first.',
         goToActors: 'Go To Actors',
-        stepSequence_msgYouHaveNoSteps: 'You have no steps yet. Please add steps to build your scenario.',
+        msgYouHaveNoSteps: 'You have no steps yet. Please add steps to build your scenario.',
     },
 
     initialStateInspector: {

@@ -76,15 +76,17 @@ export function TopMenu(props: Props) {
                     </Button>
                 </Tooltip>
 
-                <Button
-                    id="btn-tour"
-                    color={'inherit'}
-                    href={props.tour ? '/app' : '/tour'}
-                    variant={'outlined'}
-                    style={{ marginLeft: '.5rem' }}
-                >
-                    {tour ? dict.topMenu.btnStopTour : dict.topMenu.btnStartTour}
-                </Button>
+                {tour && (
+                    <Button
+                        id="btn-tour"
+                        color={'inherit'}
+                        href={props.tour ? '/app' : '/tour'}
+                        variant={'outlined'}
+                        style={{ marginLeft: '.5rem' }}
+                    >
+                        {dict.topMenu.btnStopTour}
+                    </Button>
+                )}
 
                 <Button id="btn-help" color={'inherit'} onClick={showManual} style={{ marginRight: '.5rem' }}>
                     <Help />

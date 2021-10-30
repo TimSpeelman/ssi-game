@@ -1,11 +1,11 @@
-import { DefaultLibrary } from '../../../content';
-import { mapValues } from '../../../util/util';
-import { ActionDef } from '../../definition/Action/ActionDef';
-import { ScenarioDef } from '../../definition/Scenario/ScenarioDef';
-import { Scenario } from '../../logic/Scenario/Scenario';
-import { Field } from '../Common/Props/Field';
+import { DefaultLibrary } from '../../content';
+import { mapValues } from '../../util/util';
+import { ActionTypesCollection } from '../content/Action/ActionTypesCollection';
+import { Field } from '../content/Common/Props/Field';
+import { ActionDef } from '../definition/Action/ActionDef';
+import { ScenarioDef } from '../definition/Scenario/ScenarioDef';
+import { Scenario } from '../logic/Scenario/Scenario';
 import { ActionFormData } from './ActionFormData';
-import { ActionTypesCollection } from './ActionTypesCollection';
 
 /** An interface used by the UI to handle the Action Creation and Update form */
 export class ActionFormHandler {

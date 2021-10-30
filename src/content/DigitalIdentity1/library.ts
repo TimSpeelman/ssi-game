@@ -1,4 +1,4 @@
-import { ContentLibrary } from '../../model/content/ContentLibrarty';
+import { ContentLibrary } from '../../model/content/ContentLibrary';
 import { actionCollection } from './actions';
 import { actorTypes } from './actors/actorTypes';
 import { assetCollection } from './assets';

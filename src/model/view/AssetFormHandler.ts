@@ -1,10 +1,10 @@
-import { DefaultLibrary } from '../../../content';
-import { AssetDef } from '../../definition/Asset/AssetDef';
-import { ScenarioDef } from '../../definition/Scenario/ScenarioDef';
-import { Scenario } from '../../logic/Scenario/Scenario';
-import { Field } from '../Common/Props/Field';
+import { DefaultLibrary } from '../../content';
+import { AssetDef } from '../definition/Asset/AssetDef';
+import { ScenarioDef } from '../definition/Scenario/ScenarioDef';
+import { Scenario } from '../logic/Scenario/Scenario';
+import { Field } from '../content/Common/Props/Field';
 import { AssetFormData } from './AssetFormData';
-import { AssetTypesCollection } from './AssetTypesCollection';
+import { AssetTypesCollection } from '../content/Asset/AssetTypesCollection';
 
 /** An interface used by the UI to handle the Asset Creation and Update form */
 export class AssetFormHandler {

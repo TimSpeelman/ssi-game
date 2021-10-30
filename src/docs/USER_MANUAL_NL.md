@@ -4,9 +4,10 @@ Op dagelijkse basis bewijzen mensen en organisaties, bewust of onbewust, aan elk
 
 De Identity Game helpt beleidsmakers, juristen, IT-architecten en anderen deze processen in beeld te brengen en er op toegankelijke wijze over te praten. Deze veelzijdige tool stelt ze in staat om een breed scala aan scenario's uit te beelden en te bespreken.
 
-* Liever spelenderwijs leren? Volg de [rondleiding](./tour)!
+Liever een interactieve rondleiding volgen?
 
-**TODO: spelelement**
+* [De beginselen van de Identity Game](/tour/intro).
+* [Leer zelf scenario's bouwen.](/tour/build).
 
 Het hoofdscherm van de Identity Game heeft drie kernelementen:
 

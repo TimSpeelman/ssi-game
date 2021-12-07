@@ -5,17 +5,10 @@ import { RootState } from '../../state/state';
 export type TOrStateToT<T> = T | ((s: RootState) => T);
 
 export interface TourStep {
-    title: TOrStateToT<Translation>;
-
-    message: TOrStateToT<Translation>;
-
-    nextEnabled: TOrStateToT<boolean>;
-
-    highlight?: TOrStateToT<{ q: string; expand?: number }>;
-
     /** Defaults to NEW_INDEX */
     indexType?: IndexType;
-
+    /** Compute the step state */
+    step: TOrStateToT<Omit<TourStepState, 'index'>>;
     /** Event handler when the step activates */
     onActivate?: (ctx: Context) => void;
     /** Event handler that fires when the state changes */
@@ -34,6 +27,8 @@ export interface TourStepState {
     nextEnabled: boolean;
 
     highlight?: { q: string; expand?: number };
+
+    status?: StatusType;
 
     /** The visible step index */
     index: number | undefined;
@@ -55,4 +50,12 @@ export enum IndexType {
     NEW_INDEX,
     /** The TourStep has the same number as the previous step */
     SAME_AS_PREVIOUS,
+}
+
+export enum StatusType {
+    NORMAL,
+    /** The TourStep shows a warning */
+    WARNING,
+    /** The TourStep shows success */
+    SUCCESS,
 }

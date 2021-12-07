@@ -6,7 +6,7 @@ import {
     selectActiveStepIndex,
     selectEditing,
     selectSelectedActorId,
-    selectSelectedAssetId
+    selectSelectedAssetId,
 } from '../../../state/selectors';
 import { SidebarTab } from '../../components/Sidebar/SidebarTab';
 import { Tour } from '../Tour';
@@ -23,25 +23,27 @@ export const ViewersTour: Tour = {
     },
     steps: [
         {
-            title: {
-                NL: 'Rondleiding - Eerste Introductie',
-                EN: 'Guided Tour - First Introduction',
+            step: {
+                title: {
+                    NL: 'Rondleiding - Eerste Introductie',
+                    EN: 'Guided Tour - First Introduction',
+                },
+                message: {
+                    NL:
+                        'Welkom bij de Identity Game, dé tool om inzicht' +
+                        ' te krijgen in de complexe wereld van (digitale)' +
+                        ' identiteit.\n\n' +
+                        'De Identity Game helpt beleidsmakers, juristen,' +
+                        ' IT-architecten en anderen om te praten over' +
+                        ' **identificatie, authenticatie en autorisatie**' +
+                        ' op basis van _traditionele_ middelen zoals' +
+                        ' paspoorten, of complexere technologiën zoals ' +
+                        ' Self-Sovereign Identity.\n\n' +
+                        '**Klik op volgende om met de rondleiding te beginnen.**',
+                    EN: '',
+                },
+                nextEnabled: true,
             },
-            message: {
-                NL:
-                    'Welkom bij de Identity Game, dé tool om inzicht' +
-                    ' te krijgen in de complexe wereld van (digitale)' +
-                    ' identiteit.\n\n' +
-                    'De Identity Game helpt beleidsmakers, juristen,' +
-                    ' IT-architecten en anderen om te praten over' +
-                    ' **identificatie, authenticatie en autorisatie**' +
-                    ' op basis van _traditionele_ middelen zoals' +
-                    ' paspoorten, of complexere technologiën zoals ' +
-                    ' Self-Sovereign Identity.\n\n' +
-                    '**Klik op volgende om met de rondleiding te beginnen.**',
-                EN: '',
-            },
-            nextEnabled: true,
             onActivate: (ctx) => {
                 ctx.dispatch(
                     GameActions.CREATE_PROJECT({
@@ -58,28 +60,30 @@ export const ViewersTour: Tour = {
             indexType: IndexType.NONE,
         },
         {
-            title: {
-                NL: 'Scenario',
-                EN: '',
+            step: {
+                title: {
+                    NL: 'Scenario',
+                    EN: '',
+                },
+                message: {
+                    NL:
+                        'In de Identity Game staat telkens een bepaald' +
+                        ' **scenario** centraal. Het vertelt een concreet' +
+                        ' verhaal, waarin identiteitsmiddelen' +
+                        ' moeten worden ingezet om een bepaald doel te' +
+                        ' bereiken.\n\n' +
+                        'In het **info-menu** (rechts)' +
+                        ' lees je de beschrijving' +
+                        ' van dit scenario.' +
+                        ' Voor deze rondleiding gebruiken we een heel' +
+                        ' simpel scenario: het kopen van alcohol in een' +
+                        ' fysieke slijterij. \n\n' +
+                        '**Druk op volgende.**',
+                    EN: '',
+                },
+                nextEnabled: true,
+                highlight: { q: q.sidebarMainSection },
             },
-            message: {
-                NL:
-                    'In de Identity Game staat telkens een bepaald' +
-                    ' **scenario** centraal. Het vertelt een concreet' +
-                    ' verhaal, waarin identiteitsmiddelen' +
-                    ' moeten worden ingezet om een bepaald doel te' +
-                    ' bereiken.\n\n' +
-                    'In het **info-menu** (rechts)' +
-                    ' lees je de beschrijving' +
-                    ' van dit scenario.' +
-                    ' Voor deze rondleiding gebruiken we een heel' +
-                    ' simpel scenario: het kopen van alcohol in een' +
-                    ' fysieke slijterij. \n\n' +
-                    '**Druk op volgende.**',
-                EN: '',
-            },
-            nextEnabled: true,
-            highlight: { q: q.sidebarMainSection },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.INFO);
                 gotoStepIndex(ctx, -1);
@@ -87,87 +91,99 @@ export const ViewersTour: Tour = {
             onStateChange: (ctx) => ctx.reactivate(),
         },
         {
-            title: {
-                NL: 'Canvas',
-                EN: '',
+            step: {
+                title: {
+                    NL: 'Canvas',
+                    EN: '',
+                },
+                message: {
+                    NL:
+                        'Op het "canvas" wordt een situatie afgebeeld. Er zijn drie soorten elementen:\n' +
+                        '1. **Actoren** zijn de mensen en organisaties die bij dit scenario zijn betrokken.\n' +
+                        '2. **Assets** zijn de relevante kennis en middelen waar zij over beschikken.\n' +
+                        '3. **Acties** zijn de acties die zij, alleen of samen, uitvoeren om een doel te bereiken.\n\n' +
+                        'Het canvas laat nu de **beginsituatie** van dit scenario zien. ' +
+                        ' Er zijn twee actoren, John en de slijterij en John beschikt over een **paspoort** (asset).' +
+                        ' In de beginsituatie wordt nog géén actie uitgevoerd.' +
+                        '\n\n**Klik op volgende.**',
+                    EN: '',
+                },
+                nextEnabled: true,
+                highlight: { q: q.canvas, expand: 1 },
             },
-            message: {
-                NL:
-                    'Op het "canvas" wordt een situatie afgebeeld. Er zijn drie soorten elementen:\n' +
-                    '1. **Actoren** zijn de mensen en organisaties die bij dit scenario zijn betrokken.\n' +
-                    '2. **Assets** zijn de relevante kennis en middelen waar zij over beschikken.\n' +
-                    '3. **Acties** zijn de acties die zij, alleen of samen, uitvoeren om een doel te bereiken.\n\n' +
-                    'Het canvas laat nu de **beginsituatie** van dit scenario zien. ' +
-                    ' Er zijn twee actoren, John en de slijterij en John beschikt over een **paspoort** (asset).' +
-                    ' In de beginsituatie wordt nog géén actie uitgevoerd.' +
-                    '\n\n**Klik op volgende.**',
-                EN: '',
-            },
-            nextEnabled: true,
-            highlight: { q: q.canvas, expand: 1 },
             onActivate: (ctx) => {
                 gotoStepIndex(ctx, -1);
             },
             onStateChange: (ctx) => ctx.reactivate(),
         },
         {
-            title: {
-                NL: 'Tijdregelaar',
-                EN: '',
-            },
-            message: {
-                NL:
-                    'Een scenario bestaat niet uit één momentopname, maar' +
-                    ' uit een reeks **stappen** die de actoren uitvoeren om' +
-                    ' hun doel(en) te bereiken.\n\n' +
-                    'Om door het scenario heen te lopen kun' +
-                    ' je gebruik maken van de tijdregelaar rechtsonderin.\n\n' +
-                    ' _**Tip:** navigeer sneller door de tijd met de pijltjestoetsen._\n\n' +
-                    '**Ga naar Stap 1 en klik op volgende.**',
-                EN: '',
-            },
-            nextEnabled: (s) => selectActiveStepIndex(s) === 0,
-            highlight: { q: q.timeNavigationControls, expand: 1 },
+            step: (s) => ({
+                title: {
+                    NL: 'Tijdregelaar',
+                    EN: '',
+                },
+                message: {
+                    NL:
+                        'Een scenario bestaat niet uit één momentopname, maar' +
+                        ' uit een reeks **stappen** die de actoren uitvoeren om' +
+                        ' hun doel(en) te bereiken.\n\n' +
+                        'Om door het scenario heen te lopen kun' +
+                        ' je gebruik maken van de tijdregelaar rechtsonderin.\n\n' +
+                        ' _**Tip:** navigeer sneller door de tijd met de pijltjestoetsen._\n\n' +
+                        '**Ga naar Stap 1 en klik op volgende.**',
+                    EN: '',
+                },
+                nextEnabled: selectActiveStepIndex(s) === 0,
+
+                highlight: { q: q.timeNavigationControls, expand: 1 },
+            }),
             onActivate: (ctx) => {
                 gotoStepIndex(ctx, -1);
             },
         },
         {
-            title: {
-                NL: 'Interactie',
-                EN: '',
+            step: {
+                title: {
+                    NL: 'Interactie',
+                    EN: '',
+                },
+                message: {
+                    NL:
+                        'Het canvas laat nu **stap 1** van het scenario zien. In deze stap' +
+                        ' gaat John naar de slijterij en laat daar zijn fysieke paspoort zien.' +
+                        ' Als gevolg daarvan heeft de slijterij nieuwe kennis over John' +
+                        ' vergaard, namelijk kennis over wie hij is.' +
+                        ' Dit is te zien aan het nieuwe icoon dat naast de slijterij is' +
+                        ' verschenen. Daarover later meer.\n\n' +
+                        '**Klik op volgende.**',
+                    EN: '',
+                },
+                nextEnabled: true,
+                highlight: { q: q.canvas, expand: 1 },
             },
-            message: {
-                NL:
-                    'Het canvas laat nu **stap 1** van het scenario zien. In deze stap' +
-                    ' gaat John naar de slijterij en laat daar zijn fysieke paspoort zien.' +
-                    ' Als gevolg daarvan heeft de slijterij nieuwe kennis over John' +
-                    ' vergaard, namelijk kennis over wie hij is.' +
-                    ' Dit is te zien aan het nieuwe icoon dat naast de slijterij is' +
-                    ' verschenen. Daarover later meer.\n\n' +
-                    '**Klik op volgende.**',
-                EN: '',
-            },
-            nextEnabled: true,
-            highlight: { q: q.canvas, expand: 1 },
             onActivate: (ctx) => {
                 gotoStepIndex(ctx, 0);
             },
             onStateChange: (ctx) => ctx.reactivate(),
         },
         {
-            title: {
-                NL: 'Stapinformatie',
-                EN: '',
+            step: {
+                title: {
+                    NL: 'Stapinformatie',
+                    EN: '',
+                },
+                message: {
+                    NL:
+                        'Deze stap wordt toegelicht in het zij-menu **stapdetails**.\n\n' +
+                        `**Ga naar het zij-menu stapdetails om verder te gaan.**`,
+                    EN: '',
+                },
+                nextEnabled: false,
+                highlight: { q: q.menuItem[SidebarTab.STEP] },
             },
-            message: {
-                NL:
-                    'Deze stap wordt toegelicht in het zij-menu **stapdetails**.\n\n' +
-                    `**Ga naar het zij-menu stapdetails om verder te gaan.**`,
-                EN: '',
+            onActivate: (ctx) => {
+                gotoStepIndex(ctx, 0);
             },
-            nextEnabled: false,
-            highlight: { q: q.menuItem[SidebarTab.STEP] },
             onStateChange: (ctx) => {
                 if (selectActiveSidebarTab(ctx.state) === SidebarTab.STEP) {
                     ctx.next();
@@ -175,29 +191,28 @@ export const ViewersTour: Tour = {
                     ctx.reactivate();
                 }
             },
-            onActivate: (ctx) => {
-                gotoStepIndex(ctx, 0);
-            },
         },
         {
-            title: {
-                NL: 'Stapinformatie',
-                EN: '',
-            },
-            message: {
-                NL:
-                    'Het zij-menu **stapdetails** toont de **stapinformatiekaart**' +
-                    ' met een beschrijving van de actieve stap (nu stap 1).\n\n' +
-                    'Onder de stapinformatiekaart staat een lijst **uitkomsten**,' +
-                    ' de relevante gevolgen van de stap, zoals het verkrijgen of verliezen' +
-                    ' van kennis en materialen. \n\n' +
-                    'In dit geval heeft de Slijterij nieuwe kennis vergaard: een **authenticatieresultaat**.\n\n' +
-                    '**Klik op "Authenticatieresultaat" om verder te gaan.**',
-                EN: '',
+            step: {
+                title: {
+                    NL: 'Stapinformatie',
+                    EN: '',
+                },
+                message: {
+                    NL:
+                        'Het zij-menu **stapdetails** toont de **stapinformatiekaart**' +
+                        ' met een beschrijving van de actieve stap (nu stap 1).\n\n' +
+                        'Onder de stapinformatiekaart staat een lijst **uitkomsten**,' +
+                        ' de relevante gevolgen van de stap, zoals het verkrijgen of verliezen' +
+                        ' van kennis en materialen. \n\n' +
+                        'In dit geval heeft de Slijterij nieuwe kennis vergaard: een **authenticatieresultaat**.\n\n' +
+                        '**Klik op "Authenticatieresultaat" om verder te gaan.**',
+                    EN: '',
+                },
+                nextEnabled: false,
+                highlight: { q: q.sidebarMainSection },
             },
             indexType: IndexType.SAME_AS_PREVIOUS,
-            nextEnabled: false,
-            highlight: { q: q.sidebarMainSection },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.STEP);
                 clearSelection(ctx);
@@ -212,19 +227,21 @@ export const ViewersTour: Tour = {
             },
         },
         {
-            title: {
-                NL: 'Assetinformatie',
-                EN: '',
+            step: {
+                title: {
+                    NL: 'Assetinformatie',
+                    EN: '',
+                },
+                message: {
+                    NL:
+                        'Je hebt zojuist de asset "Authenticatieresultaat" geselecteerd.' +
+                        ' In het zij-menu **assetdetails** vind je uitleg over deze asset.\n\n' +
+                        '**Lees de omschrijving op de assetkaart (rechts) en klik hieronder op volgende.**',
+                    EN: '',
+                },
+                nextEnabled: true,
+                highlight: { q: q.sidebarMainSection },
             },
-            message: {
-                NL:
-                    'Je hebt zojuist de asset "Authenticatieresultaat" geselecteerd.' +
-                    ' In het zij-menu **assetdetails** vind je uitleg over deze asset.\n\n' +
-                    '**Lees de omschrijving op de assetkaart (rechts) en klik hieronder op volgende.**',
-                EN: '',
-            },
-            nextEnabled: true,
-            highlight: { q: q.sidebarMainSection },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.ASSETS);
                 gotoStepIndex(ctx, 0);
@@ -234,18 +251,20 @@ export const ViewersTour: Tour = {
             onStateChange: (ctx) => ctx.reactivate(),
         },
         {
-            title: {
-                NL: 'Tijdlijn',
-                EN: '',
+            step: {
+                title: {
+                    NL: 'Tijdlijn',
+                    EN: '',
+                },
+                message: {
+                    NL:
+                        'Om alle stappen in het scenario te zien ga je naar het zij-menu **tijdlijn**.\n\n' +
+                        `**Ga naar het zij-menu tijdlijn om verder te gaan.**`,
+                    EN: '',
+                },
+                nextEnabled: false,
+                highlight: { q: q.menuItem[SidebarTab.TIMELINE] },
             },
-            message: {
-                NL:
-                    'Om alle stappen in het scenario te zien ga je naar het zij-menu **tijdlijn**.\n\n' +
-                    `**Ga naar het zij-menu tijdlijn om verder te gaan.**`,
-                EN: '',
-            },
-            nextEnabled: false,
-            highlight: { q: q.menuItem[SidebarTab.TIMELINE] },
             onStateChange: (ctx) => {
                 if (selectActiveSidebarTab(ctx.state) === SidebarTab.TIMELINE) {
                     ctx.next();
@@ -253,21 +272,28 @@ export const ViewersTour: Tour = {
             },
         },
         {
-            title: {
-                NL: 'Tijdlijn',
-                EN: '',
-            },
-            message: {
-                NL:
-                    'Het zij-menu **tijdlijn** toont de lijst van stappen waaruit' +
-                    ' het scenario is opgebouwd. De iconen geven aan welke actoren' +
-                    ' bij elke stap betrokken zijn. Dit simpele voorbeeld bestaat uit' +
-                    ' slechts twee stappen.\n\n' +
-                    '**Dubbel-klik op de tweede stap om verder te gaan.**',
-                EN: '',
+            step: {
+                title: {
+                    NL: 'Tijdlijn',
+                    EN: '',
+                },
+                message: {
+                    NL:
+                        'Het zij-menu **tijdlijn** toont de lijst van stappen waaruit' +
+                        ' het scenario is opgebouwd. De iconen geven aan welke actoren' +
+                        ' bij elke stap betrokken zijn. Dit simpele voorbeeld bestaat uit' +
+                        ' slechts twee stappen.\n\n' +
+                        '**Dubbel-klik op de tweede stap om verder te gaan.**',
+                    EN: '',
+                },
+                nextEnabled: false,
+                highlight: { q: q.sidebar },
             },
             indexType: IndexType.SAME_AS_PREVIOUS,
-            nextEnabled: false,
+            onActivate: (ctx) => {
+                navSidebar(ctx, SidebarTab.TIMELINE);
+                gotoStepIndex(ctx, 0);
+            },
             onStateChange: (ctx) => {
                 if (selectActiveSidebarTab(ctx.state) === SidebarTab.STEP && selectActiveStepIndex(ctx.state) === 1) {
                     ctx.next();
@@ -275,28 +301,25 @@ export const ViewersTour: Tour = {
                     ctx.reactivate();
                 }
             },
-            highlight: { q: q.sidebar },
-            onActivate: (ctx) => {
-                navSidebar(ctx, SidebarTab.TIMELINE);
-                gotoStepIndex(ctx, 0);
-            },
         },
         {
-            title: {
-                NL: 'Tweede interactie',
-                EN: '',
+            step: {
+                title: {
+                    NL: 'Tweede interactie',
+                    EN: '',
+                },
+                message: {
+                    NL:
+                        "Nadat de verkoper John's paspoort heeft bekeken overhandigt" +
+                        ' hij de drank. Hiermee is het doel bereikt en het scenario' +
+                        ' afgerond.\n\n' +
+                        '**Klik op volgende.**',
+                    EN: '',
+                },
+                nextEnabled: true,
+                // highlight: { q: '#network-svg-root', expand: 1 },
+                highlight: { q: q.sidebar },
             },
-            message: {
-                NL:
-                    "Nadat de verkoper John's paspoort heeft bekeken overhandigt" +
-                    ' hij de drank. Hiermee is het doel bereikt en het scenario' +
-                    ' afgerond.\n\n' +
-                    '**Klik op volgende.**',
-                EN: '',
-            },
-            nextEnabled: true,
-            // highlight: { q: '#network-svg-root', expand: 1 },
-            highlight: { q: q.sidebar },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.STEP);
                 gotoStepIndex(ctx, 1);
@@ -304,22 +327,24 @@ export const ViewersTour: Tour = {
             onStateChange: (ctx) => ctx.reactivate(),
         },
         {
-            title: {
-                NL: 'Actorinformatie',
-                EN: '',
+            step: {
+                title: {
+                    NL: 'Actorinformatie',
+                    EN: '',
+                },
+                message: {
+                    NL:
+                        'In het zij-menu **actoren** vind je meer informatie over' +
+                        ' actoren. Selecteer John.\n\n' +
+                        '_**Tip:** je kunt op meerdere manieren bij John komen:_ \n' +
+                        '1. _door op de onderstreepte naam John te klikken;_ \n' +
+                        '2. _door in het canvas op John te klikken; of,_ \n' +
+                        '3. _door in het zij-menu **actoren** op John te klikken._ \n\n' +
+                        '**Selecteer John om verder te gaan.**',
+                    EN: '',
+                },
+                nextEnabled: false,
             },
-            message: {
-                NL:
-                    'In het zij-menu **actoren** vind je meer informatie over' +
-                    ' actoren. Selecteer John.\n\n' +
-                    '_**Tip:** je kunt op meerdere manieren bij John komen:_ \n' +
-                    '1. _door op de onderstreepte naam John te klikken;_ \n' +
-                    '2. _door in het canvas op John te klikken; of,_ \n' +
-                    '3. _door in het zij-menu **actoren** op John te klikken._ \n\n' +
-                    '**Selecteer John om verder te gaan.**',
-                EN: '',
-            },
-            nextEnabled: false,
             onStateChange: (ctx) => {
                 if (
                     selectActiveSidebarTab(ctx.state) === SidebarTab.ACTORS &&
@@ -330,75 +355,55 @@ export const ViewersTour: Tour = {
             },
         },
         {
-            title: {
-                NL: 'Actorinformatie',
-                EN: '',
-            },
-            message: {
-                NL:
-                    'Nu je John hebt geselecteerd zie je in het **actor-menu** meer informatie' +
-                    ' over John.\n\n' +
-                    '**Klik op volgende.**',
-                EN: '',
+            step: {
+                title: {
+                    NL: 'Actorinformatie',
+                    EN: '',
+                },
+                message: {
+                    NL:
+                        'Nu je John hebt geselecteerd zie je in het **actor-menu** meer informatie' +
+                        ' over John.\n\n' +
+                        '**Klik op volgende.**',
+                    EN: '',
+                },
+                nextEnabled: true,
+                highlight: { q: q.sidebarMainSection },
             },
             indexType: IndexType.SAME_AS_PREVIOUS,
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.ACTORS);
                 selectActor(ctx, actorJohnID);
             },
-            nextEnabled: true,
-            highlight: { q: q.sidebarMainSection },
+
             onStateChange: (ctx) => ctx.reactivate(),
         },
         {
-            title: {
-                NL: 'Eigenschappen van een Actor',
-                EN: '',
+            step: {
+                title: {
+                    NL: 'Eigenschappen van een Actor',
+                    EN: '',
+                },
+                message: {
+                    NL:
+                        'Deze tabel bevat _eigenschappen_ van deze actor' +
+                        ' die voor dit scenario relevant zijn.\n\n' +
+                        ' In dit voorbeeld is de geboortedatum van John' +
+                        ' belangrijk.' +
+                        ' De Identity Game gaat voornamelijk over kennis.' +
+                        ' Om veilig zaken te kunnen doen moeten actoren' +
+                        ' immers relevante en betrouwbare kennis over' +
+                        ' elkaar kunnen verzamelen.\n\n' +
+                        'Echter, kennis kan afwezig, verouderd of onjuist zijn.' +
+                        ' Om duidelijk onderscheid te kunnen maken tussen de _feiten_' +
+                        ' en wat Actoren _weten_ (of denken te weten) beschrijft deze' +
+                        ' tabel de werkelijkheid.\n\n' +
+                        '**Klik op volgende.**',
+                    EN: '',
+                },
+                nextEnabled: true,
+                highlight: { q: q.actorDetailsPropertiesSection, expand: 1 },
             },
-            message: {
-                NL:
-                    'Deze tabel bevat _eigenschappen_ van deze actor' +
-                    ' die voor dit scenario relevant zijn.\n\n' +
-                    ' In dit voorbeeld is de geboortedatum van John' +
-                    ' belangrijk.' +
-                    ' De Identity Game gaat voornamelijk over kennis.' +
-                    ' Om veilig zaken te kunnen doen moeten actoren' +
-                    ' immers relevante en betrouwbare kennis over' +
-                    ' elkaar kunnen verzamelen.\n\n' +
-                    'Echter, kennis kan afwezig, verouderd of onjuist zijn.' +
-                    ' Om duidelijk onderscheid te kunnen maken tussen de _feiten_' +
-                    ' en wat Actoren _weten_ (of denken te weten) beschrijft deze' +
-                    ' tabel de werkelijkheid.\n\n' +
-                    '**Klik op volgende.**',
-                EN: '',
-            },
-            onActivate: (ctx) => {
-                navSidebar(ctx, SidebarTab.ACTORS);
-                selectActor(ctx, actorJohnID);
-            },
-            onStateChange: (ctx) => ctx.reactivate(),
-            nextEnabled: true,
-            highlight: { q: q.actorDetailsPropertiesSection, expand: 1 },
-        },
-        {
-            title: {
-                NL: 'Assets',
-                EN: '',
-            },
-            message: {
-                NL:
-                    'Deze lijst bevat de kennis en materialen ' +
-                    ' die deze actor, op dit moment in het scenario,' +
-                    ' bezit.\n\n' +
-                    ' In dit voorbeeld beschikte John al bij het' +
-                    ' begin van het scenario over een paspoort en' +
-                    ' verkreeg hij in stap 2 de fles wijn waar het' +
-                    ' hem om te doen was.\n\n' +
-                    '**Klik op volgende.**',
-                EN: '',
-            },
-            nextEnabled: true,
-            highlight: { q: q.actorDetailsAssetsSection, expand: 1 },
             onActivate: (ctx) => {
                 navSidebar(ctx, SidebarTab.ACTORS);
                 selectActor(ctx, actorJohnID);
@@ -406,23 +411,51 @@ export const ViewersTour: Tour = {
             onStateChange: (ctx) => ctx.reactivate(),
         },
         {
-            title: {
-                NL: 'Einde',
-                EN: 'The end',
+            step: {
+                title: {
+                    NL: 'Assets',
+                    EN: '',
+                },
+                message: {
+                    NL:
+                        'Deze lijst bevat de kennis en materialen ' +
+                        ' die deze actor, op dit moment in het scenario,' +
+                        ' bezit.\n\n' +
+                        ' In dit voorbeeld beschikte John al bij het' +
+                        ' begin van het scenario over een paspoort en' +
+                        ' verkreeg hij in stap 2 de fles wijn waar het' +
+                        ' hem om te doen was.\n\n' +
+                        '**Klik op volgende.**',
+                    EN: '',
+                },
+                nextEnabled: true,
+                highlight: { q: q.actorDetailsAssetsSection, expand: 1 },
             },
-            message: {
-                NL:
-                    'Zo. Dit was de introductie van de Identity Game.' +
-                    ' Je hebt gezien hoe je door een scenario kunt navigeren en ' +
-                    ' meer informatie kunt vinden.\n\n' +
-                    '**Vervolgstappen:**\n\n' +
-                    "1. Leer hoe je [zelf scenario's kunt bouwen](/tour/build).\n" +
-                    "2. Bekijk [voorbeeldscenario's](/examples).",
-                EN: '',
+            onActivate: (ctx) => {
+                navSidebar(ctx, SidebarTab.ACTORS);
+                selectActor(ctx, actorJohnID);
+            },
+            onStateChange: (ctx) => ctx.reactivate(),
+        },
+        {
+            step: {
+                title: {
+                    NL: 'Einde',
+                    EN: 'The end',
+                },
+                message: {
+                    NL:
+                        'Zo. Dit was de introductie van de Identity Game.' +
+                        ' Je hebt gezien hoe je door een scenario kunt navigeren en ' +
+                        ' meer informatie kunt vinden.\n\n' +
+                        '**Vervolgstappen:**\n\n' +
+                        "1. Leer hoe je [zelf scenario's kunt bouwen](/tour/build).\n" +
+                        "2. Bekijk [voorbeeldscenario's](/examples).",
+                    EN: '',
+                },
+                nextEnabled: false,
             },
             indexType: IndexType.NONE,
-            nextEnabled: false,
-            // onActivate: (ctx) => {},
         },
     ],
 };

@@ -78,13 +78,8 @@ export function useTour(tour: Tour) {
         }
     }, [state]);
 
-    const stepState: TourStepState = step && {
-        title: typeof step.title === 'function' ? step.title(ctx.state) : step.title,
-        message: typeof step.message === 'function' ? step.message(ctx.state) : step.message,
-        nextEnabled: typeof step.nextEnabled === 'function' ? step.nextEnabled(ctx.state) : step.nextEnabled,
-        highlight: typeof step.highlight === 'function' ? step.highlight(ctx.state) : step.highlight,
-        index: indices[index],
-    };
+    const computeStep = step && (step.step instanceof Function ? step.step : () => step.step as TourStepState);
+    const stepState: TourStepState = computeStep && { ...computeStep(ctx.state), index: indices[index] };
 
     return { step: stepState, next, prev, close, index, numberOfSteps, highestIndex };
 }

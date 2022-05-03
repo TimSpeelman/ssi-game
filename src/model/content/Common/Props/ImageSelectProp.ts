@@ -32,7 +32,7 @@ export class ImageSelectProp implements IPropHandler<string, ImageOrIconDefiniti
         const defaultValue = this.getDefaultValue();
         const value = !formData[key] || formData[key] === '' ? defaultValue : formData[key];
 
-        const hasError = !formData[key] && this.options.required;
+        const hasError = !value && this.options.required;
         const errorMessage =
             typeof this.options.required === 'object'
                 ? this.options.required

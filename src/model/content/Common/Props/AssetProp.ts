@@ -49,7 +49,7 @@ export class AssetProp implements IPropHandler<string, Asset<any>, AssetField> {
         const defaultValue = autoFill || this.getDefaultValue();
         const value = !formData[key] || formData[key] === '' ? defaultValue : formData[key];
 
-        const hasError = !formData[key] && this.options.required;
+        const hasError = !value && this.options.required;
         const errorMessage =
             typeof this.options.required === 'object'
                 ? this.options.required

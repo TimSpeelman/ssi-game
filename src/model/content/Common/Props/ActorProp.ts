@@ -48,7 +48,7 @@ export class ActorProp implements IPropHandler<string, ActorState, ActorField> {
         const defaultValue = autoFill || this.getDefaultValue();
         const value = !formData[key] || formData[key] === '' ? defaultValue : formData[key];
 
-        const hasError = !formData[key] && this.options.required;
+        const hasError = !value && this.options.required;
         const errorMessage =
             typeof this.options.required === 'object'
                 ? this.options.required

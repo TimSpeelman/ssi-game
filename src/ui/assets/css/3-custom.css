@@ -246,6 +246,8 @@ a.example-scenario:hover {
   position: relative;
 }
 
+
+
 .canvasarea .scenario-status {
   position: absolute;
   top: 2rem;
@@ -278,7 +280,7 @@ a.example-scenario:hover {
   position: absolute;
 }
 
-.network-canvas > svg {
+.canvasarea svg {
   width: 100%;
   height: 100%;
   position: absolute;

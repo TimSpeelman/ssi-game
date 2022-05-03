@@ -37,15 +37,6 @@ export function StepInspector({ step }: Props) {
             </div>
 
             {!step.success && (
-                <div style={{ padding: '1rem', margin: '1rem', color: '#805300', background: '#ffd27f' }}>
-                    <p style={{ margin: 0 }}>
-                        <strong>{dict.stepInspector.msgPreviousStepIsFailing.title} </strong>
-                        {formatL(dict.stepInspector.msgPreviousStepIsFailing.messageFailsAtX, [errorAt! + 1])}
-                    </p>
-                </div>
-            )}
-
-            {step.success && !step.active && (
                 <div
                     style={{ padding: '1rem', margin: '1rem', color: 'rgb(128,0,0)', background: 'rgb(255, 174, 174)' }}
                 >
@@ -60,6 +51,15 @@ export function StepInspector({ step }: Props) {
                             ))}
                     </ul>
                 </div>
+            )}
+
+            {step.success && !step.active && (
+                <div style={{ padding: '1rem', margin: '1rem', color: '#805300', background: '#ffd27f' }}>
+                <p style={{ margin: 0 }}>
+                    <strong>{dict.stepInspector.msgPreviousStepIsFailing.title} </strong>
+                    {formatL(dict.stepInspector.msgPreviousStepIsFailing.messageFailsAtX, [errorAt! + 1])}
+                </p>
+            </div>
             )}
 
             {/* Same label as shown in the StepSequence */}
